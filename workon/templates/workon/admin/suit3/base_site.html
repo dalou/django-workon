@@ -1,0 +1,103 @@
+{% extends "admin/base.html" %}
+
+{% load admin_static static %}
+{% load suit_tags %}
+{% load i18n %}
+{% load firstof from future %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+    <div id="site-name">
+        <a href="{% url 'admin:index' %}" class="navbar-brand">{% firstof 'admin_name'|suit_conf site_header _('Django administration') %}</a>
+    </div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{# Additional <head> content here, some extra meta tags or favicon #}
+{% block extrahead %}
+    {{ block.super }}
+
+    <script>
+      window.ADMIN_STATIC_URL = "{{ STATIC_URL }}";
+      window.STATIC_URL = "{% static '' %}";
+      window.USER_ID = "{{ request.user.pk }}";
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{% static 'workon/packages/loading.js' %}"></script>
+    <script type="text/javascript" src="{% static 'workon/vendors/highcharts/highcharts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'workon/vendors/highcharts/modules/exporting.js' %}"></script>
+    <script type="text/javascript" src="{% static 'workon/vendors/select2/select2.min.js' %}"></script>
+
+{% endblock %}
+
+{# Additional CSS includes #}
+{% block extrastyle %}
+    {{ block.super }}
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'workon/vendors/select2/select2.min.css' %}" media="all">
+{% endblock %}
+
+{# Additional JS files in footer, right before </body> #}
+{% block extrajs %}
+
+    {{ block.super }}
+
+    <script type="text/javascript" >
+
+        $(document).ready(function() {
+
+          var $tabs = $('#suit_form_tabs');
+          var $mainInfos = $('.main-infos');
+          var $topInfos = $('.suit-include');
+
+          console.log($tabs)
+          console.log($mainInfos)
+
+
+          $tabs.before($mainInfos).css({ marginTop: 25 })
+          $tabs.before($topInfos)
+
+          $(window).scroll(function()
+          {
+            var scrollTop = $(window).scrollTop();
+            var scrollTotal = $(document).height() - $(window).height();
+            var actions = $('#changelist-form div.actions, #changelist-form .pagination-block, #changelist-form div.below-actions')
+            if(scrollTop <= scrollTotal / 2) {
+              $('#changelist-form div.results').before(actions);
+              $('.below-actions input').css({ marginTop: 43 });
+            }
+            else {
+              $('#changelist-form div.results').after(actions);
+              $('.below-actions input').css({ marginTop: '' });
+            }
+
+          });
+          $(window).scroll();
+
+
+          $('p.file-upload > a').each(function() {
+            $(this).parent().append($('<img style="display:block;"/>').attr('src', $(this).attr('href')).css({
+              maxWidth: 300
+            }))
+          });
+
+
+          $('form').attr('novalidate', '')
+
+        });
+
+        //$('select').select2();
+
+    </script>
+{% endblock %}
+
+
+
+{# Footer copyright (right side) #}
+{% block copyright %}
+  Copyright &copy; 2015 Workon.io<br>Developed by <a href="http://workon.io" target="_blank">Workon</a>
+{% endblock %}

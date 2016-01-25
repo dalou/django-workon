@@ -1,0 +1,19 @@
+{% load bootstrap3 %}
+<div class="modal">
+    <form action="{{ request.path }}?{{ request.GET.urlencode }}{#% url 'organization:update' pk=form.instance.pk %#}"
+
+            data-form-modal='{}'
+            class="form-modal {% if not display_labels %}hide-labels{% endif %} form " method="POST" novalidate="true">
+        {% csrf_token %}
+        {#{ form.errors }#}
+        <div class="modal-header">
+            {{ title }}
+        </div>
+        <div class="modal-body">
+            {% bootstrap_form form %}
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn pull-right" >Enregistrer</button>
+        </div>
+    </form>
+</div>

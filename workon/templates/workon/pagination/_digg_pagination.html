@@ -1,0 +1,43 @@
+{% if objects and objects.page_range %}
+    <div class="pagination digg-pagination">
+
+
+        {% if objects.page_range|length > 1 %}
+        <span class="pagination-total">
+            {{ objects|length }} / {{ objects.paginator.count }} {% if objects.paginator.count > 1 %}{{ name_plural }}{% else %}{{ name }}{% endif %} :
+        </span>
+        <span class="step-links">
+
+
+            {% if objects.has_previous %}
+                <a class="page previous trigger"
+                    data-page="{{ objects.previous_page_number }}"
+                    href="{% if request.path %}?{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ objects.previous_page_number }}">
+                    <span class="appicon appicon-arrow-left"></span> page précédente
+                </a>
+            {% endif %}
+            {% for page in objects.page_range %}
+                {% if not page %} ...  {# literally output dots #}
+                {% else %}
+                    <a class="page {% if page == objects.number %}current{% else %}trigger{% endif %}"
+                        data-page="{{ page }}"
+                        href="{% if request.path %}?{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ page }}">{{ page }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if objects.has_next %}
+                <a class="page next trigger"
+                    data-page="{{ objects.next_page_number }}"
+                    href="{% if request.path %}?{{ request.GET.urlencode }}&{% else %}?{% endif %}page={{ objects.next_page_number }}">
+                     page suivante <span class="appicon appicon-arrow-right"></span>
+
+                </a>
+            {% endif %}
+
+        </span>
+        {% else %}
+        <span class="pagination-total">
+            {{ objects.paginator.count }} {% if objects.paginator.count > 1 %}{{ name_plural }}{% else %}{{ name }}{% endif %}
+        </span>
+        {% endif %}
+    </div>
+{% endif %}

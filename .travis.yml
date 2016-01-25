@@ -1,0 +1,15 @@
+language: python
+before_install:
+- sudo apt-get update
+install:
+- pip install -q -e .
+python:
+- '2.7'
+script:
+- python runtests.py
+deploy:
+  provider: pypi
+  user: dalou
+  on:
+    branch: all_branches
+    tags: true

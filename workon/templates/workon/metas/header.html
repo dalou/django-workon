@@ -1,0 +1,30 @@
+{% load workon %}
+<!-- Global -->
+<title>{% usemeta title %}</title>
+<meta name="description" content="{% usemeta description %}" />
+<meta name="keywords" content="{% usemeta keywords %}" />
+<link rel="image_src" href="{% usemeta image %}" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="{% usemeta site %}">
+<meta name="twitter:creator" content="{% usemeta creator %}">
+<meta name="twitter:title" content="{% usemeta title %}">
+<meta name="twitter:description" content="{% usemeta description %}">
+<meta name="twitter:image" content="{% usemeta image %}">
+<meta name="twitter:url" content="{% usemeta url %}">
+<meta name="twitter:domain" content="{% usemeta domain %}">
+<meta name="twitter:app:id:iphone" content="">
+<meta name="twitter:app:id:googleplay" content="">
+<meta name="twitter:app:id:ipad" content="">
+<meta name="twitter:app:url:iphone" content="{% usemeta app_iphone %}">
+<meta name="twitter:app:url:googleplay" content="{% usemeta app_googleplay %}">
+<meta name="twitter:app:url:ipad" content="{% usemeta app_ipad %}">
+
+<!-- Facebook -->
+<meta property="og:title" content="{% usemeta title %}" />
+<meta property="og:type" content="{% usemeta type %}" />
+<meta property="og:description" content="{% usemeta description %}" />
+<meta property="og:image" content="{% usemeta image %}" />
+<meta property="og:url" content="{% usemeta url %}" />
+<meta property="og:site_name" content="{% usemeta site %}" />
