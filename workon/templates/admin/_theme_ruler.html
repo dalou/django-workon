@@ -1,0 +1,17 @@
+{% load i18n workon_admin_tags %}
+
+{% with theme='theme'|workon_admin_conf %}
+
+<style type="text/css">
+
+    .navbar-inverse {
+        {% if theme == 'blue' %}
+            background-color: #6F86B3;
+        {% endif %}
+    }
+
+
+
+</style>
+
+{% endwith %}

@@ -1,0 +1,56 @@
+import sys
+import os
+import time
+
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler, FileModifiedEvent
+
+
+class LessCompiler(FileSystemEventHandler):
+
+    def __init__(self, themes):
+        self.themes = themes
+        FileSystemEventHandler.__init__(self)
+
+    def compile_css(self):
+        # if len(sys.argv) < 3:
+        #     destination = self.source.replace('less', 'css')
+        # else:
+        #     destination = sys.argv[2]
+
+        for theme in self.themes:
+            cmd = 'lessc %s > %s -x' % (
+                'workon/modules/admin/less/%s.less' % theme,
+                os.path.abspath('workon/static/workon/admin/css/%s.css'% theme)
+            )
+            print(cmd)
+            os.system(cmd)
+
+    def on_any_event(self, event):
+        if '__' not in event.src_path and isinstance(event, FileModifiedEvent):
+            self.compile_css()
+
+
+if __name__ == "__main__":
+
+
+    themes = ['dark', 'red', 'yellow', 'blue']
+
+    # if len(sys.argv) < 2:
+    #     sys.stderr.write(
+    #         'Usage: %s source [destination=../css/$1.css]\n' % sys.argv[0])
+    #     sys.exit(1)
+
+    # source = os.path.abspath(sys.argv[1])
+    event_handler = LessCompiler(themes)
+    # Run once at startup
+    event_handler.compile_css()
+    observer = Observer()
+    observer.schedule(event_handler, os.path.dirname('workon/modules/admin/less/'), recursive=True)
+    observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()

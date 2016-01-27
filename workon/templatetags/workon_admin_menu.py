@@ -44,6 +44,15 @@ def get_sub_menu(app_list):
         if app['is_active'] and app['models']:
             return app['models']
 
+@register.assignment_tag
+def get_intermediate_menu(app_list):
+    """
+    :type app_list: list
+    """
+    for app in app_list:
+        if app['is_active'] and app['include']:
+            return app['include']
+
 def get_admin_site(current_app):
     """
     Method tries to get actual admin.site class, if any custom admin sites
@@ -94,6 +103,7 @@ class Menu(object):
         self.conf_menu_order = get_config('menu_order')
         self.conf_menu = get_config('menu')
 
+
     def get_app_list(self):
         menu = None
         if self.conf_menu:
@@ -139,6 +149,11 @@ class Menu(object):
 
         if 'app' in app:
             app = self.process_semi_native_app(app)
+
+
+        # if 'include' in app:
+        #     for subapp in app['include']:
+        #         subapp = self.process_semi_native_app(subapp)
 
         if not app:
             return

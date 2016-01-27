@@ -28,6 +28,14 @@
                                 {% endfor %}
                             </ul>
                         {% endif %}
+                        {% if app.include and not app.is_active %}
+                            <ul class="nav nav-pills nav-stacked">
+                                {% for model in app.include %}
+                                    <li{{ model.is_active|yesno:' class=active,' }}>
+                                        <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </li>
                 {% endif %}
             {% endfor %}

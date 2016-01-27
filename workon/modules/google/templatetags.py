@@ -1,15 +1,34 @@
 import json
 
+from django.conf import settings
 from django import template
 from .models import GoogleAPISettings
 from oauth2client.client import SignedJwtAssertionCredentials
 
 register = template.Library()
 
+try:
+    import suit
+
+    suit_place = settings.INSTALLED_APPS.index('suit')
+    workon_place = settings.INSTALLED_APPS.index('workon')
+
+    if suit_place < workon_place:
+        suit_version = suit.VERSION
+        if suit_version <= "0.3":
+            ANALYTICS_TEMPLATE = 'workon/google/analytics_suit.html'
+        else:
+            ANALYTICS_TEMPLATE = 'workon/google/analytics_suit3.html'
+    else:
+        ANALYTICS_TEMPLATE = 'workon/google/analytics.html'
+except Exception, e:
+    ANALYTICS_TEMPLATE = 'workon/google/analytics.html'
 
 
-@register.inclusion_tag('workon/google/analytics.html', takes_context=True)
+@register.inclusion_tag(ANALYTICS_TEMPLATE, takes_context=True)
 def google_analytics_admin(context, view_id=None, next = None):
+
+    print ANALYTICS_TEMPLATE
 
     # The scope for the OAuth2 request.
     SCOPE = 'https://www.googleapis.com/auth/analytics.readonly'

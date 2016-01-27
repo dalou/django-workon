@@ -18,7 +18,7 @@ class WorkonConfig(AppConfig):
 
     name = 'workon'
     verbose_name = u"Extensions"
-    menu_position = 'horizontal'
+    menu_position = 'vertical'
     django_version = get_version()
     list_per_page = 18
     list_filters_position = 'center'
@@ -31,7 +31,6 @@ class WorkonConfig(AppConfig):
     else:
         admin_name = 'Workon Admin'
 
-    theme = 'dark'
     header_date_format = 'l, jS F Y'
     header_time_format = 'H:i'
 
@@ -40,6 +39,9 @@ class WorkonConfig(AppConfig):
     confirm_unsaved_changes = True
 
     form_size = WORKON_ADMIN_FORM_SIZE_HALF
+
+    menu = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('MENU')
+    theme = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('THEME', 'blue')
 
     # menu
     search_url = '/admin/auth/user/'

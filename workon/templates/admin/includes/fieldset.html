@@ -1,4 +1,4 @@
-{% load workon_admin_forms %}
+{% load workon_admin_forms workon_bootstrap3 %}
 <fieldset class="module aligned {{ fieldset.classes }}">
   {% if fieldset.name %}
     <div class="fieldset-heading clearfix">
@@ -10,7 +10,6 @@
       </h3>
     </div>
   {% endif %}
-
   <div class="panel fieldset-body">
     {% for line in fieldset %}
       {% with is_single=line.fields|length_is:'1' %}
@@ -19,29 +18,29 @@
             <div class="form-group{% if line.errors %} {{ is_single|yesno:'has-error,first-error' }} has-errors{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %} {{ field.field.field.widget.attrs.rowclass }}{% endfor %}{{ is_single|yesno:',multi-field-row' }}">
           {% endif %}
 
-        <label class="control-label {{ field.field|workon_admin_form_label_class:fieldset }}">{{ field.label_tag }}</label>
+            <label class="control-label {{ field.field|workon_admin_form_label_class:fieldset }}">{{ field.label_tag }}</label>
 
-        <div class="{{ field|workon_admin_form_field_class:fieldset }}">
-          {#        {{ field.field.field.widget.can_add_related }}#}
+            <div class="{{ field|workon_admin_form_field_class:fieldset }}">
+              {#        {{ field.field.field.widget.can_add_related }}#}
 
-          {% if field.is_readonly %}
-            <p>{{ field.contents }}</p>
-          {% else %}
-            {{ field.field }}
-          {% endif %}
+              {% if field.is_readonly %}
+                <p>{{ field.contents }}</p>
+              {% else %}
+                {{ field.field }}
+              {% endif %}
 
 
-          {{ line.errors }}
-          {# help text #}
-          {% if field.field.help_text %}
-            <div class="help-block">{{ field.field.help_text|safe }}</div>
-          {% endif %}
+              {{ line.errors }}
+              {# help text #}
+              {% if field.field.help_text %}
+                <div class="help-block">{{ field.field.help_text|safe }}</div>
+              {% endif %}
 
-        </div>
+            </div>
 
-        {% if is_single or forloop.last %}
-          </div>
-        {% endif %}
+            {% if is_single or forloop.last %}
+              </div>
+            {% endif %}
 
           {% if not is_single %}
             <div class="clearfix visible-xs visible-sm visible-md"></div>

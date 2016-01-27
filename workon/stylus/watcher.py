@@ -38,11 +38,11 @@ class Watcher(object):
         self.observer = Observer()
         self.event_handler = EventHandler(self)
 
+        self.app_root = getattr(settings, 'SITE_ROOT', settings.BASE_DIR)
 
         # self.notifier.max_user_watches=16384
         self.process_settings()
 
-        app_root = os.path.abspath(settings.SITE_ROOT)
 
 
         # self.print_head('Watching \033[94m%s\033[0m' % (app_root))
@@ -81,10 +81,12 @@ class Watcher(object):
         self.configs = []
         settings = conf.settings
 
-        if not hasattr(settings, 'STYLUS_WATCHER') and 'watcher' in settings.STYLUS_WATCHER:
+        print settings
+
+        if not hasattr(settings, 'STYLUS_WATCHER'):
             self.print_error('settings.STYLUS_WATCHER is missing')
         else:
-            configs = settings.STYLUS_WATCHER
+            configs = getattr(settings, 'STYLUS_WATCHER')
 
             for config in configs:
                 try:
@@ -94,7 +96,7 @@ class Watcher(object):
                     content = None
 
                     if not os.path.isfile(source):
-                        source = os.path.join(settings.SITE_ROOT, config[0])
+                        source = os.path.join(self.app_root, config[0])
                         if not os.path.isfile(source):
                             self.print_error('Source is missing "%s"' % source)
                             source = None
@@ -102,8 +104,8 @@ class Watcher(object):
 
                     css_output_dir = os.path.dirname(css_output)
                     if not os.path.isdir(css_output_dir):
-                        css_output_dir = os.path.join(settings.SITE_ROOT, css_output_dir)
-                        css_output =    os.path.join(settings.SITE_ROOT, css_output)
+                        css_output_dir = os.path.join(self.app_root, css_output_dir)
+                        css_output =    os.path.join(self.app_root, css_output)
                         if not os.path.isdir(css_output_dir):
                             self.print_error('CSS output folder is missing "%s"' % css_output)
                             css_output = None
@@ -133,6 +135,7 @@ class Watcher(object):
 
             f = open(source, 'r')
             initial = f.read()
+            print source, initial
             f.close()
             shortcuts_path = os.path.join(os.path.dirname(__file__), 'shortcuts', 'shortcuts.styl')
 
@@ -144,7 +147,7 @@ DJANGO_ROOT = '%s/'
 import_app(appname, path)
    if !appname
          return
-""" % (os.path.abspath(os.path.dirname(source)), settings.DJANGO_ROOT, shortcuts_path)
+""" % (os.path.abspath(os.path.dirname(source)), self.app_root, shortcuts_path)
             for appname, path in self.get_watched_paths(recursive=False):
                 styl += """
     else if appname == '%s'
@@ -156,11 +159,12 @@ import_app(appname, path)
 """
             styl += initial
 
+
             tmp =  tempfile.NamedTemporaryFile(mode='w+b', delete=False)
             tmp.write(styl)
             tmp.close()
             cmd = "stylus%s < %s" % (' --compress' if compress else '', tmp.name)#, css_output)
-            # self.print_process('Executing %s' % cmd)
+            self.print_process('Executing %s' % cmd)
             pipe = subprocess.Popen(cmd,
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
@@ -202,7 +206,7 @@ import_app(appname, path)
             )
 
         #styl_path = os.path.join(settings.DJANGO_ROOT, 'styl')
-        project_path = settings.DJANGO_ROOT
+        project_path = self.app_root
         if os.path.exists(project_path):
             app_paths.append((project_path, project_path))
 

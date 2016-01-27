@@ -9,7 +9,7 @@ class Unique(models.Model):
     def get(cls):
         instance = cls._default_manager.first()
         if not instance:
-            instance = self.__class__()
+            instance = cls()
         return instance
 
     def save(self, *args, **kwargs):

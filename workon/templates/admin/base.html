@@ -10,9 +10,12 @@
     {#        <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/bootstrap/dist/css/bootstrap-theme.min.css' %}" media="all">#}
     <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/css/workon.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/css/workon-extra.css' %}" media="all">
+    {% include "admin/_theme_ruler.html" %}
     {% block extrastyle %}{% endblock %}
     {% if LANGUAGE_BIDI %}
         <link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>{% endif %}
+    <script type="text/javascript">window.__STATIC_URL__ = "{% filter escapejs %}{% static "" %}{% endfilter %}";</script>
+    <script type="text/javascript">window.__ADMIN_STATIC_URL__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
     <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
     <script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
     <script src="{% static 'workon/admin/js/jquery-1.11.1.min.js' %}"></script>

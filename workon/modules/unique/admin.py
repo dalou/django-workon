@@ -20,8 +20,8 @@ class UniqueAdmin(admin.ModelAdmin):
             instance = self.model.get()
         except:
             instance = self.model.objects.first()
-            if not instance:
-                return super(UniqueAdmin, self).change_view(request, None, **kwargs)
+        if not instance or not instance.pk:
+            return super(UniqueAdmin, self).add_view(request, **kwargs)
 
         return super(UniqueAdmin, self).change_view(request, "%s" % instance.pk, **kwargs)
 
