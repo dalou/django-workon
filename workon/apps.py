@@ -50,11 +50,14 @@ class WorkonConfig(AppConfig):
 
     def __init__(self, app_name, app_module):
 
-        widgets.add_bs3_markup()
-        self.override_widgets()
-        self.setup_model_admin()
+        suit_place = settings.INSTALLED_APPS.index('suit')
+        workon_place = settings.INSTALLED_APPS.index('workon')
 
-        if 'filer' in settings.INSTALLED_APPS:
+        # If django-suit is not prior admin
+        if suit_place > workon_place:
+            widgets.add_bs3_markup()
+            self.override_widgets()
+            self.setup_model_admin()
             try:
                 self.setup_filer_app()
             except Exception:
