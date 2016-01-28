@@ -13,7 +13,9 @@ try:
     suit_place = settings.INSTALLED_APPS.index('suit')
     workon_place = settings.INSTALLED_APPS.index('workon')
 
-    if suit_place < workon_place:
+
+    if 'suit' in settings.INSTALLED_APPS and \
+        settings.INSTALLED_APPS.index('suit') < settings.INSTALLED_APPS.index('workon'):
         suit_version = suit.VERSION
         if suit_version <= "0.3":
             ANALYTICS_TEMPLATE = 'workon/google/analytics_suit.html'

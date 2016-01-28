@@ -18,7 +18,7 @@ class WorkonConfig(AppConfig):
 
     name = 'workon'
     verbose_name = u"Extensions"
-    menu_position = 'vertical'
+    menu_position = 'horizontal'
     django_version = get_version()
     list_per_page = 18
     list_filters_position = 'center'
@@ -50,11 +50,11 @@ class WorkonConfig(AppConfig):
 
     def __init__(self, app_name, app_module):
 
-        suit_place = settings.INSTALLED_APPS.index('suit')
-        workon_place = settings.INSTALLED_APPS.index('workon')
 
         # If django-suit is not prior admin
-        if suit_place > workon_place:
+        if not 'suit' in settings.INSTALLED_APPS or \
+            settings.INSTALLED_APPS.index('suit') > settings.INSTALLED_APPS.index('workon'):
+
             widgets.add_bs3_markup()
             self.override_widgets()
             self.setup_model_admin()

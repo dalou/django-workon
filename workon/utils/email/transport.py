@@ -42,6 +42,9 @@ class HtmlTemplateEmail(EmailMultiAlternatives):
             receivers = [receivers]
 
         text_template = strip_tags(html)
+        if kwargs.get('clean_html') == True:
+            kwargs.pop('clean_html')
+            html = clean_html_for_email(html)
         super(HtmlTemplateEmail, self).__init__(subject, text_template, sender, receivers, **kwargs)
         self.attach_alternative(html, "text/html")
 

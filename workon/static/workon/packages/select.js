@@ -19,7 +19,9 @@ $(document).ready(function(select)
             }
             self.workon_select = true;
             var classname = $(self).attr('class');
-            classname = classname ? classname.replace('form-control', '').replace('select2-hidden-accessible', '') : '';
+            classname = classname ? classname.replace(new RegExp('form-control', 'g'), '').replace('select2-hidden-accessible', '') : '';
+
+            console.log(classname.replace('form-control', ''))
             $(self).select2($.extend(
             {
                 //tags: $(this).attr('id'),
