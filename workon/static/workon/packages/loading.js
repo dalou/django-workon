@@ -8,59 +8,62 @@
 
 window.workon_packages_loading = true;
 
-$.fn.addLoading = function(text, b, c)
-{
-    return this.each(function(i, self)
+(function($){
+
+    $.fn.addLoading = function(text, b, c)
     {
-        if( self.workon_loading !== true )
+        return this.each(function(i, self)
         {
-            self.workon_loading = true;
-            $loading = $("<span class='loading-text'></span>");
-            $(self).append($loading.hide()).addClass('loading');
-            $loading.fadeIn(300);
-        }
-        var new_text = text;
-        if(!new_text)
-        {
-            new_text = $(self).data('loading');
-        };
-        if(new_text)
-        {
-            $(self).find('.loading-text').text(new_text);
-        }
-    });
-}
-$.fn.removeLoading = function()
-{
-    return this.each(function(i, self)
-    {
-        $(self).removeClass('loading').find('.loading-text').fadeOut(250, function()
-        {
-            $(this).remove();
+            if( self.workon_loading !== true )
+            {
+                self.workon_loading = true;
+                $loading = $("<span class='loading-text'></span>");
+                $(self).append($loading.hide()).addClass('loading');
+                $loading.fadeIn(300);
+            }
+            var new_text = text;
+            if(!new_text)
+            {
+                new_text = $(self).data('loading');
+            };
+            if(new_text)
+            {
+                $(self).find('.loading-text').text(new_text);
+            }
         });
-        self.workon_loading = null;
-    });
-}
-
-$(document).ready(function()
-{
-
-    $('[data-iframes-loading]').each(function(e, $self)
+    }
+    $.fn.removeLoading = function()
     {
-        $self = $(this).addLoading();
-        $self.find('iframe').load(function()
+        return this.each(function(i, self)
         {
-            $self.removeLoading();
-        })
-    });
-    $('[data-images-loading]').each(function(e, $self)
-    {
-        $self = $(this).addLoading();
-        $self.imagesLoaded(function()
-        {
-            $self.removeLoading();
+            $(self).removeClass('loading').find('.loading-text').fadeOut(250, function()
+            {
+                $(this).remove();
+            });
+            self.workon_loading = null;
         });
-    });
+    }
 
-    $('[data-loading]').addLoading();
-});
+    $(document).ready(function()
+    {
+
+        $('[data-iframes-loading]').each(function(e, $self)
+        {
+            $self = $(this).addLoading();
+            $self.find('iframe').load(function()
+            {
+                $self.removeLoading();
+            })
+        });
+        $('[data-images-loading]').each(function(e, $self)
+        {
+            $self = $(this).addLoading();
+            $self.imagesLoaded(function()
+            {
+                $self.removeLoading();
+            });
+        });
+
+        $('[data-loading]').addLoading();
+    });
+})(jQuery || django.jQuery)

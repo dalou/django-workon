@@ -5,6 +5,8 @@
 {# Additional <head> content here, some extra meta tags or favicon #}
 {% block extrahead %}
 
+  {{ block.super }}
+
     <script>
       window.ADMIN_STATIC_URL = "{{ STATIC_URL }}";
       window.STATIC_URL = "{% static '' %}";
@@ -12,6 +14,7 @@
     </script>
 
     <script type="text/javascript" src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+
     <script type="text/javascript" src="{% static 'workon/vendors/highcharts/highcharts.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/vendors/highcharts/modules/exporting.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/packages/loading.js' %}"></script>
@@ -24,7 +27,7 @@
 
 {# Additional CSS includes #}
 {% block extrastyle %}
-
+    {{ block.super }}
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'workon/vendors/select2/select2.min.css' %}" media="all">
 {% endblock %}
