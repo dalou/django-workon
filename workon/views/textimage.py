@@ -1,4 +1,4 @@
-
+import os
 from django.views import generic
 from django.conf import settings
 from django.http import Http404, HttpResponse, JsonResponse
@@ -27,7 +27,8 @@ class TextImage(generic.View):
         text = self.get_text()
         text = text if text else ""
 
-        fontname = "Arial.ttf"
+        fontname = os.path.join(os.path.dirname(__file__), "textimage_font.ttf")
+        print fontname
         fontsize = 29
 
         colorText = "black"
