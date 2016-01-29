@@ -260,7 +260,6 @@ window.workon_packages_media = true;
 
             self.files_input.on('change', function(e)
             {
-                console.log('file change')
                 var files = this.files;
                 if (!files || files.length == 0)
                 {
@@ -271,6 +270,7 @@ window.workon_packages_media = true;
                     console.log("Not supporting more than 1 file");
                 }
                 var file = files[0];
+                console.log('file change', files)
                 if(!file.type.match(/image.*/)) { }
                 else
                 {

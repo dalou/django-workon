@@ -66,7 +66,7 @@ class MediaInput(forms.widgets.ClearableFileInput):
             )
         }
         js = (
-            'workon/vendors/media-dropzone/jquery.media-dropzone.js',
+            'workon/packages/media.js',
             'workon/forms/media.js',
         )
 

@@ -23,7 +23,7 @@ $(document).ready(function() {
 
         $(this).on('workon.media_dropzone_deposed', function(e, media, file, embed)
         {
-            //console.log('media deposed', media, file, embed)
+            console.log('media deposed', media, file, embed)
             if(file)
             {
                 $(self).find('.workon-media_input-preview').html('<img class="img-responsive" src="'+file+'"/>').css({

@@ -24,49 +24,47 @@
 
     <div class="workon-media_input-media {% if value %}active{% endif %}">
 
-        <span class="workon-media_input-preview" style="background-position: center center; background-repeat: no-repeat;{% if value.is_image %}background-image: url({{ value.url }});{% endif %}">
-            {% if value.is_image %}
-                <img style="opacity:0;" src="{{ value.url }}" class="img-responsive" />
-            {% else %}
-                {{ value.html|safe }}
-            {% endif %}
-        </span>
-        <span class="btn-wrapper">
-            <button type="button" class="btn btn3 workon-media_input-button workon-media_input-change">
-                <span class="appicon appicon-media"></span>
-                Changer
-            </button>
-        </span>
-
         {% if not required %}
         <button type="button" class="btn btn6 workon-media_input-button workon-media_input-clear">
-            <span class="appicon appicon-remove"></span>
+            <span class="glyphicon glyphicon-trash"></span>
         </button>
         {% endif %}
-
 
         {% if not only_file %}
-        <!-- <br/> -->
-        <span class="workon-media_input-or">ou</span>
-        <textarea class="form-control workon-media_input-add-embed"
-            placeholder="Copiez collez une URL ou un code embed (youtube, dailymotion, soundcloud)"></textarea>
+            <span class="workon-media_input-or">ou</span>
         {% endif %}
-    </div>
-    <!--<span class="workon-media_input-empty workon-media_input-change {% if not value %}active{% endif %}">
 
-        <span class="appicon appicon-media"></span>
-        Ajouter un média
+        <div class="row">
 
-    </span>-->
+            <div class="col-sm-{% if not only_file %}6{% else %}12{% endif %}">
 
-    <!--<div class="workon-media_input-modal">
-        <button type="button" class="btn btn3 workon-media_input-add-image">
+                <span class="workon-media_input-preview" style="background-position: center center; background-repeat: no-repeat;{% if value.is_image %}background-image: url({{ value.url }});{% endif %}">
+                    {{ value }}
+                    {% if value.is_image %}
+                        <img style="opacity:0;" src="{{ value.url }}" class="img-responsive" />
+                    {% else %}
+                        {{ value.html|safe }}
+                    {% endif %}
+                </span>
+                <span class="btn-wrapper">
+                    <button type="button" class="btn btn3 workon-media_input-button workon-media_input-change">
+                        <span class="glyphicon glyphicon-image"></span>
+                        Charger une image
+                    </button>
+                </span>
+
+            </div>
 
             {% if not only_file %}
-                <span class="appicon appicon-media"></span>{{ "Image"|safe }}
-            {% else %}
-                <span class="appicon appicon-media"></span>{{ "Image"|safe }}
-            {% endif%}
-        </button>
-    </div>-->
+            <div class="col-sm-6">
+
+
+                <!-- <br/> -->
+                <textarea class="form-control workon-media_input-add-embed"
+                    placeholder="Copiez collez une URL ou un code embed (youtube, dailymotion, soundcloud)"></textarea>
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
 </div>

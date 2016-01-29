@@ -41,7 +41,7 @@ class WorkonConfig(AppConfig):
     form_size = WORKON_ADMIN_FORM_SIZE_HALF
 
     menu = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('MENU')
-    theme = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('THEME', 'blue')
+    theme = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('THEME', 'dark')
 
     # menu
     search_url = '/admin/auth/user/'
