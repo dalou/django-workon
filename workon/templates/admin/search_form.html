@@ -4,8 +4,14 @@
   <form id="changelist-search" action="" method="get" class="form-inline">
     <div><!-- DIV needed for valid HTML -->
       {% if cl.search_fields %}
-        <input type="text" size="30" name="{{ search_var }}" value="{{ cl.query }}" id="searchbar" class="form-control query-search {{ cl.query|yesno:' active,' }}"/>
-        <script type="text/javascript">document.getElementById("searchbar").focus();</script>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">
+              <span class="glyphicon glyphicon-search"></span>
+
+          </span>
+          <input type="text" size="30" name="{{ search_var }}" value="{{ cl.query }}" id="searchbar" class="form-control query-search {{ cl.query|yesno:' active,' }}"/>
+          <script type="text/javascript">document.getElementById("searchbar").focus();</script>
+        </div>
       {% endif %}
 
       {% spaceless %}

@@ -61,10 +61,11 @@
     </div>
 {% endif %}
 <style>
+    #toolbar .input-group { margin-right:5px; margin-bottom:5px; },
     .input-append .select2,
-    .input-prepend .select2 { font-size: 12px; }
+    #toolbar .input-group .select2 { font-size: 12px; }
     .input-append .select2-selection,
-    .input-prepend .select2-selection { border-radius: 0px 4px 4px 0px; border-left: 0px;     border: 1px solid #cccccc; }
+    #toolbar .input-group .select2-selection { border-radius: 0px 4px 4px 0px; border-left: 0px;     border: 1px solid #cccccc; }
 </style>
 <script type="text/javascript">
         $('#{{ field_name }}_list_filter').select2({width:250})

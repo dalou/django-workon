@@ -38,7 +38,7 @@ class WorkonConfig(AppConfig):
     show_required_asterisk = True
     confirm_unsaved_changes = True
 
-    form_size = WORKON_ADMIN_FORM_SIZE_HALF
+    form_size = WORKON_ADMIN_FORM_SIZE_FULL
 
     menu = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('MENU')
     theme = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('THEME', 'dark')
