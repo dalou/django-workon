@@ -13,19 +13,18 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
 <style>
     .box.well {
         overflow: hidden;
-        padding: 0px;
+        padding: 0px 10px;
     }
     .box h1 {
         margin:0px;
     }
     #active-users-container {
-        text-align:center;
+        text-align:left;
         display:block;
     }
     #active-users-container b {
-        display:block;
-        font-size:34px;
-        margin:15px;
+        font-size:31px;
+        margin:0px;
     }
 
 </style>
@@ -83,14 +82,14 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
             dataChart{{ forloop.counter }}.execute();
             $('#chart-{{ forloop.counter }}-container').removeLoading();
             var dataChart{{ forloop.counter }}TO = null;
-            window.addEventListener('resize', function()
-            {
-                clearTimeout(dataChart{{ forloop.counter }}TO);
-                dataChart{{ forloop.counter }}TO = setTimeout(function()
-                {
-                    dataChart{{ forloop.counter }}.chart.draw();
-                }, 500)
-            });
+            // window.addEventListener('resize', function()
+            // {
+            //     clearTimeout(dataChart{{ forloop.counter }}TO);
+            //     dataChart{{ forloop.counter }}TO = setTimeout(function()
+            //     {
+            //         dataChart{{ forloop.counter }}.chart.draw();
+            //     }, 500)
+            // });
         {% endfor %}
 
     });

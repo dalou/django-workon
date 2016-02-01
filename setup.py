@@ -59,18 +59,32 @@ setup(
     # test_suite='runtests.runtests',
     install_requires=[
         'django>=1.8.4,<=1.9.1',
+
+        # Fields / models
         "jsonfield==1.0.3",
         "babel==1.3",
-        "premailer==2.9.6",
-        "watchdog==0.8.3",
-        "geopy==1.11.0",
         "django-mptt==0.8.0",
+
+        # Emailing
+        "premailer==2.9.6",
+        "cssutils==1.0.1",
+        "cssselect==0.9.1"
+
+        # Watcher
+        "watchdog==0.8.3",
+
+        # Geolocation
+        "geopy==1.11.0",
         "python-gmaps==0.1.1",
         "google-api-python-client==1.4.2",
+
+
         "bleach==1.4.2",
         "django-classy-tags==0.4",
-        "oauth2client==1.5.2",
+
+        # Crypto
         "cryptography==1.0.2",
+        "oauth2client==1.5.2",
         "cffi==1.2.1",
         "requests[security]==2.8.1",
         "requests_oauthlib==0.5.0",

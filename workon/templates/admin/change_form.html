@@ -23,7 +23,7 @@
     </script>
   {% endif %}
 
-  {% if adminform.model_admin.workon_form_tabs %}
+  {% if adminform.model_admin|workon_admin_form_tabs %}
     <script type="text/javascript">
       (function ($) {
         $(function () {
@@ -62,7 +62,7 @@
       {% if change %}
         {% if not is_popup %}
           <div class="btn-toolbar pull-right">
-            <div class=" btn-group">
+            <div class=" btn-group object-tools-items">
               {% block object-tools-items %}
                 {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
                 <a href="{% add_preserved_filters history_url %}" class="historylink btn btn-primary">{% trans "History" %}</a>
@@ -81,8 +81,16 @@
 
 {% block content %}
   <div id="content-main">
-    {% block workon_admin_form_tabs %}
-      {% if adminform.model_admin.workon_form_tabs %}
+
+
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" class="form-horizontal" novalidate>
+      {% csrf_token %}{% block form_top %}{% endblock %}
+
+        {# render workon_admin_form_includes at top position #}
+        {% include 'admin/includes/change_form_includes.html' with position='top' %}
+
+            {% block workon_admin_form_tabs %}
+      {% if adminform.model_admin|workon_admin_form_tabs %}
 
 {#        <nav id="workon_admin_form_tabs" class="navbar navbar-default panel navbar-suit-tabs" data-tab-prefix="suit-tab">#}
 {#            <div class="container-fluid">#}
@@ -94,15 +102,13 @@
 {#        </nav>#}
 
         <ul id="workon_admin_form_tabs" class="nav nav-tabs nav-tabs-suit" data-tab-prefix="suit-tab">
-          {% for tab in adminform.model_admin.workon_form_tabs %}
+          {% for tab in adminform.model_admin|workon_admin_form_tabs %}
             <li><a href="#{{ tab.0 }}">{{ tab.1 }}</a></li>{% endfor %}
         </ul>
 
       {% endif %}
     {% endblock %}
 
-    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" class="form-horizontal" novalidate>
-      {% csrf_token %}{% block form_top %}{% endblock %}
       <div class="tab-content tab-content-main">
         {% if is_popup %}
           <input type="hidden" name="{{ is_popup_var }}" value="1"/>{% endif %}
@@ -116,8 +122,6 @@
           {{ adminform.form.non_field_errors }}
         {% endif %}
 
-        {# render workon_admin_form_includes at top position #}
-        {% include 'admin/includes/change_form_includes.html' with position='top' %}
 
         {% block field_sets %}
           {% for fieldset in adminform %}
@@ -126,17 +130,18 @@
         {% endblock %}
 
 
+        {% block inline_field_sets %}
+          {% for inline_admin_formset in inline_admin_formsets %}
+            {% include inline_admin_formset.opts.template %}
+          {% endfor %}
+        {% endblock %}
+
       </div>
       {% block after_field_sets %}{% endblock %}
 
       {# render workon_admin_form_includes at middle position #}
       {% include 'admin/includes/change_form_includes.html' with position='middle' %}
 
-      {% block inline_field_sets %}
-        {% for inline_admin_formset in inline_admin_formsets %}
-          {% include inline_admin_formset.opts.template %}
-        {% endfor %}
-      {% endblock %}
 
       {% block after_related_objects %}{% endblock %}
 

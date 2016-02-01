@@ -16,6 +16,21 @@ def workon_admin_conf(name):
     value = config.get_config(name)
     return mark_safe(value) if isinstance(value, str) else value
 
+@register.filter
+def workon_admin_form_tabs(model_admin):
+    for attr in ['workon_form_tabs', 'form_tabs', 'suit_form_tabs']:
+        if hasattr(model_admin, attr):
+            return getattr(model_admin, attr)
+    return None
+
+
+@register.filter
+def workon_admin_form_includes(model_admin):
+    for attr in ['workon_form_includes', 'form_includes', 'suit_form_includes']:
+        if hasattr(model_admin, attr):
+            return getattr(model_admin, attr)
+    return []
+
 
 @register.filter
 def workon_admin_platform(request):

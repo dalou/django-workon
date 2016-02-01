@@ -22,14 +22,11 @@ class WorkonConfig(AppConfig):
     django_version = get_version()
     list_per_page = 18
     list_filters_position = 'center'
-    if hasattr(settings, 'PROJECT_NAME'):
-        admin_name = '%s Admin' % getattr(settings, 'PROJECT_NAME')
-    elif hasattr(settings, 'APP_NAME'):
-        admin_name = '%s Admin' % getattr(settings, 'APP_NAME').capitalize()
-    elif hasattr(settings, 'BASE_DIR'):
-        admin_name = '%s Admin' % getattr(settings, 'BASE_DIR').capitalize()
-    else:
-        admin_name = 'Workon Admin'
+    admin_name = 'Admin'
+    for attr in ['PROJECT_NAME', 'APP_NAME', 'BASE_DIR', 'SITE_NAME', 'SITE_ROOT']:
+        if hasattr(settings, attr):
+            admin_name = '%s Admin' % getattr(settings, attr).capitalize()
+            break
 
     header_date_format = 'l, jS F Y'
     header_time_format = 'H:i'

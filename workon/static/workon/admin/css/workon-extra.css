@@ -1,4 +1,13 @@
 
+.box.well {
+    background: white;
+}
+
+.breadcrumb {
+    background: white;
+    border: 1px solid #e3e3e3;
+}
+
 @keyframes placeholder {
     from { top:-8px; left:-8px; }
     50% { top:-10px; left:-10px; }

@@ -38,7 +38,7 @@ class Watcher(object):
         self.observer = Observer()
         self.event_handler = EventHandler(self)
 
-        self.app_root = getattr(settings, 'SITE_ROOT', settings.BASE_DIR)
+        self.app_root = getattr(settings, 'SITE_ROOT', settings.SITE_ROOT)
 
         # self.notifier.max_user_watches=16384
         self.process_settings()
@@ -135,7 +135,7 @@ class Watcher(object):
 
             f = open(source, 'r')
             initial = f.read()
-            print source, initial
+            # print source, initial
             f.close()
             shortcuts_path = os.path.join(os.path.dirname(__file__), 'shortcuts', 'shortcuts.styl')
 
@@ -164,7 +164,7 @@ import_app(appname, path)
             tmp.write(styl)
             tmp.close()
             cmd = "stylus%s < %s" % (' --compress' if compress else '', tmp.name)#, css_output)
-            self.print_process('Executing %s' % cmd)
+            # self.print_process('Executing %s' % cmd)
             pipe = subprocess.Popen(cmd,
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
