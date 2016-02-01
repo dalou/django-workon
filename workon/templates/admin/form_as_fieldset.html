@@ -1,0 +1,16 @@
+{% load workon_admin_forms workon_bootstrap3 %}
+<fieldset class="module aligned">
+    <div class="panel fieldset-body">
+        {% for field in form %}
+            <div class="form-group {{ field.errors|yesno:' error,' }}">
+                <label class="control-label">
+                    {{ field.label_tag }}
+                </label>
+                <div class="">
+                    {{ field }}
+                    <div class="help-block">{{ field.errors }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</fieldset>

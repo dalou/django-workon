@@ -254,22 +254,22 @@
         $tabs.before($mainInfos).css({ marginTop: 25 })
         $tabs.before($topInfos)
 
-        // $(window).scroll(function()
-        // {
-        //     var scrollTop = $(window).scrollTop();
-        //     var scrollTotal = $(document).height() - $(window).height();
-        //     var actions = $('#changelist-form div.actions, #changelist-form .paginator, #changelist-form div.below-actions')
-        //     if(scrollTop <= scrollTotal / 2) {
-        //         $('#changelist-form div.results').before(actions);
-        //         $('.below-actions input').css({ marginTop: 43 });
-        //     }
-        //     else {
-        //         $('#changelist-form div.results').after(actions);
-        //         $('.below-actions input').css({ marginTop: '' });
-        //     }
+        $(window).scroll(function()
+        {
+            var scrollTop = $(window).scrollTop();
+            var scrollTotal = $(document).height() - $(window).height();
+            var actions = $('#changelist-form div.actions, #changelist-form .paginator, #changelist-form div.below-actions')
+            if(scrollTop <= scrollTotal / 2) {
+                $('#changelist-form div.results').before(actions);
+                $('.below-actions input').css({ marginTop: 43 });
+            }
+            else {
+                $('#changelist-form div.results').after(actions);
+                $('.below-actions input').css({ marginTop: '' });
+            }
 
-        // });
-        // $(window).scroll();
+        });
+        $(window).scroll();
 
 
         $(document).on('mouseenter', 'form input[type=file]', function()
