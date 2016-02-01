@@ -12,7 +12,7 @@ ul.jqtree-tree .jqtree-toggler.jqtree-toggler-right
 {
     position: absolute;
     left: 5px;
-    top: 7px;
+    top: 0px;
     font-size: 25px;
     margin:0px;
 }
@@ -37,7 +37,7 @@ ul.jqtree_common  ul.jqtree_common li.jqtree_common:after {
     content: 'L';
     position: absolute;
     left: -25px;
-    top: 5px;
+    top: -15px;
     font-size: 35px;
     font-weight:300;
     /*transform: rotate(-180deg);*/
@@ -61,7 +61,7 @@ ul.jqtree_common  ul.jqtree_common li.jqtree_common:after {
 }
 
 .block-style ul.jqtree-tree ul.jqtree_common {
-    margin-left: 50px;
+    margin-left: 38px;
 }
 
 .block-style ul.jqtree-tree .jqtree-element {

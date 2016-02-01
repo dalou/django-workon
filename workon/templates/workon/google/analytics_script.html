@@ -1,36 +1,10 @@
 {% load i18n workon %}
-<script>
-(function(w,d,s,g,js,fs){
-g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
-js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
-js.src='https://apis.google.com/js/platform.js';
-fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
-}(window,document,'script'));
-</script>
-<!-- Include the ActiveUsers component script. -->
-<script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js"></script>
-<script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js"></script>
-<style>
-    .box.well {
-        overflow: hidden;
-        padding: 0px 10px;
-    }
-    .box h1 {
-        margin:0px;
-    }
-    #active-users-container {
-        text-align:left;
-        display:block;
-    }
-    #active-users-container b {
-        font-size:31px;
-        margin:0px;
-    }
 
-</style>
 <script type="text/javascript">
 
     $('.workon-google-analytics fieldset .chart').addLoading();
+    $('#google_analytics_users').appendTo('.navbar-collapse')
+    $('#google_analytics_users').appendTo('.navbar-collapse')
 
     gapi.analytics.ready(function()
     {
@@ -49,12 +23,37 @@ fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
         activeUsers.once('success', function()
         {
             var activeUsers = $(this.container).find('b').text()
-            $(this.container).html('<b>'+activeUsers+'</b> utilisateurs actifs sur le site').show();
+            $(this.container).html('<span class="glyphicon glyphicon-signal"/></span> <b>'+activeUsers+'</b> personnes sur le site').show();
             this.on('change', function(data)
             {
-                $(this.container).html('<b>'+ data.activeUsers+'</b> utilisateurs actifs sur le site')
+                $(this.container).html('<span class="glyphicon glyphicon-signal"/></span> <b>'+ data.activeUsers+'</b> personnes sur le site')
             });
         });
+
+
+        gapi.client.analytics.data.ga.get({
+            'ids': 'ga:{{ view_id }}',
+            'start-date': 'today',
+            'end-date': 'today',
+            'metrics': 'ga:sessions'
+        })
+        .then(function(response) {
+
+            console.log(response)
+            $("#active-sessions-container").show().html('<span class="glyphicon glyphicon-bookmark"/></span> <b>'+ response.result.totalsForAllResults['ga:sessions']+'</b> sessions')
+        })
+
+        gapi.client.analytics.data.ga.get({
+            'ids': 'ga:{{ view_id }}',
+            'start-date': 'today',
+            'end-date': 'today',
+            'metrics': 'ga:pageviews'
+        })
+        .then(function(response) {
+            console.log(response)
+            $("#active-pageviews-container").show().html('<span class="glyphicon glyphicon-eye-open"/></span> <b>'+ response.result.totalsForAllResults['ga:pageviews']+'</b> pages vues')
+        })
+
 
         var viewSelector = new gapi.analytics.ext.ViewSelector2(
         {

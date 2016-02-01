@@ -1,4 +1,4 @@
-{% load admin_static workon_admin_tags %}{% load firstof from future %}<!DOCTYPE html>
+{% load admin_static workon_admin_tags workon_google %}{% load firstof from future %}<!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
     <meta charset="utf-8">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/bootstrap/dist/css/bootstrap.css' %}" media="all">
     {#        <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/bootstrap/dist/css/bootstrap-theme.min.css' %}" media="all">#}
     <link rel="stylesheet" type="text/css" href="{% static 'workon/vendors/select2/select2.min.css' %}" media="all">
+    <link rel="stylesheet" type="text/css" href="{% static 'workon/vendors/tooltipster/tooltipster.css' %}" media="all">
 
     <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/css/workon.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/css/workon-extra.css' %}" media="all">
@@ -26,6 +27,21 @@
     </script>
     <script src="{% static 'workon/admin/js/jquery-1.11.1.min.js' %}"></script>
     <script src="{% static 'workon/admin/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- Google Analytics -->
+    <script>
+        (function(w,d,s,g,js,fs){
+        g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+        js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+        js.src='https://apis.google.com/js/platform.js';
+        fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+        }(window,document,'script'));
+    </script>
+    <!-- Include the ActiveUsers component script. -->
+    <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js"></script>
+    <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js"></script>
+    <!-- End google Analytics -->
 
     <script type="text/javascript" src="{% static 'workon/vendors/highcharts/highcharts.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/vendors/highcharts/modules/exporting.js' %}"></script>
@@ -104,6 +120,7 @@
                             <span class="glyphicon glyphicon-search form-control-feedback"></span>
                         </div>
                     </form>
+                    {% google_analytics_admin %}
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@
 .breadcrumb {
     background: white;
     border: 1px solid #e3e3e3;
+    margin-bottom: 0px;
 }
 
 @keyframes placeholder {
@@ -14,6 +15,29 @@
     to { top:-8px; left:-8px; }
 }
 
+
+#google_analytics_users {
+    color: white;
+    padding: 10px 15px;
+}
+.box.well {
+    overflow: hidden;
+}
+.box h3 {
+    margin:0px;
+}
+#google_analytics_users {
+    text-align:left;
+    display:block;
+}
+#google_analytics_users > span {
+    display: inline-block;
+    margin-right: 15px;
+}
+#google_analytics_users b {
+    font-size:25px;
+    margin:0px;
+}
 
 
 /***** LOADINGS *****/

@@ -26,25 +26,15 @@ try:
 except Exception, e:
     ANALYTICS_TEMPLATE = 'workon/google/analytics.html'
 
-
-@register.inclusion_tag(ANALYTICS_TEMPLATE, takes_context=True)
-def google_analytics_admin(context, view_id=None, next = None):
-
-    print ANALYTICS_TEMPLATE
-
+def get_credentials(view_id):
     # The scope for the OAuth2 request.
     SCOPE = 'https://www.googleapis.com/auth/analytics.readonly'
     token = ""
-
     ggsettings = GoogleAPISettings.get()
-
     if ggsettings and ggsettings.account_key_file:
-
         if not view_id:
             view_id = "%s" % int(ggsettings.analytics_default_view_id)
-
         _key_data = json.load(ggsettings.account_key_file)
-
         # Construct a credentials objects from the key data and OAuth2 scope.
         try:
             _credentials = SignedJwtAssertionCredentials(
@@ -57,10 +47,22 @@ def google_analytics_admin(context, view_id=None, next = None):
         except Exception, e:
             print e.message
             token = ""
+    return token, view_id
 
 
-    print token
+@register.inclusion_tag('workon/google/analytics.html', takes_context=True)
+def google_analytics_admin(context, view_id=None, next = None):
 
+    token, view_id = get_credentials(view_id)
+    return {
+        'token': token,
+        'view_id': view_id
+    }
+
+@register.inclusion_tag('workon/google/analytics_charts.html', takes_context=True)
+def google_analytics_admin_charts(context, view_id=None, next = None):
+
+    token, view_id = get_credentials(view_id)
     charts = [
         {
             'title': u'Trafic',
@@ -174,9 +176,7 @@ def google_analytics_admin(context, view_id=None, next = None):
                 }
             }
         },
-
     ]
-
 
     return {
         'token': token,

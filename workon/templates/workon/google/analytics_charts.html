@@ -1,0 +1,59 @@
+{% load workon %}
+<!-- this is just to make the view selector work, no need to display it -->
+<div class="row workon-google-analytics" >
+    {% for chart in charts %}
+    <div class="col-md-4 col-sm-6">
+        <fieldset class="module aligned box well">
+            <div class="fieldset-heading clearfix">
+                <h3 class="fieldset-title">
+                    {{ chart.title }}
+                    <small class="description">{{ chart.resume }}</small>
+                </h3>
+            </div>
+            <div class="fieldset-body">
+                <div id="chart-{{ forloop.counter }}-container"  class="chart"></div>
+            </div>
+        </fieldset>
+
+    </div>
+    {% endfor %}
+</div>
+<script type="text/javascript">
+
+    $('.workon-google-analytics fieldset .chart').addLoading();
+
+    gapi.analytics.ready(function()
+    {
+        gapi.analytics.auth.authorize(
+        {
+            'serverAuth': {
+                'access_token': '{{ token }}'
+            }
+        });
+
+
+        {% for chart in charts %}
+            var chart = {{ chart|jsonify|safe }};
+            if(! chart.chart.option )
+            {
+                chart.chart.option = {};
+            }
+            chart.chart.container = 'chart-{{ forloop.counter }}-container';
+            chart.chart.option.width = '100%';
+            chart.chart.option.chartArea = {'left':0,'top':0,'width':"100%",'height':"100%"};
+            var dataChart{{ forloop.counter }} = new gapi.analytics.googleCharts.DataChart(chart)
+            dataChart{{ forloop.counter }}.execute();
+            $('#chart-{{ forloop.counter }}-container').removeLoading();
+            var dataChart{{ forloop.counter }}TO = null;
+            // window.addEventListener('resize', function()
+            // {
+            //     clearTimeout(dataChart{{ forloop.counter }}TO);
+            //     dataChart{{ forloop.counter }}TO = setTimeout(function()
+            //     {
+            //         dataChart{{ forloop.counter }}.chart.draw();
+            //     }, 500)
+            // });
+        {% endfor %}
+
+    });
+</script>

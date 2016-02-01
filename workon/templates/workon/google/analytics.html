@@ -1,31 +1,71 @@
-
-<div class="row">
-     <div class="col-md-6 col-sm-12">
-         <div class="fieldset-body">
-            <h4 class="italic-title"><span style="display:none;" id="active-users-container">sdfqsd</span> </h4>
-        </div>
-    </div>
+{% load workon %}
+<div id="google_analytics_users" class="fieldset-body">
+    <span style="display:none;" id="active-users-container" data-tooltip="Utilisateurs actifs sur le site (temps réél)"></span>
+    <span style="display:none;" id="active-sessions-container"  data-tooltip="Sessions aujourd'hui"></span>
+    <span style="display:none;" id="active-pageviews-container"  data-tooltip="Page vues aujourd'hui"></span>
+    <div id="view-selector-container" style="display: none"></div>
 </div>
+<script type="text/javascript">
 
-<!-- this is just to make the view selector work, no need to display it -->
-<div id="view-selector-container" style="display: none"></div>
-<div class="row workon-google-analytics" >
-    {% for chart in charts %}
-    <div class="col-md-4 col-sm-6">
-        <fieldset class="module aligned">
-            <div class="fieldset-heading clearfix">
-                <h3 class="fieldset-title">
-                    {{ chart.title }}
-                    <small class="description">{{ chart.resume }}</small>
-                </h3>
-            </div>
-            <div class="box well fieldset-body">
-                <div id="chart-{{ forloop.counter }}-container"  class="chart"></div>
-            </div>
-        </fieldset>
 
-    </div>
-    {% endfor %}
-</div>
+    gapi.analytics.ready(function()
+    {
+        gapi.analytics.auth.authorize(
+        {
+            'serverAuth': {
+                'access_token': '{{ token }}'
+            }
+        });
 
-{% include "workon/google/analytics_script.html" %}
+        var activeUsers = new gapi.analytics.ext.ActiveUsers(
+        {
+            container: 'active-users-container',
+            pollingInterval: 5
+        });
+        activeUsers.once('success', function(change)
+        {
+            change = function(container, activeUsers) {
+                $(container).html('<span class="fa fa-users"/></span> <b>'+activeUsers+'</b>').show();
+            }
+            change(this.container, $(this.container).find('b').text())
+            this.on('change', function(data)
+            {
+                change(this.container, data.activeUsers)
+            });
+        });
+
+        var viewSelector = new gapi.analytics.ext.ViewSelector2(
+        {
+            container: 'view-selector-container',
+        })
+        .execute();
+
+        viewSelector.on('viewChange', function(data)
+        {
+            // Start tracking active users for this view.
+            activeUsers.set(data).execute();
+        });
+
+
+        gapi.client.analytics.data.ga.get({
+            'ids': 'ga:{{ view_id }}',
+            'start-date': 'today',
+            'end-date': 'today',
+            'metrics': 'ga:sessions'
+        })
+        .then(function(response) {
+            $("#active-sessions-container").show().html('<span class="glyphicon glyphicon-bookmark"/></span> <b>'+ response.result.totalsForAllResults['ga:sessions']+'</b>')
+        })
+
+        gapi.client.analytics.data.ga.get({
+            'ids': 'ga:{{ view_id }}',
+            'start-date': 'today',
+            'end-date': 'today',
+            'metrics': 'ga:pageviews'
+        })
+        .then(function(response) {
+            $("#active-pageviews-container").show().html('<span class="glyphicon glyphicon-eye-open"/></span> <b>'+ response.result.totalsForAllResults['ga:pageviews']+'</b>')
+        })
+
+    });
+</script>
