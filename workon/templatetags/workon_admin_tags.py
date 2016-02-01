@@ -131,7 +131,12 @@ def workon_admin_bc_value(*args):
 
 @register.assignment_tag
 def workon_admin_theme(*args):
+    print args
+    request = args[0]
     theme = config.get_config('theme')
+    theme = request.GET.get('theme', theme)
+    theme = request.COOKIES.get('theme', theme)
+
 
     light_color1 = "#6F86B3"
     light_color2 = "#657AA2"
