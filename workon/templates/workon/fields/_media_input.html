@@ -9,11 +9,10 @@
     {% if value.is_embed %}embed{% endif %}
     "
     id="div_{{ id }}"
-
+    data-name="{{ name }}"
     data-media-dropzone='{
         "clickable": ".btn-wrapper"
     }'>
-
     <div style="display:none;" id="div_{{ id }}_inputs" class="workon-media_input-inputs">
         {% if not required %}
             {{ clear }}
@@ -39,7 +38,7 @@
             <div class="col-sm-{% if not only_file %}6{% else %}12{% endif %}">
 
                 <span class="workon-media_input-preview" style="background-position: center center; background-repeat: no-repeat;{% if value.is_image %}background-image: url({{ value.url }});{% endif %}">
-                    {{ value }}
+
                     {% if value.is_image %}
                         <img style="opacity:0;" src="{{ value.url }}" class="img-responsive" />
                     {% else %}

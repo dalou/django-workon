@@ -14,7 +14,6 @@ $(document).ready(function() {
 
         $(this).on('click', '.workon-media_input-clear', function(e)
         {
-            console.log(self)
             $(self).find('input[type=checkbox]').eq(0).prop('checked', true);
             $(self).removeClass('image embed');
             $(self).addClass('empty');
@@ -32,6 +31,8 @@ $(document).ready(function() {
                 $(self).find('.workon-media_input-media').addClass('active');
                 $(self).find('.workon-media_input-empty').removeClass('active');
                 $(self).find('input[type=checkbox]').eq(0).prop('checked', false);
+                $(self).find('.workon-media_input-inputs input').attr('name', $(this).data('name'));
+                $(self).find('.workon-media_input-inputs textarea').removeAttr('name');
             }
             else if(embed)
             {
@@ -42,6 +43,8 @@ $(document).ready(function() {
                 });
                 $(self).find('.workon-media_input-media').addClass('active');
                 $(self).find('.workon-media_input-empty').removeClass('active');
+                $(self).find('.workon-media_input-inputs textarea').val(embed).attr('name', $(this).data('name'));
+                $(self).find('.workon-media_input-inputs input').removeAttr('name');
             }
         });
 
