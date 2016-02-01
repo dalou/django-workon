@@ -3,6 +3,7 @@
     <span style="display:none;" id="active-users-container" data-tooltip="Utilisateurs actifs sur le site (temps réél)"></span>
     <span style="display:none;" id="active-sessions-container"  data-tooltip="Sessions aujourd'hui"></span>
     <span style="display:none;" id="active-pageviews-container"  data-tooltip="Page vues aujourd'hui"></span>
+    <span style="display:none;" id="active-impressions-container"  data-tooltip="Impressions aujourd'hui"></span>
     <div id="view-selector-container" style="display: none"></div>
 </div>
 <script type="text/javascript">
@@ -25,7 +26,7 @@
         activeUsers.once('success', function(change)
         {
             change = function(container, activeUsers) {
-                $(container).html('<span class="fa fa-users"/></span> <b>'+activeUsers+'</b>').show();
+                $(container).html('<span class="fa fa-smile-o"/></span> <b>'+activeUsers+'</b>').show();
             }
             change(this.container, $(this.container).find('b').text())
             this.on('change', function(data)
@@ -67,5 +68,14 @@
             $("#active-pageviews-container").show().html('<span class="glyphicon glyphicon-eye-open"/></span> <b>'+ response.result.totalsForAllResults['ga:pageviews']+'</b>')
         })
 
+        gapi.client.analytics.data.ga.get({
+            'ids': 'ga:{{ view_id }}',
+            'start-date': 'today',
+            'end-date': 'today',
+            'metrics': 'ga:impressions'
+        })
+        .then(function(response) {
+            $("#active-impressions-container").show().html('<span class="fa fa-paw"/></span> <b>'+ response.result.totalsForAllResults['ga:impressions']+'</b>')
+        })
     });
 </script>

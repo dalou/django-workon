@@ -6,7 +6,7 @@
         {% block menu_home %}
             {% url 'admin:index' as index_url %}
             <li{% if index_url == request.path %} class="active"{% endif %}>
-                <a href="{{ index_url }}"><i class="icon-home"></i>{% trans 'Home' %}
+                <a href="{{ index_url }}"><i class="glyphicon glyphicon-home"></i>
                 </a>
             </li>
         {% endblock %}
@@ -18,7 +18,7 @@
                     <li class="separator"></li>
                 {% else %}
                     <li{{ app.is_active|yesno:' class=active,' }}>
-                        <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}><i class="{% firstof app.icon 'icon-chevron-right' %}"></i>{% trans app.label|capfirst %}
+                        <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}><i class="{% firstof app.icon 'icon-chevron-right' %}"></i> {% trans app.label|capfirst %}
                         </a>
                         {% if app.models and not app.is_active %}
                             <ul class="nav nav-pills nav-stacked">

@@ -68,7 +68,7 @@ setup(
         # Emailing
         "premailer==2.9.6",
         "cssutils==1.0.1",
-        "cssselect==0.9.1"
+        "cssselect==0.9.1",
 
         # Watcher
         "watchdog==0.8.3",

@@ -37,6 +37,12 @@
 #google_analytics_users b {
     font-size:25px;
     margin:0px;
+    color: #D4F5D4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.27);
+}
+
+.suit-menu-horizontal .nav-suit-menu .nav a {
+    white-space: nowrap;
 }
 
 

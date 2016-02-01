@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.urlresolvers import reverse, resolve
+from django.db.models import get_app
 
 try:
     from django.utils.six import string_types
@@ -103,7 +104,6 @@ class Menu(object):
         self.conf_menu_order = get_config('menu_order')
         self.conf_menu = get_config('menu')
 
-
     def get_app_list(self):
         menu = None
         if self.conf_menu:
@@ -124,7 +124,9 @@ class Menu(object):
         if not isinstance(config, (tuple, list)):
             raise TypeError('Django Suit MENU config parameter must be '
                             'tuple or list. Got %s' % repr(config))
+
         for app in config:
+
             app = self.make_app(app)
             if app:
                 menu.append(app)
@@ -132,6 +134,7 @@ class Menu(object):
         return menu
 
     def make_app(self, app_def):
+
         if isinstance(app_def, dict):
             app = app_def.copy()
         elif isinstance(app_def, string_types):
@@ -171,6 +174,7 @@ class Menu(object):
         # Handle app permissions
         if self.app_is_forbidden(app):
             return
+
 
         # Process app models
         self.process_models(app)
@@ -234,6 +238,7 @@ class Menu(object):
 
     def make_app_from_native(self, app_name):
         app = self.find_native_app(app_name)
+
         if app:
             return self.convert_native_app(app, app_name)
 
@@ -242,6 +247,9 @@ class Menu(object):
             _app_name = app.get('app_label', app.get('name'))
             if _app_name.lower() == app_name:
                 return app
+
+        # app = get_app(app.get('app_label'))
+        # return app
 
     def convert_native_app(self, native_app, app_name):
         models = []
