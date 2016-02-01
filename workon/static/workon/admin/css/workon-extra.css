@@ -1,3 +1,15 @@
+#site_name, #site-name, #branding,
+#site_name a, #site-name a, #branding a {
+    margin-right: 25px;
+    color: white;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: transparent;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid transparent;
+}
 
 .box.well {
     background: white;
@@ -6,7 +18,7 @@
 .breadcrumb {
     background: white;
     border: 1px solid #e3e3e3;
-    margin-bottom: 0px;
+    margin-bottom: 20px;
 }
 
 @keyframes placeholder {
@@ -15,10 +27,15 @@
     to { top:-8px; left:-8px; }
 }
 
+.navbar-suit-top .form-control {
+    position: relative;
+    top: -4px;
+}
 
 #google_analytics_users {
     color: white;
     padding: 10px 15px;
+
 }
 .box.well {
     overflow: hidden;

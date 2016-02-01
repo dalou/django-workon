@@ -126,3 +126,29 @@ def workon_admin_bc(*args):
 @register.assignment_tag
 def workon_admin_bc_value(*args):
     return utils.value_by_version(args)
+
+
+
+@register.assignment_tag
+def workon_admin_theme(*args):
+    theme = config.get_config('theme')
+
+    light_color1 = "#6F86B3"
+    light_color2 = "#657AA2"
+    dark_color1 = "#5A6D92"
+    dark_color2 = "#374358"
+
+    if theme == "red":
+
+        light_color1 = "#B36F6F"
+        light_color2 = "#A26565"
+        dark_color1 = "#925A5A"
+        dark_color2 = "#583737"
+
+    return {
+        'name': theme,
+        'light_color1': light_color1,
+        'light_color2': light_color2,
+        "dark_color1": dark_color1,
+        "dark_color2": dark_color2,
+    }
