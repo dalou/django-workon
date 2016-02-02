@@ -8,6 +8,8 @@ from django.utils.safestring import mark_safe
 from ..modules.admin import config
 from ..modules.admin import utils
 
+from colour import Color
+
 register = template.Library()
 
 
@@ -131,12 +133,11 @@ def workon_admin_bc_value(*args):
 
 @register.assignment_tag
 def workon_admin_theme(*args):
-    print args
+
     request = args[0]
     theme = config.get_config('theme')
-    theme = request.GET.get('theme', theme)
-    theme = request.COOKIES.get('theme', theme)
-
+    theme = request.GET.get('workon_admin_theme', theme)
+    theme = request.COOKIES.get('workon_admin_theme', theme)
 
     light_color1 = "#6F86B3"
     light_color2 = "#657AA2"
@@ -149,6 +150,30 @@ def workon_admin_theme(*args):
         light_color2 = "#A26565"
         dark_color1 = "#925A5A"
         dark_color2 = "#583737"
+
+    # elif theme == "yellow":
+
+    #     color1 = "#C3B64E"
+    #     light_color1 = Color("#C3B64E")
+    #     light_color2 = Color("#C3B64E", luminance=0.4)
+    #     dark_color1 = Color("#C3B64E", luminance=0.35)
+    #     dark_color2 = Color("#C3B64E", luminance=0.2)
+
+    elif theme.startswith('#'):
+        color = Color(theme)
+        print color.luminance
+        # if color.luminance <= 0.5:
+        light_color1 = Color(theme)
+        light_color2 = Color(theme, luminance=0.4)
+        dark_color1 = Color(theme, luminance=0.35)
+        dark_color2 = Color(theme, luminance=0.2)
+        # else:
+        #     dark_color1 = Color(theme)
+        #     dark_color2 = Color(theme, luminance=0.4)
+        #     light_color1 = Color(theme, luminance=0.35)
+        #     light_color2 = Color(theme, luminance=0.2)
+
+
 
     return {
         'name': theme,

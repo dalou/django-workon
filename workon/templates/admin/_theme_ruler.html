@@ -29,12 +29,15 @@
 
     .table-primary>thead>tr>th,
     .suit-menu-horizontal .nav-suit-menu,
-    .suit-menu-horizontal .nav-suit-menu .nav li.separator,
     .navbar-inverse .navbar-nav > .open > a,
     .navbar-inverse .navbar-nav > .open > a:hover,
     .navbar-inverse .navbar-nav > .open > a:focus {
         background-color: {{ theme.light_color2 }};
     }
+
+  /*  .suit-menu-horizontal .nav-suit-menu .nav li.separator {
+        background-color: {{ theme.dark_color1 }};
+    }*/
 
     .suit-menu-horizontal .nav-suit-menu .nav,
     .suit-menu-horizontal .nav-suit-menu>li:hover>a,
@@ -51,8 +54,13 @@
     .suit-menu-horizontal .nav-suit-menu>li a {
         color: #FAFBFB;
     }
-    .suit-menu-horizontal .nav-suit-menu>li {
+    .suit-menu-horizontal .nav-suit-menu>li{
         border-color: {{ theme.dark_color1 }} !important;
+    }
+
+    .suit-menu-horizontal .nav-suit-menu .nav li {
+        border-color: {{ theme.dark_color2 }} !important;
+
     }
     .navbar-suit-top .form-control {
         background-color: #FFFFFF; position:relative; top:-4px;

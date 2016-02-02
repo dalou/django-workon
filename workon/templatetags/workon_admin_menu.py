@@ -279,8 +279,6 @@ class Menu(object):
         models_def = app.get('models', [])
         for model_def in models_def:
 
-            print model_def
-
             model = self.make_model(model_def, app['name'])
             if model:
                 models.append(model)

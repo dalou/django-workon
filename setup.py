@@ -78,7 +78,7 @@ setup(
         "python-gmaps==0.1.1",
         "google-api-python-client==1.4.2",
 
-
+        "colour==0.1.2",
         "bleach==1.4.2",
         "django-classy-tags==0.4",
 

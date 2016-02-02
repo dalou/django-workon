@@ -68,6 +68,7 @@
     color:white;
     text-align: center;
     font-style: italic;
+    opacity: 0.5;
 }
 
 /***** LOADINGS *****/
@@ -110,3 +111,21 @@ body.loading
         z-index: 5001;
     // .spinner
     //     fx();*/
+
+
+/* THEME ROLLER */
+
+.navbar-nav .sp-replacer {
+    margin-top: 15px;
+    border-radius: 5px;
+    padding:1px;
+    border: 0px;
+}
+.navbar-nav .sp-dd {
+    display:none;
+}
+.navbar-nav .sp-preview {
+    border: 0px;
+    width: 15px; height: 15px;
+    margin:0px;
+}
