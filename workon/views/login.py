@@ -44,6 +44,7 @@ class LoginForm(forms.Form):
 
 class Login(generic.FormView):
     template_name = "user/login.html"
+    template_name_ajax = "user/_login.html"
     form_class = LoginForm
     form_kwargs = {}
     redirect_field_name = "next"
