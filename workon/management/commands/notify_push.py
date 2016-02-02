@@ -7,6 +7,8 @@ from django.core.management.base import BaseCommand
 from workon.utils import send_html_email
 import subprocess
 
+from ...utils import get_project_title
+
 logger = logging.getLogger(__name__)
 
 """
@@ -26,6 +28,7 @@ class Command(BaseCommand):
 
         receivers = getattr(settings, 'WORKON_PUSH_NOTIFY_RECEIVERS', [])
         sender = getattr(settings, 'WORKON_PUSH_NOTIFY_SENDER', settings.DEFAULT_FROM_EMAIL)
+        subject = getattr(settings, 'WORKON_PUSH_NOTIFY_SUBJECT', u"[%s] Mise à niveau" % get_project_title())
 
         if receivers:
 
@@ -40,7 +43,7 @@ class Command(BaseCommand):
 
 
             send_html_email(
-                subject=u"[Lechti.fr] Mise à niveau",
+                subject=subject,
                 sender=sender,
                 receivers=receivers,
                 html=html

@@ -23,8 +23,13 @@
                         {% if app.models and not app.is_active %}
                             <ul class="nav nav-pills nav-stacked">
                                 {% for model in app.models %}
-                                    <li{{ model.is_active|yesno:' class=active,' }}>
-                                        <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label }}</a></li>
+
+                                    {% if model.separator %}
+                                        <li class="separator">{{ model.label }}</li>
+                                    {% else %}
+                                        <li{{ model.is_active|yesno:' class=active,' }}>
+                                            <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label }}</a></li>
+                                        {% endif %}
                                 {% endfor %}
                             </ul>
                         {% endif %}

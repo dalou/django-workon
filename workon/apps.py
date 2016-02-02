@@ -9,6 +9,8 @@ from django.db import models
 from django import forms
 from .modules.admin import widgets
 
+from .utils import get_project_title
+
 class WorkonConfig(AppConfig):
 
 
@@ -22,11 +24,7 @@ class WorkonConfig(AppConfig):
     django_version = get_version()
     list_per_page = 18
     list_filters_position = 'center'
-    admin_name = 'Admin'
-    for attr in ['PROJECT_NAME', 'APP_NAME', 'BASE_DIR', 'SITE_NAME', 'SITE_ROOT']:
-        if hasattr(settings, attr):
-            admin_name = '%s Admin' % getattr(settings, attr).capitalize()
-            break
+    admin_name = '%s Admin' % get_project_title()
 
     header_date_format = 'l, jS F Y'
     header_time_format = 'H:i'
