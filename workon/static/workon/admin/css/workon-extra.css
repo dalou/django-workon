@@ -113,6 +113,24 @@ body.loading
     //     fx();*/
 
 
+.input-group ul {
+    list-style: none;
+    border: 1px solid gray;
+    margin:0px;
+    padding: 10px 15px;
+}
+.input-group ul li input[type="radio"],
+.input-group ul li input[type="checkbox"] {
+    width: auto;
+    height: 17px;
+    position: relative;
+    top: -5px;
+    left: -5px;
+}
+
+
+
+
 /* THEME ROLLER */
 
 .navbar-nav .sp-replacer {
@@ -135,4 +153,11 @@ body.loading
 
 .navbar-nav .sp-preview-inner {
     display: none;
+}
+
+
+
+
+.change-list .container-fluid>.row>div>.breadcrumb {
+    display: block;
 }
