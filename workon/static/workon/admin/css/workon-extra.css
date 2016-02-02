@@ -62,6 +62,13 @@
     white-space: nowrap;
 }
 
+.suit-menu-horizontal .nav-suit-menu .nav li.separator {
+    white-space: nowrap;
+    padding: 10px 8px;
+    color:white;
+    text-align: center;
+    font-style: italic;
+}
 
 /***** LOADINGS *****/
 @keyframes spin {

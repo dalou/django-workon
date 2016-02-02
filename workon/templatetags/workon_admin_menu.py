@@ -293,7 +293,7 @@ class Menu(object):
         elif isinstance(model_def, string_types):
             model = self.make_model_from_native(model_def, app_name)
             if not model:
-                return { 'divider': True, 'label': model_def, 'url': None }
+                return { 'separator': True, 'label': model_def, 'url': None }
         else:
             raise TypeError('MENU list item must be string or dict. Got %s'
                             % repr(model_def))
