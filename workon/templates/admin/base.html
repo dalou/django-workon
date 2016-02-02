@@ -50,15 +50,19 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
 
+    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+
     <script type="text/javascript" src="{% static 'workon/vendors/jquery-cookie/jquery.cookie.js' %}"></script>
-    <script type="text/javascript" src="{% static 'workon/vendors/highcharts/highcharts.js' %}"></script>
-    <script type="text/javascript" src="{% static 'workon/vendors/highcharts/modules/exporting.js' %}"></script>
+    <!--<script type="text/javascript" src="{% static 'workon/vendors/highcharts/highcharts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'workon/vendors/highcharts/modules/exporting.js' %}"></script>-->
     <script type="text/javascript" src="{% static 'workon/packages/loading.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/packages/select.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/packages/tooltip.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/packages/slick.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/packages/loading.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/packages/modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'workon/packages/highchart.js' %}"></script>
     <script type="text/javascript">var CargoAdmin = {$: $.noConflict()};
     if (!$) $ = CargoAdmin.$; </script>
     {% block extrahead %}{% endblock %}
@@ -99,6 +103,30 @@
                 <div class="navbar-collapse collapse">
                     {% block nav-global %}{% endblock %}
                     <ul class="nav navbar-nav navbar-right">
+                         <li data-tooltip="Thème [BETA]"><input id="workon_admin_theme_roller" /></li>
+
+                        <script>
+                            $("#workon_admin_theme_roller").spectrum({
+                                showPaletteOnly: true,
+                                showPalette:true,
+                                color: '{% workon_admin_theme_hex request %}',
+                                palette: [
+                                     ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+        ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+        ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+        ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+        ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+        ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+        ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+        ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+                                ],
+                                change: function(color) {
+                                    color = color.toHexString()
+                                    document.location.href = "{% url 'admin:index' %}?workon_admin_theme="+encodeURIComponent(color); // #ff0000
+                                    $.cookie('workon_admin_theme', color)
+                                }
+                            });
+                        </script>
                         {% if user.is_active and user.is_staff %}
                             <li class="dropdown" id="user-tools">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -124,36 +152,19 @@
                             </li>
                         {% endif %}
 
-                        <li><input id="workon_admin_theme_roller" /></li>
 
-                        <script>
-                            $("#workon_admin_theme_roller").spectrum({
-                                showPaletteOnly: true,
-                                showPalette:true,
-                                color: '{{ "theme"|workon_admin_conf }}',
-                                palette: [
-                                     ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
-        ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
-        ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
-        ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
-        ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
-        ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
-        ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
-        ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
-                                ],
-                                change: function(color) {
-                                    document.location.href = "{% url 'admin:index' %}?workon_admin_theme="+encodeURIComponent(color.toHexString()); // #ff0000
-                                }
-                            });
-                        </script>
                         <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <div class="form-group has-feedback">
-                            <input type="text" class="form-control" id="inputWarning2" placeholder="Search...">
-                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                        </div>
-                    </form>
+                    {% with 'search_url'|workon_admin_conf as search_url %}
+                        {% if search_url %}
+                        <form class="navbar-form navbar-right" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
+                            <div class="form-group has-feedback">
+                                <input type="text" class="form-control" name="q" placeholder="Recherche...">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </form>
+                        {% endif %}
+                    {% endwith %}
                     {% google_analytics_admin %}
                 </div>
             </div>

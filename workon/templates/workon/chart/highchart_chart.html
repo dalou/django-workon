@@ -1,0 +1,10 @@
+{% load workon %}
+
+{% if chart %}
+<div class="workon-highchart-chart">
+    {% if label %}
+        <h2 class="workon-highchart-chart-label">{{ label }}</h2>
+    {% endif %}
+    <div class="workon-highchart-chart-chart" data-highchart='{{ chart|jsonify }}'></div>
+</div>
+{% endif %}

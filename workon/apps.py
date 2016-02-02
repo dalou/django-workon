@@ -39,7 +39,7 @@ class WorkonConfig(AppConfig):
     theme = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('THEME', 'dark')
 
     # menu
-    search_url = '/admin/auth/user/'
+    search_url = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('SEARCH_URL', '/admin/auth/user/')
     menu_open_first_child = True
 
 

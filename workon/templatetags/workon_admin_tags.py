@@ -130,14 +130,23 @@ def workon_admin_bc_value(*args):
     return utils.value_by_version(args)
 
 
-
-@register.assignment_tag
-def workon_admin_theme(*args):
-
-    request = args[0]
+@register.simple_tag
+def workon_admin_theme_hex(request):
     theme = config.get_config('theme')
     theme = request.GET.get('workon_admin_theme', theme)
     theme = request.COOKIES.get('workon_admin_theme', theme)
+    theme = theme.replace('%23', '#')
+    return theme
+
+
+@register.assignment_tag
+def workon_admin_theme(*args):
+    request = args[0]
+    theme = config.get_config('theme')
+    theme = request.GET.get('workon_admin_theme', theme)
+    print request.COOKIES
+    theme = request.COOKIES.get('workon_admin_theme', theme)
+    theme = theme.replace('%23', '#')
 
     light_color1 = "#6F86B3"
     light_color2 = "#657AA2"

@@ -5,7 +5,9 @@ from .url import *
 from .text import *
 from .file import *
 from .geo import *
+from .color import *
 from .tree import *
+from ..modules.chart.utils import register_chart
 
 
 from django.conf import settings

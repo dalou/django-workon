@@ -116,16 +116,23 @@ body.loading
 /* THEME ROLLER */
 
 .navbar-nav .sp-replacer {
-    margin-top: 15px;
+    margin-top: 17px;
     border-radius: 5px;
     padding:1px;
     border: 0px;
+    background: transparent;
 }
 .navbar-nav .sp-dd {
     display:none;
 }
 .navbar-nav .sp-preview {
-    border: 0px;
     width: 15px; height: 15px;
     margin:0px;
+    background: url(../img/palette.png) center center;
+    background-size: cover;
+    border: 0px;
+}
+
+.navbar-nav .sp-preview-inner {
+    display: none;
 }
