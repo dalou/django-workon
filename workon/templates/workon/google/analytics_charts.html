@@ -42,8 +42,17 @@
             chart.chart.option.width = '100%';
             chart.chart.option.chartArea = {'left':0,'top':0,'width':"100%",'height':"100%"};
             var dataChart{{ forloop.counter }} = new gapi.analytics.googleCharts.DataChart(chart)
-            dataChart{{ forloop.counter }}.execute();
-            $('#chart-{{ forloop.counter }}-container').removeLoading();
+            dataChart{{ forloop.counter }}.on('error', function(response)
+            {
+                if(response.error) {
+
+                    $('#chart-{{ forloop.counter }}-container').html(
+                        '<div class="alert alert-danger">'+response.error.message+'</div>'
+                    );
+                }
+                $('#chart-{{ forloop.counter }}-container').removeLoading();
+
+            }).execute()
             var dataChart{{ forloop.counter }}TO = null;
             // window.addEventListener('resize', function()
             // {
