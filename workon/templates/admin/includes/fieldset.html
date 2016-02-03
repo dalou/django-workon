@@ -18,6 +18,10 @@
             <div class="form-group{% if line.errors %} {{ is_single|yesno:'has-error,first-error' }} has-errors{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %} {{ field.field.field.widget.attrs.rowclass }}{% endfor %}{{ is_single|yesno:',multi-field-row' }}">
           {% endif %}
 
+          {% if not is_single or forloop.counter0 == 0 %}<div class="row">{% endif %}
+
+            {% if not is_single %}<div class="col-md-6">{% endif %}
+
             <label class="control-label {{ field.field|workon_admin_form_label_class:fieldset }}">{{ field.label_tag }}</label>
 
             <div class="{{ field|workon_admin_form_field_class:fieldset }}">
@@ -38,6 +42,12 @@
 
             </div>
 
+
+          {% if not is_single %}{% cycle '' '</div><div class="row">' %}{% endif %}
+
+
+            {% if not is_single %}</div>{% endif %}
+
             {% if is_single or forloop.last %}
               </div>
             {% endif %}
@@ -45,6 +55,7 @@
           {% if not is_single %}
             <div class="clearfix visible-xs visible-sm visible-md"></div>
           {% endif %}
+
 
         {% endfor %}
       {% endwith %}

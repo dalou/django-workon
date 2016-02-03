@@ -21,7 +21,6 @@ $(document).ready(function(select)
             var classname = $(self).attr('class');
             classname = classname ? classname.replace(new RegExp('form-control', 'g'), '').replace('select2-hidden-accessible', '') : '';
 
-            console.log(classname.replace('form-control', ''))
             $(self).select2($.extend(
             {
                 //tags: $(this).attr('id'),

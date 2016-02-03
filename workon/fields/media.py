@@ -73,6 +73,7 @@ class MediaFieldImage(FieldFile):
 
 # Can be File
 class MediaFieldEmbed(object):
+    type = 'embed'
     is_embed = True
     is_image = False
     _committed = False
