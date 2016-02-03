@@ -201,27 +201,38 @@ $(document).ready(function()
             {
                 $('body').addLoading();
             }
-            $.post(self.attr('action'), data, function(data)
+            $.post(self.attr('action'), data, function(data, $data)
             {
-                if($(data).find('[data-form-modal]').length)
+                try
                 {
-                    var form = $(data).find('[data-form-modal]')
-                    self.replaceWith(form);
-                    window.workon_packages_form_apply_packages_on_insert(form);
-                    self.trigger('workon.form_modal_failed', [data]);
-                    self.trigger('workon.form_ajax_failed', [data]);
-                    if(window.workon_packages_loading == true)
+                    $data = $(data);
+                    if($data.find('[data-form-modal]').length)
                     {
-                        $('body').removeLoading();
+                        var form = $data.find('[data-form-modal]')
+                        self.replaceWith(form);
+                        window.workon_packages_form_apply_packages_on_insert(form);
+                        self.trigger('workon.form_modal_failed', [data, $data]);
+                        self.trigger('workon.form_ajax_failed', [data, $data ]);
+                        if(window.workon_packages_loading == true)
+                        {
+                            $('body').removeLoading();
+                        }
+                    }
+                    else
+                    {
+                        window.workon_packages_form_auto_fill_data(data);
+                        $.magnificPopup.close();
+                        self.trigger('workon.form_modal_success', [data]);
+                        self.trigger('workon.form_ajax_success', [data]);
                     }
                 }
-                else
+                catch(e)
                 {
-                    window.workon_packages_form_auto_fill_data(data);
-                    $.magnificPopup.close();
+                    console.log(e)
                     self.trigger('workon.form_modal_success', [data]);
                     self.trigger('workon.form_ajax_success', [data]);
                 }
+
                 self.trigger('workon.form_modal_done', [data]);
                 self.trigger('workon.form_ajax_done', [data]);
 

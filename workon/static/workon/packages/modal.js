@@ -123,7 +123,14 @@ $(document).ready(function(apply_packages_on_insert)
                     content = $(this.content);
                     trigger.trigger('modal.loaded', [this.content]);
                     trigger.trigger('workon.modal_loaded', [this.content]);
-                    apply_packages_on_insert(this.content)
+                    if(content.is('script'))
+                    {
+                        $.magnificPopup.close();
+                    }
+                    else
+                    {
+                        apply_packages_on_insert(this.content)
+                    }
                 }
             },
             mainClass: 'my-mfp-slide-bottom',
