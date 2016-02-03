@@ -16,9 +16,9 @@
         {% for field in line %}
           {% if is_single or forloop.counter0 == 0 %}
             <div class="form-group{% if line.errors %} {{ is_single|yesno:'has-error,first-error' }} has-errors{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %} {{ field.field.field.widget.attrs.rowclass }}{% endfor %}{{ is_single|yesno:',multi-field-row' }}">
+            {% if not is_single %}<div class="row collapsed-fields">{% endif %}
           {% endif %}
 
-          {% if not is_single or forloop.counter0 == 0 %}<div class="row">{% endif %}
 
             {% if not is_single %}<div class="col-md-6">{% endif %}
 
@@ -43,16 +43,15 @@
             </div>
 
 
-          {% if not is_single %}{% cycle '' '</div><div class="row">' %}{% endif %}
-
 
             {% if not is_single %}</div>{% endif %}
 
             {% if is_single or forloop.last %}
+              {% if not is_single %}</div>{% endif %}
               </div>
             {% endif %}
 
-          {% if not is_single %}
+          {% if  is_single %}
             <div class="clearfix visible-xs visible-sm visible-md"></div>
           {% endif %}
 

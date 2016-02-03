@@ -169,3 +169,20 @@ body.loading
     border: 1px solid #CCC !important;
 }
 
+.form-group .collapsed-fields > div .col-xs-12 {
+    width: 50%;
+
+
+}
+
+.form-horizontal .fieldset-body .form-group:first-child .control-label:before {
+    /*display:none;*/
+}
+
+.form-horizontal .fieldset-body .form-group:first-child .control-label {
+    /*overflow:hidden;*/
+
+}
+ul.as-selections li.as-original input {
+    padding: 12px 8px;
+}
