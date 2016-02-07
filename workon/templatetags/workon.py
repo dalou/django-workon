@@ -90,7 +90,6 @@ class UseMetaNode(template.Node):
     def render(self, context):
         for (arg, fe) in [(self.args[i], self.filter_expressions[i]) for i in range(len(self.args))]:
             context[arg] = fe.resolve(context)
-        print self.nodelist.render(context)
         return self.nodelist.render(context).strip()
 
 class NoopNode(template.Node):
