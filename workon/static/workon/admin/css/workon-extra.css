@@ -119,6 +119,9 @@ body.loading
     margin:0px;
     padding: 10px 15px;
 }
+.input-group ul ul {
+    border: 0px;
+}
 .input-group ul li input[type="radio"],
 .input-group ul li input[type="checkbox"] {
     width: auto;
@@ -178,8 +181,12 @@ body.loading
 
 }
 
+.as-results .as-list {
+    position: static;
+}
+
 .form-horizontal .fieldset-body .form-group:first-child .control-label:before {
-    /*display:none;*/
+    /*display:none;
 }
 
 .form-horizontal .fieldset-body .form-group:first-child .control-label {

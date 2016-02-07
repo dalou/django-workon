@@ -90,7 +90,8 @@ class UseMetaNode(template.Node):
     def render(self, context):
         for (arg, fe) in [(self.args[i], self.filter_expressions[i]) for i in range(len(self.args))]:
             context[arg] = fe.resolve(context)
-        return self.nodelist.render(context)
+        print self.nodelist.render(context)
+        return self.nodelist.render(context).strip()
 
 class NoopNode(template.Node):
     def render(self, context):
@@ -108,6 +109,7 @@ def do_usemeta(parser, token, truncate=None):
     except (AttributeError, KeyError):
         return NoopNode()
         raise template.TemplateSyntaxError, "Macro '%s' is not defined" % meta_name
+
 
     if (len(values) != len(meta.args)):
         raise template.TemplateSyntaxError, "Macro '%s' was declared with %d parameters and used with %d parameter" % (
