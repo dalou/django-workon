@@ -1,0 +1,64 @@
+{% extends "admin/change_form.html" %}
+
+{% load admin_static i18n %}
+
+
+{% block extrahead %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{% block object-tools %}
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+    <div class="hidden">
+    {% for selection in selections %}
+        <div id="selection_save_existing_{{ selection.id }}" >
+            <div class="name">{{ selection.name }}</div>
+            <div class="description">{{ selection.description }}</div>
+        </div>
+    {% endfor %}
+    </div>
+
+
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" class="form-horizontal" novalidate>
+        {% csrf_token %}{% block form_top %}{% endblock %}
+        <div class="tab-content tab-content-main">
+
+            {% include "admin/form_as_fieldset.html" with title="Sauvegarder la sélection" %}
+
+            <input type="submit" value="{% trans 'Save' %}"
+            class="default btn btn-primary"
+            name="_selection_save"/>
+
+        </div>
+
+        <script>
+        $(document).ready(function() {
+            var $row = $('<div class="row"></div>')
+            var $col1 = $('<div class="col-sm-6"></div>').appendTo($row)
+            var $col2 = $('<div class="col-sm-6"></div>').appendTo($row)
+            $('#form-group-name').parent().prepend($row);
+
+            $col1.append($('#form-group-name')).append($('#form-group-description'))
+            $col2.append($('#form-group-existing_selection'));
+
+            $('#id_existing_selection').on('change', function()
+            {
+                var $existing = $('#selection_save_existing_'+$(this).val());
+                console.log($existing)
+                $('#id_name').val($existing.find('.name').text())
+                $('#id_description').html($existing.find('.description').text())
+            });
+        })
+        </script>
+
+    </form>
+
+</div>
+{% endblock %}

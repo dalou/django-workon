@@ -20,7 +20,10 @@
 </div>
 <script type="text/javascript">
 
-    $('.workon-google-analytics fieldset .chart').addLoading();
+    if(window.workon_packages_loading)
+    {
+        $('.workon-google-analytics fieldset .chart').addLoading();
+    }
 
     gapi.analytics.ready(function()
     {
@@ -50,7 +53,17 @@
                         '<div class="alert alert-danger">'+response.error.message+'</div>'
                     );
                 }
-                $('#chart-{{ forloop.counter }}-container').removeLoading();
+                if(window.workon_packages_loading)
+                {
+                    $('#chart-{{ forloop.counter }}-container').removeLoading();
+                }
+
+            }).on('success', function(response)
+            {
+                if(window.workon_packages_loading)
+                {
+                    $('#chart-{{ forloop.counter }}-container').removeLoading();
+                }
 
             }).execute()
             var dataChart{{ forloop.counter }}TO = null;

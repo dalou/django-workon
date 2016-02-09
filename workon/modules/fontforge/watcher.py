@@ -18,9 +18,10 @@ import subprocess
 
 try:
     FONTFORGE_EXISTS = True
-    from libs import original_fontforge as fontforge
-except:
+    import fontforge as original_fontforge
+except ImportError:
     FONTFORGE_EXISTS = False
+
 
 DEFAULT_FONT_FORMATS = ('ttf', 'otf', 'eot', 'svg', 'woff')
 
@@ -74,7 +75,8 @@ class Watcher(object):
     def process_settings(self):
 
         reload(conf)
-        reload(fontforge)
+        if FONTFORGE_EXISTS:
+            reload(fontforge)
         self.configs = []
         settings = conf.settings
 

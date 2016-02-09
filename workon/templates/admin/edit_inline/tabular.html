@@ -1,6 +1,13 @@
 {% load i18n admin_static admin_modify %}{% load cycle from future %}
 {% load workon_admin_forms %}
-<div class="inline-group {{ inline_admin_formset.opts.workon_admin_classes }}" id="{{ inline_admin_formset.formset.prefix }}-group">
+<div class="inline-group
+  {% if inline_admin_formset.opts.workon_classes %}
+    {{inline_admin_formset.opts.workon_classes}}
+  {% elif inline_admin_formset.opts.classes %}
+    {{ inline_admin_formset.opts.classes }}
+  {% endif %}"
+
+  id="{{ inline_admin_formset.formset.prefix }}-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
 <fieldset class="module">

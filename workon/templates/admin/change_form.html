@@ -29,7 +29,7 @@
         $(function () {
           $('#workon_admin_form_tabs').workon_admin_form_tabs();
         });
-      }(CargoAdmin.$))
+      }(WorkonAdmin.$))
     </script>
   {% endif %}
 
@@ -92,7 +92,7 @@
             {% block workon_admin_form_tabs %}
       {% if adminform.model_admin|workon_admin_form_tabs %}
 
-{#        <nav id="workon_admin_form_tabs" class="navbar navbar-default panel navbar-suit-tabs" data-tab-prefix="suit-tab">#}
+{#        <nav id="workon_admin_form_tabs" class="navbar navbar-default panel navbar-workon-tabs" data-tab-prefix="workon-tab">#}
 {#            <div class="container-fluid">#}
 {#                <ul class="nav navbar-nav">#}
 {#                  {% for tab in adminform.model_admin.workon_admin_form_tabs %}#}
@@ -101,7 +101,7 @@
 {#            </div>#}
 {#        </nav>#}
 
-        <ul id="workon_admin_form_tabs" class="nav nav-tabs nav-tabs-suit" data-tab-prefix="suit-tab">
+        <ul id="workon_admin_form_tabs" class="nav nav-tabs nav-tabs-workon" data-tab-prefix="workon-tab">
           {% for tab in adminform.model_admin|workon_admin_form_tabs %}
             <li><a href="#{{ tab.0 }}">{{ tab.1 }}</a></li>{% endfor %}
         </ul>

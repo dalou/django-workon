@@ -25,6 +25,7 @@
 
 
     <script type="text/javascript">
+        window.__PREFIX_URL__ = "{{ PREFIX_URL }}";
         window.__STATIC_URL__ = "{% filter escapejs %}{% static "" %}{% endfilter %}";
         window.__ADMIN_STATIC_URL__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";
         window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";
@@ -64,8 +65,8 @@
     <script type="text/javascript" src="{% static 'workon/packages/loading.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/packages/modal.js' %}"></script>
     <script type="text/javascript" src="{% static 'workon/packages/highchart.js' %}"></script>
-    <script type="text/javascript">var CargoAdmin = {$: $.noConflict()};
-    if (!$) $ = CargoAdmin.$; </script>
+    <script type="text/javascript">var WorkonAdmin = {$: $.noConflict()};
+    if (!$) $ = WorkonAdmin.$; </script>
     {% block extrahead %}{% endblock %}
 
 
@@ -81,12 +82,12 @@
 <![endif]-->
 </head>
 {% load i18n %}
-<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %} suit-menu-{{ 'menu_position'|workon_admin_conf }}{{ 'show_required_asterisk'|workon_admin_conf|yesno:' suit-show-req-asterisk,' }} {{ request|workon_admin_platform }}">
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %} workon-menu-{{ 'menu_position'|workon_admin_conf }}{{ 'show_required_asterisk'|workon_admin_conf|yesno:' workon-show-req-asterisk,' }} {{ request|workon_admin_platform }}">
 
 
 {% block header %}
     {% if not is_popup %}
-        <div class="navbar navbar-inverse navbar-suit-top" role="navigation">
+        <div class="navbar navbar-inverse navbar-workon-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -224,7 +225,7 @@
                             <code>TEMPLATE_CONTEXT_PROCESSORS</code>
 
                             <p>See Django Suit
-                                <a href="http://django-suit.readthedocs.org/en/develop/#installation" target="_blank">Installation notes</a>
+                                <a href="http://django-workon.readthedocs.org/en/develop/#installation" target="_blank">Installation notes</a>
                             </p>
                         </div>
                     {% endif %}

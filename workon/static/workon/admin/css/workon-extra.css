@@ -19,6 +19,7 @@
     background: white;
     border: 1px solid #e3e3e3;
     margin-bottom: 20px;
+    border-radius: 0px;
 }
 
 @keyframes placeholder {
@@ -27,7 +28,7 @@
     to { top:-8px; left:-8px; }
 }
 
-.navbar-suit-top .form-control {
+.navbar-workon-top .form-control {
     position: relative;
     top: -4px;
 }
@@ -58,11 +59,11 @@
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.27);
 }
 
-.suit-menu-horizontal .nav-suit-menu .nav a {
+.workon-menu-horizontal .nav-workon-menu .nav a {
     white-space: nowrap;
 }
 
-.suit-menu-horizontal .nav-suit-menu .nav li.separator {
+.workon-menu-horizontal .nav-workon-menu .nav li.separator {
     white-space: nowrap;
     padding: 10px 8px;
     color:white;
@@ -113,23 +114,39 @@ body.loading
     //     fx();*/
 
 
+.modal ul,
 .input-group ul {
     list-style: none;
     border: 1px solid gray;
     margin:0px;
     padding: 10px 15px;
 }
+.input-group ul:after {
+    content: " ";
+    clear:both;
+    display:block;
+}
+.modal ul ul,
 .input-group ul ul {
     border: 0px;
 }
+.modal input[type="checkbox"],
+.modal input[type="radio"],
 .input-group ul li input[type="radio"],
 .input-group ul li input[type="checkbox"] {
+    display: inline-block;
     width: auto;
     height: 17px;
     position: relative;
     top: -5px;
     left: -5px;
 }
+.form-horizontal .fieldset-body .form-group select[multiple] {
+    height: auto;
+    min-height: 300px;
+}
+
+
 
 
 
@@ -186,13 +203,53 @@ body.loading
 }
 
 .form-horizontal .fieldset-body .form-group:first-child .control-label:before {
-    /*display:none;
+    display:none;
 }
 
-.form-horizontal .fieldset-body .form-group:first-child .control-label {
-    /*overflow:hidden;*/
-
-}
 ul.as-selections li.as-original input {
     padding: 12px 8px;
+}
+
+
+
+
+
+
+.nav-workon-sub-menu .separator {
+    display: block;
+    clear:both;
+    padding:13px 0px 0px 0px;
+    font-style: italic;
+    opacity: 0.5;
+}
+
+.form-horizontal .fieldset-body .form-group {
+    background: white;
+}
+
+
+
+.nav-tabs {
+    margin: 0px 0px 0 0px;
+}
+.nav-tabs li {
+    margin: 0px 4px -1px 0px;
+}
+.nav-tabs li a {
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active a:focus {
+    color: #fff;
+    text-shadow: none;
+    border-bottom-color: transparent;
+}
+.tab-content {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 3px solid;
+    border-radius: 0px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }

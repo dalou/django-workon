@@ -2,7 +2,7 @@
  * List sortables
  */
 (function ($) {
-    $.fn.suit_list_sortable = function () {
+    $.fn.workon_list_sortable = function () {
         var $inputs = $(this);
         if (!$inputs.length)
             return;
@@ -80,7 +80,7 @@
             var $inline_sortable = $('<div class="inline-sortable"/>'),
                 icon = '<span class="glyphicon glyphicon-arrow-up icon-alpha5"></span>',
                 $sortable = $(this),
-                is_stacked = $sortable.hasClass('suit-sortable-stacked');
+                is_stacked = $sortable.hasClass('workon-sortable-stacked');
 
             var $up_link = create_link(icon, 'up', on_arrow_click, is_stacked),
                 $down_link = create_link(icon.replace('-up', '-down'), 'down', on_arrow_click, is_stacked);
@@ -117,7 +117,7 @@
                         return false;
                     }
                 }
-            } else if ($(input).hasClass('suit-sortable')) {
+            } else if ($(input).hasClass('workon-sortable')) {
                 if (input.defaultValue == input.value && input.value == 0) {
                     return false;
                 }
@@ -157,7 +157,7 @@
 
 
     $(function () {
-        $('.suit-sortable').suit_list_sortable();
+        $('.workon-sortable').workon_list_sortable();
     });
 
 }(Suit.$));

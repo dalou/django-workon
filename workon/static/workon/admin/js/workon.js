@@ -1,7 +1,7 @@
 (function ($) {
 
     // Register callbacks to perform after inline has been added
-    CargoAdmin.after_inline = function () {
+    WorkonAdmin.after_inline = function () {
         var functions = {};
         var register = function (fn_name, fn_callback) {
             functions[fn_name] = fn_callback;
@@ -20,7 +20,7 @@
     }();
 
 
-    CargoAdmin.date_picker = (function () {
+    WorkonAdmin.date_picker = (function () {
         var lang = document.documentElement.getAttribute('lang');
         var picker_lang_map = {
             'pt-br': 'pt-BR',
@@ -60,7 +60,7 @@
     })();
 
     // Backwards compatiblity
-    CargoAdmin.fterInline = CargoAdmin.after_inline;
+    WorkonAdmin.fterInline = WorkonAdmin.after_inline;
 
     /**
      * Fixed submit buttons.
@@ -244,12 +244,12 @@
         });
 
         // DatePicker
-        CargoAdmin.date_picker.update();
+        WorkonAdmin.date_picker.update();
 
 
-        var $tabs = $('#suit_form_tabs');
+        var $tabs = $('#workon_form_tabs');
         var $mainInfos = $('.main-infos');
-        var $topInfos = $('.suit-include');
+        var $topInfos = $('.workon-include');
 
         $tabs.before($mainInfos).css({ marginTop: 25 })
         $tabs.before($topInfos)
@@ -344,4 +344,4 @@
 
     });
 
-}(CargoAdmin.$));
+}(WorkonAdmin.$));

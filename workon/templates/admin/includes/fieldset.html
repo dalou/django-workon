@@ -1,5 +1,10 @@
 {% load workon_admin_forms workon_bootstrap3 %}
-<fieldset class="module aligned {{ fieldset.classes }}">
+<fieldset class="module aligned
+  {% if fieldset.workon_classes%}
+    {{ fieldset.workon_classes}}
+  {% elif fieldset.classes %}
+    {{ fieldset.classes }}
+  {% endif %}">
   {% if fieldset.name %}
     <div class="fieldset-heading clearfix">
       <h3 class="fieldset-title">
@@ -15,7 +20,7 @@
       {% with is_single=line.fields|length_is:'1' %}
         {% for field in line %}
           {% if is_single or forloop.counter0 == 0 %}
-            <div class="form-group{% if line.errors %} {{ is_single|yesno:'has-error,first-error' }} has-errors{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %} {{ field.field.field.widget.attrs.rowclass }}{% endfor %}{{ is_single|yesno:',multi-field-row' }}">
+            <div id="form-group-{{ field.name }}" class="form-group{% if line.errors %} {{ is_single|yesno:'has-error,first-error' }} has-errors{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %} {{ field.field.field.widget.attrs.rowclass }}{% endfor %}{{ is_single|yesno:',multi-field-row' }}">
             {% if not is_single %}<div class="row collapsed-fields">{% endif %}
           {% endif %}
 

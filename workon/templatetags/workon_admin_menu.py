@@ -3,7 +3,12 @@ from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.urlresolvers import reverse, resolve
-from django.db.models import get_app
+from django.apps import apps
+try:
+    from django.db.models import get_app
+except:
+    get_app = apps.get_app_config
+
 
 try:
     from django.utils.six import string_types

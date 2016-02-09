@@ -8,3 +8,4 @@ from .media import MediaInput, MediaField
 from .html import HtmlField, HtmlInput
 from .text import TextField, TextInput
 from .tree import TreeModelChoiceField, TreeSelect
+from .content_type import GenericContentTypeSelect

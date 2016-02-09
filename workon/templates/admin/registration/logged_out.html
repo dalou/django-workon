@@ -1,9 +1,9 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
-{% load url from suit_compat %}
+{% load url from workon_compat %}
 
 {% block breadcrumbs %}
-    <div class="breadcrumbs"><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></div>{% endblock %}
+    <div class="breadcrumbs breadcrumb"><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></div>{% endblock %}
 
 {% block content %}
     <h3 class="italic-title">{% trans "Thanks for spending some quality time with the Web site today." %}</h3>

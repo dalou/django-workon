@@ -1,10 +1,15 @@
 {% load i18n admin_static %}
-<div class="inline-group {{ inline_admin_formset.opts.workon_classes }}" id="{{ inline_admin_formset.formset.prefix }}-group">
+<div class="inline-group
+  {% if inline_admin_formset.opts.workon_classes %}
+    {{inline_admin_formset.opts.workon_classes}}
+  {% elif inline_admin_formset.opts.classes %}
+    {{ inline_admin_formset.opts.classes }}
+  {% endif %} {{ inline_admin_formset.opts.workon_classes }}" id="{{ inline_admin_formset.formset.prefix }}-group">
   <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
 {{ inline_admin_formset.formset.management_form }}
 {{ inline_admin_formset.formset.non_form_errors }}
 
-{% for inline_admin_form in inline_admin_formset %}<div class="panel panel-suit inline-related{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last %} empty-form last-related{% endif %}" id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
+{% for inline_admin_form in inline_admin_formset %}<div class="panel panel-workon inline-related{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last %} empty-form last-related{% endif %}" id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
   <div class="panel-heading">
     <div class="row">
       <div class="hidden-xs col-sm-2">

@@ -7,6 +7,7 @@ from .file import *
 from .geo import *
 from .color import *
 from .tree import *
+from .rss import *
 from ..modules.chart.utils import register_chart
 
 
