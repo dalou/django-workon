@@ -17,6 +17,7 @@ from django.forms.utils import flatatt
 from django.http import QueryDict
 from django.middleware import csrf
 from django.utils.safestring import mark_safe
+from django.core.serializers import serialize
 
 from classytags.core import Tag, Options
 from classytags.arguments import MultiKeywordArgument, MultiValueArgument
@@ -193,7 +194,22 @@ def url_active(request, pattern, classname='active'):
 
 @register.filter
 def jsonify(obj):
-    return json.dumps(obj)
+    if obj is None:
+        return "{}"
+    if isinstance(obj,dict):
+        return json.dumps(obj)
+    else:
+        obj = re.sub(r'([\w\d_]+)\:', '"\\1":', obj)
+        obj = re.sub(r'\'', '"', obj)
+        obj = re.sub(r'\/\/\s*[\w\s\d]+', '', obj)
+        obj = re.sub(r'Date\.UTC\(.+\)', '""', obj)
+
+        try:
+            return json.dumps(json.loads(obj))
+        except:
+            return json.loads(json.dumps(obj))
+
+
 
 
 
