@@ -13,6 +13,15 @@ from django.contrib.auth import get_user_model
 from .email import is_valid_email
 
 
+def authenticate_user(self, request, user, remember=True):
+    if not hasattr(user, 'backend'):
+        user.backend = 'apps.user.auth.AuthModelBackend'
+    if request.user.is_authenticated():
+        auth.logout(request)
+    auth.login(request, user)
+    request.session.set_expiry(60 * 60 * 24 * 365 * 10 if remember else 0)
+    return True
+
 def get_or_create_user(email, username=None, first_name=None, last_name=None,
                         is_active=False, expiration_date=None, set_names_from_email=False,
                         password=None, save=True):

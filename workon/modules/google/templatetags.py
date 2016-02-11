@@ -34,9 +34,9 @@ def get_credentials(view_id):
     if ggsettings and ggsettings.account_key_file:
         if not view_id:
             view_id = "%s" % int(ggsettings.analytics_default_view_id)
-        _key_data = json.load(ggsettings.account_key_file)
         # Construct a credentials objects from the key data and OAuth2 scope.
         try:
+            _key_data = json.load(ggsettings.account_key_file)
             _credentials = SignedJwtAssertionCredentials(
                 _key_data['client_email'],
                 _key_data['private_key'],

@@ -36,7 +36,7 @@ class Logout(generic.base.TemplateResponseMixin, generic.View):
 
     def get_redirect_url(self, fallback_url=None, **kwargs):
         if fallback_url is None:
-            fallback_url = "/%s" % settings.PREFIX_URL if hasattr(settings, 'PREFIX_URL') else ""
+            fallback_url = '/%s' % (settings.PREFIX_URL if hasattr(settings, 'PREFIX_URL') else "")
         kwargs.setdefault("redirect_field_name", self.get_redirect_field_name())
         return default_redirect(self.request, fallback_url, **kwargs)
 

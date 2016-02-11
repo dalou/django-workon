@@ -58,7 +58,7 @@ setup(
     ],
     # test_suite='runtests.runtests',
     install_requires=[
-        'django>=1.8.4,<=1.9.1',
+        'django>=1.8.4,<=1.9.2',
 
         # Fields / models
         "jsonfield==1.0.3",
@@ -83,6 +83,7 @@ setup(
         "django-classy-tags==0.4",
 
         # Crypto
+        "pycrypto==2.6.1",
         "cryptography==1.0.2",
         "oauth2client==1.5.2",
         "cffi==1.2.1",

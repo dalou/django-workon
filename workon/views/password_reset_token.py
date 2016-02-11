@@ -7,7 +7,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.utils.http import base36_to_int, int_to_base36
 from django.contrib import auth, messages
 from django.contrib.auth import get_user_model
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
 from ..models import *
 from ..utils.user import default_redirect

@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import auth, messages
 from django.contrib.auth import get_user_model
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import default_token_generator
 from ..models import *
 

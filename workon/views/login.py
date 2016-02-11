@@ -60,8 +60,9 @@ class Login(generic.FormView):
         else:
             return [self.template_name]
 
-    def get_context_data(self, **kwargs):
-        ctx = kwargs
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(Login, self).get_context_data(*args, **kwargs)
+        print ctx
         redirect_field_name = self.get_redirect_field_name()
         ctx.update({
             "redirect_field_name": redirect_field_name,
@@ -97,7 +98,7 @@ class Login(generic.FormView):
 
     def get_success_url(self, fallback_url=None, **kwargs):
         if fallback_url is None:
-            fallback_url = '/%s' % settings.PREFIX_URL if hasattr(settings, 'PREFIX_URL') else ""
+            fallback_url = '/%s' % (settings.PREFIX_URL if hasattr(settings, 'PREFIX_URL') else "")
         kwargs.setdefault("redirect_field_name", self.get_redirect_field_name())
         return default_redirect(self.request, fallback_url, **kwargs)
 

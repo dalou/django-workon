@@ -1,7 +1,6 @@
 from .format import extract_urls, urls_to_html, extract_urls_to_html, replace_urls_to_href
 
 from django.conf import settings
-from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
 
 def memoize(f):
@@ -21,6 +20,7 @@ def get_current_site(request=None):
     if request:
         return get_current_site(request)
     else:
+        from django.contrib.sites.models import Site
         return Site.objects.get(id=settings.SITE_ID)
 
 def external_url(url):

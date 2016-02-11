@@ -104,7 +104,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def authenticate(self, request, remember=False):
         if not hasattr(self, 'backend'):
-            self.backend = 'apps.user.auth.AuthModelBackend'
+            self.backend = 'django.contrib.auth.backends.ModelBackend'
         if request.user.is_authenticated():
             auth.logout(request)
         auth.login(request, self)

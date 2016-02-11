@@ -15,6 +15,8 @@ from django.utils.module_loading import import_module, import_string
 
 import subprocess
 
+from ...utils import get_project_root
+
 class EventHandler(FileSystemEventHandler):
 
     def __init__(self, watcher, *args, **kwargs):
@@ -38,7 +40,9 @@ class Watcher(object):
         self.observer = Observer()
         self.event_handler = EventHandler(self)
 
-        self.app_root = getattr(settings, 'SITE_ROOT', settings.SITE_ROOT)
+        self.app_root = get_project_root()
+        if not os.path.isdir(self.app_root):
+            self.app_root = os.path.dirname(self.app_root)
 
         # self.notifier.max_user_watches=16384
         self.process_settings()
