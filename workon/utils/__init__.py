@@ -10,6 +10,7 @@ from .tree import *
 from .rss import *
 from .crypt import *
 from ..modules.chart.utils import register_chart
+from ..modules.stripe.utils import stripe_charge_plan
 from .user import get_or_create_user, authenticate_user
 
 from django.conf import settings

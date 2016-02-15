@@ -65,6 +65,9 @@ setup(
         "babel==1.3",
         "django-mptt==0.8.0",
 
+        # payments
+        "stripe==1.29.1",
+
         # Emailing
         "premailer==2.9.6",
         "cssutils==1.0.1",
