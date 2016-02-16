@@ -5,5 +5,5 @@ from django.contrib.auth.decorators import login_required
 from . import views
 
 urlpatterns = patterns('',
-    url(r"^user/activation/(?P<token>\w{10,64})/$", views.Activate.as_view(), name="workon-emailing_activate_user"),
+    url(r"^user/activation/(?P<token>\w{10,64})/$", views.Activate.as_view(), name="emailing-activate-user"),
 )

@@ -198,6 +198,8 @@ def jsonify(obj):
         return "{}"
     if isinstance(obj,dict):
         return json.dumps(obj)
+    elif isinstance(obj,list):
+        return json.dumps(obj)
     else:
         obj = re.sub(r'([\w\d_]+)\:', '"\\1":', obj)
         obj = re.sub(r'\'', '"', obj)

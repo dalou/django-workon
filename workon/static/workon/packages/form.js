@@ -241,6 +241,26 @@ $(document).ready(function()
         });
     }
 
+    $(document).on('click', '[data-update-post]', function(e, self, pk)
+    {
+        self = $(this);
+        if(window.workon_packages_loading == true)
+        {
+            self.addLoading();
+        }
+        $.post($(this).data('update-post'), $.unserialize($(this).data('update-post')), function(data)
+        {
+            window.workon_packages_form_auto_fill_data(data);
+            self.trigger('workon.update_post_success', [data]);
+            self.trigger('workon.update_post_done', [data]);
+            if(window.workon_packages_loading == true)
+            {
+                self.removeLoading();
+            }
+        });
+        return false;
+    });
+
     $(document).on('click', '[data-form-update]', function(e, self, pk)
     {
         self = $(this);

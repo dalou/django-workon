@@ -19,7 +19,10 @@ stripe.api_key = workon_settings.WORKON_STRIPE_SECRET_KEY
 def webhook(request):
     event_json = json.loads(request.body)
     event = stripe.Event.retrieve(event_json["id"])
-    event, created = StripeEvent.objects.get_or_create(id=event_json["id"])
-    event.event_body = request.body
+    try:
+        event = StripeEvent.objects.get(id=event_json["id"])
+        event.data = request.body
+    except:
+        event = StripeEvent.objects.create(id=event_json["id"], data=request.body)
     event.save()
     return HttpResponse(status=200)

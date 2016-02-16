@@ -78,7 +78,7 @@ class EmailingUserActivationToken(models.Model):
         return "{0}://{1}{2}".format(
             getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http"),
             Site.objects.get_current(),
-            reverse("workon-emailing_activate_user", args=[self.token])
+            reverse("workon:emailing-activate-user", args=[self.token])
         )
 
     def authenticate_user(self, request, user, remember=False):

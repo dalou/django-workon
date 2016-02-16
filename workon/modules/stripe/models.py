@@ -2,6 +2,7 @@
 
 import stripe
 import json
+import traceback
 
 from workon import settings as workon_settings
 from django.conf import settings
@@ -26,25 +27,47 @@ class StripeObject(models.Model):
         abstract = True
 
     def get_data(self, name=None):
-        data = json.loads(self.data)
-        if name:
-            return data.get(name)
+        if self.data:
+            data = json.loads(self.data)
+            if name:
+                return data.get(name)
+            else:
+                return data
         else:
-            return data
+            return None
+
 
     def get_endpoint(self):
         return getattr(stripe, self.__class__.__name__.replace('Stripe', ''))
 
-    def update(self):
-        pass
+    @classmethod
+    def get_or_create(cls, *args, **kwargs):
+        if kwargs.get('id'):
 
-    # def create(self, *args, **kwargs):
-    #     endpoint = self.get_endpoint()
-    #     endpoint.create(**kwargs)
+            try:
+                object = StripeEvent.objects.get(id=kwargs["id"])
+                object.data = kwargs.get('data', object.data)
+            except:
+                object = StripeEvent.objects.create(id=kwargs["id"], data=kwargs.get('data'))
 
+            if not object.data:
+                try:
+                    data = object.get_endpoint().create(
+                        **kwargs
+                    )
+                except:
+                    data = stripe.Plan.retrieve(id=kwargs.get('id'))
 
-
-
+            print object, data
+            object.data = data
+            object.save()
+            return object
+        else:
+            try:
+                data = cls.get_endpoint().create(**kwargs)
+                return cls.get_or_create(id=data.get('id'), data=data)
+            except:
+                return None
 
 
 class StripePlan(StripeObject):
@@ -108,40 +131,60 @@ class StripeEvent(StripeObject):
     exec_errors = models.TextField(u"Import errors", null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        self.type = self.get_data('type')
-        if not self.is_executed:
-            try:
-                self.execute()
-                self.exec_errors = None
-            except:
-                self.exec_errors = traceback.format_exc()
-                self.is_executed = False
+        if self.data:
+            self.type = self.get_data('type')
+            if not self.is_executed:
+                try:
+                    if self.execute():
+                        self.is_executed = True
+                    self.exec_errors = None
+                except:
+                    self.exec_errors = traceback.format_exc()
+                    self.is_executed = False
         super(StripeEvent, self).save(*args, **kwargs)
 
 
     def execute(self):
 
-        stripe_object = self.get_data('data')['object']
+        if self.type:
 
-        if self.type == "charge.succeeded":
-            payment, created = StripePayment.objects.get_or_create(id=stripe_object['id'])
-            payment.data = data
-            payment.save()
-            self.is_executed = True
+            stripe_object = self.get_data('data')['object']
+            object_type_action = self.type.split('.')
+            object_type = globals().get('Stripe%s' % object_type_action[0].capitalize())
+            action = object_type_action[1]
 
-        elif self.type == "invoice.created":
-            invoice, created = StripeInvoice.objects.get_or_create(id=stripe_object['id'])
-            invoice.data = data
-            invoice.save()
-            self.is_executed = True
+            if object_type:
+                if action == 'created':
+                    object_type.get_or_create(id=stripe_object['id'], data=stripe_object)
+                    return True
 
-        elif self.type == "plan.deleted":
-            subscription = StripeSubscription.objects.get_or_create(id=stripe_object['id'])
-            subscription.delete()
-            self.is_executed = True
+                elif action == "deleted":
+                    object_type.objects.filter(id=stripe_object['id']).delete(sync=False)
+                    return True
 
-        elif self.type == "invoice.payment_succeeded":
-            invoice, created = StripeInvoice.objects.get_or_create(id=stripe_object['id'])
-            invoice.data = data
-            invoice.save()
-            self.is_executed = True
+
+                # elif self.type == "customer.created":
+                #     StripeCustomer.get_or_create(id=stripe_object['id'], data=stripe_object)
+                #     return True
+
+                # elif self.type == "customer.deleted":
+                #     StripeCustomer.objects.filter(id=stripe_object['id']).delete()
+                #     return True
+
+                # elif self.type == "charge.succeeded":
+                #     StripePayment.objects.get_or_create(id=stripe_object['id'] data=stripe_object)
+                #     return True
+
+                # elif self.type == "invoice.created":
+                #     object, created = StripeInvoice.objects.get_or_create(id=stripe_object['id'])
+                #     object.data = stripe_object
+                #     object.save()
+                #     return True
+
+                # elif self.type == "invoice.payment_succeeded":
+                #     object, created = StripeInvoice.objects.get_or_create(id=stripe_object['id'])
+                #     object.data = stripe_object
+                #     object.save()
+                #     return True
+
+        return False
