@@ -118,7 +118,7 @@ class FormsetRenderer(BaseRenderer):
         formset_errors = self.get_formset_errors()
         if formset_errors:
             return render_template_to_unicode(
-                'bootstrap3/form_errors.html',
+                'workon/bootstrap3/form_errors.html',
                 context={
                     'errors': formset_errors,
                     'form': self.formset,
@@ -196,7 +196,7 @@ class FormRenderer(BaseRenderer):
 
         if form_errors:
             return render_template_to_unicode(
-                'bootstrap3/form_errors.html',
+                'workon/bootstrap3/form_errors.html',
                 context={
                     'errors': form_errors,
                     'form': self.form,
@@ -423,7 +423,7 @@ class FieldRenderer(BaseRenderer):
         help_text_and_errors += self.field_errors
         if help_text_and_errors:
             help_html = render_template_to_unicode(
-                'bootstrap3/field_help_text_and_errors.html',
+                'workon/bootstrap3/field_help_text_and_errors.html',
                 context={
                     'field': self.field,
                     'help_text_and_errors': help_text_and_errors,

@@ -17,6 +17,7 @@ class FlexibleUpdate(generic.UpdateView):
     fields = [
 
     ]
+    creation = False
 
 
     def get_queryset(self, *args, **kwargs):
@@ -35,10 +36,19 @@ class FlexibleUpdate(generic.UpdateView):
         if hasattr(self, '_object'):
             return getattr(self, '_object')
 
+        self.created = False
+
         if not self.is_request_allowed(self.request):
             raise Http404
         else:
-            self.object = super(FlexibleUpdate, self).get_object()
+            if not self.creation:
+                self.object = super(FlexibleUpdate, self).get_object()
+            else:
+                try:
+                    self.object = super(FlexibleUpdate, self).get_object()
+                except AttributeError:
+                    self.object = self.model()
+                    self.created = True
 
         if not self.has_permission(self.request, self.object):
             raise Http404
@@ -54,6 +64,7 @@ class FlexibleUpdate(generic.UpdateView):
             if name in self.fields and hasattr(self.object, name):
                 current_fields.append(name)
         self.fields = current_fields
+        print self.fields, self.request.GET.getlist('field[]', [])
         setattr(self, '_object', self.object)
         return self.object
 

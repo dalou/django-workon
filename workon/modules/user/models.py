@@ -43,9 +43,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(u'Téléphone', max_length=254, blank=True, null=True)
     email = models.CharField(u'Email', unique=True, max_length=254, blank=True, null=True)
 
-    avatar = workon.fields.MediaField(u"Photo de profil", blank=True, null=True,
-        upload_to=workon.utils.unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename'),
-        authorized_types=['image']
+    avatar = models.ImageField(u"Photo de profil", blank=True, null=True,
+        upload_to=workon.utils.unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename')
     )
 
     is_staff = models.BooleanField(_('staff status'), default=False,

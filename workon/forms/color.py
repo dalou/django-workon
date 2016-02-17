@@ -32,7 +32,7 @@ class ColorInput(forms.widgets.TextInput):
         css = {
             'all': (settings.STATIC_URL + 'workon/vendors/colpick/colpick.css',)
         }
-        js = (settings.STATIC_URL + 'workon/vendors/colpick/colpick.js',)
+        js = (settings.STATIC_URL + 'workon/packages/color.js',)
 
     input_type = 'text'
 
@@ -43,42 +43,44 @@ class ColorInput(forms.widgets.TextInput):
 
         attrs = {
             'data-colorpicker-input': json.dumps(options),
-            'style': 'border-right: 30px solid black'
+            #'style': 'border-right: 30px solid black'
         }
         self.attrs.update(attrs)
 
     def render_script(self, id):
-        return '''<script type="text/javascript">
+        return ""
+        # return '''<script type="text/javascript">
 
-                    $('#%(id)s').on('mousedown', function() {
-                        if(!this.colpick) {
-                            $(this).colpick({
-                                layout: 'hex',
-                                submit: 0,
-                                livePreview: false,
-                                onChange: function(hsb,hex,rgb,el,bySetColor) {
-                                    $(el).css('border-right-color','#'+hex);
-                                    if(!bySetColor) $(el).val('#'+hex);
-                                    $(el).trigger('change')
-                                }
-                            }).keyup(function(){
-                                $(this).colpickSetColor(this.value.replace('#', ''));
-                            });
-                            this.colpick = true;
-                        }
-                    }).on('mouseup', function() {
-                        $(this).trigger('change')
-                    });
-                    $('#%(id)s').bind('inview', function() {
-                        $(this).css('border-right-color',$(this).val());
-                    }).css('border-right-color',$('#%(id)s').val());
-                </script>
-                ''' % { 'id' : id }
+        #             $('#%(id)s').on('mousedown', function() {
+        #                 if(!this.colpick) {
+        #                     $(this).colpick({
+        #                         layout: 'hex',
+        #                         submit: 0,
+        #                         livePreview: false,
+        #                         onChange: function(hsb,hex,rgb,el,bySetColor) {
+        #                             $(el).css('border-right-color','#'+hex);
+        #                             if(!bySetColor) $(el).val('#'+hex);
+        #                             $(el).trigger('change')
+        #                         }
+        #                     }).keyup(function(){
+        #                         $(this).colpickSetColor(this.value.replace('#', ''));
+        #                     });
+        #                     this.colpick = true;
+        #                 }
+        #             }).on('mouseup', function() {
+        #                 $(this).trigger('change')
+        #             });
+        #             $('#%(id)s').bind('inview', function() {
+        #                 $(this).css('border-right-color',$(this).val());
+        #             }).css('border-right-color',$('#%(id)s').val());
+        #         </script>
+        #         ''' % { 'id' : id }
 
 
     def render(self, name, value, attrs={}):
         if 'id' not in attrs:
             attrs['id'] = "id_%s" % name
+        attrs['style'] = 'border-right: 30px solid %s' % (value if value else '#000')
         render = super(ColorInput, self).render(name, value, attrs)
         return mark_safe("%s%s" % (render, self.render_script(attrs['id'])))
 

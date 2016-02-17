@@ -1,4 +1,4 @@
-from ..paginator import Paginator
+from ..paginator import Paginator, DiggPaginator
 from .date import *
 from .email import *
 from .url import *
@@ -9,6 +9,7 @@ from .color import *
 from .tree import *
 from .rss import *
 from .crypt import *
+from ..modules.google.utils import *
 from ..modules.chart.utils import register_chart
 from ..modules.stripe.utils import *
 from .user import get_or_create_user, authenticate_user
@@ -25,3 +26,21 @@ def get_project_root(default=""):
         if hasattr(settings, attr):
             return getattr(settings, attr)
     return default
+
+def jsonify(obj):
+    if obj is None:
+        return "{}"
+    if isinstance(obj,dict):
+        return json.dumps(obj)
+    elif isinstance(obj,list):
+        return json.dumps(obj)
+    else:
+        # obj = re.sub(r'([\w\d_]+)\:', '"\\1":', obj)
+        obj = re.sub(r'\'', '"', obj)
+        obj = re.sub(r'\/\/\s*[\w\s\d]+', '', obj)
+        obj = re.sub(r'Date\.UTC\(.+\)', '""', obj)
+
+        try:
+            return json.dumps(json.loads(obj))
+        except:
+            return json.loads(json.dumps(obj))

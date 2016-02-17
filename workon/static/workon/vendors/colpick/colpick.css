@@ -7,7 +7,7 @@ colpick Color Picker / colpick.com
 	position: absolute;
 	width: 346px;
 
-	z-index: 9;
+	z-index: 11002;
 	height: 170px;
 	overflow: hidden;
 	display: none;

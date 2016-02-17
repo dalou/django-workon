@@ -22,3 +22,7 @@ def generate_colors(num, from_color='#f7aabc', to_color='#404a58'):
         return [from_color.hex]
     return list(c.hex for c in from_color.range_to(to_color, num))
 
+def random_color(luminance=0.5):
+    import random
+    r = lambda: random.randint(0,255)
+    return Color('#%02X%02X%02X' % (r(),r(),r()), luminance=luminance)
