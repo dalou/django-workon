@@ -10,9 +10,7 @@ THUMBNAIL_STORAGE = 'workon.storage.s3.MediaThumbRootS3BotoStorage'
 
 ########## STORAGE CONFIGURATION
 # See: http://django-storages.readthedocs.org/en/latest/index.html
-INSTALLED_APPS += (
-    'storages',
-)
+
 AWS_S3_CALLING_FORMAT = SubdomainCallingFormat()
 AWS_S3_ACCESS_KEY_ID = os.environ.get('AWS_S3_ACCESS_KEY_ID', '')
 AWS_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_S3_SECRET_ACCESS_KEY', '')
