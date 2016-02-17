@@ -86,10 +86,10 @@ setup(
         "django-classy-tags==0.4",
 
         # Crypto
+        "cffi==1.2.1",
         "pycrypto==2.6.1",
         "cryptography==1.0.2",
         "oauth2client==1.5.2",
-        "cffi==1.2.1",
         "requests[security]==2.8.1",
         "requests_oauthlib==0.5.0",
     ],
