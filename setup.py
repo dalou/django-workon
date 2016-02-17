@@ -73,6 +73,9 @@ setup(
         "cssutils==1.0.1",
         "cssselect==0.9.1",
 
+        # Storage
+        "boto==2.38.0",
+
         # Watcher
         "watchdog==0.8.3",
 
