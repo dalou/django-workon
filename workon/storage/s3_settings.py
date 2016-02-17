@@ -21,15 +21,17 @@ CLOUDFRONT_ROTATION_SECONDS = os.environ.get('CLOUDFRONT_ROTATION_SECONDS', 3600
 
 AWS_S3_SECURE_URLS = bool(int(os.environ.get('AWS_S3_SECURE_URLS', '0')))
 AWS_S3_MEDIA_SIGNED_URLS = bool(int(os.environ.get('AWS_S3_MEDIA_SIGNED_URLS', '0')))
-AWS_S3_URL_PROTOCOL = os.environ.get('AWS_S3_URL_PROTOCOL', 'https:')
-AWS_S3_MEDIA_DOMAIN = os.environ.get('AWS_S3_MEDIA_DOMAIN', '')
-AWS_S3_STATIC_DOMAIN = os.environ.get('AWS_S3_STATIC_DOMAIN', '')
-AWS_S3_MEDIA_PATH = os.environ.get('AWS_S3_MEDIA_PATH', 'media')
-AWS_S3_STATIC_PATH = os.environ.get('AWS_S3_STATIC_PATH', 'static')
+AWS_S3_URL_PROTOCOL = os.environ.get('AWS_S3_URL_PROTOCOL', 'http:')
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
 AWS_STORAGE_MEDIA_BUCKET_NAME = os.environ.get('AWS_STORAGE_MEDIA_BUCKET_NAME', AWS_STORAGE_BUCKET_NAME)
 AWS_STORAGE_STATIC_BUCKET_NAME = os.environ.get('AWS_STORAGE_STATIC_BUCKET_NAME', AWS_STORAGE_BUCKET_NAME)
+
+AWS_S3_MEDIA_DOMAIN = os.environ.get('AWS_S3_MEDIA_DOMAIN', '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME)
+AWS_S3_STATIC_DOMAIN = os.environ.get('AWS_S3_STATIC_DOMAIN', '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME)
+AWS_S3_MEDIA_PATH = os.environ.get('AWS_S3_MEDIA_PATH', 'media')
+AWS_S3_STATIC_PATH = os.environ.get('AWS_S3_STATIC_PATH', 'static')
+
 AWS_AUTO_CREATE_BUCKET = False
 AWS_QUERYSTRING_AUTH = True
 # AWS_PRELOAD_METADATA leads to a huge data caching in S3BotoStorage._entries which bloat up the memory
