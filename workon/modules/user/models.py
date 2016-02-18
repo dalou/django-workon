@@ -105,6 +105,10 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return self.email.split('@')[0].strip()
         return self.first_name
 
+    def activate(self):
+        if not self.is_active:
+            self.is_active = True
+            self.save()
 
     def authenticate(self, request, remember=False):
         if not hasattr(self, 'backend'):

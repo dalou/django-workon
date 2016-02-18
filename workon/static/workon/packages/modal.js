@@ -111,8 +111,8 @@ $(document).ready(function(apply_packages_on_insert)
             callbacks: {
                 open: function() {
                     if(window.mfp) window.mfp.popupsCache = {};
-                    trigger.trigger('modal.opened', [])
-                    trigger.trigger('workon.modal_opened', [])
+                    trigger.trigger('modal.opened', [$.magnificPopup.instance.content])
+                    trigger.trigger('workon.modal_opened', [$.magnificPopup.instance.content])
                     if(type == "inline" || type == "image") {
                         trigger.trigger('modal.loaded', [$.magnificPopup.instance.content]);
                         trigger.trigger('workon.modal_loaded', [$.magnificPopup.instance.content]);

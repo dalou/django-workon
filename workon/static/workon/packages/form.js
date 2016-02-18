@@ -135,7 +135,8 @@ $(document).ready(function()
                 for(var i in data.notifications) {
                     new PNotify({
                         title:  data.notifications[i][0],
-                        text: data.notifications[i][1]
+                        text: data.notifications[i][1],
+
                     });
                 }
 

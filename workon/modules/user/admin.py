@@ -62,22 +62,22 @@ class UserAdmin(BaseUserAdmin):
 
     # fieldsets = (
     #     ('Information personnelle', {
-    #         'classes': ('suit-tab suit-tab-infos',),
+    #         'classes': ('workon-tab workon-tab-infos',),
     #         'fields': ('first_name', 'last_name', 'email') #, 'display_filters')
     #     }),
     # )
 
     fieldsets = (
         (None, {
-            'classes': ('suit-tab suit-tab-login',),
+            'classes': ('workon-tab workon-tab-login',),
             'fields': ('email', 'password', 'last_login', 'date_joined')
         }),
         (_(u'Personal info'), {
-            'classes': ('suit-tab suit-tab-infos',),
+            'classes': ('workon-tab workon-tab-infos',),
             'fields': ('first_name', 'last_name', 'username')
         }),
         (_(u'Permissions'), {
-            'classes': ('suit-tab suit-tab-perms',),
+            'classes': ('workon-tab workon-tab-perms',),
             'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')
         }),
@@ -94,7 +94,7 @@ class UserAdmin(BaseUserAdmin):
         # UserSettingsInline,
     )
 
-    suit_form_tabs = (
+    workon_form_tabs = (
         ('login', u"Login"),
         ('infos', u"Informations"),
         ('perms', u"Permissions"),

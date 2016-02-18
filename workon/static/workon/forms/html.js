@@ -117,7 +117,7 @@
 
     });
 
-}(django && django.jQuery || jQuery));
+}(jQuery));
 // }
 // if(typeof tinymce == 'undefined' )
 // {
