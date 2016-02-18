@@ -8,7 +8,7 @@ from ...fields import JSONField
 class Selection(models.Model):
 
     name = models.CharField(u"Nom", max_length=254)
-    description = models.TextField(u"Description", max_length=254)
+    description = models.TextField(u"Description", max_length=254, null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -37,6 +37,11 @@ class Selection(models.Model):
 
     def get_queryset(self):
         return self.content_type.model_class().objects.filter(pk__in=self.get_ids())
+
+    @classmethod
+    def get_queryset_for_ids(cls, content_type, ids):
+        ids = list(set(map(int, ids.split(','))))
+        return content_type.model_class().objects.filter(pk__in=ids)
 
     def get_absolute_admin_url(self, args=None):
         opts = self.content_type.model_class()._meta

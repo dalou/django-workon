@@ -32,6 +32,15 @@
 
             {% include "admin/form_as_fieldset.html" with title="Sauvegarder la sélection" %}
 
+            Selection ({{queryset.count}}) :<br/>
+
+            {% for object in queryset %}
+                <b>{{ object }}</b>,
+            {% endfor %}
+            <br/>
+            <br/>
+
+
             <input type="submit" value="{% trans 'Save' %}"
             class="default btn btn-primary"
             name="_selection_save"/>
@@ -40,6 +49,9 @@
 
         <script>
         $(document).ready(function() {
+
+            $('#form-group-user, #form-group-ids, #form-group-content_type').hide()
+
             var $row = $('<div class="row"></div>')
             var $col1 = $('<div class="col-sm-6"></div>').appendTo($row)
             var $col2 = $('<div class="col-sm-6"></div>').appendTo($row)

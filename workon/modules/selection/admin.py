@@ -19,7 +19,7 @@ from .models import *
 class SelectionForm(forms.ModelForm):
 
     # new_selection = forms.TextField(label="")
-    existing_selection = forms.ModelChoiceField(label=u"Selection existante", queryset=Selection.objects.all(), required=False)
+    existing_selection = forms.ModelChoiceField(label=u"Écraser une sélection existante", queryset=Selection.objects.all(), required=False)
 
     class Meta:
         model = Selection
@@ -30,6 +30,11 @@ class SelectionForm(forms.ModelForm):
         self.fields['ids'].widget.attrs['readonly'] = True
         self.fields['user'].widget.attrs['readonly'] = True
         self.fields['content_type'].widget.attrs['readonly'] = True
+
+        self.fields['ids'].widget.attrs['style'] = "display:none"
+        self.fields['user'].widget.attrs['style'] = "display:none"
+        self.fields['content_type'].widget.attrs['style'] = "display:none"
+
 
 class SelectionFilter(admin.SimpleListFilter):
     title = u"Charger une selection"
@@ -107,6 +112,7 @@ class SelectionAdmin(admin.ModelAdmin):
         })
         return render_to_response('workon/selection/admin/save.html', RequestContext(request,
         {
+            'queryset': Selection.get_queryset_for_ids(content_type, ids),
             'selections': Selection.objects.all(),
             'form_url': self.get_admin_url('selection_save'),
             'queryset': queryset,
@@ -126,8 +132,10 @@ class SelectionAdmin(admin.ModelAdmin):
                     instance = form.save()
                     messages.success(request, u"Selection \"%s\" enregistrée avec succés" % instance.name )
                 else:
+                    content_type = ContentType.objects.get_for_model(queryset.model)
                     return render_to_response('workon/selection/admin/save.html', RequestContext(request,
                     {
+                        'queryset': Selection.get_queryset_for_ids(content_type, request.POST.get('ids')),
                         'selections': Selection.objects.all(),
                         'form_url': self.get_admin_url('selection_save'),
                         'form': form
