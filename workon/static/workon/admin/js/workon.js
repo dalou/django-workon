@@ -60,7 +60,7 @@
     })();
 
     // Backwards compatiblity
-    WorkonAdmin.fterInline = WorkonAdmin.after_inline;
+    SuitAfterInline = WorkonAdminInline = WorkonAdmin.after_inline;
 
     /**
      * Fixed submit buttons.

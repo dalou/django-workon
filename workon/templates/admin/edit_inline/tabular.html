@@ -80,11 +80,86 @@
 <script type="text/javascript">
 
 (function($) {
+
+  $.fn.tabularFormset = function(options) {
+      var $rows = $(this);
+      var alternatingRows = function(row) {
+          $($rows.selector).not(".add-row").removeClass("row1 row2")
+          .filter(":even").addClass("row1").end()
+          .filter(":odd").addClass("row2");
+      };
+
+      var reinitDateTimeShortCuts = function() {
+          // Reinitialize the calendar and clock widgets by force
+          if (typeof DateTimeShortcuts !== "undefined") {
+              $(".datetimeshortcuts").remove();
+              DateTimeShortcuts.init();
+          }
+      };
+
+      var updateSelectFilter = function() {
+          // If any SelectFilter widgets are a part of the new form,
+          // instantiate a new SelectFilter instance for it.
+          if (typeof SelectFilter !== 'undefined') {
+              $('.selectfilter').each(function(index, value) {
+                  var namearr = value.name.split('-');
+                  SelectFilter.init(value.id, namearr[namearr.length - 1], false);
+              });
+              $('.selectfilterstacked').each(function(index, value) {
+                  var namearr = value.name.split('-');
+                  SelectFilter.init(value.id, namearr[namearr.length - 1], true);
+              });
+          }
+      };
+
+      var initPrepopulatedFields = function(row) {
+          row.find('.prepopulated_field').each(function() {
+              var field = $(this),
+                  input = field.find('input, select, textarea'),
+                  dependency_list = input.data('dependency_list') || [],
+                  dependencies = [];
+              $.each(dependency_list, function(i, field_name) {
+                  dependencies.push('#' + row.find('.field-' + field_name).find('input, select, textarea').attr('id'));
+              });
+              if (dependencies.length) {
+                  input.prepopulate(dependencies, input.attr('maxlength'));
+              }
+          });
+      };
+
+      $rows.formset({
+          prefix: options.prefix,
+          addText: options.addText,
+          formCssClass: "dynamic-" + options.prefix,
+          deleteCssClass: "inline-deletelink",
+          deleteText: options.deleteText,
+          emptyCssClass: "empty-form",
+          removed: alternatingRows,
+          added: function(row) {
+              initPrepopulatedFields(row);
+              reinitDateTimeShortCuts();
+              updateSelectFilter();
+              alternatingRows(row);
+
+              if(options.added)
+              {
+                options.added(row);
+              }
+          }
+      });
+
+      return $rows;
+  };
+
+
   $("#{{ inline_admin_formset.formset.prefix }}-group .tabular.inline-related tbody tr").tabularFormset({
     prefix: "{{ inline_admin_formset.formset.prefix }}",
     adminStaticPrefix: '{% static "admin/" %}',
     addText: "{% blocktrans with inline_admin_formset.opts.verbose_name|capfirst as verbose_name %}Add another {{ verbose_name }}{% endblocktrans %}",
-    deleteText: "{% trans 'Remove' %}"
+    deleteText: "{% trans 'Remove' %}",
+    added: function(row) {
+      WorkonAdmin.after_inline.run("{{ inline_admin_formset.formset.prefix }}", row);
+    }
   });
 })(django.jQuery);
 </script>
