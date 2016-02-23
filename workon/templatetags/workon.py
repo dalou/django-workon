@@ -35,6 +35,12 @@ from django.template import engines
 from django.conf import settings
 import re
 
+from ..utils import canonical_url
+
+@register.filter
+def absolute_url(url):
+    return canonical_url(url)
+
 
 # @register.simple_tag
 # def meta_title(value):

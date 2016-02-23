@@ -18,6 +18,7 @@ from django.http import QueryDict
 from django.middleware import csrf
 from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
+from django.contrib.sites.models import Site
 
 from classytags.core import Tag, Options
 from classytags.arguments import MultiKeywordArgument, MultiValueArgument
@@ -79,6 +80,7 @@ def percentage(value):
             'format': "#,##0.00 %",
         }
         return format_percent(value, **kwargs)
+
 
 
 @register.filter

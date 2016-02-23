@@ -1,19 +1,11 @@
+import os
+
 from .format import extract_urls, urls_to_html, extract_urls_to_html, replace_urls_to_href
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
+from ..cache import memoize
 
-def memoize(f):
-    """ Memoization decorator for a function taking one or more arguments. """
-    class memodict(dict):
-        def __getitem__(self, *key):
-            return dict.__getitem__(self, key)
-
-        def __missing__(self, key):
-            ret = self[key] = f(*key)
-            return ret
-
-    return memodict().__getitem__
 
 @memoize
 def get_current_site(request=None):
@@ -29,7 +21,7 @@ def external_url(url):
     return url
 
 
-def canonical_url(url, domain_check=True):
+def canonical_url(url, domain_check=False):
     """
     Ensure that the url contains the `http://mysite.com` part,
     particularly for requests made on the local dev server

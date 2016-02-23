@@ -4,6 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from . import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r"^user/activation/(?P<token>\w{10,64})/$", views.Activate.as_view(), name="emailing-activate-user"),
-)
+]

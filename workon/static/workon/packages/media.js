@@ -68,7 +68,7 @@ window.workon_packages_media = true;
             dictRemoveFile: '',
             dictCancelUpload: '',
         }, options, self.$elm.data('media-dropzone'));
-        console.log('New drozone')
+        //console.log('New drozone')
         self.listeners = {}
         self.progress = 0;
         self.file = null;
@@ -155,10 +155,10 @@ window.workon_packages_media = true;
 
         //self.options.uploadMultiple = false;//self.options.maxMedias > 1;
 
-        console.log(self.embed_input)
+        //console.log(self.embed_input)
         self.embed_input.on('keyup', function()
         {
-            console.log('KEYUP', this);
+            //console.log('KEYUP', this);
             self.paste_embed($(this).val());
         })
 
@@ -192,14 +192,14 @@ window.workon_packages_media = true;
                         if(params[i] && params[i] !== null)
                         {
                             formData.append(i, params[i]);
-                            console.log('param', i, params[i])
+                            //console.log('param', i, params[i])
                         }
                     }
                     self.file_type = file.type;
                     formData.append("file_typemime", file.type);
                     self.$elm.trigger('workon.media_dropzone_sending', [self, file, null]);
                     self.$elm.trigger('workon.media_dropzone_file_sending', [self, file]);
-                        console.log('params', formData)
+                       // console.log('params', formData)
                 }
                 , removedfile: function(file)
                 {
@@ -475,55 +475,3 @@ window.workon_packages_media = true;
 
 }( jQuery ));
 
-$(document).ready(function(hover_element)
-{
-
-    $(document).on('workon.media_dropzone_sending', '[data-media-dropzone]', function(e, dropzone, file, embed)
-    {
-        if(window.workon_packages_loading === true)
-        {
-            $('body').addLoading('0%');
-        }
-        if(window.workon_packages_modal === true)
-        {
-            $.magnificPopup.close();
-        }
-    });
-
-    $(document).on('workon.media_dropzone_file_uploading', '[data-media-dropzone]', function(e, dropzone, file, progress)
-    {
-        if(window.workon_packages_loading === true)
-        {
-            $('body').addLoading(Math.floor(progress)+'%');
-        }
-    });
-
-    $(document).on('workon.media_dropzone_uploaded', '[data-media-dropzone]', function(e, dropzone, data)
-    {
-        if(window.workon_packages_form === true)
-        {
-            window.workon_packages_form_auto_fill_data(data);
-        }
-    });
-
-    //$('[data-media-dropzone]').mediaDropzone();
-    $(document).on('mouseenter', "[data-media-dropzone]", function(e)
-    {
-        $(this).mediaDropzone();
-        hover_element = $(this)
-    });
-    $(document).on('mouseleave', "[data-media-dropzone]", function(e)
-    {
-        //$(this).mediaDropzone();
-        hover_element = null;
-    });
-
-    // $(document).on('paste', function (e)
-    // {
-    //     if(hover_element)
-    //     {
-    //         hover_element.mediaDropzone('paste', e.originalEvent.clipboardData);
-    //     }
-    // });
-
-});

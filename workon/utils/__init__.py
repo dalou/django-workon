@@ -7,6 +7,7 @@ from .file import *
 from .geo import *
 from .color import *
 from .tree import *
+from .cache import *
 from .rss import *
 from .crypt import *
 from ..modules.google.utils import *

@@ -82,7 +82,7 @@ class FlexibleUpdate(generic.UpdateView):
 
         if self.request.is_ajax():
             json = self.get_form_valid_json(form)
-            return JsonResponse(json, status=200)
+            return JsonResponse(json, status=200, safe=False)
         else:
             return HttpResponseRedirect(self.object.get_absolute_url() + '?edit=1')
 

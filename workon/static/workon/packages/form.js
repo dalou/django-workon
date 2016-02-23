@@ -73,7 +73,6 @@ $(document).ready(function()
         //console.log(data, typeof data)
         if(typeof data === "object")
         {
-            console.log(data)
             if(data.replace)
             {
                 if(typeof data.replace !== 'array' && typeof data.replace !== 'object')
@@ -88,7 +87,6 @@ $(document).ready(function()
                 {
                     var html = $(replaces[i]);
                     var id = html.attr('id');
-                    console.log('id',id)
                     if(id)
                     {
                         var repl = $('#'+id);
@@ -157,10 +155,6 @@ $(document).ready(function()
 
 
         }
-        if(window.workon_packages_loading == true)
-        {
-            $('body').removeLoading();
-        }
         $(document).trigger('workon.form_data_received', [data]);
     }
 
@@ -177,15 +171,14 @@ $(document).ready(function()
         self = $(this);
         id = self.attr('id');
         var data = self.serializeArray();
-        if(window.workon_packages_loading == true)
-        {
-            $('body').addLoading();
-        }
+        self.trigger('workon.request_before', [self]);
+        self.trigger('workon.form_ajax_before', [self]);
         $.post(self.attr('action'), data, function(data)
         {
+            self.trigger('workon.form_ajax_success', [data, self]);
+            self.trigger('workon.form_ajax_done', [data, self]);
+            self.trigger('workon.request_done', [data, self]);
             window.workon_packages_form_auto_fill_data(data);
-            $(self).trigger('workon.form_ajax_success', [data]);
-            $(self).trigger('workon.form_ajax_done', [data]);
         })
         return false;
     });
@@ -198,44 +191,42 @@ $(document).ready(function()
             self = $(this);
             id = self.attr('id');
             var data = self.serializeArray();
-            if(window.workon_packages_loading == true)
-            {
-                $('body').addLoading();
-            }
+            self.trigger('workon.request_before', [self]);
+            self.trigger('workon.form_modal_before', [self]);
             $.post(self.attr('action'), data, function(data, $data)
             {
+                self.trigger('workon.form_modal_done', [data, self]);
+                self.trigger('workon.form_ajax_done', [data, self]);
+                self.trigger('workon.request_done', [data, self]);
                 try
                 {
                     $data = $(data);
                     if($data.find('[data-form-modal]').length)
                     {
+                        self.trigger('workon.form_modal_failed', [data, $data, self]);
+                        self.trigger('workon.form_ajax_failed', [data, $data, self ]);
+                        self.trigger('workon.request_sucess', [data, $data, self]);
                         var form = $data.find('[data-form-modal]')
                         self.replaceWith(form);
                         window.workon_packages_form_apply_packages_on_insert(form);
-                        self.trigger('workon.form_modal_failed', [data, $data]);
-                        self.trigger('workon.form_ajax_failed', [data, $data ]);
-                        if(window.workon_packages_loading == true)
-                        {
-                            $('body').removeLoading();
-                        }
                     }
                     else
                     {
+                        self.trigger('workon.form_modal_success', [data, self]);
+                        self.trigger('workon.form_ajax_success', [data, self]);
+                        self.trigger('workon.request_success', [data, self]);
                         window.workon_packages_form_auto_fill_data(data);
                         $.magnificPopup.close();
-                        self.trigger('workon.form_modal_success', [data]);
-                        self.trigger('workon.form_ajax_success', [data]);
                     }
                 }
                 catch(e)
                 {
                     console.log(e)
-                    self.trigger('workon.form_modal_success', [data]);
-                    self.trigger('workon.form_ajax_success', [data]);
+                    self.trigger('workon.form_modal_success', [data, self]);
+                    self.trigger('workon.form_ajax_success', [data, self]);
+                    self.trigger('workon.request_success', [data, self]);
                 }
 
-                self.trigger('workon.form_modal_done', [data]);
-                self.trigger('workon.form_ajax_done', [data]);
 
             })
             return false;
@@ -245,19 +236,14 @@ $(document).ready(function()
     $(document).on('click', '[data-update-post]', function(e, self, pk)
     {
         self = $(this);
-        if(window.workon_packages_loading == true)
-        {
-            self.addLoading();
-        }
+        self.trigger('workon.request_before', [self]);
+        self.trigger('workon.request_before', [self]);
         $.post($(this).data('update-post'), $.unserialize($(this).data('update-post')), function(data)
         {
             window.workon_packages_form_auto_fill_data(data);
-            self.trigger('workon.update_post_success', [data]);
-            self.trigger('workon.update_post_done', [data]);
-            if(window.workon_packages_loading == true)
-            {
-                self.removeLoading();
-            }
+            self.trigger('workon.update_post_success', [data, self]);
+            self.trigger('workon.update_post_done', [data, self]);
+            self.trigger('workon.request_done', [data, self]);
         });
         return false;
     });
@@ -265,15 +251,14 @@ $(document).ready(function()
     $(document).on('click', '[data-form-update]', function(e, self, pk)
     {
         self = $(this);
-        if(window.workon_packages_loading == true)
-        {
-            $('body').addLoading();
-        }
+        self.trigger('workon.form_update_before', [self]);
+        self.trigger('workon.request_before', [self]);
         $.post($(this).data('form-update'), $.unserialize($(this).data('form-update')), function(data)
         {
+            self.trigger('workon.form_update_success', [data, self]);
+            self.trigger('workon.form_update_done', [data, self]);
+            self.trigger('workon.request_done', [data, self]);
             window.workon_packages_form_auto_fill_data(data);
-            self.trigger('workon.form_update_success', [data]);
-            self.trigger('workon.form_update_done', [data]);
         });
         return false;
     });
@@ -281,16 +266,15 @@ $(document).ready(function()
     $(document).on('click', '[data-form-remove]', function(e, self)
     {
         self = $(this);
-        if(window.workon_packages_loading == true)
-        {
-            $('body').addLoading();
-        }
+        self.trigger('workon.form_remove_pre', [self]);
+        self.trigger('workon.request_before', [self]);
         $.get($(this).data('form-remove'), null, function(data)
         {
-            window.workon_packages_form_auto_fill_data(data);
-            var removed = self.parents('[id]').eq(0)
             self.trigger('workon.form_remove_success', [data, removed]);
             self.trigger('workon.form_remove_done', [data, removed]);
+            self.trigger('workon.request_done', [data, self]);
+            window.workon_packages_form_auto_fill_data(data);
+            var removed = self.parents('[id]').eq(0)
             removed.remove();
         });
     });
