@@ -57,7 +57,7 @@ class AbuseReport(SocialMixin):
 
 class Comment(SocialMixin):
 
-    message = models.TextField(u"Message", null=True, blank=True)
+    message = models.TextField(u"Message", max_length=1000, null=True, blank=True)
 
     class Meta:
         abstract = True
