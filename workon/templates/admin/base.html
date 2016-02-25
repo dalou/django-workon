@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}</title>
     {#<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />#}
-    <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/bootstrap/dist/css/bootstrap.css' %}" media="all">
-    {#        <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/bootstrap/dist/css/bootstrap-theme.min.css' %}" media="all">#}
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" media="all">
+
     <link rel="stylesheet" type="text/css" href="{% static 'workon/vendors/select2/select2.min.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'workon/vendors/tooltipster/tooltipster.css' %}" media="all">
     <link rel="stylesheet" type="text/css" href="{% static 'workon/vendors/pretty-json/pretty-json.css' %}" media="all">
@@ -34,8 +35,8 @@
         window.__USER_ID__ = "{{ request.user.id }}";
         window.__USER_PK__ = "{{ request.user.id }}";
     </script>
-    <script src="{% static 'workon/admin/js/jquery-1.11.1.min.js' %}"></script>
-    <script src="{% static 'workon/admin/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
     <!-- Google Analytics -->
     <script>
