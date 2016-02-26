@@ -6,8 +6,8 @@ import random
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 class SocialMixin(models.Model):
@@ -17,7 +17,7 @@ class SocialMixin(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     content_type = models.ForeignKey(ContentType)
     instance_id = models.PositiveIntegerField()
-    instance = generic.GenericForeignKey('content_type', 'instance_id')
+    instance = GenericForeignKey('content_type', 'instance_id')
 
     class Meta:
         abstract = True
