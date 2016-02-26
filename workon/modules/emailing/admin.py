@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.db import models
 from django import forms
 from django.shortcuts import render_to_response, redirect
-
+from django.template import RequestContext
 
 from .models import *
 
@@ -118,13 +118,24 @@ admin.site.register(Emailing, EmailingAdmin)
 class ExtractEmailingAdmin(object):
 
     emailing_form_template_name = 'workon/emailing/admin/extract_emailing.html'
-    list_emailing = ['extract_emailing']
+    list_emailing = ['workon_extract_emailing']
 
     def __init__(self, *args, **kwargs):
         super(ExtractEmailingAdmin, self).__init__(*args, **kwargs)
-        self.actions += ('extract_emailing', )
+        if not 'workon_extract_emailing' in self.actions:
+            self.actions += ('workon_extract_emailing', )
 
 
+    def extract_emailing(self, request, queryset):
+        return []
+
+    def workon_extract_emailing(self, request, queryset):
+        emails = self.extract_emailing(request, queryset)
+        return render_to_response(self.emailing_form_template_name, RequestContext(request,
+        {
+            'emails': emails,
+        }))
+    workon_extract_emailing.short_description = u"Extraire les emails"
 
 
 
