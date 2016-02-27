@@ -8,6 +8,7 @@ from .geo import *
 from .color import *
 from .tree import *
 from .cache import *
+from .number import *
 from .rss import *
 from .crypt import *
 from ..modules.google.utils import *

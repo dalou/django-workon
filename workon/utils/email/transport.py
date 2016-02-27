@@ -28,6 +28,8 @@ from premailer import transform
 
 
 def is_valid_email(email):
+    if email is None:
+        return None
     result = parseaddr(email.strip())
     if '@' in result[1]:
         return result[1]
