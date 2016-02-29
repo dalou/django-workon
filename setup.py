@@ -93,7 +93,7 @@ setup(
         "cffi==1.2.1",
         "pycrypto==2.6.1",
         "cryptography==1.0.2",
-        "oauth2client==1.5.2",
+        "oauth2client==2.0.0",
         "requests[security]==2.8.1",
         "requests_oauthlib==0.5.0",
     ],
