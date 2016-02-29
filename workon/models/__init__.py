@@ -6,5 +6,6 @@ from ..modules.emailing.models import *
 from ..modules.selection.models import Selection
 from ..modules.stripe.models import *
 from ..modules.social.models import *
+from ..modules.blog.models import *
 
 from .aggregate_if import CountIf, SumIf, AvgIf, MaxIf, MinIf
