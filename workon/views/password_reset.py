@@ -1,8 +1,11 @@
 # encoding: utf-8
 
 from django import forms
+from django.conf import settings
 from django.views import generic
 from django.utils.translation import ugettext_lazy as _
+from django.shortcuts import redirect, get_object_or_404
+from django.utils.http import base36_to_int, int_to_base36
 from django.contrib import auth, messages
 from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
@@ -28,14 +31,25 @@ class PasswordReset(generic.FormView):
     form_class = PasswordResetForm
     token_generator = default_token_generator
 
-    def get_context_data(self, **kwargs):
-        context = kwargs
+    def get_context_data(self, *args, **kwargs):
+        context = super(PasswordReset, self).get_context_data(*args, **kwargs)
+        context.update(kwargs)
         if self.request.method == "POST" and "resend" in self.request.POST:
             context["resend"] = True
         return context
 
     def form_valid(self, form):
-        self.send_email(form.cleaned_data["email"])
+        User = get_user_model()
+        try:
+            user = User.objects.get(email__iexact=form.cleaned_data["email"])
+
+            uid = int_to_base36(user.id)
+            token = self.make_token(user)
+            self.send_email(user, uid, token)
+
+        except User.DoesNotExist:
+            return self.form_invalid(form)
+
         response_kwargs = {
             "request": self.request,
             "template": self.template_name_sent,
@@ -43,25 +57,9 @@ class PasswordReset(generic.FormView):
         }
         return self.response_class(**response_kwargs)
 
-    def send_email(self, email):
-        User = get_user_model()
-        protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
-        current_site = get_current_site(self.request)
-        email_qs = EmailAddress.objects.filter(email__iexact=email)
-        for user in User.objects.filter(pk__in=email_qs.values("user")):
-            uid = int_to_base36(user.id)
-            token = self.make_token(user)
-            password_reset_url = "{0}://{1}{2}".format(
-                protocol,
-                current_site.domain,
-                reverse("account_password_reset_token", kwargs=dict(uidb36=uid, token=token))
-            )
-            ctx = {
-                "user": user,
-                "current_site": current_site,
-                "password_reset_url": password_reset_url,
-            }
-            hookset.send_password_reset_email([user.email], ctx)
+    def send_email(self, email, uid, token):
+        raise NotImplementedError(u"Not implemented send_mail")
+
 
     def make_token(self, user):
         return self.token_generator.make_token(user)

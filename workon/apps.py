@@ -11,6 +11,7 @@ from .modules.admin import widgets
 
 from .utils import get_project_title
 
+
 class WorkonConfig(AppConfig):
 
 
@@ -63,6 +64,7 @@ class WorkonConfig(AppConfig):
 
     def ready(self):
         from . import models
+
         super(WorkonConfig, self).ready()
 
         if 'django.contrib.auth' in settings.INSTALLED_APPS:

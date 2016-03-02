@@ -15,3 +15,4 @@ WORKON_TINYMCE_DEFAULT_CONFIG = getattr(settings, 'WORKON_TINYMCE_DEFAULT_CONFIG
         'relative_urls': False
     }
 )
+

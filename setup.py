@@ -73,6 +73,9 @@ setup(
         "cssutils==1.0.1",
         "cssselect==0.9.1",
 
+        # Flow
+        "django-redis-sessions==0.5.0",
+
         # Storage
         "boto==2.38.0",
         "django-storages==1.1.8",
@@ -93,6 +96,7 @@ setup(
         "cffi==1.2.1",
         "pycrypto==2.6.1",
         "cryptography==1.0.2",
+        "pyopenssl==0.15.1",
         "oauth2client==1.5.2",
         "requests[security]==2.8.1",
         "requests_oauthlib==0.5.0",

@@ -34,25 +34,44 @@
                     {
                         editor.on('change', function(e)
                         {
-                            var content = editor.getContent({ format : config.apply_format });
-                            var content_text = $.trim(editor.getContent({ format : 'text' }).replace(/^\s+|\s+$/g, ''));
-                            if(config.apply_format == "text")
+                            if(config.placeholder && !config.settings.placeholder_disabled)
                             {
-                                content = $.trim(content.replace('&nbsp;', ''))
-                            }
-                            if(config.inline)
-                            {
-                                placeholder = editor.getElement().getAttribute("placeholder");
-                                if (typeof placeholder !== 'undefined' && placeholder !== false && content_text == placeholder)
+                                var content = editor.getContent({ format : config.apply_format });
+                                var content_text = $.trim(editor.getContent({ format : 'text' }).replace(/^\s+|\s+$/g, ''));
+                                if(config.apply_format == "text")
                                 {
-                                    return;
+                                    content = $.trim(content.replace('&nbsp;', ''))
                                 }
-                                $input.val(content).change();
+
+                                // if(config.inline)
+                                // {
+                                    placeholder = editor.getElement().getAttribute("placeholder");
+                                    if (typeof placeholder !== 'undefined' && placeholder !== false && content_text == placeholder)
+                                    {
+                                        return;
+                                    }
+                                    $input.html(content).change();
+                                // }
                             }
                         });
+                        // editor.on('submit', function(e)
+                        // {
+                        //     var content = editor.getContent({ format : config.apply_format });
+                        //     var content_text = $.trim(editor.getContent({ format : 'text' }).replace(/^\s+|\s+$/g, ''));
+                        //     if(config.apply_format == "text")
+                        //     {
+                        //         content = $.trim(content.replace('&nbsp;', ''))
+                        //     }
+                        //     placeholder = editor.getElement().getAttribute("placeholder");
+                        //     if (typeof placeholder !== 'undefined' && placeholder !== false && content_text == placeholder)
+                        //     {
+                        //         return;
+                        //     }
+                        //     $input.html(content).change();
+                        // });
                         editor.on('init', function(e, placeholder)
                         {
-                            if(config.placeholder)
+                            if(config.placeholder && !config.settings.placeholder_disabled)
                             {
                                 placeholder = editor.getElement().getAttribute("placeholder");
                                 if (typeof placeholder !== 'undefined' && placeholder !== false)
@@ -77,7 +96,7 @@
                                         var content = editor.getContent({ format : 'text' }).replace(/^\s+|\s+$/g, '');
                                         if(content == '')
                                         {
-                                            var placeholder_html = '<span class="workon-html_input-placeholder">'+placeholder+'</span>'
+                                            var placeholder_html = '<span style="font-style:italic;color:grey;" class="workon-html_input-placeholder">'+placeholder+'</span>'
                                             editor.setContent(placeholder_html);
                                             editor.getElement().innerHTML = placeholder_html
                                         }

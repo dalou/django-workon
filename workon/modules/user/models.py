@@ -110,9 +110,14 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.is_active = True
             self.save()
 
-    def authenticate(self, request, remember=False):
+    def authenticate(self, request, remember=False, backend=None):
         if not hasattr(self, 'backend'):
-            self.backend = 'django.contrib.auth.backends.ModelBackend'
+            if backend:
+                self.backend = backend
+            elif hasattr(settings, 'AUTHENTICATION_BACKENDS') and len(settings.AUTHENTICATION_BACKENDS):
+                self.backend = settings.AUTHENTICATION_BACKENDS[0]
+            else:
+                self.backend = 'django.contrib.auth.backends.ModelBackend'
         if request.user.is_authenticated():
             auth.logout(request)
         auth.login(request, self)

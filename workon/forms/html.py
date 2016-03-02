@@ -95,7 +95,11 @@ class HtmlInput(forms.Textarea):
         #
         config['mode'] = 'exact'
         config['elements'] = attrs['id']
-        config['placeholder'] = attrs.get('placeholder', '')
+        if not config.get('placeholder_disabled') == True:
+            config['placeholder'] = attrs.get('placeholder', '')
+        else:
+            config['placeholder'] = None
+
 
         config['language'] = None
         config['language_url'] = settings.STATIC_URL + 'workon/vendors/tinymce/langs/fr.js'

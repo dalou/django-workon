@@ -23,7 +23,7 @@ class SelectionForm(forms.ModelForm):
 
     class Meta:
         model = Selection
-        exclude = ( )
+        exclude = ('user', )
 
     def __init__(self, *args, **kwargs):
         super(SelectionForm, self).__init__(*args, **kwargs)
