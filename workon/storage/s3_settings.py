@@ -49,3 +49,25 @@ MEDIA_URL = '%s//%s/' % (AWS_S3_URL_PROTOCOL, os.path.join(AWS_S3_MEDIA_DOMAIN, 
 # CACHE_URL is auto defined as 'https://%s/cache/ via STATICFILES_CACHE_STORAGE = 'libs.storage.s3.StaticRootCachedS3BotoStorage' with location=''
 
 ########## END S3 CONFIGURATION
+
+# <?xml version="1.0" encoding="UTF-8"?>
+# <CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+#     <CORSRule>
+#         <AllowedOrigin>http://lepole.herokuapp.com</AllowedOrigin>
+#         <AllowedMethod>PUT</AllowedMethod>
+#         <AllowedMethod>POST</AllowedMethod>
+#         <AllowedMethod>DELETE</AllowedMethod>
+#         <AllowedHeader>*</AllowedHeader>
+#     </CORSRule>
+#     <CORSRule>
+#         <AllowedOrigin>http://lepole.herokuapp.com</AllowedOrigin>
+#         <AllowedMethod>PUT</AllowedMethod>
+#         <AllowedMethod>POST</AllowedMethod>
+#         <AllowedMethod>DELETE</AllowedMethod>
+#         <AllowedHeader>*</AllowedHeader>
+#     </CORSRule>
+#     <CORSRule>
+#         <AllowedOrigin>*</AllowedOrigin>
+#         <AllowedMethod>GET</AllowedMethod>
+#     </CORSRule>
+# </CORSConfiguration>

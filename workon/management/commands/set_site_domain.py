@@ -3,7 +3,6 @@
 import logging
 
 from django.conf import settings
-from django.db.models import get_model
 from django.core.management.base import BaseCommand
 
 from django.conf import settings

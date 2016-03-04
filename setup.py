@@ -60,6 +60,15 @@ setup(
     install_requires=[
         'django>=1.8.4,<=1.9.2',
 
+        # Crypto
+        "cryptography==1.0.2",
+        "cffi==1.2.1",
+        "pycrypto==2.6.1",
+        "pyopenssl==0.15.1",
+        "requests[security]==2.8.1",
+        "oauth2client==1.5.2",
+        "requests_oauthlib==0.5.0",
+
         # Fields / models
         "jsonfield==1.0.3",
         "babel==1.3",
@@ -92,13 +101,5 @@ setup(
         "bleach==1.4.2",
         "django-classy-tags==0.4",
 
-        # Crypto
-        "cffi==1.2.1",
-        "pycrypto==2.6.1",
-        "cryptography==1.0.2",
-        "pyopenssl==0.15.1",
-        "oauth2client==1.5.2",
-        "requests[security]==2.8.1",
-        "requests_oauthlib==0.5.0",
     ],
 )
