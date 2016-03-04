@@ -13,6 +13,7 @@ from django.contrib import auth, messages
 from django.contrib.sites.models import Site
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.core.urlresolvers import NoReverseMatch
 
 from ...utils import *
 
@@ -159,41 +160,45 @@ class Emailing(models.Model):
                 receiver = receiver.strip()
                 if is_valid_email(receiver):
 
-                    html = self.template
-                    html = set_mailchimp_vars(html)
+                    try:
 
-                    if activate_url:
-                        activation_token, created = EmailingUserActivationToken.objects.get_or_create(email=receiver)
-                        html = html.replace(activate_url.group(0), activation_token.get_activate_url() )
+                        html = self.template
+                        html = set_mailchimp_vars(html)
 
-                    # if archive_url:
-                    #     html = html.replace(archive_url.group(0), self. )
+                        if activate_url:
+                            activation_token, created = EmailingUserActivationToken.objects.get_or_create(email=receiver)
+                            html = html.replace(activate_url.group(0), activation_token.get_activate_url() )
 
-                    if mc_subject:
-                        html = html.replace(mc_subject.group(0), self.subject )
+                        # if archive_url:
+                        #     html = html.replace(archive_url.group(0), self. )
 
-                    html = clean_html_for_email(html)
+                        if mc_subject:
+                            html = html.replace(mc_subject.group(0), self.subject )
 
-                    if not test:
-                        transaction, created = EmailingTransaction.objects.get_or_create(
-                            receiver=receiver,
-                            emailing=self
-                        )
-                    else:
-                        created = True
-                    if irange < self.send_range and (created or transaction.send_count == 0):
-                        message = HtmlTemplateEmail(
-                            subject=self.subject,
-                            sender=self.sender,
-                            receivers=[receiver],
-                            html=html,
-                        )
-                        messages.append(message)
-                        final_receivers.append(receiver)
+                        html = clean_html_for_email(html)
+
                         if not test:
-                            transaction.send_count += 1
-                            transaction.save()
-                        irange += 1
+                            transaction, created = EmailingTransaction.objects.get_or_create(
+                                receiver=receiver,
+                                emailing=self
+                            )
+                        else:
+                            created = True
+                        if irange < self.send_range and (created or transaction.send_count == 0):
+                            message = HtmlTemplateEmail(
+                                subject=self.subject,
+                                sender=self.sender,
+                                receivers=[receiver],
+                                html=html,
+                            )
+                            messages.append(message)
+                            final_receivers.append(receiver)
+                            if not test:
+                                transaction.send_count += 1
+                                transaction.save()
+                            irange += 1
+                    except:
+                        raise Exception("You must include workon urls.")
 
             send_mass_email(messages)
             if test:
