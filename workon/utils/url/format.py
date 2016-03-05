@@ -49,9 +49,14 @@ def replace_urls_to_href(text, target="_blank", hide_protocol=True):
 # def urlify2(value):
 #     return urlfinder.sub(r'<a href="\1">\1</a>', value)
 
-def build_absolute_url(url=""):
+def build_absolute_url(url="", request=None):
+    if not request:
+        from django.contrib.sites.models import Site
+        domain = Site.objects.get_current().domain
+    else:
+        domain = get_current_site().domain
     return "{0}://{1}{2}".format(
         getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http"),
-        get_current_site().domain.split('//')[-1],
+        domain.split('//')[-1],
         url
     ).strip('/')
