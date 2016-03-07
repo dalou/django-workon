@@ -532,10 +532,10 @@ class InlineFieldRenderer(FieldRenderer):
         self.add_error_attrs()
 
     def append_to_field(self, html):
-        return html
+        return '<div class="col-md-10">'+html+'</div>'
 
     def get_field_class(self):
         return self.field_class
 
     def get_label_class(self):
-        return add_css_class(self.label_class, 'sr-only')
+        return add_css_class(self.label_class, 'col-md-2 control-label')

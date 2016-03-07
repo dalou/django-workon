@@ -157,7 +157,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.private_key = self.generate_random_token()
 
     def generate_random_token(self, hash_func=hashlib.sha256):
-        print [self.email, str(random.SystemRandom().getrandbits(512))]
         bits = [self.email, str(random.SystemRandom().getrandbits(512))]
         return hash_func("".join(bits).encode("utf-8")).hexdigest()
 

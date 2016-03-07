@@ -65,8 +65,8 @@ setup(
         "cffi==1.2.1",
         "pycrypto==2.6.1",
         "pyopenssl==0.15.1",
-        "requests[security]==2.8.1",
-        "oauth2client==1.5.2",
+        "requests[security]==2.9.1",
+        "oauth2client==2.0.0",
         "requests_oauthlib==0.5.0",
 
         # Fields / models
@@ -95,7 +95,7 @@ setup(
         # Geolocation
         "geopy==1.11.0",
         "python-gmaps==0.1.1",
-        "google-api-python-client==1.4.2",
+        "google-api-python-client==1.5.0",
 
         "colour==0.1.2",
         "bleach==1.4.2",

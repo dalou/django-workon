@@ -6,6 +6,35 @@ from django.utils.dateformat import format
 from django.utils.text import force_text
 # from django.utils.timezone import localtime
 
+from ..number import is_float
+
+def value_to_datetime(value, default=None):
+    if not value:
+        return value
+    elif is_float(value):
+        try:
+            value = datetime.fromtimestamp(float(value))
+        except Exception:
+            value = None
+    elif not isinstance(value, datetime.datetime):
+        # all timestamps are in UTC, but the marker is optional
+        if value.endswith('Z'):
+            value = value[:-1]
+        if '.' in value:
+            # Python doesn't support long microsecond values
+            # https://github.com/getsentry/sentry/issues/1610
+            ts_bits = value.split('.', 1)
+            value = '%s.%s' % (ts_bits[0], ts_bits[1][:2])
+            fmt = '%Y-%m-%dT%H:%M:%S.%f'
+        else:
+            fmt = '%Y-%m-%dT%H:%M:%S'
+        try:
+            value = datetime.datetime.strptime(value, fmt)
+        except Exception:
+            value = None
+
+    return value if value else default
+
 def format_date_range(
     start_date=None,
     end_date=None,

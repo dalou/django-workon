@@ -18,6 +18,7 @@ class FlexibleUpdate(generic.UpdateView):
 
     ]
     creation = False
+    default_fields = []
 
 
     def get_queryset(self, *args, **kwargs):
@@ -57,7 +58,7 @@ class FlexibleUpdate(generic.UpdateView):
             fields = self.request.POST.keys()
             fields += self.request.FILES.keys()
         else:
-            fields = self.request.GET.getlist('field[]', [])
+            fields = self.request.GET.getlist('field[]', self.default_fields)
 
         current_fields = []
         for name in fields:

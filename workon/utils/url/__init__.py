@@ -1,6 +1,13 @@
 import os
 
-from .format import extract_urls, urls_to_html, extract_urls_to_html, replace_urls_to_href, build_absolute_url
+from .format import (
+    extract_urls,
+    urls_to_html,
+    extract_urls_to_html,
+    replace_urls_to_href,
+    get_current_site_domain,
+    build_absolute_url
+)
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
