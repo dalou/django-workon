@@ -12,16 +12,21 @@ from watchdog.events import LoggingEventHandler, FileSystemEventHandler
 from django import conf
 from django.conf import settings
 from django.utils.module_loading import import_module
-from django.db.models import get_models, get_app
 
 import subprocess
 
 try:
     FONTFORGE_EXISTS = True
     import fontforge as original_fontforge
-except ImportError:
-    FONTFORGE_EXISTS = False
-
+except ImportError, e:
+    print e
+    sys.path.append('/usr/lib/python2.7/dist-packages/')
+    try:
+        FONTFORGE_EXISTS = True
+        import fontforge as original_fontforge
+    except ImportError, e:
+        print e
+        FONTFORGE_EXISTS = False
 
 DEFAULT_FONT_FORMATS = ('ttf', 'otf', 'eot', 'svg', 'woff')
 
@@ -69,18 +74,18 @@ class Watcher(object):
                 # self.generate_font()
             else:
 
-                self.print_error("Python bindings for fontforge are not installed (try sudo apt-get install python-fontforge)")
+                self.print_error("Python bindings for fontforge are not installed (brew install -v fontforge --HEAD --with-libspiro --enable-pyextension)")
 
 
     def process_settings(self):
 
         reload(conf)
         if FONTFORGE_EXISTS:
-            reload(fontforge)
+            reload(original_fontforge)
         self.configs = []
         settings = conf.settings
 
-        if not hasattr(settings, 'FONTFORGE_WATCHER') and 'watcher' in settings.FONTFORGE_WATCHER:
+        if not hasattr(settings, 'FONTFORGE_WATCHER'):
             self.print_error('settings.FONTFORGE_WATCHER is missing ')
         else:
             configs = settings.FONTFORGE_WATCHER
@@ -147,7 +152,7 @@ class Watcher(object):
                     folder_output = os.path.join(config[1], name)
                     css_output = config[2]
                     classname = config[3]
-                    font = fontforge.open(source)
+                    font = original_fontforge.open(source)
                     if css_output and classname:
                         css = """
 @font-face {
