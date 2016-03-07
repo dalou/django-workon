@@ -26,7 +26,13 @@ except ImportError, e:
         import fontforge as original_fontforge
     except ImportError, e:
         print e
-        FONTFORGE_EXISTS = False
+        sys.path.append('/usr/local/lib/python2.7/sites-packages/')
+        try:
+            FONTFORGE_EXISTS = True
+            import fontforge as original_fontforge
+        except ImportError, e:
+            print e
+            FONTFORGE_EXISTS = False
 
 DEFAULT_FONT_FORMATS = ('ttf', 'otf', 'eot', 'svg', 'woff')
 
