@@ -19,14 +19,12 @@ try:
     FONTFORGE_EXISTS = True
     import fontforge as original_fontforge
 except ImportError, e:
-    print e
     sys.path.append('/usr/lib/python2.7/dist-packages/')
     try:
         FONTFORGE_EXISTS = True
         import fontforge as original_fontforge
     except ImportError, e:
-        print e
-        sys.path.append('/usr/local/lib/python2.7/sites-packages/')
+        sys.path.append('/usr/local/Cellar/fontforge/20150824/lib/python2.7/site-packages/')
         try:
             FONTFORGE_EXISTS = True
             import fontforge as original_fontforge
