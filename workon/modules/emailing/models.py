@@ -17,6 +17,7 @@ from django.core.urlresolvers import NoReverseMatch
 
 from ...utils import *
 
+import workon.utils
 
 
 class EmailingUserActivationToken(models.Model):
