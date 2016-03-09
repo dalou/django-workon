@@ -82,14 +82,9 @@ class EmailingUserActivationToken(models.Model):
             reverse("workon:emailing-activate-user", args=[self.token])
         )
 
-    def authenticate_user(self, request, user, remember=False):
-        if not hasattr(user, 'backend'):
-            user.backend = 'apps.user.auth.AuthModelBackend'
-        if request.user.is_authenticated():
-            auth.logout(request)
-        auth.login(request, user)
-        request.session.set_expiry(60 * 60 * 24 * 365 * 10 if remember else 0)
-        return True
+    def authenticate_user(self, request, user, remember=False, backend=None):
+        return workon.utils.authenticate_user(request, self, remember=remember, backend=backend)
+
 
 
 class Emailing(models.Model):

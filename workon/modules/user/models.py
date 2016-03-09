@@ -111,18 +111,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.save()
 
     def authenticate(self, request, remember=False, backend=None):
-        if not hasattr(self, 'backend'):
-            if backend:
-                self.backend = backend
-            elif hasattr(settings, 'AUTHENTICATION_BACKENDS') and len(settings.AUTHENTICATION_BACKENDS):
-                self.backend = settings.AUTHENTICATION_BACKENDS[0]
-            else:
-                self.backend = 'django.contrib.auth.backends.ModelBackend'
-        if request.user.is_authenticated():
-            auth.logout(request)
-        auth.login(request, self)
-        request.session.set_expiry(60 * 60 * 24 * 365 * 10 if remember else 0)
-        return True
+        return workon.utils.authenticate_user(request, self, remember=remember, backend=backend)
+
 
 
     def get_avatar_small(self):

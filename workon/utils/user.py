@@ -7,15 +7,21 @@ except ImportError:  # python 2
     from urlparse import urlparse, urlunparse
 from django.conf import settings
 from django.core import urlresolvers
+from django.contrib import auth
 from django.core.exceptions import SuspiciousOperation
 from django.http import HttpResponseRedirect, QueryDict
 from django.contrib.auth import get_user_model
 from .email import is_valid_email
 
 
-def authenticate_user(self, request, user, remember=True):
+def authenticate_user(request, user, remember=True, backend=None):
     if not hasattr(user, 'backend'):
-        user.backend = 'apps.user.auth.AuthModelBackend'
+        if backend:
+            user.backend = backend
+        elif hasattr(settings, 'AUTHENTICATION_BACKENDS') and len(settings.AUTHENTICATION_BACKENDS):
+            user.backend = settings.AUTHENTICATION_BACKENDS[0]
+        else:
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
     if request.user.is_authenticated():
         auth.logout(request)
     auth.login(request, user)
