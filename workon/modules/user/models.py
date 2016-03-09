@@ -17,8 +17,7 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser, User as B
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.contrib.sites.models import Site
 
-import workon.fields
-import workon.utils
+from ... import utils
 
 from sorl.thumbnail import get_thumbnail
 
@@ -44,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(u'Email', unique=True, max_length=254, blank=True, null=True)
 
     avatar = models.ImageField(u"Photo de profil", blank=True, null=True,
-        upload_to=workon.utils.unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename')
+        upload_to=utils.unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename')
     )
 
     is_staff = models.BooleanField(_('staff status'), default=False,
@@ -111,7 +110,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.save()
 
     def authenticate(self, request, remember=False, backend=None):
-        return workon.utils.authenticate_user(request, self, remember=remember, backend=backend)
+        return utils.authenticate_user(request, self, remember=remember, backend=backend)
 
 
 

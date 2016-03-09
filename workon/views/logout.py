@@ -4,7 +4,7 @@ from django.conf import settings
 from django.views import generic
 from django.contrib import auth
 from django.shortcuts import redirect
-from ..utils.user import default_redirect
+from ..modules.user.utils import default_redirect
 
 class Logout(generic.base.TemplateResponseMixin, generic.View):
 

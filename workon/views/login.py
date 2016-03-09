@@ -6,7 +6,7 @@ from django.views import generic
 from django.contrib import auth
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
-from ..utils.user import default_redirect
+from ..modules.user.utils import default_redirect
 from .. import signals
 
 

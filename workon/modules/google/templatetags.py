@@ -3,9 +3,10 @@ import json
 from django.conf import settings
 from django import template
 from .models import GoogleAPISettings
-from oauth2client.client import SignedJwtAssertionCredentials
 
 register = template.Library()
+
+from .utils import get_google_account_token
 
 try:
     import suit
@@ -35,18 +36,8 @@ def get_credentials(view_id):
         if not view_id:
             view_id = "%s" % int(ggsettings.analytics_default_view_id)
         # Construct a credentials objects from the key data and OAuth2 scope.
-        try:
-            _key_data = json.load(ggsettings.account_key_file)
-            _credentials = SignedJwtAssertionCredentials(
-                _key_data['client_email'],
-                _key_data['private_key'],
-                'https://www.googleapis.com/auth/analytics.readonly',
-                # token_uri='https://accounts.google.com/o/oauth2/token'
-            )
-            token = _credentials.get_access_token().access_token
-        except Exception, e:
-            print e.message
-            token = ""
+        token = get_google_account_token(ggsettings.account_key_file)
+
     return token, view_id
 
 

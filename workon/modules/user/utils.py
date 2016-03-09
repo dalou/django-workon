@@ -11,7 +11,8 @@ from django.contrib import auth
 from django.core.exceptions import SuspiciousOperation
 from django.http import HttpResponseRedirect, QueryDict
 from django.contrib.auth import get_user_model
-from .email import is_valid_email
+
+from ...utils import is_valid_email
 
 
 def authenticate_user(request, user, remember=True, backend=None):
@@ -27,6 +28,8 @@ def authenticate_user(request, user, remember=True, backend=None):
     auth.login(request, user)
     request.session.set_expiry(60 * 60 * 24 * 365 * 10 if remember else 0)
     return True
+
+
 
 def get_or_create_user(email, username=None, first_name=None, last_name=None,
                         is_active=False, expiration_date=None, set_names_from_email=False,

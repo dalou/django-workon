@@ -16,13 +16,16 @@ import django_select2.forms
 
 stripe.api_key = workon_settings.WORKON_STRIPE_SECRET_KEY
 
+print StripeEvent._meta.get_fields()
+
 class StripeEventAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'type', 'is_executed', 'created_date')
     list_filter = ('type', )
 
     change_list_template = "workon/stripe/admin/event_list.html"
 
-    readonly_fields = StripeEvent._meta.get_all_field_names()
+
+    readonly_fields = [f.name for f in StripeEvent._meta.get_fields()]
 
     def has_add_permission(self, request, obj=None):
         return False

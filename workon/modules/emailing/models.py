@@ -14,10 +14,9 @@ from django.contrib.sites.models import Site
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.core.urlresolvers import NoReverseMatch
+from django.core.urlresolvers import reverse
 
-from ...utils import *
-
-import workon.utils
+from ... import utils
 
 
 class EmailingUserActivationToken(models.Model):
@@ -45,29 +44,11 @@ class EmailingUserActivationToken(models.Model):
             self.token =  self._hash_func("".join(bits).encode("utf-8")).hexdigest()
         super(EmailingUserActivationToken, self).save(**kwargs)
 
-    def activate_user(self):
-        User = get_user_model()
-        self.email = self.email.strip()
-        if is_valid_email(self.email):
-            try:
-
-                user = User.objects.get(email__iexact=self.email)
-                if not user.is_active:
-                    user.is_active = True
-                    user.save()
-
-                if self.is_used:
-                    return user
-
-            except User.DoesNotExist:
-
-                user = User(
-                    email=self.email,
-                    is_active=True,
-                    username=self.email.split('@')[0][0:254]
-                )
-                user.set_unusable_password()
-                user.save()
+    def activate_user(self, **kwargs):
+        user = utils.get_or_create_user(self.email, **kwargs)
+        if user:
+            user.is_active = True
+            user.save()
 
             self.is_used = True
             self.activation_date = timezone.now()
@@ -84,7 +65,7 @@ class EmailingUserActivationToken(models.Model):
         )
 
     def authenticate_user(self, request, user, remember=False, backend=None):
-        return workon.utils.authenticate_user(request, user, remember=remember, backend=backend)
+        return utils.authenticate_user(request, user, remember=remember, backend=backend)
 
 
 
@@ -154,12 +135,12 @@ class Emailing(models.Model):
 
             for receiver in receivers:
                 receiver = receiver.strip()
-                if is_valid_email(receiver):
+                if utils.is_valid_email(receiver):
 
                     try:
 
                         html = self.template
-                        html = set_mailchimp_vars(html)
+                        html = utils.set_mailchimp_vars(html)
 
                         if activate_url:
                             activation_token, created = EmailingUserActivationToken.objects.get_or_create(email=receiver)
@@ -171,7 +152,7 @@ class Emailing(models.Model):
                         if mc_subject:
                             html = html.replace(mc_subject.group(0), self.subject )
 
-                        html = clean_html_for_email(html)
+                        html = utils.clean_html_for_email(html)
 
                         if not test:
                             transaction, created = EmailingTransaction.objects.get_or_create(
@@ -181,7 +162,7 @@ class Emailing(models.Model):
                         else:
                             created = True
                         if irange < self.send_range and (created or transaction.send_count == 0):
-                            message = HtmlTemplateEmail(
+                            message = utils.HtmlTemplateEmail(
                                 subject=self.subject,
                                 sender=self.sender,
                                 receivers=[receiver],
@@ -193,10 +174,10 @@ class Emailing(models.Model):
                                 transaction.send_count += 1
                                 transaction.save()
                             irange += 1
-                    except:
-                        raise Exception("You must include workon urls.")
+                    except Exception, e:
+                        raise Exception("You must include workon urls. %s" % e)
 
-            send_mass_email(messages)
+            utils.send_mass_email(messages)
             if test:
                 self.test_count += 1
             else:

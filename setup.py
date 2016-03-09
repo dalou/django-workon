@@ -66,8 +66,8 @@ setup(
         "pycrypto==2.6.1",
         "pyopenssl==0.15.1",
         "requests[security]==2.9.1",
-        "oauth2client==1.5.2",
-        "requests_oauthlib==0.5.0",
+        "oauth2client==2.0.1",
+        "requests_oauthlib==0.6.1",
 
         # Fields / models
         "jsonfield==1.0.3",

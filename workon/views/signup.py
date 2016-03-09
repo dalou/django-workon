@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.utils import timezone
 from .. import signals
-from ..utils.user import default_redirect, get_or_create_user
+from ..modules.user.utils import default_redirect, get_or_create_user
 
 # from django_flow.utils import send_staff_notification, send_template_email
 
