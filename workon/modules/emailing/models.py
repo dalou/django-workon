@@ -84,7 +84,7 @@ class EmailingUserActivationToken(models.Model):
         )
 
     def authenticate_user(self, request, user, remember=False, backend=None):
-        return workon.utils.authenticate_user(request, self, remember=remember, backend=backend)
+        return workon.utils.authenticate_user(request, user, remember=remember, backend=backend)
 
 
 
