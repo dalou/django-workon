@@ -16,7 +16,7 @@ class Activate(generic.View):
             user = token.activate_user()
             if user:
                 if token.authenticate_user(request, user, remember=True):
-                    # messages.success(request, u"Votre compte !")
+                    messages.success(request, u"Votre compte à bien été activé.")
                     return HttpResponseRedirect(reverse('user:dashboard'))
 
         except EmailingUserActivationToken.DoesNotExist:
