@@ -38,18 +38,11 @@ def create_activation_token(email, expiration_date=None):
     from .models import ActivationToken
     email = workon.utils.is_valid_email(email)
     if email:
-        try:
-            activation_token = ActivationToken.objects.get(
-                email=email,
-                is_used=False,
-                expiration_date__gt=timezone.now()
-            )
-        except ActivationToken.DoesNotExist:
-            activation_token = ActivationToken(
-                email=email,
-            )
-        if expiration_date:
-            activation_token.expiration_date = expiration_date
+        activation_token, created = ActivationToken.objects.get_or_create(
+            email=email,
+            is_used=False,
+        )
+        activation_token.expiration_date = expiration_date
         activation_token.save()
         return activation_token
     return None

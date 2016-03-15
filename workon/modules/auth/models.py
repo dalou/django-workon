@@ -3,6 +3,7 @@
 
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 try:
     from django.contrib.sites.models import Site
@@ -21,13 +22,14 @@ class ActivationToken(models.Model):
     created_date = models.DateTimeField(u"Créé le", auto_now_add=True)
     updated_date = models.DateTimeField(u"Modifié le", auto_now=True, db_index=True)
 
-    email = models.EmailField(u"Adresse email", max_length=254, unique=True, db_index=True)
+    email = models.EmailField(u"Adresse email", max_length=254, db_index=True)
     token = models.CharField(u"Token d'activation", max_length=64, unique=True, db_index=True)
     is_used = models.BooleanField(u'Utilisé ?', default=False)
     expiration_date = models.DateTimeField(u"date d'expiration", blank=True, null=True, db_index=True)
     activation_date = models.DateTimeField(u"date d'activation", blank=True, null=True)
 
     class Meta:
+        unique_together = (("email", "token"),)
         verbose_name = u"Clé d'activation"
         verbose_name_plural = u"Clés d'activation"
         ordering = ('created_date', 'activation_date',)
@@ -43,7 +45,7 @@ class ActivationToken(models.Model):
             user.is_active = True
             user.save()
 
-            self.is_used = True
+            self.is_used = user.has_usable_password()
             self.activation_date = timezone.now()
             self.save()
             return user

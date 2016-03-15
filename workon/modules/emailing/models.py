@@ -86,52 +86,49 @@ class Emailing(models.Model):
 
             for receiver in receivers:
                 receiver = receiver.strip()
-                if utils.is_valid_email(receiver):
+                if workon.utils.is_valid_email(receiver):
 
-                    try:
 
-                        html = self.template
-                        html = utils.set_mailchimp_vars(html)
+                    html = self.template
+                    html = workon.utils.set_mailchimp_vars(html)
 
-                        if activate_url:
-                            activation_token = workon.utils.create_activation_token(receiver)
-                            html = html.replace(
-                                activate_url.group(0),
-                                workon.utils.build_absolute_url(activation_token.get_absolute_url())
-                            )
+                    if activate_url:
+                        activation_token = workon.utils.create_activation_token(receiver)
+                        html = html.replace(
+                            activate_url.group(0),
+                            workon.utils.build_absolute_url(activation_token.get_absolute_url())
+                        )
 
-                        # if archive_url:
-                        #     html = html.replace(archive_url.group(0), self. )
+                    # if archive_url:
+                    #     html = html.replace(archive_url.group(0), self. )
 
-                        if mc_subject:
-                            html = html.replace(mc_subject.group(0), self.subject )
+                    if mc_subject:
+                        html = html.replace(mc_subject.group(0), self.subject )
 
-                        html = utils.clean_html_for_email(html)
+                    html = workon.utils.clean_html_for_email(html)
 
+                    if not test:
+                        transaction, created = EmailingTransaction.objects.get_or_create(
+                            receiver=receiver,
+                            emailing=self
+                        )
+                    else:
+                        created = True
+                    if irange < self.send_range and (created or transaction.send_count == 0):
+                        message = workon.utils.HtmlTemplateEmail(
+                            subject=self.subject,
+                            sender=self.sender,
+                            receivers=[receiver],
+                            html=html,
+                        )
+                        messages.append(message)
+                        final_receivers.append(receiver)
                         if not test:
-                            transaction, created = EmailingTransaction.objects.get_or_create(
-                                receiver=receiver,
-                                emailing=self
-                            )
-                        else:
-                            created = True
-                        if irange < self.send_range and (created or transaction.send_count == 0):
-                            message = utils.HtmlTemplateEmail(
-                                subject=self.subject,
-                                sender=self.sender,
-                                receivers=[receiver],
-                                html=html,
-                            )
-                            messages.append(message)
-                            final_receivers.append(receiver)
-                            if not test:
-                                transaction.send_count += 1
-                                transaction.save()
-                            irange += 1
-                    except Exception, e:
-                        raise Exception("You must include workon urls. %s" % e)
+                            transaction.send_count += 1
+                            transaction.save()
+                        irange += 1
 
-            utils.send_mass_email(messages)
+            workon.utils.send_mass_email(messages)
             if test:
                 self.test_count += 1
             else:
