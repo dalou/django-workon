@@ -60,6 +60,8 @@ setup(
     install_requires=[
         'django>=1.8.4,<=1.9.2',
 
+        'django_select2==5.0.0',
+
         # Crypto
         "cryptography==1.0.2",
         "cffi==1.2.1",
