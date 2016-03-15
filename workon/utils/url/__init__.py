@@ -9,6 +9,11 @@ from .format import (
     build_absolute_url
 )
 
+try:
+    from urllib.parse import urlparse, urlunparse
+except ImportError:  # python 2
+    from urlparse import urlparse, urlunparse
+
 from django.core import urlresolvers
 from django.core.exceptions import SuspiciousOperation
 from django.conf import settings
