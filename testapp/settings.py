@@ -32,8 +32,8 @@ REDIS = urlparse(os.environ.get('REDIS_URL', 'redis://localhost:6379'))
 
 EMAIL_BACKEND = 'workon.modules.emailing.backend.DevBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'app36483670@heroku.com'
-EMAIL_HOST_PASSWORD = "dlvr0fmm1130"
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
