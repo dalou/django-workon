@@ -14,7 +14,7 @@ from ..modules.emailing.utils import *
 from ..modules.google.utils import *
 from ..modules.chart.utils import register_chart
 from ..modules.stripe.utils import *
-from ..modules.user.utils import get_or_create_user, authenticate_user
+from ..modules.auth.utils import get_valid_activation_token, create_activation_token, get_or_create_user, authenticate_user
 
 from django.conf import settings
 def get_project_title(default=""):
@@ -46,3 +46,11 @@ def jsonify(obj):
             return json.dumps(json.loads(obj))
         except:
             return json.loads(json.dumps(obj))
+
+
+def get_ip_address(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')

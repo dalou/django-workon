@@ -105,7 +105,7 @@ class Watcher(object):
                     content = None
 
                     if not os.path.isfile(source):
-                        source = os.path.join(dirname(settings.DJANGO_ROOT), config[0])
+                        source = os.path.join(os.path.dirname(settings.DJANGO_ROOT), config[0])
                         if not os.path.isfile(source):
                             self.print_error('Source is missing "%s"' % source)
                             source = None
@@ -116,15 +116,15 @@ class Watcher(object):
                         f.close()
 
                     if not os.path.isdir(folder_output):
-                        folder_output = os.path.join(dirname(settings.DJANGO_ROOT), folder_output)
+                        folder_output = os.path.join(os.path.dirname(settings.DJANGO_ROOT), folder_output)
                         if not os.path.isdir(folder_output):
                             self.print_error('Folder output is missing "%s"' % folder_output)
                             folder_output = None
 
                     css_output_dir = os.path.dirname(css_output)
                     if not os.path.isdir(css_output_dir):
-                        css_output_dir = os.path.join(dirname(settings.DJANGO_ROOT), css_output_dir)
-                        css_output =    os.path.join(dirname(settings.DJANGO_ROOT), css_output)
+                        css_output_dir = os.path.join(os.path.dirname(settings.DJANGO_ROOT), css_output_dir)
+                        css_output =    os.path.join(os.path.dirname(settings.DJANGO_ROOT), css_output)
                         if not os.path.isdir(css_output_dir):
                             self.print_error('CSS output folder is missing "%s"' % css_output)
                             css_output = None

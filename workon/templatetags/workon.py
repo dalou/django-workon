@@ -135,6 +135,8 @@ def meta_headers(context):
     return context
 
 
-
+@register.filter
+def multiply(obj, value):
+    return obj * value if obj else ""
 
 

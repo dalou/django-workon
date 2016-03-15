@@ -5,7 +5,10 @@ clean:
 	rm -rf nosetests.xml coverage.xml htmlcov *.egg-info *.pdf dist violations.txt
 
 install:
-	pip install -r reqs/dev.txt
+	python setup.py install
+
+rs:
+	python manage.py runserver
 
 
 watch_less:

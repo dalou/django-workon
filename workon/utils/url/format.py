@@ -51,8 +51,11 @@ def replace_urls_to_href(text, target="_blank", hide_protocol=True):
 
 def get_current_site_domain(request=None):
     if not request:
-        from django.contrib.sites.models import Site
-        domain = Site.objects.get_current().domain
+        try:
+            from django.contrib.sites.models import Site
+            domain = Site.objects.get_current().domain
+        except:
+            domain = getattr(settings, 'PROJECT_DOMAIN', '')
     else:
         domain = get_current_site().domain
     return domain

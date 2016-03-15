@@ -15,19 +15,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser, User as BaseUser, UserManager, PermissionsMixin
 from django.contrib.humanize.templatetags.humanize import naturaltime
-from django.contrib.sites.models import Site
 
-from ... import utils
-
-from sorl.thumbnail import get_thumbnail
-
-
+import workon.utils
 
 class User(AbstractBaseUser, PermissionsMixin):
     #timezone = models.CharField(max_length=50, default='Europe/Paris')
-    email = models.EmailField(_('email address'), unique=True)
+    email = models.EmailField(_('Email'), unique=True, db_index=True)
 
-    username = models.CharField(_('username'), blank=True, max_length=254,
+    username = models.CharField(_('username'), blank=True, null=True, max_length=254, db_index=True
         # help_text=_('Required. 30 characters or fewer. Letters, digits and '
         #             '@/./+/-/_ only.'),
         # validators=[
@@ -37,13 +32,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         #                                 'and @/./+/-/_ characters.'), 'invalid'),
         # ]
     )
-    first_name = models.CharField(_('first name'), max_length=254, blank=True, null=True)
-    last_name = models.CharField(_('last name'), max_length=254, blank=True, null=True)
+    first_name = models.CharField(_('first name'), max_length=254, blank=True, null=True, db_index=True)
+    last_name = models.CharField(_('last name'), max_length=254, blank=True, null=True, db_index=True)
     phone_number = models.CharField(u'Téléphone', max_length=254, blank=True, null=True)
-    email = models.CharField(u'Email', unique=True, max_length=254, blank=True, null=True)
 
     avatar = models.ImageField(u"Photo de profil", blank=True, null=True,
-        upload_to=utils.unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename')
+        upload_to=workon.utils.unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename')
     )
 
     is_staff = models.BooleanField(_('staff status'), default=False,
@@ -110,9 +104,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.save()
 
     def authenticate(self, request, remember=False, backend=None):
-        return utils.authenticate_user(request, self, remember=remember, backend=backend)
-
-
+        return workon.utils.authenticate_user(request, self, remember=remember, backend=backend)
 
     def get_avatar_small(self):
         return self.get_avatar_url(size=40)
@@ -125,7 +117,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_avatar_url(self, size=200):
         if self.avatar:
-            return get_thumbnail(self.avatar, '%sx%s' % (size,size), crop='center', format="PNG", quality=99).url
+            if get_thumbnail:
+                return get_thumbnail(self.avatar, '%sx%s' % (size,size), crop='center', format="PNG", quality=99).url
+            else:
+                return self.avatar.url
         else:
             default = "http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;f=y"
             gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(self.email.lower()).hexdigest() + "?"
@@ -146,8 +141,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.private_key = self.generate_random_token()
 
     def generate_random_token(self, hash_func=hashlib.sha256):
-        bits = [self.email, str(random.SystemRandom().getrandbits(512))]
-        return hash_func("".join(bits).encode("utf-8")).hexdigest()
+        return workon.utils.random_token(extra=[self.id if self.id else self.email, self.email])
 
 
 

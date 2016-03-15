@@ -1,3 +1,4 @@
+from ..modules.auth.models import ActivationToken
 from ..modules.user.models import User
 from ..modules.tree.models import Tree
 from ..modules.unique.models import Unique

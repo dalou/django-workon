@@ -6,46 +6,14 @@ from django.views import generic
 from django.contrib import auth
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect
-from ..modules.user.utils import default_redirect
-from .. import signals
 
-
-class LoginForm(forms.Form):
-
-    email = forms.EmailField(label="Adresse e-mail")
-    authentication_fail_message = _(u"L'adresse email ou le mot de passe que vous avez renseigné est incorrect.")
-
-    password = forms.CharField(
-        label=u"Mot de passe",
-        widget=forms.PasswordInput(render_value=True)
-    )
-    remember = forms.BooleanField(
-        label=u"Se souvenir de moi",
-        required=False
-    )
-    user = None
-
-    def clean(self):
-        if self._errors:
-            return
-        user = auth.authenticate(
-            username=self.cleaned_data["email"],
-            password=self.cleaned_data["password"]
-        )
-        if user:
-            if user.is_active:
-                self.user = user
-            else:
-                self.add_error('email', "This account is inactive.")
-        else:
-            self.add_error('email', self.authentication_fail_message)
-        return self.cleaned_data
-
+import workon.forms
+import workon.utils
 
 class Login(generic.FormView):
-    template_name = "user/login.html"
-    template_name_ajax = "user/_login.html"
-    form_class = LoginForm
+    template_name = "auth/login.html"
+    template_name_ajax = "auth/_login.html"
+    form_class = workon.forms.Login
     form_kwargs = {}
     redirect_field_name = "next"
 
@@ -90,9 +58,12 @@ class Login(generic.FormView):
         )
         return super(Login, self).form_invalid(form)
 
+
+    def after_form_valid(self, form):
+        workon.utils.authenticate_user(request, form.user, remember=form.cleaned_data.get("remember"))
+
     def form_valid(self, form):
-        form.user.authenticate(self.request, remember=form.cleaned_data.get("remember"))
-        signals.user_logged_in.send(sender=Login, user=form.user, form=form)
+        self.after_form_valid(form)
         return redirect(self.get_success_url())
 
 
@@ -100,7 +71,7 @@ class Login(generic.FormView):
         if fallback_url is None:
             fallback_url = '/%s' % (settings.PREFIX_URL if hasattr(settings, 'PREFIX_URL') else "")
         kwargs.setdefault("redirect_field_name", self.get_redirect_field_name())
-        return default_redirect(self.request, fallback_url, **kwargs)
+        return workon.utils.default_redirect(self.request, fallback_url, **kwargs)
 
     def get_redirect_field_name(self):
         return self.redirect_field_name

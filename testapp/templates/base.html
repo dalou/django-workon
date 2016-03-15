@@ -1,0 +1,73 @@
+{% load compress settings_tags workon %}<!DOCTYPE html>
+<html lang="en" {% block html_attr %}{% endblock html_attr %}>
+    <head>
+
+        {% meta title %}{% block meta_title %}Workon TEST Station{% endblock %}{% endmeta %}
+        {% meta description %}{% block meta_description %}Workon TEST Station Description{% endblock %}{% endmeta %}
+        {% meta keywords %}{% block meta_keywords %}{% endblock %}{% endmeta %}
+        {% meta image %}{% block meta_image %}{{ STATIC_URL }}img/brand.png{% endblock %}{% endmeta %}
+
+        {% meta type %}{% block meta_type %}website{% endblock %}{% endmeta %}
+        {% meta site %}{% block meta_site %}IT'TEK{% endblock %}{% endmeta %}
+        {% meta creator %}{% block meta_creator %}{% endblock %}{% endmeta %}
+        {% meta domain %}{% block meta_domain %}{{ request.META.HTTP_HOST }}{% endblock %}{% endmeta %}
+        {% meta url %}{% block meta_url %}http://{{ request.META.HTTP_HOST }}{{ request.get_full_path }}{% endblock %}{% endmeta %}
+        {% meta app_iphone %}{% block meta_app_iphone %}{% endblock %}{% endmeta %}
+        {% meta app_googleplay %}{% block meta_app_googleplay %}{% endblock %}{% endmeta %}
+        {% meta app_ipad %}{% block meta_app_ipad %}{% endblock %}{% endmeta %}
+
+        <!-- Global -->
+        <title>{% usemeta title %}</title>
+        <meta name="description" content="{% usemeta description %}" />
+        <meta name="keywords" content="{% usemeta keywords %}" />
+        <link rel="image_src" href="{% usemeta image %}" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="{% usemeta site %}">
+        <meta name="twitter:creator" content="{% usemeta creator %}">
+        <meta name="twitter:title" content="{% usemeta title %}">
+        <meta name="twitter:description" content="{% usemeta description %}">
+        <meta name="twitter:image" content="{% usemeta image %}">
+        <meta name="twitter:url" content="{% usemeta url %}">
+        <meta name="twitter:domain" content="{% usemeta domain %}">
+        <meta name="twitter:app:id:iphone" content="">
+        <meta name="twitter:app:id:googleplay" content="">
+        <meta name="twitter:app:id:ipad" content="">
+        <meta name="twitter:app:url:iphone" content="{% usemeta app_iphone %}">
+        <meta name="twitter:app:url:googleplay" content="{% usemeta app_googleplay %}">
+        <meta name="twitter:app:url:ipad" content="{% usemeta app_ipad %}">
+
+        <!-- Facebook -->
+        <meta property="og:title" content="{% usemeta title %}" />
+        <meta property="og:type" content="{% usemeta type %}" />
+        <meta property="og:description" content="{% usemeta description %}" />
+        <meta property="og:image" content="{% usemeta image %}" />
+        <meta property="og:url" content="{% usemeta url %}" />
+        <meta property="og:site_name" content="{% usemeta site %}" />
+
+
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ++++++++++++++++++++++++++++++++++++++++ -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="{{ STATIC_URL }}js/jquery-1.11.1.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+        <script>
+            window.STATIC_URL = "{{ STATIC_URL }}";
+        </script>
+        {% block head %}{% endblock head %}
+    </head>
+    <body class="{{ request.resolver_match.namespace }}-{{ request.resolver_match.url_name }}">
+
+
+
+
+
+
+        {% block body %}{% endblock %}
+        {% block 404 %}{% endblock %}
+    </body>
+</html>

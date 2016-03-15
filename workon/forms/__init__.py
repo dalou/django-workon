@@ -11,3 +11,6 @@ from .tree import TreeModelChoiceField, TreeSelect
 from .content_type import GenericContentTypeSelect
 from .json_py import JSONField, JSONReadOnlyInput
 from .info import InfoField
+
+
+from ..modules.auth.forms import *

@@ -16,56 +16,7 @@ from django.utils import timezone
 from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 
-from ... import utils
-
-
-class EmailingUserActivationToken(models.Model):
-
-    created_date = models.DateTimeField(u"Créé le", auto_now_add=True)
-    updated_date = models.DateTimeField(u"Modifié le", auto_now=True, db_index=True)
-
-    email = models.EmailField(u"Adresse email", max_length=254, unique=True, db_index=True)
-    token = models.CharField(u"Token d'activation", max_length=64, unique=True, db_index=True)
-    is_used = models.BooleanField(u'Utilisé ?', default=False)
-    expiration_date = models.DateTimeField(u"date d'expiration", blank=True, null=True)
-    activation_date = models.DateTimeField(u"date d'activation", blank=True, null=True)
-
-    _hash_func = hashlib.sha256
-
-
-    class Meta:
-        verbose_name = u"Clé d'activation"
-        verbose_name_plural = u"Clés d'activation"
-        ordering = ('created_date', 'activation_date',)
-
-    def save(self, **kwargs):
-        if not self.token:
-            bits = [self.email, str(random.SystemRandom().getrandbits(512))]
-            self.token =  self._hash_func("".join(bits).encode("utf-8")).hexdigest()
-        super(EmailingUserActivationToken, self).save(**kwargs)
-
-    def activate_user(self, **kwargs):
-        user = utils.get_or_create_user(self.email, **kwargs)
-        if user:
-            user.is_active = True
-            user.save()
-
-            self.is_used = True
-            self.activation_date = timezone.now()
-            self.save()
-            return user
-
-        return None
-
-    def get_activate_url(self):
-        return "{0}://{1}{2}".format(
-            getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http"),
-            Site.objects.get_current(),
-            reverse("workon:emailing-activate-user", args=[self.token])
-        )
-
-    def authenticate_user(self, request, user, remember=False, backend=None):
-        return utils.authenticate_user(request, user, remember=remember, backend=backend)
+import workon.utils
 
 
 
@@ -143,8 +94,11 @@ class Emailing(models.Model):
                         html = utils.set_mailchimp_vars(html)
 
                         if activate_url:
-                            activation_token, created = EmailingUserActivationToken.objects.get_or_create(email=receiver)
-                            html = html.replace(activate_url.group(0), activation_token.get_activate_url() )
+                            activation_token = workon.utils.create_activation_token(receiver)
+                            html = html.replace(
+                                activate_url.group(0),
+                                workon.utils.build_absolute_url(activation_token.get_absolute_url())
+                            )
 
                         # if archive_url:
                         #     html = html.replace(archive_url.group(0), self. )

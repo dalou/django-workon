@@ -9,15 +9,15 @@ from django.template import RequestContext
 
 from .models import *
 
-class EmailingUserActivationTokenAdmin(admin.ModelAdmin):
-    list_display = ('email', 'token', 'is_used', 'activation_date', 'expiration_date', 'created_date')
-    search_fields = ('email', 'token', 'activation_date', 'created_date' )
-    list_filter = ('is_used', )
+# class EmailingUserActivationTokenAdmin(admin.ModelAdmin):
+#     list_display = ('email', 'token', 'is_used', 'activation_date', 'expiration_date', 'created_date')
+#     search_fields = ('email', 'token', 'activation_date', 'created_date' )
+#     list_filter = ('is_used', )
 
-    def get_readonly_fields(self, *args, **kwargs):
-        fields = [f.name for f in self.model._meta.fields]
-        return fields
-admin.site.register(EmailingUserActivationToken, EmailingUserActivationTokenAdmin)
+#     def get_readonly_fields(self, *args, **kwargs):
+#         fields = [f.name for f in self.model._meta.fields]
+#         return fields
+# admin.site.register(EmailingUserActivationToken, EmailingUserActivationTokenAdmin)
 
 
 class EmailingTestEmailAdmin(admin.ModelAdmin):

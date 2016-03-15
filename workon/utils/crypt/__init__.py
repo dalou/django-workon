@@ -7,6 +7,8 @@ import hashlib
 import random
 import functools
 from Crypto.Cipher import AES
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import base36_to_int, int_to_base36
 import base64
 
 def random_token(extra=None, hash_func=hashlib.sha256):
@@ -38,4 +40,9 @@ def base64_decrypted_key(string, passphrase=''):
     except:
         return None
 
+
+def request_uid_token(request):
+    uid = int_to_base36(request.user.id)
+    token = default_token_generator.make_token(request.user)
+    return uid, token
 
