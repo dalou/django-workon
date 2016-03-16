@@ -17,6 +17,7 @@ def forceunicode(str):
 
 def normalize(str):
     if not str: return ""
+    str = str.replace(u'’', "'")
     if not type(str) == type(unicode): str = forceunicode(str)
-    return unicodedata.normalize('NFKD',str).encode('ascii','ignore').lower().strip().replace(u'’', '\'')
+    return unicodedata.normalize('NFKD',str).encode('ascii','ignore').lower().strip()
 
