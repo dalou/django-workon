@@ -1,3 +1,4 @@
+# encoding: utf-8
 
 import unicodedata
 from django.utils.encoding import force_str, force_text
@@ -17,5 +18,5 @@ def forceunicode(str):
 def normalize(str):
     if not str: return ""
     if not type(str) == type(unicode): str = forceunicode(str)
-    return unicodedata.normalize('NFKD',str).encode('ascii','ignore').lower().strip().replace('’', '\'')
+    return unicodedata.normalize('NFKD',str).encode('ascii','ignore').lower().strip().replace(u'’', '\'')
 
