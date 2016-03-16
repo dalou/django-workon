@@ -62,7 +62,7 @@ class PasswordResetToken(generic.FormView):
 
     def form_valid(self, form):
         self.change_password(form)
-        self.after_change_password()
+        self.after_form_valid()
         return redirect(self.get_success_url())
 
     def get_redirect_field_name(self):
@@ -72,7 +72,7 @@ class PasswordResetToken(generic.FormView):
         if fallback_url is None:
             fallback_url = 'user:dashboard'
         kwargs.setdefault("redirect_field_name", self.get_redirect_field_name())
-        return default_redirect(self.request, fallback_url, **kwargs)
+        return workon.utils.default_redirect(self.request, fallback_url, **kwargs)
 
     def get_user(self):
         try:

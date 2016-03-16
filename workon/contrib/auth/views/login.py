@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 
 import workon.forms
 import workon.utils
+import workon.signals
 
 class Login(generic.FormView):
     template_name = "auth/login.html"
@@ -51,7 +52,7 @@ class Login(generic.FormView):
             key = "email"
         username = form.data.get(key, None)
 
-        signals.user_login_attempt.send(
+        workon.signals.user_login_attempt.send(
             sender=Login,
             username=username,
             result=form.is_valid()
@@ -60,7 +61,7 @@ class Login(generic.FormView):
 
 
     def after_form_valid(self, form):
-        workon.utils.authenticate_user(request, form.user, remember=form.cleaned_data.get("remember"))
+        workon.utils.authenticate_user(self.request, form.user, remember=form.cleaned_data.get("remember"))
 
     def form_valid(self, form):
         self.after_form_valid(form)
