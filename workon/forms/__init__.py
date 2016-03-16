@@ -13,4 +13,4 @@ from .json_py import JSONField, JSONReadOnlyInput
 from .info import InfoField
 
 
-from ..modules.auth.forms import *
+from ..contrib.auth.forms import *

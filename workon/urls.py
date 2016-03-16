@@ -6,8 +6,8 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^', include([
-        url(r'^auth/', include("workon.modules.auth.urls")),
-        url(r'^stripe/', include("workon.modules.stripe.urls")),
-        url(r'^flow/', include("workon.modules.flow.urls")),
+        url(r'^auth/', include("workon.contrib.auth.urls")),
+        url(r'^stripe/', include("workon.contrib.stripe.urls")),
+        url(r'^flow/', include("workon.contrib.flow.urls")),
     ], namespace="workon"))
 ]

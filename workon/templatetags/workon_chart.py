@@ -1,2 +1,2 @@
 
-from ..modules.chart.templatetags import *
+from ..contrib.chart.templatetags import *

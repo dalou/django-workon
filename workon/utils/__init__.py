@@ -1,4 +1,4 @@
-from ..paginator import Paginator, DiggPaginator
+from ..contrib.paginator import Paginator, DiggPaginator
 from .date import *
 from .url import *
 from .text import *
@@ -10,11 +10,11 @@ from .cache import *
 from .number import *
 from .rss import *
 from .crypt import *
-from ..modules.emailing.utils import *
-from ..modules.google.utils import *
-from ..modules.chart.utils import register_chart
-from ..modules.stripe.utils import *
-from ..modules.auth.utils import get_activation_token, get_valid_activation_token, create_activation_token, get_or_create_user, authenticate_user
+from ..contrib.emailing.utils import *
+from ..contrib.google.utils import *
+from ..contrib.chart.utils import register_chart
+from ..contrib.stripe.utils import *
+from ..contrib.auth.utils import get_activation_token, get_valid_activation_token, create_activation_token, get_or_create_user, authenticate_user
 
 from django.conf import settings
 def get_project_title(default=""):

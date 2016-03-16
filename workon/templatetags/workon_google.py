@@ -1,2 +1,2 @@
 
-from ..modules.google.templatetags import *
+from ..contrib.google.templatetags import *

@@ -1,5 +1,5 @@
 from django import template
-from ..modules.admin.config import get_config
+from ..contrib.admin.config import get_config
 
 register = template.Library()
 

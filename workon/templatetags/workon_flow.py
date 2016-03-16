@@ -1,2 +1,2 @@
 
-from ..modules.flow.templatetags import *
+from ..contrib.flow.templatetags import *

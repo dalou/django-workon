@@ -1,2 +1,2 @@
 
-from ..modules.flow.pipe import send
+from ..contrib.flow.pipe import send

@@ -26,14 +26,14 @@ BOOTSTRAP3_DEFAULTS = {
     'error_css_class': 'has-error',
     'success_css_class': 'has-success',
     'formset_renderers': {
-        'default': 'workon.modules.bootstrap3.renderers.FormsetRenderer',
+        'default': 'workon.contrib.bootstrap3.renderers.FormsetRenderer',
     },
     'form_renderers': {
-        'default': 'workon.modules.bootstrap3.renderers.FormRenderer',
+        'default': 'workon.contrib.bootstrap3.renderers.FormRenderer',
     },
     'field_renderers': {
-        'default': 'workon.modules.bootstrap3.renderers.FieldRenderer',
-        'inline': 'workon.modules.bootstrap3.renderers.InlineFieldRenderer',
+        'default': 'workon.contrib.bootstrap3.renderers.FieldRenderer',
+        'inline': 'workon.contrib.bootstrap3.renderers.InlineFieldRenderer',
     },
 }
 

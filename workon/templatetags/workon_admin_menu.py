@@ -17,7 +17,7 @@ except ImportError:
     string_types = basestring,
 
 import warnings
-from ..modules.admin.config import get_config
+from ..contrib.admin.config import get_config
 
 register = template.Library()
 

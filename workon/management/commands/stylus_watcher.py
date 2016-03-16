@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils.module_loading import import_module
 from django.core.management.base import BaseCommand
-from ...modules.stylus.watcher import Watcher
+from ...contrib.stylus.watcher import Watcher
 
 
 class Command(BaseCommand):

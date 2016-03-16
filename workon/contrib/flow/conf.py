@@ -19,7 +19,7 @@ FLOW_DEBUG = bool(int(getattr(settings, 'WORKON_FLOW_DEBUG', "1")))
 Signal modules tuple paths that receive secure users messages
 """
 FLOW_SIGNALS = getattr(settings, 'WORKON_FLOW_SIGNALS', (
-    "workon.modules.flow.signals",
+    "workon.contrib.flow.signals",
 ))
 
 """
@@ -64,7 +64,7 @@ FLOW_WS_EXPIRE = int(getattr(settings, 'WORKON_FLOW_WS_EXPIRE', 3600))
 """
 Replace the subscriber class by a customized version.
 """
-FLOW_WS_SUBSCRIBER = getattr(settings, 'WORKON_FLOW_WS_SUBSCRIBER', 'workon.modules.flow.pipe.Subscriber')
+FLOW_WS_SUBSCRIBER = getattr(settings, 'WORKON_FLOW_WS_SUBSCRIBER', 'workon.contrib.flow.pipe.Subscriber')
 
 """
 This set the magic string to recognize heartbeat messages. If set, this message string is ignored

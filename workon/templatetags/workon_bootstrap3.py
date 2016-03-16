@@ -9,18 +9,18 @@ from django import template
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
 
-from ..modules.bootstrap3.bootstrap import (
+from ..contrib.bootstrap3.bootstrap import (
     css_url, javascript_url, jquery_url, theme_url, get_bootstrap_setting
 )
-from ..modules.bootstrap3.utils import render_link_tag, render_tag, render_template_to_unicode
-from ..modules.bootstrap3.forms import (
+from ..contrib.bootstrap3.utils import render_link_tag, render_tag, render_template_to_unicode
+from ..contrib.bootstrap3.forms import (
     render_button, render_field, render_field_and_label, render_form,
     render_form_group, render_formset,
     render_label, render_form_errors, render_formset_errors
 )
-from ..modules.bootstrap3.components import render_icon, render_alert
-from ..modules.bootstrap3.utils import handle_var, parse_token_contents
-from ..modules.bootstrap3.text import force_text
+from ..contrib.bootstrap3.components import render_icon, render_alert
+from ..contrib.bootstrap3.utils import handle_var, parse_token_contents
+from ..contrib.bootstrap3.text import force_text
 
 
 register = template.Library()
