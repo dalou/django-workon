@@ -144,7 +144,6 @@ def workon_admin_theme(*args):
     request = args[0]
     theme = config.get_config('theme')
     theme = request.GET.get('workon_admin_theme', theme)
-    print request.COOKIES
     theme = request.COOKIES.get('workon_admin_theme', theme)
     theme = theme.replace('%23', '#')
 
@@ -170,7 +169,6 @@ def workon_admin_theme(*args):
 
     elif theme.startswith('#'):
         color = Color(theme)
-        print color.luminance
         # if color.luminance <= 0.5:
         light_color1 = Color(theme)
         light_color2 = Color(theme, luminance=0.4)
