@@ -7,3 +7,4 @@ def is_float(var):
     except (TypeError, ValueError):
         return False
     return True
+

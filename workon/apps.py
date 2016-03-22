@@ -1,3 +1,5 @@
+import os
+
 import email as original_email
 from django.apps import AppConfig
 from django import get_version
@@ -58,6 +60,13 @@ class WorkonConfig(AppConfig):
                 self.setup_filer_app()
             except Exception:
                 pass
+
+        root_path = os.path.abspath(os.path.dirname(__file__))
+
+        print settings.TEMPLATE_DIRS
+        settings.TEMPLATE_DIRS += (
+            os.path.join(root_path, 'contrib', 'admin', 'templates'),
+        )
 
         super(WorkonConfig, self).__init__(app_name, app_module)
 

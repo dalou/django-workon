@@ -8,6 +8,67 @@ from django.contrib import admin
 from django.db import models
 from .widgets import CargoSplitDateTimeWidget
 
+from django.contrib.admin import ModelAdmin as BaseModelAdmin, actions
+from django.contrib.admin.sites import site as base_site, AdminSite as BaseAdminSite
+
+class AdminSite(BaseAdminSite):
+
+    login_form = None
+    index_template = "workon/admin/index.html"
+    app_index_template = None
+    login_template = None
+    logout_template = None
+    password_change_template = None
+    password_change_done_template = None
+
+    def __init__(self, *args, **kwargs):
+        super(AdminSite, self).__init__(*args, **kwargs)
+        self._registry = copy.copy(base_site._registry)
+
+    def register(self, *args, **kwargs):
+        if not kwargs.get('admin_class'):
+            kwargs['admin_class'] = ModelAdmin
+        return super(AdminSite, self).register(*args, **kwargs)
+
+    def get_app_list(self, request):
+        app_dict = self._build_app_dict(request)
+
+        workon_menu = settings.WORKON.get('ADMIN').get('MENU')
+
+        print workon_menu
+
+
+        # Sort the apps alphabetically.
+        app_list = sorted(app_dict.values(), key=lambda x: x['name'].lower())
+
+        new_app_list = []
+
+        for app in app_list:
+            label = app.get('name')
+            model = "%s.%s" % (app.get('app_label'), app.get('object_name'))
+            print app, label, model
+
+
+        # Sort the models alphabetically within each app.
+        for app in app_list:
+            app['models'].sort(key=lambda x: x['name'])
+
+
+        return app_list
+    # @property
+    # def urls(self):
+    #     return self.get_urls(), 'admin', 'admin'
+
+
+    # def get_urls(self):
+    #     from django.conf.urls import url, include
+    #     urls = super(BaseAdminSite, self).get_url()
+    #     return [
+    #         url(r'^', include(urls, namespace="admin"))
+    #     ]
+
+class ModelAdmin(BaseModelAdmin):
+    pass
 
 class SortableModelAdminBase(object):
     """

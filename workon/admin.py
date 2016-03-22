@@ -6,4 +6,5 @@ from .contrib.emailing.admin import *
 from .contrib.selection.admin import SelectionAdmin
 from .contrib.stripe.admin import *
 from .contrib.auth.admin import *
+from .contrib.admin.admin import *
 # # from .setting import SettingsAdmin

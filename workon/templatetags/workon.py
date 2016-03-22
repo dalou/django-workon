@@ -47,6 +47,34 @@ def absolute_url(url):
 #     global TEMPLATE_META_TITLE = value
 
 
+@register.filter()
+def to_int(value):
+    return int(value)
+
+@register.filter(name='sizify')
+def sizify(size):
+    """
+    Simple kb/mb/gb size snippet for templates:
+
+    {{ product.file.size|sizify }}
+    """
+    #value = ing(value)
+    try:
+        value = int(size)
+        if value < 512000:
+            value = value / 1024.0
+            ext = 'kb'
+        elif value < 4194304000:
+            value = value / 1048576.0
+            ext = 'mb'
+        else:
+            value = value / 1073741824.0
+            ext = 'gb'
+        return '%s %s' % (str(round(value, 2)), ext)
+    except:
+        return 'n/a'
+
+
 def _setup_metas_dict(parser):
     try:
         parser._metas

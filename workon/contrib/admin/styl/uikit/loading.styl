@@ -1,0 +1,51 @@
+
+
+// main, footer
+//     ff("GothamRounded-Bold", "Courier"); fw(300);
+@keyframes placeholder {
+    from { top:-8px; left:-8px; }
+    50% { top:-10px; left:-10px; }
+    to { top:-8px; left:-8px; }
+}
+
+
+// .img-responsive
+//     w(100%);
+
+
+
+/***** LOADINGS *****/
+@keyframes spin {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.loading, .mfp-preloader
+    rl(); mnh(50);
+    > .loading-text
+        ab(); l(50%); t(50%); mt(10); ts(translateX(-50%));
+    &:after
+        ct(" "); ab(); l(50%); t(50%); ml(-25); mt(-25); z(5001);// ts(translateY(-50%) translateX(-50%));
+        height: 50px;
+        width: 50px;
+        animation: spin 0.8s infinite linear;
+        border: 2px solid #FFFFFF;
+        border-right-width: 0px !important;
+        border-top-width: 0px !important;
+        border-radius: 50%;
+
+    &:before
+        ct(" "); ab(0,0,0,0,5000); wh(100%); bg(rgba(0,0,0,0.7));
+
+body.loading
+    &:before
+        animation:fadeIn 0.3s ease-in ;
+        ct(" "); fx(0,0,0,0,5000); wh(100%); bg(rgba(0,0,0,0.7))
+    &:after
+        position: fixed;
+        z-index: 5001;
+    > .loading-text
+        position: fixed;
+        z-index: 5001;
+    // .spinner
+    //     fx();

@@ -1,0 +1,69 @@
+{% load thumbnail %}
+
+{% if current_project and current_project.cover_image %}
+    {% thumbnail current_project.cover_image "x150" format="PNG" as thumb %}
+    <div class="cover-image" style="background-image:url({{ thumb.url }});">
+    </div>
+    {% endthumbnail %}
+{% endif %}
+<i class="fa fa-bars" id="toggle"></i>
+<ul class="dock">
+    <li class="launcher">
+        <i class="fa fa-tachometer"></i>
+        <a href="">Dashboard</a>
+    </li>
+    <li class="launcher">
+        <i class="fa fa-heart"></i>
+        <a href="">Moniteur</a>
+    </li>
+    <li class="launcher dropdown hover">
+        <i class="fa fa-tasks"></i>
+        <a href="" >Tâches</a>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header"></li>
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="dropdown-header">Mes taches</li>
+            <li>
+                <a href="#">Prioritaires</a>
+            </li>
+            <li>
+                <a href="#">Récentes</a>
+            </li>
+            <li class="dropdown-header">Projet</li>
+            <li>
+                <a href="#">Prioritaires</a>
+            </li>
+            <li>
+                <a href="#">Récentes</a>
+            </li>
+            <li>
+                <a href="#">Calendrier</a>
+            </li>
+            <li>
+                <a href="#">Roadmap</a>
+            </li>
+            <li>
+                <a href="#">Gant</a>
+            </li>
+        </ul>
+    </li>
+    <li class="launcher">
+        <i class="fa fa-bug"></i>
+        <a href="">Incidents</a>
+    </li>
+    <li class="launcher">
+        <i class="fa fa-lightbulb-o"></i>
+        <a href="" >Idées</a>
+    </li>
+    <li class="launcher">
+        <i class="fa fa-line-chart"></i>
+        <a href="">Analytics</a>
+    </li>
+    <li class="active launcher">
+        <i class="fa fa-child"></i>
+        <a href="">Membres</a>
+        {{ current_project.get_members_count }}
+    </li>
+</ul>
