@@ -39,7 +39,7 @@ class PasswordResetToken(generic.FormView):
         ctx = kwargs
         redirect_field_name = self.get_redirect_field_name()
         ctx.update({
-            "uidb36": self.kwargs["uidb36"],
+            "uid": self.kwargs["uid"],
             "token": self.kwargs["token"],
             "redirect_field_name": redirect_field_name,
             "redirect_field_value": self.request.POST.get(redirect_field_name, self.request.GET.get(redirect_field_name, "")),
@@ -59,6 +59,7 @@ class PasswordResetToken(generic.FormView):
                 self.messages["password_changed"]["level"],
                 self.messages["password_changed"]["text"]
             )
+        workon.utils.authenticate_user(user)
 
     def form_valid(self, form):
         self.change_password(form)
@@ -76,7 +77,7 @@ class PasswordResetToken(generic.FormView):
 
     def get_user(self):
         try:
-            uid_int = base36_to_int(self.kwargs["uidb36"])
+            uid_int = base36_to_int(self.kwargs["uid"])
         except ValueError:
             raise Http404()
         return get_object_or_404(get_user_model(), id=uid_int)
@@ -138,7 +139,7 @@ class PasswordReset(generic.FormView):
         }
         return self.response_class(**response_kwargs)
 
-    def send_email(self, email, uid, token):
+    def send_email(self, user, uid, token):
         raise NotImplementedError(u"Not implemented send_mail")
 
 
