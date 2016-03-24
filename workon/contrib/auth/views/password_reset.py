@@ -59,7 +59,7 @@ class PasswordResetToken(generic.FormView):
                 self.messages["password_changed"]["level"],
                 self.messages["password_changed"]["text"]
             )
-        workon.utils.authenticate_user(user)
+        workon.utils.authenticate_user(self.request, user)
 
     def form_valid(self, form):
         self.change_password(form)
