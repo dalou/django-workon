@@ -62,10 +62,9 @@ class FlexibleUpdate(generic.UpdateView):
 
         current_fields = []
         for name in fields:
-            if name in self.fields and hasattr(self.object, name):
+            if name in self.fields and hasattr(self.object, name) or hasattr(self.model, name):
                 current_fields.append(name)
         self.fields = current_fields
-        print self.fields, self.request.GET.getlist('field[]', [])
         setattr(self, '_object', self.object)
         return self.object
 

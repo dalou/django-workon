@@ -12,10 +12,10 @@ This code was based on the work of others found on the internet:
 from __future__ import unicode_literals
 import six
 from django.db.models.aggregates import Aggregate as DjangoAggregate
-from django.db.models.sql.aggregates import Aggregate as DjangoSqlAggregate
+# from django.db.models.sql.aggregates import Aggregate as DjangoSqlAggregate
 
 
-class SqlAggregate(DjangoSqlAggregate):
+class SqlAggregate(DjangoAggregate):#(DjangoSqlAggregate)
     conditional_template = '%(function)s(CASE WHEN %(condition)s THEN %(field)s ELSE null END)'
 
     def __init__(self, col, source=None, is_summary=False, condition=None, **extra):
