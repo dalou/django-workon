@@ -18,6 +18,8 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 
 import workon.utils
 
+from sorl.thumbnail import get_thumbnail
+
 class User(AbstractBaseUser, PermissionsMixin):
     #timezone = models.CharField(max_length=50, default='Europe/Paris')
     email = models.EmailField(_('Email'), unique=True, db_index=True)
