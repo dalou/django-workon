@@ -75,6 +75,7 @@ setup(
         "jsonfield==1.0.3",
         "babel==1.3",
         "django-mptt==0.8.0",
+        "django-select2==5.8.4"
 
         # payments
         "stripe==1.29.1",
