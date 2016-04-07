@@ -77,13 +77,13 @@ class AutosizedTextarea(Textarea):
     def render(self, name, value, attrs=None):
         output = super(AutosizedTextarea, self).render(name, value, attrs)
         output += mark_safe(
-            "<script type=\"text/javascript\">Cargo.$('#id_%s').autosize("
+            "<script type=\"text/javascript\">Workon.$('#id_%s').autosize("
             ");</script>"
             % name)
         return output
 
 
-class CargoDateWidget(forms.DateInput):
+class WorkonDateWidget(forms.DateInput):
     @property
     def media(self):
         js = ['datepicker/bootstrap-datepicker.js']
@@ -98,7 +98,7 @@ class CargoDateWidget(forms.DateInput):
     def __init__(self, attrs=None, format=None):
         attrs = attrs or {}
         self.format = format
-        super(CargoDateWidget, self).__init__(attrs=attrs, format=format)
+        super(WorkonDateWidget, self).__init__(attrs=attrs, format=format)
 
     def language(self):
         lang = str(translation.get_language() or 'en')[:2].lower()
@@ -132,7 +132,7 @@ class CargoDateWidget(forms.DateInput):
         return django_format
 
     def render(self, name, value, attrs=None):
-        output = super(CargoDateWidget, self).render(name, value, attrs)
+        output = super(WorkonDateWidget, self).render(name, value, attrs)
 
         # Because we wrap input tag in input-group we must copy data-* attrs
         # for datepicker formats
@@ -150,35 +150,35 @@ class CargoDateWidget(forms.DateInput):
                 attrs, output))
 
 
-class CargoDateTimeWidget(forms.DateTimeInput, CargoDateWidget):
+class WorkonDateTimeWidget(forms.DateTimeInput, WorkonDateWidget):
     def __init__(self, attrs=None, format=None):
         self.format = format
         attrs = attrs or {}
         attrs['data-date-show-time'] = 'true'
-        super(CargoDateTimeWidget, self).__init__(attrs, format)
+        super(WorkonDateTimeWidget, self).__init__(attrs, format)
 
 
-class CargoTimeWidget(admin_widgets.AdminTimeWidget):
+class WorkonTimeWidget(admin_widgets.AdminTimeWidget):
     def __init__(self, attrs=None, format=None):
         defaults = {'placeholder': _('Time:')[:-1]}
         new_attrs = _make_attrs(attrs, defaults, "vTimeField input-small")
-        super(CargoTimeWidget, self).__init__(attrs=new_attrs, format=format)
+        super(WorkonTimeWidget, self).__init__(attrs=new_attrs, format=format)
 
     def render(self, name, value, attrs=None):
-        output = super(CargoTimeWidget, self).render(name, value, attrs)
+        output = super(WorkonTimeWidget, self).render(name, value, attrs)
         return mark_safe(
             '<div class="input-append suit-date suit-time">%s<span '
             'class="add-on"><i class="icon-time"></i></span></div>' %
             output)
 
 
-class CargoSplitDateTimeWidget(forms.SplitDateTimeWidget):
+class WorkonSplitDateTimeWidget(forms.SplitDateTimeWidget):
     """
     A SplitDateTime Widget that has some admin-specific styling.
     """
 
     def __init__(self, attrs=None):
-        widgets = [CargoDateWidget, CargoTimeWidget]
+        widgets = [WorkonDateWidget, WorkonTimeWidget]
         forms.MultiWidget.__init__(self, widgets, attrs)
 
     def format_output(self, rendered_widgets):

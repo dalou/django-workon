@@ -71,7 +71,10 @@ class PasswordResetToken(generic.FormView):
 
     def get_success_url(self, fallback_url=None, **kwargs):
         if fallback_url is None:
-            fallback_url = 'user:dashboard'
+            fallback_url = getattr(settings, 'WORKON_AUTH_ACTIVATION_FALLBACK_URL', None)
+            if not fallback_url:
+                fallback_url = '/'
+
         kwargs.setdefault("redirect_field_name", self.get_redirect_field_name())
         return workon.utils.default_redirect(self.request, fallback_url, **kwargs)
 

@@ -22,7 +22,7 @@ class Activate(generic.View):
                     activation_message = getattr(settings, 'WORKON_AUTH_ACTIVATION_MESSAGE', u"Votre compte à bien été activé.")
                     if activation_message:
                         messages.success(request, activation_message)
-                    activation_fallback_url = getattr(settings, 'WORKON_AUTH_ACTIVATION_FALLBACK_URL')
+                    activation_fallback_url = getattr(settings, 'WORKON_AUTH_ACTIVATION_FALLBACK_URL', None)
                     if not activation_fallback_url:
                         return "/"
                     try:

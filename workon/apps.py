@@ -81,11 +81,11 @@ class WorkonConfig(AppConfig):
 
     def override_widgets(self):
         options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateField].update({
-            'widget': widgets.CargoDateWidget
+            'widget': widgets.WorkonDateWidget
         })
         options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateTimeField].update({
             'form_class': forms.DateTimeField,
-            'widget': widgets.CargoDateTimeWidget
+            'widget': widgets.WorkonSplitDateTimeWidget
         })
 
     def setup_model_admin(self):

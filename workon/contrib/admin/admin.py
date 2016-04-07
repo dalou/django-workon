@@ -6,7 +6,7 @@ from django.contrib.contenttypes.admin import GenericTabularInline, GenericStack
 from django.forms import ModelForm, NumberInput
 from django.contrib import admin
 from django.db import models
-from .widgets import CargoSplitDateTimeWidget
+from .widgets import WorkonSplitDateTimeWidget
 
 from django.contrib.admin import ModelAdmin as BaseModelAdmin, actions
 from django.contrib.admin.sites import site as base_site, AdminSite as BaseAdminSite
@@ -243,8 +243,8 @@ if 'cms' in settings.INSTALLED_APPS:
         from cms.admin.forms import PageForm
 
         PageForm.Meta.widgets = {
-            'publication_date': SuitSplitDateTimeWidget,
-            'publication_end_date': SuitSplitDateTimeWidget,
+            'publication_date': WorkonSplitDateTimeWidget,
+            'publication_end_date': WorkonSplitDateTimeWidget,
         }
     except ImportError:
         pass
