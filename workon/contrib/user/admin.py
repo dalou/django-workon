@@ -54,6 +54,10 @@ class UserAdmin(BaseUserAdmin):
     actions = ['' ]
 
 
+    def get_readonly_fields(self, *args, **kwargs):
+        return ['last_login', 'date_joined']
+
+
 
     def email(self, obj):
         return obj.email
