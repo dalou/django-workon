@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 from django import forms
+from django.conf import settings
 from django.views import generic
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import redirect, get_object_or_404
