@@ -11,7 +11,7 @@ class DevBackend(EmailBackend):
     def route_recipients(self, recipients):
         # for i,r in enumerate(recipients):
         #     recipients[i] = "autrusseau.damien@gmail.com, adelineautrusseau@gmail.com"
-        return ["autrusseau.damien@gmail.com"]#recipients
+        return getattr(settings, 'WORKON_EMAILING_DEFAULT_RECEIVERS', "autrusseau.damien@gmail.com").split(',')#recipients
 
     def _send(self, message):
         orginial_receiver = ", ".join(message.to)

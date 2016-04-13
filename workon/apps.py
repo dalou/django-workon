@@ -85,7 +85,7 @@ class WorkonConfig(AppConfig):
         })
         options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateTimeField].update({
             'form_class': forms.DateTimeField,
-            'widget': widgets.WorkonSplitDateTimeWidget
+            'widget': widgets.WorkonDateTimeWidget
         })
 
     def setup_model_admin(self):

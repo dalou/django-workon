@@ -70,7 +70,7 @@ class Signup(forms.Form):
         return value
 
     def __init__(self, *args, **kwargs):
-        super(SignupForm, self).__init__(*args, **kwargs)
+        super(Signup, self).__init__(*args, **kwargs)
         # del self.fields["username"]
         self.fields.keyOrder = ['email', 'password', 'password_confirm']
 
