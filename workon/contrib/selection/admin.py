@@ -108,7 +108,7 @@ class SelectionAdmin(admin.ModelAdmin):
         form = SelectionForm(initial={
             'ids': ids,
             'content_type': content_type,
-            'user': request.user
+            # 'user': request.user
         })
         return render_to_response('workon/selection/admin/save.html', RequestContext(request,
         {
@@ -129,7 +129,9 @@ class SelectionAdmin(admin.ModelAdmin):
                 if form.is_valid():
                     if form.cleaned_data.get('existing_selection'):
                         form.instance.pk = form.cleaned_data.get('existing_selection').pk
+                    form.instance.user = request.user
                     instance = form.save()
+
                     messages.success(request, u"Selection \"%s\" enregistrée avec succés" % instance.name )
                 else:
                     content_type = ContentType.objects.get_for_model(queryset.model)
