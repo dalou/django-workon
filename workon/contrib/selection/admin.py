@@ -28,11 +28,11 @@ class SelectionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SelectionForm, self).__init__(*args, **kwargs)
         self.fields['ids'].widget.attrs['readonly'] = True
-        self.fields['user'].widget.attrs['readonly'] = True
+        # self.fields['user'].widget.attrs['readonly'] = True
         self.fields['content_type'].widget.attrs['readonly'] = True
 
         self.fields['ids'].widget.attrs['style'] = "display:none"
-        self.fields['user'].widget.attrs['style'] = "display:none"
+        # self.fields['user'].widget.attrs['style'] = "display:none"
         self.fields['content_type'].widget.attrs['style'] = "display:none"
 
 
