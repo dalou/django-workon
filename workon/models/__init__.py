@@ -8,5 +8,6 @@ from ..contrib.selection.models import Selection
 from ..contrib.stripe.models import *
 from ..contrib.social.models import *
 from ..contrib.blog.models import *
+from ..contrib.geo.models import GeoLocated
 
 from .aggregate_if import CountIf, SumIf, AvgIf, MaxIf, MinIf
