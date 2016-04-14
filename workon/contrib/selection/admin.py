@@ -16,6 +16,16 @@ from django.core.urlresolvers import reverse
 from .models import *
 
 
+class SelectionAddForm(forms.ModelForm):
+    selection = forms.ModelChoiceField(label=u"Ajouter à une sélection existante", queryset=Selection.objects.all(), required=True)
+    class Meta:
+        model = Selection
+        fields = ('selection', 'ids')
+    def __init__(self, *args, **kwargs):
+        super(SelectionAddForm, self).__init__(*args, **kwargs)
+        self.fields['ids'].widget.attrs['readonly'] = True
+        self.fields['ids'].widget.attrs['style'] = "display:none"
+
 class SelectionForm(forms.ModelForm):
 
     # new_selection = forms.TextField(label="")
@@ -57,6 +67,8 @@ class SelectionAdmin(admin.ModelAdmin):
         super(SelectionAdmin, self).__init__(*args, **kwargs)
         if not 'action_selection_save' in self.actions:
             self.actions += ('action_selection_save',)
+        if not 'action_selection_add' in self.actions:
+            self.actions += ('action_selection_add',)
         if not SelectionForm in self.list_filter:
             self.list_filter += (SelectionFilter, )
 
@@ -85,6 +97,7 @@ class SelectionAdmin(admin.ModelAdmin):
             )
 
         add_url(r'^selection/save/$', 'selection_save', self.selection_save)
+        add_url(r'^selection/add/$', 'selection_add', self.selection_add)
         # add_url(r'^selection/load/$', 'selection_load', self.selection_load)
         return urlpatterns
 
@@ -101,6 +114,52 @@ class SelectionAdmin(admin.ModelAdmin):
     # def get_readonly_fields(self, *args, **kwargs):
     #     fields = [f.name for f in self.model._meta.fields]
     #     return fields
+
+    def action_selection_add(self, request, queryset):
+        ids = ",".join(map(str, queryset.values_list('id', flat=True)))
+        content_type = ContentType.objects.get_for_model(queryset.model)
+        form = SelectionAddForm(initial={
+            'ids': ids,
+            'content_type': content_type,
+            # 'user': request.user
+        })
+        return render_to_response('workon/selection/admin/add.html', RequestContext(request,
+        {
+            'queryset': Selection.get_queryset_for_ids(content_type, ids),
+            'selections': Selection.objects.all(),
+            'form_url': self.get_admin_url('selection_add'),
+            'queryset': queryset,
+            'form': form
+        }))
+
+    action_selection_add.short_description = u"Ajouter à la selection"
+
+
+
+    def selection_add(self, request):
+        if request.method == "POST":
+            if request.POST.get('_selection_add'):
+                form = SelectionAddForm(request.POST)
+                if form.is_valid():
+                    selection = form.cleaned_data.get('selection')
+                    selection.ids += ","+form.cleaned_data.get('ids')
+                    selection.save()
+
+                    messages.success(request, u"Selection \"%s\" enregistrée avec succés" % selection.name )
+                else:
+                    content_type = ContentType.objects.get_for_model(queryset.model)
+                    return render_to_response('workon/selection/admin/add.html', RequestContext(request,
+                    {
+                        'queryset': Selection.get_queryset_for_ids(content_type, request.POST.get('ids')),
+                        'selections': Selection.objects.all(),
+                        'form_url': self.get_admin_url('selection_add'),
+                        'form': form
+                    }))
+        return self.changelist_view(request)
+
+
+
+
 
     def action_selection_save(self, request, queryset):
         ids = ",".join(map(str, queryset.values_list('id', flat=True)))

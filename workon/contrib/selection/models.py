@@ -14,7 +14,7 @@ class Selection(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     ids = models.TextField(u"ids", default="")
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     def set_content_type(self, model, save=True):
