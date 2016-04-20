@@ -5,6 +5,7 @@ from django.apps import AppConfig
 from django import get_version
 
 from django.conf import settings
+from django.contrib import admin
 from django.contrib.admin import options
 from django.contrib.admin.options import ModelAdmin
 from django.db import models
@@ -61,12 +62,16 @@ class WorkonConfig(AppConfig):
             except Exception:
                 pass
 
-        root_path = os.path.abspath(os.path.dirname(__file__))
 
+        # root_path = os.path.abspath(os.path.dirname(__file__))
+
+        # settings.TEMPLATE_DIRS += (
+        #     os.path.join(root_path, 'contrib', 'admin', 'templates') + '/',
+        # )
+        # settings.TEMPLATES[0]['DIRS'] += (
+        #     os.path.join(root_path, 'contrib', 'admin', 'templates') + '/',
+        # )
         print settings.TEMPLATE_DIRS
-        settings.TEMPLATE_DIRS += (
-            os.path.join(root_path, 'contrib', 'admin', 'templates'),
-        )
 
         super(WorkonConfig, self).__init__(app_name, app_module)
 

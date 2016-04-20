@@ -1,6 +1,6 @@
-import copy
+import copy, os
 from django.conf import settings
-from django.contrib.admin import ModelAdmin
+from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline
 from django.forms import ModelForm, NumberInput
@@ -11,10 +11,12 @@ from .widgets import WorkonSplitDateTimeWidget
 from django.contrib.admin import ModelAdmin as BaseModelAdmin, actions
 from django.contrib.admin.sites import site as base_site, AdminSite as BaseAdminSite
 
+from .menu import get_menu, Menu
+
 class AdminSite(BaseAdminSite):
 
     login_form = None
-    index_template = "workon/admin/index.html"
+    index_template = "admin/index.html"
     app_index_template = None
     login_template = None
     logout_template = None
@@ -25,36 +27,58 @@ class AdminSite(BaseAdminSite):
         super(AdminSite, self).__init__(*args, **kwargs)
         self._registry = copy.copy(base_site._registry)
 
+        root_path = os.path.abspath(os.path.dirname(__file__))
+
+        settings.TEMPLATE_DIRS += (
+            os.path.join(root_path, 'templates') + '/',
+        )
+        settings.TEMPLATES[0]['DIRS'] += (
+            os.path.join(root_path, 'templates') + '/',
+        )
+
+        settings.STATICFILES_DIRS += (
+            os.path.join(root_path, 'static') + '/',
+        )
+
+        BaseModelAdmin.change_list_template = "admin/change_list.html"
+
     def register(self, *args, **kwargs):
-        if not kwargs.get('admin_class'):
+        if not kwargs.get('admin_class', None) or kwargs.get('admin_class') == BaseModelAdmin:
             kwargs['admin_class'] = ModelAdmin
+
+        print kwargs
         return super(AdminSite, self).register(*args, **kwargs)
 
-    def get_app_list(self, request):
-        app_dict = self._build_app_dict(request)
+    def get_app_list(self, *args, **kwargs):
 
-        workon_menu = settings.WORKON.get('ADMIN').get('MENU')
+        return super(AdminSite, self).get_app_list(*args, **kwargs)
 
-        print workon_menu
+        # app_dict = self._build_app_dict(request)
+        # app_list = sorted(app_dict.values(), key=lambda x: x['name'].lower())
+        # menu = Menu({}, request, app_list).get_app_list()
+        # # app_dict =
 
+        # workon_menu = settings.WORKON.get('ADMIN').get('MENU')
 
-        # Sort the apps alphabetically.
-        app_list = sorted(app_dict.values(), key=lambda x: x['name'].lower())
-
-        new_app_list = []
-
-        for app in app_list:
-            label = app.get('name')
-            model = "%s.%s" % (app.get('app_label'), app.get('object_name'))
-            print app, label, model
+        # # print workon_menu
 
 
-        # Sort the models alphabetically within each app.
-        for app in app_list:
-            app['models'].sort(key=lambda x: x['name'])
+        # # Sort the apps alphabetically.
+
+        # new_app_list = []
+
+        # for app in app_list:
+        #     label = app.get('name')
+        #     model = "%s.%s" % (app.get('app_label'), app.get('object_name'))
+        #     print app, label, model
 
 
-        return app_list
+        # # Sort the models alphabetically within each app.
+        # for app in app_list:
+        #     app['models'].sort(key=lambda x: x['name'])
+
+
+    #     return menu
     # @property
     # def urls(self):
     #     return self.get_urls(), 'admin', 'admin'
@@ -68,7 +92,8 @@ class AdminSite(BaseAdminSite):
     #     ]
 
 class ModelAdmin(BaseModelAdmin):
-    pass
+    change_list_template = "workon/admin/list/list.html"
+
 
 class SortableModelAdminBase(object):
     """

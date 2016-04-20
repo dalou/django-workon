@@ -1,12 +1,10 @@
-{% extends "workon/admin/base.html" %}
+{% extends "admin/base.html" %}
 
 {% load i18n admin_urls admin_static admin_modify %}
 
 {% block main %}
 
-    <pre>{{ app_list }}</pre>
 
-    </script>
     {% if app_list %}
         {% for app in app_list %}
             <div class="app-{{ app.app_label }} module">

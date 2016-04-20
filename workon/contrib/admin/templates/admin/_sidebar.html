@@ -1,0 +1,54 @@
+{% load thumbnail i18n workon_admin_menu workon_admin_tags %}
+
+
+<!-- <i class="fa fa-bars" id="toggle"></i> -->
+<a id="dock-scroll-top"><span class="fa fa-arrow-up"></span></a>
+<a id="dock-scroll-bottom"><span class="fa fa-arrow-down"></span></a>
+<ul id="dock">
+
+
+    {% block menu_home %}
+        {% url 'admin:index' as index_url %}
+        <!-- <li class="launcher {% if index_url == request.path %}active{% endif %}">
+            <a href="{{ index_url }}"><i class="glyphicon glyphicon-home"></i>
+            </a>
+        </li> -->
+    {% endblock %}
+
+    {% get_menu request as app_list %}
+    {% if app_list %}
+        {% for app in app_list %}
+            {% if app.separator %}
+                <li class="launcher separator"></li>
+            {% else %}
+                <li class="launcher {% if app.is_active %}active{% endif %} {% if app.models and not app.is_active %}dropdown{% endif %}">
+                    <i class="{% firstof app.icon 'fa fa-tachometer' %}"></i>
+                    <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}>
+                        {% trans app.label|capfirst %}
+                    </a>
+                    {% if app.models and not app.is_active %}
+                        <ul class="dropdown-menu">
+                            {% for model in app.models %}
+
+                                {% if model.separator %}
+                                    <li class=" separator">{{ model.label }}</li>
+                                {% else %}
+                                    <li class=" {% if model.is_active %}active{% endif %}">
+                                        <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label }}</a></li>
+                                    {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if app.include and not app.is_active %}
+                        <ul class="nav nav-pills nav-stacked">
+                            {% for model in app.include %}
+                                <li class="launcher {% if model.is_active %}active{% endif %}" >
+                                    <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</ul>

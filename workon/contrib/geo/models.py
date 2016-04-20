@@ -2,6 +2,7 @@
 import re
 import datetime
 import random
+import math
 
 from django.conf import settings
 from django.db import models
@@ -26,7 +27,7 @@ class GeoLocated(models.Model):
     geo_address = models.CharField(u'Adresse géolocalisée', max_length=254, blank=True, null=True)
     geo_latitude = models.FloatField(u'lat', blank=True, null=True)
     geo_longitude = models.FloatField(u'lon', blank=True, null=True)
-    geo_formatted_address = models.CharField(u'Adresse géocodée & formattée', max_length=254, blank=True, null=True)
+    geo_formatted_address = models.CharField(u'Adresse géocodée & formatée', max_length=254, blank=True, null=True)
     geo_street_number = models.CharField(u'address_components > street_number', max_length=254, blank=True, null=True)
     geo_route = models.CharField(u'address_components > route', max_length=254, blank=True, null=True)
     geo_locality = models.CharField(u'address_components > locality', max_length=254, blank=True, null=True)
@@ -39,16 +40,18 @@ class GeoLocated(models.Model):
     geo_type = models.CharField(u'type', max_length=254, blank=True, null=True)
     # geo_gmaps_results = workon.fields.JSONField(u'Geodata', default={}, blank=True, null=True)
 
-    def save(self, *args, **kwargs):
+    def geocode(self, force=False, *args, **kwargs):
 
         if self.geo_address:
-            need_geocoding = False
-            if self.pk:
-                old_geo_address = self._default_manager.get(pk=self.pk).geo_address
-                if self.geo_address != old_geo_address or not self.geo_formatted_address:
-                    need_geocoding = True
+            if not force:
+                need_geocoding = not (self.geo_latitude and self.geo_longitude)
+                if not need_geocoding and self.pk:
+                    old_geo_address = self._default_manager.get(pk=self.pk).geo_address
+                    if self.geo_address != old_geo_address:
+                        need_geocoding = True
             else:
                 need_geocoding = True
+
             if need_geocoding:
                 data = workon.utils.geocode(self.geo_address)
                 self.geo_latitude = data.get('lat')
@@ -90,8 +93,6 @@ class GeoLocated(models.Model):
             self.geo_place_id = None
             self.geo_type = None
 
-        super(GeoLocated, self).save(*args, **kwargs)
-
     def get_geo_locality(self):
         if self.geo_gmaps_results:
             components = self.geo_gmaps_results.get('address_components', [])
@@ -110,7 +111,7 @@ class GeoLocated(models.Model):
         return None
 
 
-    def geo_geo_location_json(self):
+    def get_geo_location_json(self):
         return {
             "address": self.geo_address,
             "latitude": self.geo_latitude,
@@ -120,3 +121,36 @@ class GeoLocated(models.Model):
             "country": self.geo_country,
             "postal_code": self.geo_postal_code
         }
+
+    def get_geo_distance_from(self, lat2, long2):
+        lat1 = self.geo_latitude
+        long1 = self.geo_longitude
+        if not lat1 or not long1 or not lat2 or not long2:
+            return -1
+        # Convert latitude and longitude to
+        # spherical coordinates in radians.
+        degrees_to_radians = math.pi / 180.0
+
+        # phi = 90 - latitude
+        phi1 = (90.0 - lat1) * degrees_to_radians
+        phi2 = (90.0 - lat2) * degrees_to_radians
+
+        # theta = longitude
+        theta1 = long1 * degrees_to_radians
+        theta2 = long2 * degrees_to_radians
+
+        # Compute spherical distance from spherical coordinates.
+
+        # For two locations in spherical coordinates
+        # (1, theta, phi) and (1, theta, phi)
+        # cosine( arc length ) =
+        # sin phi sin phi' cos(theta-theta') + cos phi cos phi'
+        # distance = rho * arc length
+
+        cos = (math.sin(phi1) * math.sin(phi2) * math.cos(theta1 - theta2) +
+               math.cos(phi1) * math.cos(phi2))
+        arc = math.acos(cos)
+
+        # Remember to multiply arc by the radius of the earth
+        # in your favorite set of units to get length.
+        return float(round(arc * 6371 * 1000))

@@ -29,11 +29,11 @@ class PasswordResetToken(generic.FormView):
     }
 
     def get(self, request, **kwargs):
+        if not self.check_token(self.get_user(), self.kwargs["token"]):
+            return self.token_fail()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         ctx = self.get_context_data(form=form)
-        if not self.check_token(self.get_user(), self.kwargs["token"]):
-            return self.token_fail()
         return self.render_to_response(ctx)
 
     def get_context_data(self, **kwargs):
@@ -42,15 +42,16 @@ class PasswordResetToken(generic.FormView):
         ctx.update({
             "uid": self.kwargs["uid"],
             "token": self.kwargs["token"],
+            "user": self.user,
             "redirect_field_name": redirect_field_name,
             "redirect_field_value": self.request.POST.get(redirect_field_name, self.request.GET.get(redirect_field_name, "")),
         })
         return ctx
 
     def change_password(self, form):
-        user = self.get_user()
-        user.set_password(form.cleaned_data["password"])
-        user.save()
+        self.user = self.get_user()
+        self.user.set_password(form.cleaned_data["password"])
+        self.user.save()
 
     def after_form_valid(self):
         user = self.get_user()
@@ -84,7 +85,8 @@ class PasswordResetToken(generic.FormView):
             uid_int = base36_to_int(self.kwargs["uid"])
         except ValueError:
             raise Http404()
-        return get_object_or_404(get_user_model(), id=uid_int)
+        self.user = get_object_or_404(get_user_model(), id=uid_int)
+        return self.user
 
     def check_token(self, user, token):
         return self.token_generator.check_token(user, token)
