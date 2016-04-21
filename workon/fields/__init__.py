@@ -11,3 +11,4 @@ from .html import HtmlField, HTMLField
 from .date import DateTimeField, DateField
 from jsonfield import JSONField
 from .tree import TreeManyToManyField, TreeForeignKey
+from .code import CodeField
