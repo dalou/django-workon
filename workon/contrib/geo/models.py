@@ -94,15 +94,21 @@ class GeoLocated(models.Model):
             self.geo_type = None
 
     def get_geo_locality(self):
-        if self.geo_gmaps_results:
-            components = self.geo_gmaps_results.get('address_components', [])
-            for component in components:
-                if "locality" in component.get('types', []):
-                    return component.get('short_name')
-                if "administrative_area_level_2" in component.get('types', []):
-                    return component.get('short_name')
-                if "administrative_area_level_1" in component.get('types', []):
-                    return component.get('short_name')
+        if self.geo_locality:
+            return self.geo_locality
+        if self.geo_administrative_area_level_2:
+            return self.geo_administrative_area_level_2
+        if self.geo_administrative_area_level_1:
+            return self.geo_administrative_area_level_1
+        # if self.geo_gmaps_results:
+        #     components = self.geo_gmaps_results.get('address_components', [])
+        #     for component in components:
+        #         if "locality" in component.get('types', []):
+        #             return component.get('short_name')
+        #         if "administrative_area_level_2" in component.get('types', []):
+        #             return component.get('short_name')
+        #         if "administrative_area_level_1" in component.get('types', []):
+        #             return component.get('short_name')
         return ""
 
     def get_geo_full_locality(self):

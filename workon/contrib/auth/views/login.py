@@ -31,7 +31,6 @@ class Login(generic.FormView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(Login, self).get_context_data(*args, **kwargs)
-        print ctx
         redirect_field_name = self.get_redirect_field_name()
         ctx.update({
             "redirect_field_name": redirect_field_name,
