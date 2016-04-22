@@ -61,6 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    DEFAULT_AVATAR_URL = "http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;f=y"
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
@@ -117,14 +118,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_avatar_large(self):
         return self.get_avatar_url(size=500)
 
-    def get_avatar_url(self, size=200):
+    def get_avatar_url(self, size=200, default=DEFAULT_AVATAR_URL):
         if self.avatar:
             if get_thumbnail:
                 return get_thumbnail(self.avatar, '%sx%s' % (size,size), crop='center', format="PNG", quality=99).url
             else:
                 return self.avatar.url
         else:
-            default = "http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;f=y"
             gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(self.email.lower()).hexdigest() + "?"
             gravatar_url += urllib.urlencode({'d':default, 's':str(size)})
             return gravatar_url

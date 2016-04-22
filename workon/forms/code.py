@@ -37,7 +37,12 @@ class CodeInput(forms.Textarea):
         css = {
         }
 
-    def render_script(self, id, mode):
+
+    def __init__(self, *args, **kwargs):
+        self.mode = kwargs.get('attrs', {}).get('mode', 'python')
+        super(CodeInput, self).__init__(*args, **kwargs)
+
+    def render_script(self, id):
         return u'''
                 <div id="%(id)s_ace_editor"></div>
                 <script type="text/javascript">
@@ -57,15 +62,13 @@ class CodeInput(forms.Textarea):
                     ed.setValue($('#%(id)s').val())
 
                 </script>
-                ''' % { 'id' : id, 'mode': mode }
+                ''' % { 'id' : id, 'mode': self.mode }
 
 
     def render(self, name, value, attrs={}):
         print attrs
         if 'id' not in attrs:
             attrs['id'] = "id_%s" % name
-        if 'mode' not in attrs:
-            attrs['mode'] = "python"
         attrs['style'] = "display:none;"
         render = super(CodeInput, self).render(name, value, attrs)
-        return mark_safe("%s%s" % (render, self.render_script(attrs['id'], attrs['mode'])))
+        return mark_safe("%s%s" % (render, self.render_script(attrs['id'])))
