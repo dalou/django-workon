@@ -46,20 +46,18 @@ class CodeInput(forms.Textarea):
         return u'''
                 <div id="%(id)s_ace_editor"></div>
                 <script type="text/javascript">
-
-
-                    ed = ace.edit("%(id)s_ace_editor");
-                    ed.setTheme("ace/theme/monokai");
-                    ed.getSession().setMode("ace/mode/%(mode)s");
-                    ed.setPrintMarginColumn(150)
-                    ed.setOptions({
+                    var %(id)s_ed = ace.edit("%(id)s_ace_editor");
+                    %(id)s_ed.setTheme("ace/theme/monokai");
+                    %(id)s_ed.getSession().setMode("ace/mode/%(mode)s");
+                    //%(id)s_ed.setPrintMarginColumn(150)
+                    %(id)s_ed.setOptions({
                         maxLines: Infinity
                     });
-                    ed.resize();
-                    ed.on("change", function(e) {
-                        $('#%(id)s').val(ed.getValue());
+                    %(id)s_ed.on("change", function(e) {
+                        $('#%(id)s').val(%(id)s_ed.getValue());
                     });
-                    ed.setValue($('#%(id)s').val())
+                    %(id)s_ed.setValue($('#%(id)s').val());
+                    %(id)s_ed.resize();
 
                 </script>
                 ''' % { 'id' : id, 'mode': self.mode }
