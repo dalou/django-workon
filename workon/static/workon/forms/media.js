@@ -2,7 +2,6 @@ $(document).ready(function() {
 
 
 
-
     $(document).on('mouseenter', '.workon-media_input', function(self)
     {
         if(this.workon_media_input === true)
@@ -52,7 +51,7 @@ $(document).ready(function() {
 
 
     });
-
+    $('[data-media-dropzone]').mediaDropzone()
 
 
 });

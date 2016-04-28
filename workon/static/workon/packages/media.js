@@ -450,6 +450,7 @@ window.workon_packages_media = true;
     {
         return this.each(function(i, self, opt)
         {
+            $(this)
             if(!options)
             {
                 options = {}
@@ -472,6 +473,8 @@ window.workon_packages_media = true;
             }
         });
     };
+
+    $('[data-media-dropzone]').mediaDropzone()
 
 }( jQuery ));
 

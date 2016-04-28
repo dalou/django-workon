@@ -60,7 +60,7 @@ class CodeInput(forms.Textarea):
                     %(id)s_ed.resize();
 
                 </script>
-                ''' % { 'id' : id, 'mode': self.mode }
+                ''' % { 'id' : id.replace('-', '_'), 'mode': self.mode }
 
 
     def render(self, name, value, attrs={}):
