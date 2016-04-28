@@ -1,6 +1,6 @@
 .dropdown-menu .sub-menu {
-  -webkit-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
+  -webkit-transition: all 0.05s ease-out;
+  transition: all 0.05s ease-out;
   display: none;
   padding: 0px;
   position: absolute;
@@ -1352,8 +1352,8 @@ table {
 }
 a {
   color: #4c3e50;
-  -webkit-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
+  -webkit-transition: all 0.05s ease-out;
+  transition: all 0.05s ease-out;
 }
 a:hover {
   color: #7abc9c;
@@ -1364,6 +1364,7 @@ a:hover {
   right: 20px;
   bottom: 0px;
   left: 20px;
+  z-index: 1;
   -webkit-border-radius: 15px 15px 15px 15px;
   -moz-border-radius: 15px 15px 15px 15px;
   border-radius: 15px 15px 15px 15px;
@@ -1402,7 +1403,8 @@ rgba(0,0,0,0.04)
 #sidebar {
   background: #2d2d2d;
   width: 80px;
-  overflow: hidden;
+  position: relative;
+  z-index: 1;
   position: absolute;
   top: 0px;
   right: 0px;
@@ -1431,14 +1433,11 @@ rgba(0,0,0,0.04)
 }
 #sidebar #dock {
   padding: 20px 0px 0px 0px;
-  width: 95px;
   color: #7abc9c;
   -webkit-border-radius: 15px 0px 0px 0px;
   -moz-border-radius: 15px 0px 0px 0px;
   border-radius: 15px 0px 0px 0px;
   border-top-left-radius: 15px;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 #sidebar #dock li.launcher {
   margin-top: 15px;
@@ -1448,8 +1447,8 @@ rgba(0,0,0,0.04)
 }
 #sidebar #dock li.launcher > a,
 #sidebar #dock li.launcher > a i {
-  -webkit-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
+  -webkit-transition: all 0.05s ease-out;
+  transition: all 0.05s ease-out;
   display: block;
   color: #fff;
 }
@@ -1462,8 +1461,8 @@ rgba(0,0,0,0.04)
   font-size: 2.5em;
   margin-bottom: -2px;
 }
-#sidebar #dock li.launcher:hover > a i,
-#sidebar #dock li.launcher.active > a i,
+#sidebar #dock li.launcher:hover > a > i,
+#sidebar #dock li.launcher.active > a > i,
 #sidebar #dock li.launcher:hover > a,
 #sidebar #dock li.launcher.active > a {
   color: #7abc9c;
@@ -1499,7 +1498,7 @@ rgba(0,0,0,0.04)
   position: absolute;
   top: 8px;
   left: 0px;
-  z-index: 1000;
+  z-index: 2001;
   visibility: hidden;
   min-width: 160px;
   padding: 5px 0;

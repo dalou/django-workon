@@ -21,13 +21,13 @@
             {% if app.separator %}
                 <li class="launcher separator"></li>
             {% else %}
-                <li class="launcher {% if app.is_active %}active{% endif %} {% if app.models and not app.is_active %}dropdown{% endif %}">
+                <li class="launcher {% if app.is_active %}active{% endif %} {% if app.models %}dropdown{% endif %}">
 
                     <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}>
                         <i class="{% firstof app.icon 'fa fa-tachometer' %}"></i>
                         {% trans app.label|capfirst %}
                     </a>
-                    {% if app.models and not app.is_active %}
+                    {% if app.models %}
                         <ul class="dropdown-menu">
                             {% for model in app.models %}
 

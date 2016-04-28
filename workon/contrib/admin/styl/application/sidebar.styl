@@ -1,5 +1,5 @@
 #sidebar
-    bg(darker-color); w(80); oh();
+    bg(darker-color); w(80); rl(); z(1);
     ab(0,0,0,0,1); rad(15,0,0,0);
 
 
@@ -10,10 +10,10 @@
         ab(,0,5,0,1); tac();
 
     #dock
-        p(20,0,0,0); w(95); fg(light-color); rad(15,0,0,0);
+        p(20,0,0,0); fg(light-color); rad(15,0,0,0);
         border-top-left-radius: 15px;
-        overflow-y: scroll;
-        overflow-x: hidden;
+        // overflow-y: scroll;
+        // overflow-x: hidden;
 
         li.launcher
             tsn(); mt(15); cur(pointer); mb(10); tac();
@@ -28,7 +28,7 @@
                     fs(2.5em); mb(-2);
 
             &:hover, &.active
-                > a i, > a
+                > a > i, > a
                     fg(light-color);
 
                 &:before
@@ -44,7 +44,7 @@
             ul.dropdown-menu
                 font-size:22px;
                 tr(all 0.3s ease-out 0.3s);
-                op(0); db(); ab(8,,,0,1000);
+                op(0); db(); ab(8,,,0,2001);
                 visibility: hidden;
 
                 min-width: 160px;
