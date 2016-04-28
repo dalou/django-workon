@@ -2,7 +2,7 @@
 <!-- this is just to make the view selector work, no need to display it -->
 <div class="row workon-google-analytics" >
     {% for chart in charts %}
-    <div class="col-md-4 col-sm-6">
+    <div class="col-md-4 ">
         <fieldset class="module aligned box well">
             <div class="fieldset-heading clearfix">
                 <h3 class="fieldset-title">
@@ -14,7 +14,7 @@
                 <div id="chart-{{ forloop.counter }}-container"  class="chart"></div>
             </div>
         </fieldset>
-
+        {% cycle "" "" '</div><div class="row workon-google-analytics" >' %}
     </div>
     {% endfor %}
 </div>

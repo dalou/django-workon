@@ -10,25 +10,25 @@
         ab(,0,5,0,1); tac();
 
     #dock
-        p(0,0,0,0); w(95); fg(light-color); rad(15,0,0,0);
+        p(20,0,0,0); w(95); fg(light-color); rad(15,0,0,0);
         border-top-left-radius: 15px;
         overflow-y: scroll;
+        overflow-x: hidden;
 
         li.launcher
-            tsn(); mt(30); cur(pointer); mb(20); tac();
+            tsn(); mt(15); cur(pointer); mb(10); tac();
 
-            > i, > a
+            > a, > a i
                 tr-cl(); db(); fg(white);
 
-            > i
-                fs(2.5em); mb(-2);
-
             > a
-                h(36); rl(); pt(36); mt(-36);
+                rl();
                 tdn(); fs(0.8em)
+                > i
+                    fs(2.5em); mb(-2);
 
             &:hover, &.active
-                > i, > a
+                > a i, > a
                     fg(light-color);
 
                 &:before

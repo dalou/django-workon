@@ -71,6 +71,8 @@
         <script src="{% static 'workon/packages/highchart.js' %}" type="text/javascript"></script>
         <script src="{% static 'workon/packages/color.js' %}" type="text/javascript"></script>
         <script type="text/javascript" src="{% static 'workon/packages/json.js' %}"></script>
+        {% block js %}
+        {% endblock js %}
     </head>
 
     <body
@@ -99,9 +101,7 @@
                 <section id="topbar">
                     <ul id="breadcrumb" class="breadcrumb">
                         {% block breadcrumb %}
-                            <li class="title">Dashboard</li>
-                            <li><a href="#">Lorem</a></li>
-                            <li class="active"><a href="#">ipsum</a></li>
+                            <li class="title">Accueil</li>
                         {% endblock breadcrumb %}
                     </ul>
                     <div id="toolbar">
@@ -122,7 +122,5 @@
                 $('html').removeClass('no-js').addClass('js')
         </script>
 
-        {% block js %}
-        {% endblock js %}
         </body>
 </html>
