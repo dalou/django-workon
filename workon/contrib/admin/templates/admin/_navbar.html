@@ -12,7 +12,7 @@
 
 </a>
 <ul class="nav navbar-nav pull-right">
-    <li class="dropdown">
+    <!-- <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="icon-envelope"></i>
             Messages
@@ -39,12 +39,13 @@
             <i class="icon-cog"></i>
             Settings
         </a>
-    </li>
+    </li> -->
     <li class="dropdown user">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="icon-user"></i>
-            <strong>{{ request.user.username }}</strong>
-            <img class="img-rounded" src="http://placehold.it/20x20/ccc/777">
+            <img style="height:34px; margin-right:15px; position:relative; top:-7px;" class="img-rounded img-responsive pull-left" src="{{ request.user.get_avatar_url }}">
+
+            <strong> {{ request.user.username }}</strong>
             <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
