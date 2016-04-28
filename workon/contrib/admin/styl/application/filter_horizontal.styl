@@ -1,26 +1,17 @@
-.form-horizontal .selector .selector-available, .form-horizontal .selector .selector-chosen {
-    min-width: 150px;
-    max-width: 300px;
-}
-.form-horizontal .selector .selector-available,
-.form-horizontal .selector .selector-chooser,
-.form-horizontal .selector .selector-chosen {
-        float: left;
-}
 
-.form-horizontal .selector .selector-available h2,
-.form-horizontal .selector .selector-chooser h2,
-.form-horizontal .selector .selector-chosen h2 {
-        font-size: 14px;
-}
 
-.form-horizontal .selector .selector-available select {
-    min-height: 300px;
-}
+.selector .selector-available h2,
+.selector .selector-chooser h2,
+.selector .selector-chosen h2
+    font-size: 14px;
+    p(10,10);
 
-.form-horizontal .selector .selector-chooser {
-    list-style: none;
-    padding: 0;
-    margin: 70px 10px 0 10px;
 
-}
+
+.selector .selector-add:before,
+.selector-remove:before
+    ct('>'); db(); fg(black); pl(3); fwb();
+    text-indent:1px;
+
+.selector-remove:before
+    ct('<');
