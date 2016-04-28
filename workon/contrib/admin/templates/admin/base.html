@@ -56,6 +56,20 @@
             if (!$) $ = WorkonAdmin.$;
         </script>
 
+        <!-- Google Analytics -->
+        <script>
+            (function(w,d,s,g,js,fs){
+            g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+            js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+            js.src='https://apis.google.com/js/platform.js';
+            fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+            }(window,document,'script'));
+        </script>
+        <!-- Include the ActiveUsers component script. -->
+        <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js"></script>
+        <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js"></script>
+        <!-- End google Analytics -->
+
         <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
         <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
 
@@ -100,9 +114,9 @@
                 </section>
                 <section id="topbar">
                     <ul id="breadcrumb" class="breadcrumb">
-                        {% block breadcrumb %}
+                        {% block breadcrumbs %}
                             <li class="title">Accueil</li>
-                        {% endblock breadcrumb %}
+                        {% endblock breadcrumbs %}
                     </ul>
                     <div id="toolbar">
                         {% block toolbar %}{% endblock toolbar %}

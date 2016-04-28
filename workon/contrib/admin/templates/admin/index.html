@@ -4,7 +4,9 @@
 
 {% block content %}
 
-    {% google_analytics_admin_charts %}
+    {% block google_analytics %}
+        {% google_analytics_admin_charts %}
+    {% endblock %}
 
     {% if app_list %}
         {% for app in app_list %}
