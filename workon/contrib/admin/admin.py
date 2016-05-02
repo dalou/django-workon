@@ -29,16 +29,19 @@ class AdminSite(BaseAdminSite):
 
         root_path = os.path.abspath(os.path.dirname(__file__))
 
-        settings.TEMPLATE_DIRS += (
-            os.path.join(root_path, 'templates') + '/',
-        )
-        settings.TEMPLATES[0]['DIRS'] += (
-            os.path.join(root_path, 'templates') + '/',
-        )
+        if hasattr(settings, 'TEMPLATE_DIRS'):
+            settings.TEMPLATE_DIRS += (
+                os.path.join(root_path, 'templates') + '/',
+            )
+        if hasattr(settings, 'TEMPLATES') and len(settings.TEMPLATES):
+            settings.TEMPLATES[0]['DIRS'] += (
+                os.path.join(root_path, 'templates') + '/',
+            )
 
-        settings.STATICFILES_DIRS += (
-            os.path.join(root_path, 'static') + '/',
-        )
+        if hasattr(settings, 'STATICFILES_DIRS'):
+            settings.STATICFILES_DIRS += (
+                os.path.join(root_path, 'static') + '/',
+            )
 
         BaseModelAdmin.change_list_template = "admin/change_list.html"
 
