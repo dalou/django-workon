@@ -70,6 +70,7 @@ setup(
         "requests[security]==2.9.1",
         "oauth2client==2.0.1",
         "requests_oauthlib==0.6.1",
+        "dj-database-url",
 
         # Fields / models
         "jsonfield==1.0.3",
