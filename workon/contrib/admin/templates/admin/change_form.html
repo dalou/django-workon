@@ -62,7 +62,7 @@
 {% endblock toolbar %}
 
 {% block content %}
-<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" class="form-horizontal" novalidate>
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" class="change-form form-horizontal" novalidate>
    <!--  <div class='panel panel-default'>
         <div class='panel-heading'>
             <i class='icon-edit icon-large'></i>

@@ -8,7 +8,7 @@
 
         {% endthumbnail %}
     {% endif %}
-    {{ request.user.username }} @ <b>{% firstof 'admin_name'|workon_admin_conf site_header _('Django administration') %}</b>
+    {{ request.user.username }} @ <b>{% firstof 'admin_name'|workon_admin_conf site_header _('Admin') %}</b>
 
 </a>
 <ul class="nav navbar-nav pull-right">
