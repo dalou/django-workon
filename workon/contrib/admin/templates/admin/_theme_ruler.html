@@ -10,8 +10,9 @@
         border-color: #DDD;
     }
 
-    .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-
+    .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
+    .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+    {
         background-color: {{ theme.dark_color1 }};
     }
     #sidebar {
@@ -27,6 +28,8 @@
     #sidebar #dock li.launcher ul.dropdown-menu > li:hover > a {
         color: {{ theme.light_color1 }};
     }
+
+    body.login .wrapper .brand h1 .logo-icon i,
     #sidebar #dock {
         color: {{ theme.light_color2 }};
 
@@ -34,7 +37,8 @@
     #navbar .navbar-brand,
     .navbar-brand,
     #navbar .navbar-brand b,
-    .navbar-nav>li>a {
+    .navbar-nav>li>a,
+    body.login {
         color: {{ theme.dark_color2 }};
 
     }

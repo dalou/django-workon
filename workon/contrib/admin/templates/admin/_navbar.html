@@ -1,5 +1,6 @@
 {% load thumbnail i18n workon_admin_tags %}
 <a class="navbar-brand" href="#">
+    <img style="height:34px; margin-right:15px; position:relative; top:-7px;" class="img-rounded img-responsive pull-left" src="{{ request.user.get_avatar_url }}">
 
     {% if current_project and current_project.brand_image %}
         {% thumbnail current_project.brand_image "x50" format="PNG" as thumb %}
@@ -43,9 +44,8 @@
     <li class="dropdown user">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="icon-user"></i>
-            <img style="height:34px; margin-right:15px; position:relative; top:-7px;" class="img-rounded img-responsive pull-left" src="{{ request.user.get_avatar_url }}">
 
-            <strong> {{ request.user.username }}</strong>
+            Mon compte
             <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
