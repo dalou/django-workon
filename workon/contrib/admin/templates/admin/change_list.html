@@ -93,12 +93,6 @@
                 {% workon_admin_conf_value 'list_filters_position' cl.model_admin as FILTERS_POS %}
 
 
-                <div class="panel panel-default grid">
-
-                    <div class="panel-heading">
-                        Liste / {{ opts.verbose_name_plural|capfirst }}
-
-                    </div>
 
                     <div id="changelist">
 
@@ -109,11 +103,18 @@
                             {% endif %}
 
                             {% block result_list %}
-                                {% result_list cl %}
+
+                                <div class="panel panel-default grid">
+
+                                    <div class="panel-heading">
+                                        Liste / {{ opts.verbose_name_plural|capfirst }}
+
+                                    </div>
+                                        {% result_list cl %}
+                                    </div>
+                                </div>
                             {% endblock %}
 
-                    </div>
-                </div>
 
                 {% block filters %}
                     {% if cl.has_filters and FILTERS_POS == 'right' %}

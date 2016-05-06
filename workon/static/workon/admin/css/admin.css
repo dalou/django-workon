@@ -1,6 +1,10 @@
 .prelative {
   position: relative;
 }
+.alert-info {
+  background-image: linear-gradient(to bottom, #d9edf7 0, #b9def0 100%);
+  border-color: #9acfea;
+}
 
   /*
 colpick Color Picker / colpick.com
@@ -2592,10 +2596,18 @@ form.change-form .submit-row .btn {
   width: 100%;
   white-space: normal;
 }
-#changelist-search .btn-submit {
+#changelist-search .btn {
   position: relative;
   top: -2px;
+}
+#changelist-search .btn-submit {
+  margin-left: 5px;
   float: right;
+  top: 5px;
+}
+#changelist-search .btn-reset {
+  padding: 8px 10px;
+  margin-right: 5px;
 }
 table {
   font-size: 14px;
