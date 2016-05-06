@@ -1955,6 +1955,9 @@ img.mfp-img {
 .table > tbody > tr:nth-child(odd) > th {
   background-color: #f9f9f9;
 }
+.table thead th a {
+  color: #7abc9c;
+}
 .panel-title {
   background: #fff;
   -webkit-border-radius: 4px 4px 0px 0px;
@@ -2411,6 +2414,53 @@ rgba(0,0,0,0.04)
   background: #fff;
   padding: 20px;
 }
+body.login {
+  color: #2c3e50;
+  background-color: #bdc3c7;
+}
+body.login .wrapper {
+  padding: 20px;
+  background-color: #ecf0f1;
+  -webkit-border-radius: 15px 15px 15px 15px;
+  -moz-border-radius: 15px 15px 15px 15px;
+  border-radius: 15px 15px 15px 15px;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.04);
+  -webkit-box-shadow: 0 0 0 2px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.3);
+  margin: 10% auto;
+  width: 300px;
+}
+body.login .wrapper .brand {
+  margin-top: -15px;
+}
+body.login .wrapper .brand h1 {
+  display: block;
+  margin-bottom: 20px;
+}
+body.login .wrapper .brand h1 .logo-icon {
+  width: 75px;
+  height: 75px;
+  margin: auto;
+  padding: 15px;
+  -webkit-border-radius: 40px 40px 40px 40px;
+  -moz-border-radius: 40px 40px 40px 40px;
+  border-radius: 40px 40px 40px 40px;
+  background: #2c3e50;
+}
+body.login .wrapper .brand h1 .logo-icon i[class*='icon-'] {
+  margin-left: -5px;
+  color: #1abc9c;
+  font-size: 140%;
+}
+body.login .wrapper .text-center .checkbox {
+  text-align: center;
+}
+body.login .wrapper .text-center legend {
+  text-align: center;
+}
+body.login .wrapper .text-center legend input {
+  float: none;
+}
 #navbar {
   position: relative;
 }
@@ -2463,6 +2513,16 @@ rgba(0,0,0,0.04)
   -moz-border-radius: 15px 0px 0px 0px;
   border-radius: 15px 0px 0px 0px;
   border-top-left-radius: 15px;
+}
+#sidebar #dock li.separator {
+  text-align: center;
+  font-style: italic;
+  margin-top: 25px;
+  line-height: 0px;
+}
+#sidebar #dock li.separator i {
+  display: block;
+  text-align: center;
 }
 #sidebar #dock li.launcher {
   margin-top: 15px;

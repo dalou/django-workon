@@ -65,18 +65,18 @@
             Liste / {{ opts.verbose_name_plural|capfirst }}
 
         </div> -->
-        <div class='panel-body filters'>
+        <!-- <div class='panel-body filters'>
             <div class='row'>
-                <div class='col-md-12'>
+                <div class='col-md-12'> -->
 
                     <div class="search-container clearfix">
 
                         {% block search %}{% search_form cl %}{% endblock %}
                     </div>
                     {% block date_hierarchy %}{% date_hierarchy cl %}{% endblock %}
-                </div>
-            </div>
-        </div>
+                <!-- </div> -->
+        <!--     </div>
+        </div> -->
 
         <form id="changelist-form" action="" method="post" class="change-list form-horizontal "
                     {% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>
@@ -92,18 +92,27 @@
 
                 {% workon_admin_conf_value 'list_filters_position' cl.model_admin as FILTERS_POS %}
 
-                <div id="changelist">
+
+                <div class="panel panel-default grid">
+
+                    <div class="panel-heading">
+                        Liste / {{ opts.verbose_name_plural|capfirst }}
+
+                    </div>
+
+                    <div id="changelist">
 
 
-                    {% csrf_token %}
-                        {% if cl.formset %}
-                            <div>{{ cl.formset.management_form }}</div>
-                        {% endif %}
+                        {% csrf_token %}
+                            {% if cl.formset %}
+                                <div>{{ cl.formset.management_form }}</div>
+                            {% endif %}
 
-                        {% block result_list %}
-                            {% result_list cl %}
-                        {% endblock %}
+                            {% block result_list %}
+                                {% result_list cl %}
+                            {% endblock %}
 
+                    </div>
                 </div>
 
                 {% block filters %}

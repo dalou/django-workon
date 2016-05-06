@@ -19,11 +19,11 @@
     {% if app_list %}
         {% for app in app_list %}
             {% if app.separator %}
-                <li class="launcher separator"></li>
+                <li class=" separator">{{ app.label|default:"-" }}<i class="fa fa-sort-desc"></i></li>
             {% else %}
                 <li class="launcher {% if app.is_active %}active{% endif %} {% if app.models %}dropdown{% endif %}">
 
-                    <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}>
+                    <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }} style="word-wrap: break-word;">
                         <i class="{% firstof app.icon 'fa fa-tachometer' %}"></i>
                         {% trans app.label|capfirst %}
                     </a>
@@ -32,9 +32,9 @@
                             {% for model in app.models %}
 
                                 {% if model.separator %}
-                                    <li class=" separator">{{ model.label }}</li>
+                                    <li class="separator">{{ model.label }}<i class="fa fa-sort-desc"></i></li>
                                 {% else %}
-                                    <li class=" {% if model.is_active %}active{% endif %}">
+                                    <li class="{% if model.is_active %}active{% endif %}">
                                         <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label }}</a></li>
                                     {% endif %}
                             {% endfor %}
