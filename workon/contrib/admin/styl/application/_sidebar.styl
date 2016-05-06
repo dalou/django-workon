@@ -1,0 +1,92 @@
+#sidebar
+    bg(darker-color); w(80); rl(); z(1);
+    ab(0,0,0,0,1); rad(15,0,0,0);
+
+
+    #dock-scroll-top
+        dn(); ab(5,0,,0,1); tac();
+
+    #dock-scroll-bottom
+        dn(); ab(,0,5,0,1); tac();
+
+    #dock
+        p(20,0,0,0); fg(light-color); rad(15,0,0,0);
+        border-top-left-radius: 15px;
+        // overflow-y: scroll;
+        // overflow-x: hidden;
+
+        li.separator
+            tac(); fy(italic); mt(25);  lh(0);
+            i
+                db(); tac();
+
+
+        li.launcher
+            tsn(); mt(15); cur(pointer); mb(10); tac();
+
+            > a, > a i
+                tr-cl(); db(); fg(white);
+
+            > a
+                rl();
+                tdn(); fs(0.8em)
+                > i
+                    fs(2.5em); mb(-2);
+
+            &:hover, &.active
+                > a > i, > a
+                    fg(light-color);
+
+                &:before
+                    ts(rotate(45deg)); ct(" "); dib(); wh(10); bg(white);
+                    ab(); r(-6); mt(22);
+
+            &:hover
+
+                > ul.dropdown-menu
+                    op(1);
+                    tr(all 0.2s ease-in);
+                    visibility: visible;
+
+
+            ul.dropdown-menu
+                fs(14); tr(all 0.2s ease-out 0.01s);
+                op(0); db(); ab(8,,,100%,2001); mnw(160); p(5,0); m(2,0,0,7); lsn(); tal();
+                bg(darker-color); bd(1,1,1,1,solid,#1a242f); rad(4); bs(0 6px 12px rgba(0, 0, 0, 0.175));
+                w(180);
+                visibility: hidden;
+                background-clip: padding-box;
+                border-left-width: 0;
+
+                > li
+                    rl();
+                    > ul.dropdown-menu
+                        ml(10);
+                    &:hover
+                        > a
+                            fg(light-color);
+
+                        > ul.dropdown-menu
+                            l(100%); op(1); ml(7);
+                            tr(all 0.2s ease-in);
+                            visibility: visible;
+
+
+                > li > a
+                    db(); p(5,20); cb(); fw(normal); lh(1.428571429);
+                    fg(#ecf0f1); wsnw(); w(100%); oh();
+                    text-overflow: ellipsis;
+
+                    &:hover
+                        tdn(); fg(#262626); bg(whitesmoke);
+
+                > li.dropdown-header
+                    rad(4); fg(#1abc9c); mt(-5); p(5,20);
+
+body.horizontal
+
+    #sidebar
+        ps(); w(auto);
+        #dock
+            li
+                dib();

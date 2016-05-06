@@ -163,8 +163,14 @@ class Menu(object):
         #     for subapp in app['include']:
         #         subapp = self.process_semi_native_app(subapp)
 
+
         if not app:
             return
+
+        if isinstance(app.get('include'), list):
+            for subapp in app.get('include'):
+                self.process_app(subapp)
+
 
         # Process icons
         self.process_icons(app)
@@ -402,6 +408,8 @@ class Menu(object):
             # Make 'model' key as 'models' to unite activation logic
             if 'model' in app and not app['models']:
                 app['models'] = [app['model']]
+
+            print app
 
             # Activate models
             if app['models']:

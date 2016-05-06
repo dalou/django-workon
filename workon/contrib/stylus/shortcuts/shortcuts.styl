@@ -21,6 +21,7 @@ fl() { float: left; }
 fr() { float: right; }
 fn() { float: none; }
 clear() { clear: both; }
+cb() { clear(); }
 cl()
 	zoom: 1;
 	&:before,
@@ -59,7 +60,7 @@ fw(n) { font-weight n }
 fwn() { fw(normal); }
 fwb() { fw(bold); }
 fwbr() { fw(bolder); }
-fs(n) 
+fs(n)
 	font-size unitx(n)
 fy(n) { font-style n }
 fsi() { fy(italic) }
@@ -90,7 +91,7 @@ wh(w, h=w)
 	height: unitx(h);
 
 /* Borders */
-bt(n,s=false,c=false) 
+bt(n,s=false,c=false)
 	if n and s and c
 		border-top: unitx(n) s c;
 	else
@@ -99,7 +100,7 @@ bt(n,s=false,c=false)
 			border-top-style: s;
 		if c
 			border-top-color: c;
-br(n,s=false,c=false) 
+br(n,s=false,c=false)
 	if n and s and c
 		border-right: unitx(n) s c;
 	else
@@ -108,7 +109,7 @@ br(n,s=false,c=false)
 			border-right-style: s;
 		if c
 			border-right-color: c;
-bb(n,s=false,c=false) 
+bb(n,s=false,c=false)
 	if n and s and c
 		border-bottom: unitx(n) s c;
 	else
@@ -117,7 +118,7 @@ bb(n,s=false,c=false)
 			border-bottom-style: s;
 		if c
 			border-bottom-color: c;
-bl(n,s=false,c=false) 
+bl(n,s=false,c=false)
 	if n and s and c
 		border-left: unitx(n) s c;
 	else
@@ -126,10 +127,10 @@ bl(n,s=false,c=false)
 			border-left-style: s;
 		if c
 			border-left-color: c;
-bd(t,r=t,b=t,l=r,s=solid,c=black) 
-	bt(t,s,c); 
-	br(r,s,c); 
-	bb(b,s,c); 
+bd(t,r=t,b=t,l=r,s=solid,c=black)
+	bt(t,s,c);
+	br(r,s,c);
+	bb(b,s,c);
 	bl(l,s,c);
 bc(c)
 	border-color: c;
@@ -169,10 +170,10 @@ hide-text()
 
 
 /* Transitions */
-tr(n) 
+tr(n)
 	-webkit-transition: n;
 	transition: n;
-ts(n) 
+ts(n)
 	-ms-transform: n; /* Internet Explorer */
 	-moz-transform: n; /* Firefox */
 	-webkit-transform: n; /* Safari et Chrome */
@@ -188,27 +189,27 @@ box-shadow(n)
 	-webkit-box-shadow: n; // iOS <4.3 & Android <4.1
 
 bs(n, n2=null, n3=null, n4=null, color=null)
-	if n and n2 and n3 and n4 and color	
+	if n and n2 and n3 and n4 and color
 		box-shadow(unitx(n) unitx(n2) unitx(n3) unitx(n4) color);
 	else
 		box-shadow(n);
-op(op) 
+op(op)
 	opacity: op;
   // IE8 filter
 
 lh(n)
-	line-height: unitx(n);
+	line-height: n;
 
 plh()
-	::-webkit-input-placeholder 
-		{block}				
-	::-moz-placeholder 
-		{block}		
-		opacity: 1;	  
-	:-ms-input-placeholder 
-		{block}   
-	:-moz-placeholder 
-		{block}   
+	::-webkit-input-placeholder
+		{block}
+	::-moz-placeholder
+		{block}
+		opacity: 1;
+	:-ms-input-placeholder
+		{block}
+	:-moz-placeholder
+		{block}
 
 bsbb()
 	-webkit-box-sizing: border-box;
