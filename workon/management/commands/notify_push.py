@@ -32,14 +32,14 @@ class Command(BaseCommand):
 
         if receivers:
 
-            html = u"""Mise à niveau du site effectuée avec succès ;)<br/><br/>"""
+            html = u"""Mise à niveau du site effectuée avec succès<br/><br/>"""
 
 
             if options.get('comment'):
                 html += u"Informations : <br/><pre>%s</pre><br/><br/>" % ",".join(options.get('comment')).replace('   ', '<br/>')
 
 
-            html += u"""<small>(Message automatique envoyé lors d'une mise à niveau du site en production)</small>"""
+            html += u"""<small>(Ceci est un message automatique envoyé lors d'une mise à niveau du site en production</small>"""
 
 
             send_html_email(

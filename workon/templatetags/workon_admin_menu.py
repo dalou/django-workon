@@ -199,7 +199,14 @@ class Menu(object):
         # Process absolute/named/model type urls
         app['url'] = self.process_url(app['url'], app)
 
-        return app
+        empty = True
+        if models or app.get('include', []) or app.get('separator', False):
+            empty = False
+
+        if empty:
+            return
+        else:
+            return app
 
 
     def app_is_forbidden(self, app):
