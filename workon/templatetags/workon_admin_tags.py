@@ -147,6 +147,7 @@ def workon_admin_theme(*args):
     theme = request.COOKIES.get('workon_admin_theme', theme)
     theme = theme.replace('%23', '#')
 
+    color = None
     light_color1 = "#6F86B3"
     light_color2 = "#657AA2"
     dark_color1 = "#5A6D92"
@@ -181,7 +182,8 @@ def workon_admin_theme(*args):
         #     light_color2 = Color(theme, luminance=0.2)
 
 
-
+    if not color:
+        return None
     return {
         'name': theme,
         'color': color,

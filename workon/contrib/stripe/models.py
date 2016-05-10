@@ -119,7 +119,7 @@ class StripeInvoiceItem(models.Model):
 
 class StripeCharge(StripeObject):
 
-    customer = models.ForeignKey("workon.StripeCustomer", related_name="charges")
+    customer = models.ForeignKey("workon.StripeCustomer", null=True, related_name="charges")
     invoice = models.ForeignKey("workon.StripeInvoice", null=True, related_name="charges")
 
 

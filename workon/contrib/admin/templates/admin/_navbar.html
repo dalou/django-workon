@@ -9,7 +9,7 @@
 
         {% endthumbnail %}
     {% endif %}
-    {{ request.user.username }} @ <b>{% firstof 'admin_name'|workon_admin_conf site_header _('Admin') %}</b>
+    {{ request.user.get_full_name }} @ <b>{% firstof 'admin_name'|workon_admin_conf site_header _('Admin') %}</b>
 
 </a>
 <ul class="nav navbar-nav pull-right">

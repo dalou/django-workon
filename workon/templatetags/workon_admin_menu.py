@@ -122,6 +122,9 @@ class Menu(object):
         if menu:
             self.activate_menu(menu)
 
+        import pprint
+        pprint.pprint(menu)
+
         return menu
 
     def make_menu(self, config):
@@ -199,14 +202,27 @@ class Menu(object):
         # Process absolute/named/model type urls
         app['url'] = self.process_url(app['url'], app)
 
-        empty = True
-        if models or app.get('include', []) or app.get('separator', False):
-            empty = False
+        # if models:
+        #     empty = True
+        #     for model in models:
+        #         if model.get('include', False):
+        #             for model2 in model.get('include', False):
+        #                 if model.get('url', False):
+        #                     empty = False
+        #         elif model.get('url', False):
+        #             empty = False
 
-        if empty:
-            return
-        else:
-            return app
+        #     if empty:
+        #         return
+
+        # empty = True
+        # if models or app.get('include', []) or app.get('separator', False):
+        #     empty = False
+
+        # if empty:
+        #     return
+
+        return app
 
 
     def app_is_forbidden(self, app):
@@ -415,8 +431,6 @@ class Menu(object):
             # Make 'model' key as 'models' to unite activation logic
             if 'model' in app and not app['models']:
                 app['models'] = [app['model']]
-
-            print app
 
             # Activate models
             if app['models']:

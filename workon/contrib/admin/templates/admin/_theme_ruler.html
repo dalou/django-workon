@@ -1,8 +1,10 @@
 {% load i18n workon_admin_tags %}
 
 
+
 <style type="text/css">
     {% workon_admin_theme request as theme %}
+    {% if theme %}
 
     .alert-info {
 
@@ -42,4 +44,5 @@
         color: {{ theme.dark_color2 }};
 
     }
+    {% endif %}
 </style>
