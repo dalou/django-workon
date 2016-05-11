@@ -41,47 +41,66 @@
                     ts(rotate(45deg)); ct(" "); dib(); wh(10); bg(white);
                     ab(); r(-6); mt(22);
 
-            &:hover
+            // &:hover
 
-                > ul.dropdown-menu
-                    op(1);
-                    tr(all 0.2s ease-in);
-                    visibility: visible;
-
-
-            ul.dropdown-menu
-                fs(14); tr(all 0.2s ease-out 0.01s);
-                op(0); db(); ab(8,,,100%,2001); mnw(160); p(5,0); m(2,0,0,7); lsn(); tal();
-                bg(darker-color); bd(1,1,1,1,solid,#1a242f); rad(4); bs(0 6px 12px rgba(0, 0, 0, 0.175));
-                w(180);
-                visibility: hidden;
-                background-clip: padding-box;
-                border-left-width: 0;
-
-                > li
-                    rl();
-                    > ul.dropdown-menu
-                        ml(10);
-                    &:hover
-                        > a
-                            fg(light-color);
-
-                        > ul.dropdown-menu
-                            l(100%); op(1); ml(7);
-                            tr(all 0.2s ease-in);
-                            visibility: visible;
+            //     > ul.dropdown-menu
+            //         op(1);
+            //         tr(all 0.2s ease-in);
+            //         visibility: visible;
 
 
-                > li > a
-                    db(); p(5,20); cb(); fw(normal); lh(1.428571429);
-                    fg(#ecf0f1); wsnw(); w(100%); oh();
-                    text-overflow: ellipsis;
+.dock-menu
+    dn();
 
-                    &:hover
-                        tdn(); fg(#262626); bg(whitesmoke);
+.tooltipster-dock
+    bg(darker-color); rad(4); bd(1,1,1,1,solid,#1a242f);
 
-                > li.dropdown-header
-                    rad(4); fg(#1abc9c); mt(-5); p(5,20);
+    .tooltipster-default .tooltipster-arrow .tooltipster-arrow-border,
+    .tooltipster-arrow-right span, .tooltipster-arrow-right .tooltipster-arrow-border
+        bdc(darker-color !important)
+
+
+    li.separator
+        tac(); fy(italic); mt(25);  lh(0);
+        i
+            db(); tac();
+
+
+    .tooltipster-content
+        p(0);
+        > .dock-menu
+            //op(0); ab(8,,,100%,2001);
+            fs(14); //tr(all 0.2s ease-out 0.01s);
+            db(); mnw(160); p(5,0); m(0); lsn(); tal();
+            // bd(1,1,1,1,solid,#1a242f); rad(4); bs(0 6px 12px rgba(0, 0, 0, 0.175));
+            //w(180);
+            //visibility: hidden;
+            background-clip: padding-box;
+            border-left-width: 0;
+            > li
+                rl();
+                > ul.dock-menu
+                    ml(10);
+                &:hover
+                    > a
+                        fg(light-color);
+
+                    > ul.dock-menu
+                        l(100%); op(1); ml(7);
+                        tr(all 0.2s ease-in);
+                        visibility: visible;
+
+
+            > li > a
+                db(); p(5,20); cb(); fw(normal); lh(1.428571429);
+                fg(#ecf0f1); wsnw(); w(100%); oh();
+                text-overflow: ellipsis;
+
+                &:hover
+                    tdn(); fg(#262626); bg(whitesmoke);
+
+            > li.dropdown-header
+                rad(4); fg(#1abc9c); mt(-5); p(5,20);
 
 body.horizontal
 

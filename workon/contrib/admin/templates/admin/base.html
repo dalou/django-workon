@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" crossorigin="anonymous">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="{% static 'workon/vendors/nanoscroller/nanoscroller.css' %}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/css/admin.css' %}">
         {% include "admin/_theme_ruler.html" %}
         <!--[if lt IE 9]>
@@ -47,6 +48,7 @@
         <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/active-users.js" type="text/javascript"></script>
         <script src="https://ga-dev-tools.appspot.com/public/javascript/embed-api/components/view-selector2.js" type="text/javascript"></script>
 
+        <script src="{% static 'workon/vendors/nanoscroller/jquery.nanoscroller.min.js' %}" type="text/javascript"></script>
 
         <script src="http://code.highcharts.com/highcharts.js"></script>
         <script src="http://code.highcharts.com/modules/exporting.js"></script>
@@ -87,7 +89,7 @@
             {% endif %}
 
             <div id="content" >
-                <section id="sidebar">
+                <section id="sidebar" class="nano">
                     {% block sidebar %}
                         {% include "admin/_sidebar.html" %}
                     {% endblock sidebar %}

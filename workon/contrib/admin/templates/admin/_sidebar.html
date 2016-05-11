@@ -4,7 +4,7 @@
 <!-- <i class="fa fa-bars" id="toggle"></i> -->
 <a id="dock-scroll-top"><span class="fa fa-arrow-up"></span></a>
 <a id="dock-scroll-bottom"><span class="fa fa-arrow-down"></span></a>
-<ul id="dock">
+<ul id="dock" class="nano-content">
 
 
     {% block menu_home %}
@@ -22,14 +22,14 @@
             {% if app.separator %}
                 <li class=" separator">{{ app.label|default:"-"|safe }}<i class="fa fa-sort-desc"></i></li>
             {% else %}
-                <li  class="launcher {% if app.is_active %}active{% endif %} {% if app.models or app.include %}dropdown{% endif %}">
+                <li  class="launcher {% if app.is_active %}active{% endif %} {% if app.models or app.include %}dock-tooltip{% endif %}">
 
                     <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }} style="word-wrap: break-word;">
                         <i class="{% firstof app.icon 'fa fa-tachometer' %}"></i>
                         {% trans app.label|safe %}
                     </a>
                     {% if app.models %}
-                        <ul class="dropdown-menu">
+                        <ul class="dock-menu">
                             {% for model in app.models %}
 
                                 {% if model.separator %}
@@ -43,16 +43,16 @@
                         </ul>
                     {% endif %}
                     {% if app.include %}
-                        <ul class="dropdown-menu">
+                        <ul class="dock-menu">
                             {% for app in app.include %}
 
                                 {% if app.separator %}
                                     <li class="separator">{{ app.label|safe }}<i class="fa fa-sort-desc"></i></li>
                                 {% else %}
-                                    <li class="{% if app.is_active %}active{% endif %}">
+                                    <li class="{% if app.is_active %}active{% endif %} {% if app.models or app.include %}dock-tooltip{% endif %}" >
                                         <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}>{{ app.label|safe }}</a>
                                         {% if app.models %}
-                                            <ul class="dropdown-menu">
+                                            <ul class="dock-menu">
                                                 {% for model in app.models %}
 
                                                     {% if model.separator %}
@@ -72,10 +72,11 @@
                         </ul>
                     {% endif %}
                     {% if False %}
-                        <ul class="dropdown-menu">
+                        <ul class="dock-menu">
                             {% for model in app.include %}
                                 <li class="launcher {% if model.is_active %}active{% endif %}" >
-                                    <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a></li>
+                                    <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
+                                </li>
                             {% endfor %}
                         </ul>
                     {% endif %}

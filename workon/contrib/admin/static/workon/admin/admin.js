@@ -228,21 +228,41 @@
 
     $(function ()
     {
+        $(".nano").nanoScroller();
 
-        $('#dock').on('scroll', function() {
+        $(document).on('click', 'li.dock-tooltip', function() {return false;})
 
-            var st = $(this).scrollTop();
-            var hg = $(this).scrollHeight();
-            console.log(st, hg)
-            if(st==0)
-            {
-                $('#sidebar').addClass('on-top').removeClass('on-bottom')
-            }
-            else
-            {
-                $('#sidebar').addClass('on-bottom').removeClass('on-top')
-            }
-        })
+
+        $(document).on('mouseover', 'li.dock-tooltip', function(content, options)
+        {
+            if(this.workon_tooltip === true) { return; }
+            this.workon_tooltip = true;
+            $(this).tooltipster({
+                theme: 'tooltipster-default tooltipster-dock',
+                position: 'right',
+                interactive: true,
+                contentAsHTML: true,
+                trigger: 'hover',
+                content: $(this).find('>.dock-menu'),
+                delay: 0,
+            }).tooltipster('show')
+
+        });
+
+        // $('#sidebar').on('mousewheel', function() {
+
+        //     var st = $(this).scrollTop();
+        //     var hg = $(this).scrollHeight();
+        //     console.log(st, hg)
+        //     if(st==0)
+        //     {
+        //         $('#sidebar').addClass('on-top').removeClass('on-bottom')
+        //     }
+        //     else
+        //     {
+        //         $('#sidebar').addClass('on-bottom').removeClass('on-top')
+        //     }
+        // })
 
         // Fixed submit buttons
         $('.submit-row').workon_admin_fixed();

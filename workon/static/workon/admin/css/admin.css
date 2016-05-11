@@ -2441,52 +2441,53 @@ img.mfp-img {
   right: -6px;
   margin-top: 22px;
 }
-#sidebar #dock li.launcher:hover > ul.dropdown-menu {
-  opacity: 1;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-  visibility: visible;
+.dock-menu {
+  display: none;
 }
-#sidebar #dock li.launcher ul.dropdown-menu {
-  font-size: 14px;
-  -webkit-transition: all 0.2s ease-out 0.01s;
-  transition: all 0.2s ease-out 0.01s;
-  opacity: 0;
-  display: block;
-  position: absolute;
-  top: 8px;
-  left: 100%;
-  z-index: 2001;
-  min-width: 160px;
-  padding: 5px 0px;
-  margin: 2px 0px 0px 7px;
-  list-style: none;
-  text-align: left;
+.tooltipster-dock {
   background: #2d2d2d;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
   border-top: 1px solid #1a242f;
   border-right: 1px solid #1a242f;
   border-bottom: 1px solid #1a242f;
   border-left: 1px solid #1a242f;
-  -webkit-border-radius: 4px 4px 4px 4px;
-  -moz-border-radius: 4px 4px 4px 4px;
-  border-radius: 4px 4px 4px 4px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.175);
-  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
-  width: 180px;
-  visibility: hidden;
+}
+.tooltipster-dock li.separator {
+  text-align: center;
+  font-style: italic;
+  margin-top: 25px;
+  line-height: 0;
+}
+.tooltipster-dock li.separator i {
+  display: block;
+  text-align: center;
+}
+.tooltipster-dock .tooltipster-content {
+  padding: 0px;
+}
+.tooltipster-dock .tooltipster-content > .dock-menu {
+  font-size: 14px;
+  display: block;
+  min-width: 160px;
+  padding: 5px 0px;
+  margin: 0px;
+  list-style: none;
+  text-align: left;
   background-clip: padding-box;
   border-left-width: 0;
 }
-#sidebar #dock li.launcher ul.dropdown-menu > li {
+.tooltipster-dock .tooltipster-content > .dock-menu > li {
   position: relative;
 }
-#sidebar #dock li.launcher ul.dropdown-menu > li > ul.dropdown-menu {
+.tooltipster-dock .tooltipster-content > .dock-menu > li > ul.dock-menu {
   margin-left: 10px;
 }
-#sidebar #dock li.launcher ul.dropdown-menu > li:hover > a {
+.tooltipster-dock .tooltipster-content > .dock-menu > li:hover > a {
   color: #7abc9c;
 }
-#sidebar #dock li.launcher ul.dropdown-menu > li:hover > ul.dropdown-menu {
+.tooltipster-dock .tooltipster-content > .dock-menu > li:hover > ul.dock-menu {
   left: 100%;
   opacity: 1;
   margin-left: 7px;
@@ -2494,7 +2495,7 @@ img.mfp-img {
   transition: all 0.2s ease-in;
   visibility: visible;
 }
-#sidebar #dock li.launcher ul.dropdown-menu > li > a {
+.tooltipster-dock .tooltipster-content > .dock-menu > li > a {
   display: block;
   padding: 5px 20px;
   clear: both;
@@ -2506,12 +2507,12 @@ img.mfp-img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#sidebar #dock li.launcher ul.dropdown-menu > li > a:hover {
+.tooltipster-dock .tooltipster-content > .dock-menu > li > a:hover {
   text-decoration: none;
   color: #262626;
   background: #f5f5f5;
 }
-#sidebar #dock li.launcher ul.dropdown-menu > li.dropdown-header {
+.tooltipster-dock .tooltipster-content > .dock-menu > li.dropdown-header {
   -webkit-border-radius: 4px 4px 4px 4px;
   -moz-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
