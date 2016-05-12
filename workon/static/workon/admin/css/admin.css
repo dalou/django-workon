@@ -2578,6 +2578,9 @@ form.change-form .fieldset-body {
   padding-top: 15px;
   padding-right: 15px;
 }
+form.change-form .control-label label {
+  padding-left: 10px;
+}
 form.change-form .submit-row {
   position: fixed;
   top: 140px;
@@ -2606,6 +2609,9 @@ form.change-form .widget-CheckboxInput {
 form.change-form .form-group .input-group-btn .add-another {
   padding-top: 9px;
   padding-bottom: 9px;
+}
+form.change-form .nav-tabs {
+  margin-bottom: 15px;
 }
 #changelist-search .btn {
   position: relative;

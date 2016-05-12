@@ -25,6 +25,16 @@
     #sidebar {
         background-color: {{ theme.dark_color2 }};
     }
+
+    .btn-primary{
+        background-image: linear-gradient(to bottom,{{ theme.dark_color1 }} 0, {{ theme.light_color1 }} 100%);
+        border-color: {{ theme.light_color2 }};
+    }
+    .btn-primary:focus, .btn-primary:hover {
+        background-color: {{ theme.light_color1 }};
+        border-color: {{ theme.light_color2 }};
+
+    }
     a,
     #topbar #breadcrumb a,
     .table thead th a,
