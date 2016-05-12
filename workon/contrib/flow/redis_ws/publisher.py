@@ -82,6 +82,5 @@ class RedisPublisher(RedisStore):
         for channel in channels:
             message = self._connection.get(channel)
 
-            if message:
-                self._connection.delete(channel)
-                return message
+            self._connection.delete(channel)
+            return message
