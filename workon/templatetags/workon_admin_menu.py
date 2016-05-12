@@ -122,8 +122,20 @@ class Menu(object):
         if menu:
             self.activate_menu(menu)
 
-        import pprint
-        pprint.pprint(menu)
+        # for app in menu:
+        #     empty = True
+        #     for model in app.get('models',[]):
+        #         if model.get('url'):
+        #             empty = False
+        #         for model2 in model.get('include', []):
+        #             if model.get('url'):
+        #                 empty = False
+
+        #     if empty:
+        #         menu.remove(app)
+
+        #     import pprint
+        #     pprint.pprint(app)
 
         return menu
 
@@ -201,27 +213,6 @@ class Menu(object):
 
         # Process absolute/named/model type urls
         app['url'] = self.process_url(app['url'], app)
-
-        # if models:
-        #     empty = True
-        #     for model in models:
-        #         if model.get('include', False):
-        #             for model2 in model.get('include', False):
-        #                 if model.get('url', False):
-        #                     empty = False
-        #         elif model.get('url', False):
-        #             empty = False
-
-        #     if empty:
-        #         return
-
-        # empty = True
-        # if models or app.get('include', []) or app.get('separator', False):
-        #     empty = False
-
-        # if empty:
-        #     return
-
         return app
 
 
