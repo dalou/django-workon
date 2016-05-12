@@ -65,7 +65,7 @@ def authenticate_user(request, user, remember=True, backend=None, expiry=60 * 60
 
 def get_or_create_user(email, username=None, first_name=None, last_name=None,
                         is_active=False, expiration_date=None, set_names_from_email=False,
-                        password=None, save=True):
+                        password=None, save=True, **kwargs):
     User = get_user_model()
     email = workon.utils.is_valid_email(email)
     if email:
@@ -78,6 +78,7 @@ def get_or_create_user(email, username=None, first_name=None, last_name=None,
                 first_name = first_name.strip() if first_name else None,
                 last_name = last_name.strip() if last_name else None,
                 is_active = is_active,
+                **kwargs
                 # expiration_date = expiration_date
             )
             if password:
