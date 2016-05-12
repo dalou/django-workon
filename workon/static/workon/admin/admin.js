@@ -232,6 +232,8 @@
 
         $(document).on('click', 'li.dock-tooltip', function() {return false;})
 
+        $(".panel-footer select").select2();
+
 
         $(document).on('mouseover', 'li.dock-tooltip', function(content, options)
         {

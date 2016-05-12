@@ -2600,6 +2600,13 @@ form.change-form .submit-row .btn {
   width: 100%;
   white-space: normal;
 }
+form.change-form .widget-CheckboxInput {
+  margin-top: 7px;
+}
+form.change-form .form-group .input-group-btn .add-another {
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
 #changelist-search .btn {
   position: relative;
   top: -2px;
@@ -2624,6 +2631,12 @@ form.change-list .panel-footer {
   -moz-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   border: 1px solid #ddd;
+}
+form.change-list .panel-footer .action-label {
+  display: none;
+}
+form.change-list .panel-footer .action-counter {
+  padding-left: 5px;
 }
 a {
   color: #4c3e50;

@@ -38,10 +38,10 @@ class AdminSite(BaseAdminSite):
                 os.path.join(root_path, 'templates') + '/',
             )
 
-        if hasattr(settings, 'STATICFILES_DIRS'):
-            settings.STATICFILES_DIRS += (
-                os.path.join(root_path, 'static') + '/',
-            )
+        # if hasattr(settings, 'STATICFILES_DIRS'):
+        #     settings.STATICFILES_DIRS += (
+        #         os.path.join(root_path, 'static') + '/',
+        #     )
 
         BaseModelAdmin.change_list_template = "admin/change_list.html"
 
