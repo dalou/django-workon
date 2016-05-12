@@ -16,6 +16,7 @@
   <div class="panel-border">
    <table class="table">
      <thead><tr>
+      <th class="original"></th>
      {% for field in inline_admin_formset.fields %}
        {% if not field.widget.is_hidden %}
          <th{% if forloop.first %} colspan="1"{% endif %}{% if field.required %} class="required"{% endif %}>{{ field.label|capfirst }}

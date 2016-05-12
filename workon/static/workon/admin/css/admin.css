@@ -2584,7 +2584,7 @@ form.change-form .control-label label {
 form.change-form .submit-row {
   position: fixed;
   top: 140px;
-  right: 50px;
+  right: 38px;
   z-index: 1001;
   max-width: 160px;
   background: #f5f5f5;
