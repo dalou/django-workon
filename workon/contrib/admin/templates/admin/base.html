@@ -64,8 +64,6 @@
         <script src="{% static 'workon/packages/json.js' %}"></script>
         {% block head %}
         {% endblock head %}
-        {% block js %}
-        {% endblock js %}
     </head>
 
     <body
@@ -111,13 +109,14 @@
         {% endblock body %}
         </div>
 
-
         <script src="{% static 'workon/admin/admin.js' %}"></script>
 
+        {% block js %}
+        {% endblock js %}
 
         <script>
                 $('html').removeClass('no-js').addClass('js')
         </script>
 
-        </body>
+    </body>
 </html>

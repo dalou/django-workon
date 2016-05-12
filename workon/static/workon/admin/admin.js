@@ -230,7 +230,7 @@
     {
         $(".nano").nanoScroller();
 
-        $(document).on('click', 'li.dock-tooltip', function() {return false;})
+        //$(document).on('click', 'li.dock-tooltip', function() {return false;})
 
         $(".panel-footer select").select2();
 
