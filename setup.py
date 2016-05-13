@@ -64,6 +64,7 @@ setup(
 
         # Crypto
         # "certifi==2016.2.28",
+        "pycrypto==2.6.1",
         "requests[security]==2.10.0",
         "oauth2client==2.0.1",
         "requests_oauthlib==0.6.1",
