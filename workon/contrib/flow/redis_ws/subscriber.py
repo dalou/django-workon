@@ -56,8 +56,8 @@ class RedisSubscriber(RedisStore):
         """
         for channel in self._subscription.channels:
             message = self._connection.get(channel)
-            if message:
-                websocket.send(message)
+            # if message:
+            #     websocket.send(message)
 
     def get_user_pk_for_channel(self, channel_name, subscribed=False):
         """

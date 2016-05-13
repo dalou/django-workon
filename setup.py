@@ -63,11 +63,8 @@ setup(
         'django_select2==5.8.4',
 
         # Crypto
-        "cryptography==1.0.2",
-        "cffi==1.2.1",
-        "pycrypto==2.6.1",
-        "pyopenssl==0.15.1",
-        "requests[security]==2.9.1",
+        # "certifi==2016.2.28",
+        "requests[security]==2.10.0",
         "oauth2client==2.0.1",
         "requests_oauthlib==0.6.1",
         "dj-database-url",

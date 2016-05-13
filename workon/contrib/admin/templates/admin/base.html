@@ -1,4 +1,4 @@
-{% load staticfiles workon_admin_tags %}
+{% load staticfiles workon_admin_tags i18n workon_admin_menu %}
 <html class="js" lang="{{ LANGUAGE_CODE|default:"en-us" }}">
     <head>
         <meta charset="utf-8">
@@ -81,7 +81,65 @@
             {% if not is_popup %}
             <div class="navbar user-nav" id="navbar">
                 {% block navbar %}
-                    {% include "admin/_navbar.html" %}
+                    <div class="branding pull-left">
+                        {% block branding %}
+                        <a class="navbar-brand" href="#">
+                            <img style="height:34px; margin-right:15px; position:relative; top:-7px;" class="img-rounded img-responsive pull-left" src="{{ request.user.get_avatar_url }}">
+                            {{ request.user.get_full_name }} @ <b>{% firstof 'admin_name'|workon_admin_conf site_header _('Admin') %}</b>
+                        </a>
+                        {% endblock %}
+                    </div>
+                    <ul class="nav navbar-nav pull-right">
+                        <!-- <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="icon-envelope"></i>
+                                Messages
+                                <span class="badge">5</span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">New message</a>
+                                </li>
+                                <li>
+                                    <a href="#">Inbox</a>
+                                </li>
+                                <li>
+                                    <a href="#">Outbox</a>
+                                </li>
+                                <li>
+                                    <a href="#">Trash</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="icon-cog"></i>
+                                Settings
+                            </a>
+                        </li> -->
+                        <li class="dropdown user">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="icon-user"></i>
+                                Mon compte
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if site_url %}
+                                    <li><a href="{{ site_url }}">{% trans 'View site' %}</a></li>
+                                {% endif %}
+                                {% url 'django-admindocs-docroot' as docsroot %}
+                                {% if docsroot %}
+                                    <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
+                                {% endif %}
+                                {% if user.has_usable_password %}
+                                    <li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
+                                {% endif %}
+                                <li class="divider"></li>
+                                <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 {% endblock navbar %}
             </div>
             {% endif %}
@@ -89,7 +147,90 @@
             <div id="content" >
                 <section id="sidebar" class="nano">
                     {% block sidebar %}
-                        {% include "admin/_sidebar.html" %}
+
+                        <!-- <i class="fa fa-bars" id="toggle"></i> -->
+                        <a id="dock-scroll-top"><span class="fa fa-arrow-up"></span></a>
+                        <a id="dock-scroll-bottom"><span class="fa fa-arrow-down"></span></a>
+                        <ul id="dock" class="nano-content">
+
+
+                            {% block menu_home %}
+                                {% url 'admin:index' as index_url %}
+                                <li class="home launcher {% if index_url == request.path %}active{% endif %}">
+                                    <a href="{{ index_url }}"><i class="glyphicon glyphicon-home"></i></a>
+                                </li>
+                            {% endblock %}
+
+                            {% get_menu request as app_list %}
+                            {% if app_list %}
+                                {% for app in app_list %}
+
+                                    {% if app.separator %}
+                                        <li class=" separator">{{ app.label|default:"-"|safe }}<i class="fa fa-sort-desc"></i></li>
+                                    {% else %}
+                                        <li  class="launcher {% if app.is_active %}active{% endif %} {% if app.models or app.include %}dock-tooltip{% endif %}">
+
+                                            <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }} style="word-wrap: break-word;">
+                                                <i class="{% firstof app.icon 'fa fa-tachometer' %}"></i>
+                                                {% trans app.label|safe %}
+                                            </a>
+                                            {% if app.models %}
+                                                <ul class="dock-menu">
+                                                    {% for model in app.models %}
+
+                                                        {% if model.separator %}
+                                                            <li class="separator">{{ model.label|safe }}<i class="fa fa-sort-desc"></i></li>
+                                                        {% else %}
+                                                            <li class="{% if model.is_active %}active{% endif %}">
+                                                                <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                            {% if app.include %}
+                                                <ul class="dock-menu">
+                                                    {% for app in app.include %}
+
+                                                        {% if app.separator %}
+                                                            <li class="separator">{{ app.label|safe }}<i class="fa fa-sort-desc"></i></li>
+                                                        {% else %}
+                                                            <li class="{% if app.is_active %}active{% endif %} {% if app.models or app.include %}dock-tooltip{% endif %}" >
+                                                                <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}>{{ app.label|safe }}</a>
+                                                                {% if app.models %}
+                                                                    <ul class="dock-menu">
+                                                                        {% for model in app.models %}
+
+                                                                            {% if model.separator %}
+                                                                                <li class="separator">{{ model.label|safe }}<i class="fa fa-sort-desc"></i></li>
+                                                                            {% else %}
+                                                                                <li class="{% if model.is_active %}active{% endif %}">
+                                                                                    <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
+                                                                                </li>
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                {% endif %}
+
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                            {% if False %}
+                                                <ul class="dock-menu">
+                                                    {% for model in app.include %}
+                                                        <li class="launcher {% if model.is_active %}active{% endif %}" >
+                                                            <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
                     {% endblock sidebar %}
                 </section>
                 <section id="topbar">

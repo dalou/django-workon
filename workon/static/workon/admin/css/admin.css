@@ -2384,7 +2384,7 @@ img.mfp-img {
   text-align: center;
 }
 #sidebar #dock {
-  padding: 20px 0px 0px 0px;
+  padding: 0px 0px 150px 0px;
   color: #7abc9c;
   -webkit-border-radius: 15px 0px 0px 0px;
   -moz-border-radius: 15px 0px 0px 0px;
@@ -2422,6 +2422,9 @@ img.mfp-img {
 #sidebar #dock li.launcher > a > i {
   font-size: 2.5em;
   margin-bottom: 5px;
+}
+#sidebar #dock li.launcher.home > a i {
+  font-size: 15px;
 }
 #sidebar #dock li.launcher:hover > a > i,
 #sidebar #dock li.launcher.active > a > i,
