@@ -68,11 +68,7 @@
 
     <body
         class="{{ request.resolver_match.namespace }}-{{ request.resolver_match.url_name }}
-
-        {% firstof 'layout'|workon_admin_conf site_header 'vertical' %}
-
-        "
-
+        {% firstof 'layout'|workon_admin_conf site_header 'vertical' %}"
     >
         <div id="wrapper" >
         {% block body %}

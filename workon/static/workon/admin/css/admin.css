@@ -2616,6 +2616,9 @@ form.change-form .form-group .input-group-btn .add-another {
 form.change-form .nav-tabs {
   margin-bottom: 15px;
 }
+form.change-form .empty-form {
+  display: none;
+}
 #changelist-search .btn {
   position: relative;
   top: -2px;

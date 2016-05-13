@@ -152,7 +152,7 @@
       return $rows;
   };
 
-
+  console.log($("#{{ inline_admin_formset.formset.prefix }}-group .tabular.inline-related tbody tr"))
   $("#{{ inline_admin_formset.formset.prefix }}-group .tabular.inline-related tbody tr").tabularFormset({
     prefix: "{{ inline_admin_formset.formset.prefix }}",
     adminStaticPrefix: '{% static "admin/" %}',
