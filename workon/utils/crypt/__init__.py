@@ -6,10 +6,10 @@ import operator
 import hashlib
 import random
 import functools
+import base64
 from Crypto.Cipher import AES
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import base36_to_int, int_to_base36
-import base64
 
 def random_token(extra=None, hash_func=hashlib.sha256):
     if extra is None:
