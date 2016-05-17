@@ -87,13 +87,14 @@ class WorkonConfig(AppConfig):
             self.setup_auth_app()
 
     def override_widgets(self):
-        options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateField].update({
-            'widget': widgets.WorkonDateWidget
-        })
-        options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateTimeField].update({
-            'form_class': forms.DateTimeField,
-            'widget': widgets.WorkonDateTimeWidget
-        })
+        # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateField].update({
+        #     'widget': widgets.WorkonDateWidget
+        # })
+        # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateTimeField].update({
+        #     'form_class': forms.DateTimeField,
+        #     'widget': widgets.WorkonDateTimeWidget
+        # })
+        pass
 
     def setup_model_admin(self):
         """

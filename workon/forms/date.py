@@ -6,7 +6,6 @@ import re
 import os
 import logging
 
-from django.conf import settings
 from django import forms
 from django.core.validators import EMPTY_VALUES
 from django.template import Context
@@ -47,13 +46,22 @@ class BaseDateInput(forms.DateTimeInput):
 
     timepicker = False
 
-    class Media:
-        css = {
-            'all': (settings.STATIC_URL + 'workon/vendors/datetimepicker/jquery.datetimepicker.css',)
-        }
-        js = (settings.STATIC_URL + 'workon/vendors/datetimepicker/jquery.datetimepicker.js',)
+    # class Media:
+    #     css = {
+    #         'all': ('workon/vendors/datetimepicker/jquery.datetimepicker.css',)
+    #     }
+    #     js = ('workon/vendors/datetimepicker/jquery.datetimepicker.js',)
 
     input_type = 'date'
+    @property
+    def media(self):
+        return forms.Media(
+            js=[
+                'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/fr.js',
+                'workon/admin/js/datepicker/bootstrap-datepicker.js'
+            ],
+            css={'all': [static("workon/admin/js/datepicker/css/datepicker3.css")]}
+        )
 
     def __init__(self, *args, **kwargs):
         include_seconds = kwargs.pop('include_seconds', False)

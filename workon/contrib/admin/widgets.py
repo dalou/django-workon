@@ -84,14 +84,20 @@ class AutosizedTextarea(Textarea):
 
 
 class WorkonDateWidget(forms.DateInput):
+
+
     @property
     def media(self):
         js = ['datepicker/bootstrap-datepicker.js']
         dp_lang = self.language()
-        if dp_lang != 'en':
-            js.append('datepicker/locales/bootstrap-datepicker.%s.js' % dp_lang)
+        # if dp_lang != 'en':
+        #     js.append('datepicker/locales/bootstrap-datepicker.%s.js' % dp_lang)
+
         return forms.Media(
-            js=[static("workon/admin/js/%s" % path) for path in js],
+            js=[
+                'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/fr.js',
+                'workon/admin/js/datepicker/bootstrap-datepicker.js'
+            ],
             css={'all': [static("workon/admin/js/datepicker/css/datepicker3.css")]}
         )
 
