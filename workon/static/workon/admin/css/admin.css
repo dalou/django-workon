@@ -2685,6 +2685,9 @@ rgba(0,0,0,0.04)
   right: 0px;
   bottom: 0px;
   left: 80px;
+  z-index: 2;
+  box-shadow: #000 -2px 1px 7px -2px !important;
+  -webkit-box-shadow: #000 -2px 1px 7px -2px !important;
   margin-top: 51px;
   overflow: auto;
   background: #fff;

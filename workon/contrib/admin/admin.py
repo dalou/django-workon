@@ -49,7 +49,6 @@ class AdminSite(BaseAdminSite):
         if not kwargs.get('admin_class', None) or kwargs.get('admin_class') == BaseModelAdmin:
             kwargs['admin_class'] = ModelAdmin
 
-        print kwargs
         return super(AdminSite, self).register(*args, **kwargs)
 
     def get_app_list(self, *args, **kwargs):

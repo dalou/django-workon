@@ -12,7 +12,6 @@ register = template.Library()
 def workon_flow_init(context, auto_connect=False):
     request = context['request']
     protocol = request.is_secure() and 'wss://' or 'ws://'
-    print settings
     heartbeat_msg = settings.FLOW_WS_HEARTBEAT and '"{0}"'.format(settings.FLOW_WS_HEARTBEAT) or 'null'
     context.update({
         'STATIC_URL': settings.settings.STATIC_URL,

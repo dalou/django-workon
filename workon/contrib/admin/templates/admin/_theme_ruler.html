@@ -22,9 +22,9 @@
 
         border-color: {{ theme.dark_color2 }};
     }
-    #sidebar {
-        background-color: {{ theme.dark_color2 }};
-    }
+    /*#sidebar {
+        background-color: {{ theme.color }};
+    }*/
 
     .btn-primary{
         background-image: linear-gradient(to bottom,{{ theme.dark_color1 }} 0, {{ theme.light_color1 }} 100%);
@@ -35,22 +35,22 @@
         border-color: {{ theme.light_color2 }};
 
     }
-    a,
     .tooltipster-dock .tooltipster-content .dock-menu li.separator,
-    #topbar #breadcrumb a,
-    .table thead th a,
     #sidebar #dock li.launcher:hover > a > i,
     #sidebar #dock li.launcher.active > a > i,
     #sidebar #dock li.launcher:hover > a,
     #sidebar #dock li.launcher.active > a,
     #sidebar #dock li.launcher ul.dropdown-menu > li:hover > a,
-    .pagination>li>a, .pagination>li>span {
+    .pagination>li>a, .pagination>li>span,
+    #sidebar #dock {
         color: {{ theme.light_color1 }};
     }
 
+    a,
+    #topbar #breadcrumb a,
+    .table thead th a,
     body.login .wrapper .brand h1 .logo-icon i,
-    #topbar #breadcrumb .title,
-    #sidebar #dock {
+    #topbar #breadcrumb .title {
         color: {{ theme.light_color2 }};
 
     }

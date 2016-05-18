@@ -8,6 +8,8 @@
         {% google_analytics_admin_charts %}
     {% endblock %}
 
+    {% block main %}
+    {% endblock %}
     {% if app_list %}
         {% for app in app_list %}
             <div class="app-{{ app.app_label }} module">

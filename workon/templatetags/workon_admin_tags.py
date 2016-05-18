@@ -152,6 +152,7 @@ def workon_admin_theme(*args):
     light_color2 = "#657AA2"
     dark_color1 = "#5A6D92"
     dark_color2 = "#374358"
+    dark_color3 = "#374358"
 
     if theme == "red":
 
@@ -175,6 +176,7 @@ def workon_admin_theme(*args):
         light_color2 = Color(theme, luminance=0.4)
         dark_color1 = Color(theme, luminance=0.35)
         dark_color2 = Color(theme, luminance=0.1)
+        dark_color3 = Color(theme, saturation=0.6, luminance=0.1)
         # else:
         #     dark_color1 = Color(theme)
         #     dark_color2 = Color(theme, luminance=0.4)
@@ -191,4 +193,5 @@ def workon_admin_theme(*args):
         'light_color2': light_color2,
         "dark_color1": dark_color1,
         "dark_color2": dark_color2,
+        "dark_color3": dark_color3
     }

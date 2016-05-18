@@ -73,7 +73,6 @@ class WorkonConfig(AppConfig):
         # settings.TEMPLATES[0]['DIRS'] += (
         #     os.path.join(root_path, 'contrib', 'admin', 'templates') + '/',
         # )
-        print settings.TEMPLATE_DIRS
 
         super(WorkonConfig, self).__init__(app_name, app_module)
 

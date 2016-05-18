@@ -234,6 +234,10 @@
 
         $(".panel-footer select").select2();
 
+        $('.select2').each(function() {
+            $(this).attr('style', $(this).attr('style').replace('width', 'min-width'))
+        })
+
 
         $(document).on('mouseover', 'li.dock-tooltip', function(content, options)
         {
