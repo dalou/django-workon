@@ -13,5 +13,5 @@ from .json_py import JSONField, JSONReadOnlyInput
 from .info import InfoField
 from .code import CodeField, CodeInput
 
-
+from ..contrib.select2.forms import *
 from ..contrib.auth.forms import *

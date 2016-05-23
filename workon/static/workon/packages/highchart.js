@@ -9,6 +9,11 @@ function workonGraphOptionsIter(object) {
                     var fct_str = str.substr(fct_type.length, str.length);
                     object[prop] = new Function(fct_str);
                 }
+                var exec_type = '{exec}::';
+                if(str.substr(0, exec_type.length) == exec_type) {
+                    var exec_str = str.substr(exec_type.length, str.length);
+                    object[prop] = eval(fct_str);
+                }
             }
             else {
                 workonGraphOptionsIter(object[prop]);

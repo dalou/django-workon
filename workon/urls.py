@@ -9,5 +9,6 @@ urlpatterns = [
         url(r'^auth/', include("workon.contrib.auth.urls")),
         url(r'^stripe/', include("workon.contrib.stripe.urls")),
         url(r'^flow/', include("workon.contrib.flow.urls")),
+        url(r'^select2/', include("workon.contrib.select2.urls")),
     ], namespace="workon"))
 ]

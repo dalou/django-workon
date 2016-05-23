@@ -142,12 +142,12 @@ def workon_admin_list_filter_select(cl, spec):
                 choice['additional'] = '%s=%s' % (key, value)
             i += 1
 
-    return tpl.render(Context({
+    return tpl.render({
         'field_name': field_key,
         'title': spec.title,
         'choices': choices,
         'spec': spec,
-    }))
+    })
 
 
 @register.filter
