@@ -29,7 +29,7 @@
     };
 
     $.fn.djangoSelect2 = function (options) {
-        var settings = $.extend({}, options);
+        var settings = $.extend({ 'language': 'fr' }, options);
         $.each(this, function (i, element) {
             var $element = $(element);
             if ($element.hasClass('django-select2-heavy')) {
