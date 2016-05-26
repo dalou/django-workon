@@ -18,9 +18,7 @@ FLOW_DEBUG = bool(int(getattr(settings, 'WORKON_FLOW_DEBUG', "1")))
 """
 Signal modules tuple paths that receive secure users messages
 """
-FLOW_SIGNALS = getattr(settings, 'WORKON_FLOW_SIGNALS', (
-    "workon.contrib.flow.signals",
-))
+FLOW_SIGNALS = getattr(settings, 'WORKON_FLOW_SIGNALS', ())
 
 """
 For more security, we can prefix signals receivers

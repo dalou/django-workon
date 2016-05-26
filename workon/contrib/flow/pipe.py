@@ -43,8 +43,11 @@ class Subscriber(RedisSubscriber):
         Simulate proper client disconnection from a brutal broken pipe
         """
         user_pk = self.get_user_pk_for_channel('flow', subscribed=True)
+
         if user_pk:
             flow_user_disconnected.send(sender=django_settings.AUTH_USER_MODEL, user_pk=user_pk)
+            if settings.FLOW_DEBUG:
+                debug_traceback('disconnected', {}, [user_pk], type='', to=False, success=True)
         super(Subscriber, self).release()
 
 

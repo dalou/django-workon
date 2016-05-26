@@ -54,10 +54,11 @@ class RedisSubscriber(RedisStore):
         This method is called immediately after a websocket is openend by the client, so that
         persisted messages can be sent back to the client upon connection.
         """
+        return #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         for channel in self._subscription.channels:
             message = self._connection.get(channel)
-            # if message:
-            #     websocket.send(message)
+            if message:
+                websocket.send(message)
 
     def get_user_pk_for_channel(self, channel_name, subscribed=False):
         """

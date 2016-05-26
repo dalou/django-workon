@@ -31,14 +31,13 @@ var flow =
         });
     },
 
-    init: function(source, self)
+    init: function(source)
     {
-        self = this;
         console.log('%c FLOW initialisation', 'color: #222', source);
-        if(!self._ready)
+        if(!flow._ready)
         {
-            self._ready = true;
-            self._dispatch('flow_ready');
+            flow._ready = true;
+            flow._dispatch('flow_ready');
 
             if(source)
             {
@@ -48,30 +47,30 @@ var flow =
                     for( var i in wsdata)
                     {
                         var data = wsdata[i];
-                        if(self.DEBUG)
+                        if(flow.DEBUG)
                         {
                             console.log('%c INITIAL ', data.type, 'background: #B1D3D4; color: #222', data.data);
                         }
-                        self._dispatch(data.type, data.data);
+                        flow._dispatch(data.type, data.data);
                     }
-                    self._loaded = true;
-                    self._dispatch('flow_loaded');
-                    if(self.AUTO_CONNECT)
+                    flow._loaded = true;
+                    flow._dispatch('flow_loaded');
+                    if(flow.AUTO_CONNECT)
                     {
-                        self._connect();
+                        flow._connect();
                     }
                 });
             }
             else
             {
-                self._loaded = true;
-                self._dispatch('flow_loaded');
-                self._dispatch('flow_no_inital');
-                if(self.AUTO_CONNECT)
+                flow._loaded = true;
+                flow._dispatch('flow_loaded');
+                flow._dispatch('flow_no_inital');
+                if(flow.AUTO_CONNECT)
                 {
-                    self._connect();
+                    flow._connect();
                 }
-                if(self.DEBUG)
+                if(flow.DEBUG)
                 {
                     console.log('%c FLOW has no INITIAL_URL', 'color: #550000');
                 }
@@ -133,50 +132,48 @@ var flow =
             }
         }
     },
-    connect: function(self)
+    connect: function()
     {
-        self = this;
-        if(!self._redis_ws)
+        if(!flow._redis_ws)
         {
-            self._connect();
+            flow._connect();
         }
     },
-    _connect: function(self)
+    _connect: function()
     {
-        self = this;
-        if(self.WS_ENABLED && self.WS_URI)
+        if(flow.WS_ENABLED && flow.WS_URI)
         {
-            self = this;
-            self._redis_ws = RedisWebSocket(
+            flow = this;
+            flow._redis_ws = RedisWebSocket(
             {
-                uri: self.WS_URI+'flow?subscribe-user&publish-user&echo',
-                receive_message: self._receive,
-                heartbeat_msg: self.WS_HEARTBEAT,
+                uri: flow.WS_URI+'flow?subscribe-user&publish-user&echo',
+                receive_message: flow._receive,
+                heartbeat_msg: flow.WS_HEARTBEAT,
                 on_open: function()
                 {
                     setTimeout(function()
                     {
-                        self._connected = true;
-                        self._dispatch('flow_connected');
+                        flow._connected = true;
+                        flow._dispatch('flow_connected');
                     }, 500);
                 },
-                flow: self,
+                flow: flow,
             });
         }
         else
         {
-            self._dispatch('flow_ws_disabled');
-            if(self.DEBUG)
+            flow._dispatch('flow_ws_disabled');
+            if(flow.DEBUG)
             {
                 console.log('%c FLOW websocket is disabled ', 'color: #550000');
             }
-            if(self.DISCONNECTED_ENABLED)
+            if(flow.DISCONNECTED_ENABLED)
             {
-                self._disconnected_receive(2000);
+                flow._disconnected_receive(2000);
             }
             else
             {
-                if(self.DEBUG)
+                if(flow.DEBUG)
                 {
                     console.log('%c FLOW disconnected is disabled ', 'color: #550000');
                 }
@@ -189,23 +186,22 @@ var flow =
         for(var i in types)
         {
             var type = $.trim(types[i]);
-            listeners = this._listeners[type];
+            listeners = flow._listeners[type];
             if(!listeners) {
-                this._listeners[type] = listeners = [];
+                flow._listeners[type] = listeners = [];
             }
             listeners.push(fct);
         }
     },
     _disconnected_send: function(msg)
     {
-        self = this;
-        if(self.DISCONNECTED_ENABLED && self.DISCONNECTED_SEND_URL)
+        if(flow.DISCONNECTED_ENABLED && flow.DISCONNECTED_SEND_URL)
         {
-            $.get(self.DISCONNECTED_SEND_URL, {msg:msg}, function(wsdata)
+            $.get(flow.DISCONNECTED_SEND_URL, {msg:msg}, function(wsdata)
             {
                 for(var i in wsdata)
                 {
-                    self._receive(wsdata[i]);
+                    flow._receive(wsdata[i]);
                 }
             });
         }
@@ -217,42 +213,40 @@ var flow =
         typed_data.from = "js"
         typed_data.data = data
         var msg = JSON.stringify(typed_data);
-        if(this._connected && this._redis_ws)
+        if(flow._connected && flow._redis_ws)
         {
-            if(this.DEBUG)
+            if(flow.DEBUG)
             {
                 console.log('%c SEND ', 'background: #222; color: #bada55', typed_data);
             }
-            this._redis_ws.send_message(msg);
+            flow._redis_ws.send_message(msg);
         }
         else
         {
-            self._disconnected_send(msg);
+            flow._disconnected_send(msg);
         }
     },
     _disconnected_receive_timeout: null,
     _disconnected_receive: function(timeout)
     {
-        self = this;
-        console.log(timeout);
-        if(self.DISCONNECTED_ENABLED && self.DISCONNECTED_RECEIVE_URL)
+        if(flow.DISCONNECTED_ENABLED && flow.DISCONNECTED_RECEIVE_URL)
         {
-            if(self._disconnected_receive_timeout)
+            if(flow._disconnected_receive_timeout)
             {
-                clearTimeout(self._disconnected_receive_timeout);
+                clearTimeout(flow._disconnected_receive_timeout);
             }
-            self._disconnected_receive_timeout = setTimeout(function()
+            flow._disconnected_receive_timeout = setTimeout(function()
             {
                 if(flow.is_active())
                 {
-                    $.get(self.DISCONNECTED_RECEIVE_URL, null, function(wsdata)
+                    $.get(flow.DISCONNECTED_RECEIVE_URL, null, function(wsdata)
                     {
                         for(var i in wsdata)
                         {
-                            self._receive(wsdata[i]);
+                            flow._receive(wsdata[i]);
                         }
                     });
-                    self._disconnected_receive(flow.is_focused() ? 5000 : 20000);
+                    flow._disconnected_receive(flow.is_focused() ? 5000 : 20000);
                 }
             }, timeout);
         }
@@ -262,7 +256,7 @@ var flow =
         var data = JSON.parse(msg);
         if(data && data.from != "js")
         {
-            if(self.DEBUG)
+            if(flow.DEBUG)
             {
                 console.log('%c RECEIVE ', 'background: #bada55; color: #222', data);
             }
@@ -272,11 +266,11 @@ var flow =
 
     _dispatch: function(type, data)
     {
-        if(this._listeners[type])
+        if(flow._listeners[type])
         {
-            for(var i in this._listeners[type])
+            for(var i in flow._listeners[type])
             {
-                this._listeners[type][i](data)
+                flow._listeners[type][i](data)
                 //console.log('LISTEN', json.type, json)
             }
         }
@@ -288,7 +282,7 @@ var flow =
 
     trigger: function(type, data)
     {
-        this._dispatch(type, data);
+        flow._dispatch(type, data);
     },
 
     template: function(id, data)
