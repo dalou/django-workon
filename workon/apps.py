@@ -28,7 +28,7 @@ class WorkonConfig(AppConfig):
     django_version = get_version()
     list_per_page = 18
     list_filters_position = 'center'
-    admin_name = '%s Admin' % get_project_title()
+    admin_name = getattr(settings, 'WORKON_ADMIN_CONFIG', {}).get('ADMIN_NAME', '%s Admin' % get_project_title())
 
     header_date_format = 'l, jS F Y'
     header_time_format = 'H:i'

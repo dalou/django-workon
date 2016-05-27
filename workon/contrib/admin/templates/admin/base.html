@@ -99,6 +99,8 @@
                         </a>
                         {% endblock %}
                     </div>
+
+                    {% block nav-global %}{% endblock %}
                     <ul class="nav navbar-nav pull-right">
 
                         {% block pre_navbar_right %}
@@ -127,6 +129,17 @@
                         {% block post_navbar_right %}
                         {% endblock %}
                     </ul>
+
+                    {% with 'search_url'|workon_admin_conf as search_url %}
+                        {% if search_url %}
+                        <form class="navbar-form navbar-right" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
+                            <div class="form-group has-feedback">
+                                <input type="text" class="form-control" name="q" placeholder="Recherche...">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </form>
+                        {% endif %}
+                    {% endwith %}
                 {% endblock navbar %}
             </div>
             {% endif %}
