@@ -2724,6 +2724,10 @@ a {
 a:hover {
   color: #7abc9c;
 }
+a.btn {
+  -webkit-transition: none;
+  transition: none;
+}
 #content {
   position: absolute;
   top: 70px;
