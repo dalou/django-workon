@@ -173,7 +173,7 @@
                                             {% if app.models or app.include %}dock-tooltip{% endif %}
                                             {% if app.denied %}denied{% endif %}">
 
-                                            <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }} style="word-wrap: break-word;">
+                                            <a href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target=_blank,' }} style="word-wrap: break-word;">
                                                 <i class="{% firstof app.icon 'fa fa-tachometer' %}"></i>
                                                 {% trans app.label|safe %}
                                             </a>
@@ -187,7 +187,7 @@
                                                             <li class="
                                                                 {% if model.is_active %}active{% endif %}
                                                                 {% if app.denied %}denied{% endif %}">
-                                                                <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
+                                                                <a href="{{ model.url }}{{ model.query|default:'' }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
                                                             </li>
                                                         {% endif %}
                                                     {% endfor %}
@@ -204,7 +204,7 @@
                                                                 {% if app.is_active %}active{% endif %}
                                                                 {% if app.models or app.include %}dock-tooltip{% endif %}
                                                                 {% if app.denied %}denied{% endif %}" >
-                                                                <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}>{{ app.label|safe }}</a>
+                                                                <a href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target=_blank,' }}>{{ app.label|safe }}</a>
                                                                 {% if app.models %}
                                                                     <ul class="dock-menu">
                                                                         {% for model in app.models %}
@@ -213,7 +213,7 @@
                                                                                 <li class="separator">{{ model.label|safe }}<i class="fa fa-sort-desc"></i></li>
                                                                             {% else %}
                                                                                 <li class="{% if model.is_active %}active{% endif %}">
-                                                                                    <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
+                                                                                    <a href="{{ model.url }}{{ model.query|default:'' }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
                                                                                 </li>
                                                                             {% endif %}
                                                                         {% endfor %}

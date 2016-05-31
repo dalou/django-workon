@@ -37,7 +37,25 @@ def get_menu(context, request):
     except Exception:
         return
 
-    return Menu(context, request, app_list).get_app_list()
+    menu = Menu(context, request, app_list).get_app_list()
+
+
+    for app in menu:
+        empty = True
+        if app.get('url'):
+            empty = False
+        for model in app.get('models',[]):
+            if model.get('url'):
+                empty = False
+            for model2 in model.get('include', []):
+                if model.get('url'):
+                    empty = False
+
+
+        if empty:
+            app['denied'] = True
+
+    return menu
 
 
 
@@ -122,20 +140,8 @@ class Menu(object):
         if menu:
             self.activate_menu(menu)
 
-        for app in menu:
-            empty = True
-            for model in app.get('models',[]):
-                if model.get('url'):
-                    empty = False
-                for model2 in model.get('include', []):
-                    if model.get('url'):
-                        empty = False
-
-            if empty:
-                app['denied'] = True
-
-            import pprint
-            pprint.pprint(app)
+            # import pprint
+            # pprint.pprint(app)
 
         return menu
 
