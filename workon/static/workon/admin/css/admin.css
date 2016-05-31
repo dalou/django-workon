@@ -2681,6 +2681,10 @@ form.change-form .nav-tabs {
 form.change-form .empty-form {
   display: none;
 }
+form.change-form .inline-deletelink {
+  position: relative;
+  top: -15px;
+}
 #changelist-search .btn {
   position: relative;
   top: -2px;
