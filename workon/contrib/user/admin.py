@@ -24,8 +24,8 @@ from django.contrib.auth import get_user_model
 class UserAdmin(BaseUserAdmin):
 
 
-    class Media:
-        js = ( "user/js/admin.js", )
+    # class Media:
+    #     js = ( "user/js/admin.js", )
 
     #UserAdmin.list_display +
     list_display = (

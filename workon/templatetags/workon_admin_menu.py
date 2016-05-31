@@ -122,20 +122,20 @@ class Menu(object):
         if menu:
             self.activate_menu(menu)
 
-        # for app in menu:
-        #     empty = True
-        #     for model in app.get('models',[]):
-        #         if model.get('url'):
-        #             empty = False
-        #         for model2 in model.get('include', []):
-        #             if model.get('url'):
-        #                 empty = False
+        for app in menu:
+            empty = True
+            for model in app.get('models',[]):
+                if model.get('url'):
+                    empty = False
+                for model2 in model.get('include', []):
+                    if model.get('url'):
+                        empty = False
 
-        #     if empty:
-        #         menu.remove(app)
+            if empty:
+                app['denied'] = True
 
-        #     import pprint
-        #     pprint.pprint(app)
+            import pprint
+            pprint.pprint(app)
 
         return menu
 

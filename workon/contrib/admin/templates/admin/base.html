@@ -168,7 +168,10 @@
                                     {% if app.separator %}
                                         <li class=" separator">{{ app.label|default:"-"|safe }}<i class="fa fa-sort-desc"></i></li>
                                     {% else %}
-                                        <li  class="launcher {% if app.is_active %}active{% endif %} {% if app.models or app.include %}dock-tooltip{% endif %}">
+                                        <li  class="launcher
+                                            {% if app.is_active %}active{% endif %}
+                                            {% if app.models or app.include %}dock-tooltip{% endif %}
+                                            {% if app.denied %}denied{% endif %}">
 
                                             <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }} style="word-wrap: break-word;">
                                                 <i class="{% firstof app.icon 'fa fa-tachometer' %}"></i>
@@ -181,7 +184,9 @@
                                                         {% if model.separator %}
                                                             <li class="separator">{{ model.label|safe }}<i class="fa fa-sort-desc"></i></li>
                                                         {% else %}
-                                                            <li class="{% if model.is_active %}active{% endif %}">
+                                                            <li class="
+                                                                {% if model.is_active %}active{% endif %}
+                                                                {% if app.denied %}denied{% endif %}">
                                                                 <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
                                                             </li>
                                                         {% endif %}
@@ -195,7 +200,10 @@
                                                         {% if app.separator %}
                                                             <li class="separator">{{ app.label|safe }}<i class="fa fa-sort-desc"></i></li>
                                                         {% else %}
-                                                            <li class="{% if app.is_active %}active{% endif %} {% if app.models or app.include %}dock-tooltip{% endif %}" >
+                                                            <li class="
+                                                                {% if app.is_active %}active{% endif %}
+                                                                {% if app.models or app.include %}dock-tooltip{% endif %}
+                                                                {% if app.denied %}denied{% endif %}" >
                                                                 <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}>{{ app.label|safe }}</a>
                                                                 {% if app.models %}
                                                                     <ul class="dock-menu">
@@ -220,7 +228,9 @@
                                             {% if False %}
                                                 <ul class="dock-menu">
                                                     {% for model in app.include %}
-                                                        <li class="launcher {% if model.is_active %}active{% endif %}" >
+                                                        <li class="launcher
+                                                            {% if model.is_active %}active{% endif %}
+                                                            {% if app.denied %}denied{% endif %}" >
                                                             <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
                                                         </li>
                                                     {% endfor %}

@@ -90,7 +90,7 @@ setup(
 
         # Storage
         "boto==2.38.0",
-        "django-storages==1.1.8",
+        "django-storages==1.4.1",
 
         # Watcher
         "watchdog==0.8.3",
