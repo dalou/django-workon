@@ -23,7 +23,8 @@ register = template.Library()
 
 
 @register.assignment_tag(takes_context=True)
-def get_menu(context, request):
+def get_menu(context, request=None):
+    request = context['request']
     """
     :type request: WSGIRequest
     """
@@ -34,7 +35,8 @@ def get_menu(context, request):
     template_response = get_admin_site(context.current_app).index(request)
     try:
         app_list = template_response.context_data['app_list']
-    except Exception:
+    except Exception, e:
+        print e.message
         return
 
     menu = Menu(context, request, app_list).get_app_list()
