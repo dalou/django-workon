@@ -1,3 +1,4 @@
+import json
 from django.contrib.admin import widgets as admin_widgets
 from django.forms import widgets as form_widgets
 from django.forms import TextInput, Select, Textarea, fields
@@ -83,85 +84,88 @@ class AutosizedTextarea(Textarea):
         return output
 
 
-class WorkonDateWidget(forms.DateInput):
-
+class DateMixin(object):
 
     @property
     def media(self):
-        js = ['datepicker/bootstrap-datepicker.js']
-        dp_lang = self.language()
+        # js = ['datepicker/bootstrap-datepicker.js']
+        # dp_lang = self.language()
         # if dp_lang != 'en':
         #     js.append('datepicker/locales/bootstrap-datepicker.%s.js' % dp_lang)
 
         return forms.Media(
             js=[
-                'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/fr.js',
-                'workon/admin/js/datepicker/bootstrap-datepicker.js'
+                'workon/vendors/datetimepicker/jquery.datetimepicker.js',
             ],
-            css={'all': [static("workon/admin/js/datepicker/css/datepicker3.css")]}
+            css={'all': ["workon/vendors/datetimepicker/jquery.datetimepicker.css"]}
         )
 
-    def __init__(self, attrs=None, format=None):
-        attrs = attrs or {}
-        self.format = format
-        super(WorkonDateWidget, self).__init__(attrs=attrs, format=format)
+        input_type = 'date'
 
-    def language(self):
-        lang = str(translation.get_language() or 'en')[:2].lower()
-        dp_lang = lang
-        if lang.startswith('zh'):
-            dp_lang = {
-                'zh-cn': 'zh-CN',
-                'zh-tw': 'zh-TW'
-            }.get(lang, 'en')
-        return dp_lang
 
-    def date_format(self):
-        return self.format or formats.get_format(self.format_key)[0]
+    def render_script(self, id):
+        return '''<script type="text/javascript">
 
-    def datepicker_date_format(self, django_format):
-        mapping = {
-            '%Y': 'yyyy',
-            '%y': 'yy',
-            '%m': 'mm',
-            '%b': 'M',  # Oct, Nov
-            '%B': 'MM',  # October, November
-            '%d': 'dd',
-            '%M': 'i',
-            '%S': 's',
-            '.%f': '',  # Microseconds are not supported by datepicker
+                    $('#%(id)s').on('mousedown', function() {
+                        if(!this.datetimepicker) {
+                            $(this).datetimepicker($(this).data('datetime-input'));
+                            this.datetimepicker = true;
+                        }
+                    });
+                </script>
+                ''' % { 'id' : id }
+
+
+    def render(self, name, value, attrs={}):
+        if 'id' not in attrs:
+            attrs['id'] = "id_%s" % name
+        render = super(DateWidget, self).render(name, value, attrs)
+        return mark_safe("%s%s" % (render, self.render_script(attrs['id'])))
+
+
+
+class DateWidget(forms.DateInput, DateMixin):
+
+    timepicker = False
+
+
+    def __init__(self, *args, **kwargs):
+        include_seconds = kwargs.pop('include_seconds', False)
+        kwargs['format'] = "%d/%m/%Y"
+        options = kwargs.pop('options', {
+            'lang': 'fr',
+            'timepicker': False,
+            'mask': False,
+            'format': 'd/m/Y'
+        })
+        super(DateWidget, self).__init__(*args, **kwargs)
+        # if not include_seconds:
+        #     self.format = re.sub(':?%S', '', self.format)
+        attrs = {
+            'data-datetime-input': json.dumps(options)
         }
-        for dj_fmt, dp_fmt in mapping.items():
-            django_format = django_format.replace(dj_fmt, dp_fmt)
-
-        django_format = django_format.replace('%', '')
-        return django_format
-
-    def render(self, name, value, attrs=None):
-        output = super(WorkonDateWidget, self).render(name, value, attrs)
-
-        # Because we wrap input tag in input-group we must copy data-* attrs
-        # for datepicker formats
-        attrs = utils.attrs_by_prefix(output, 'data-date-')
-        if 'data-date-format' not in attrs:
-            attrs['data-date-format'] = self.datepicker_date_format(
-                self.date_format())
-
-        attrs = utils.dict_to_attrs(attrs)
-
-        return mark_safe(
-            '<div class="input-group date" %s>%s<span '
-            'class="input-group-addon"><i class="glyphicon '
-            'glyphicon-th"></i></span></div>' % (
-                attrs, output))
+        self.attrs.update(attrs)
 
 
-class WorkonDateTimeWidget(forms.DateTimeInput, WorkonDateWidget):
-    def __init__(self, attrs=None, format=None):
-        self.format = format
-        attrs = attrs or {}
-        attrs['data-date-show-time'] = 'true'
-        super(WorkonDateTimeWidget, self).__init__(attrs, format)
+
+class DateTimeWidget(forms.DateTimeInput, DateMixin):
+    timepicker = True
+    def __init__(self, *args, **kwargs):
+        include_seconds = kwargs.pop('include_seconds', True)
+
+        kwargs['format'] = "%d/%m/%Y %H:%M:%S"
+        super(DateTimeWidget, self).__init__(*args, **kwargs)
+        options = kwargs.pop('options', {
+            'lang': 'fr',
+            'timepicker': True,
+            'mask': False,
+            'format': 'd/m/Y H:i:s'
+            #'format': 'd.m.Y'
+        })
+        attrs = {
+            'data-datetime-input': json.dumps(options)
+        }
+        self.attrs.update(attrs)
 
 
 class WorkonTimeWidget(admin_widgets.AdminTimeWidget):
@@ -184,7 +188,7 @@ class WorkonSplitDateTimeWidget(forms.SplitDateTimeWidget):
     """
 
     def __init__(self, attrs=None):
-        widgets = [WorkonDateWidget, WorkonTimeWidget]
+        widgets = [DateWidget, WorkonTimeWidget]
         forms.MultiWidget.__init__(self, widgets, attrs)
 
     def format_output(self, rendered_widgets):

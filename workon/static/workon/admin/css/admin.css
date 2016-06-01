@@ -2806,3 +2806,7 @@ body.login .wrapper .text-center legend {
 body.login .wrapper .text-center legend input {
   float: none;
 }
+.calendarbox,
+.clockbox {
+  z-index: 9999;
+}

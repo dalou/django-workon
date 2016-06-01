@@ -34,7 +34,7 @@ class DateTimeField(forms.DateTimeField):
     def __init__(self, *args, **kwargs):
         if 'widget' not in kwargs:
             kwargs['widget'] = DateTimeInput(
-                format="%d/%m/%Y %H:%M",
+                format="%d/%m/%Y %H:%M:%S",
                 attrs={'placeholder': 'jj/mm/aaaa'})
             kwargs['input_formats'] = ['%m/%d/%Y %H:%M']
         super(DateTimeField, self).__init__(*args, **kwargs)

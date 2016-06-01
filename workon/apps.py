@@ -10,7 +10,7 @@ from django.contrib.admin import options
 from django.contrib.admin.options import ModelAdmin
 from django.db import models
 from django import forms
-from .contrib.admin import widgets
+from .contrib.admin import widgets, widgets2
 
 from .utils import get_project_title
 
@@ -87,11 +87,11 @@ class WorkonConfig(AppConfig):
 
     def override_widgets(self):
         # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateField].update({
-        #     'widget': widgets.WorkonDateWidget
+        #     'widget': widgets.DateWidget
         # })
         # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateTimeField].update({
         #     'form_class': forms.DateTimeField,
-        #     'widget': widgets.WorkonDateTimeWidget
+        #     'widget': widgets.DateTimeWidget
         # })
         pass
 
