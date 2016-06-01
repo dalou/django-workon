@@ -17,7 +17,7 @@ except ImportError:
     string_types = basestring,
 
 import warnings
-from ..contrib.admin.config import get_config
+from ..config import get_config
 
 register = template.Library()
 
@@ -39,21 +39,23 @@ def get_menu(context, request):
 
     menu = Menu(context, request, app_list).get_app_list()
 
+    VISUAL_LOCK = get_config('VISUAL_LOCK')
+    if VISUAL_LOCK == True:
 
-    for app in menu:
-        empty = True
-        if app.get('url'):
-            empty = False
-        for model in app.get('models',[]):
-            if model.get('url'):
+        for app in menu:
+            empty = True
+            if app.get('url'):
                 empty = False
-            for model2 in model.get('include', []):
+            for model in app.get('models',[]):
                 if model.get('url'):
                     empty = False
+                for model2 in model.get('include', []):
+                    if model.get('url'):
+                        empty = False
 
 
-        if empty:
-            app['denied'] = True
+            if empty:
+                app['denied'] = True
 
     return menu
 

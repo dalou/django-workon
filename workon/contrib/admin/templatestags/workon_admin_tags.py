@@ -5,8 +5,9 @@ from django.core.urlresolvers import NoReverseMatch, reverse
 from django.db.models import ForeignKey
 from django.template.defaulttags import NowNode
 from django.utils.safestring import mark_safe
-from ..contrib.admin import config
-from ..contrib.admin import utils
+
+from .. import config
+from .. import utils
 
 from colour import Color
 

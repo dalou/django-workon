@@ -2,7 +2,7 @@ from django.apps import apps
 from ...apps import WorkonConfig
 
 #: :type: DefaultConfig
-workon_admin_config = apps.get_app_config('workon')
+workon_admin_config = apps.get_app_config('workon.admin')
 
 #: :type: DefaultConfig()
 workon_admin_config_cls = WorkonConfig

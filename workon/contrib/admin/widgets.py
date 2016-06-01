@@ -119,6 +119,8 @@ class DateMixin(object):
     def render(self, name, value, attrs={}):
         if 'id' not in attrs:
             attrs['id'] = "id_%s" % name
+
+        attrs['class'] += " form-control"
         render = super(DateWidget, self).render(name, value, attrs)
         return mark_safe("%s%s" % (render, self.render_script(attrs['id'])))
 
