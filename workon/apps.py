@@ -10,7 +10,7 @@ from django.contrib.admin import options
 from django.contrib.admin.options import ModelAdmin
 from django.db import models
 from django import forms
-from .contrib.admin import widgets, widgets2
+from .contrib.admin import widgets
 
 from .utils import get_project_title
 
