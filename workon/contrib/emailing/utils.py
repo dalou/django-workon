@@ -66,7 +66,7 @@ def is_valid_email(email):
 
 class HtmlTemplateEmail(EmailMultiAlternatives):
 
-    def __init__(self, subject, html, sender, receivers, context={}, **kwargs):
+    def __init__(self, subject, html, sender, receivers, context={}, files=[], **kwargs):
         if type(receivers) == type(str()) or type(receivers) == type(unicode()):
             receivers = [receivers]
 
@@ -76,6 +76,9 @@ class HtmlTemplateEmail(EmailMultiAlternatives):
             html = clean_html_for_email(html)
         super(HtmlTemplateEmail, self).__init__(subject, text_template, sender, receivers, **kwargs)
         self.attach_alternative(html, "text/html")
+        if files:
+            for file in files:
+                self.attach(*file)
 
 
 def send_mass_email(messages, **kwargs):
@@ -84,15 +87,15 @@ def send_mass_email(messages, **kwargs):
     connection.send_messages(messages)
     connection.close()
 
-def send_html_email(subject, sender, receivers, html='', context={}, **kwargs):
-    message = HtmlTemplateEmail(subject, html, sender, receivers, context, **kwargs)
+def send_html_email(subject, sender, receivers, html='', context={}, files=[], **kwargs):
+    message = HtmlTemplateEmail(subject, html, sender, receivers, context, files=[], **kwargs)
     return message.send()
 
-def send_template_email(subject, sender, receivers, template=None, context={}, **kwargs):
+def send_template_email(subject, sender, receivers, template=None, context={}, files=[], **kwargs):
     html_template = get_template(template)
     context = Context(context)
     html = html_template.render(context)
-    return send_html_email(subject, sender, receivers, html=html, context=context, **kwargs)
+    return send_html_email(subject, sender, receivers, html=html, context=context, files=[], **kwargs)
 
 
 def set_mailchimp_vars(template):
