@@ -52,11 +52,8 @@ class AdminSite(BaseAdminSite):
         return super(AdminSite, self).register(*args, **kwargs)
 
     def get_app_list(self, *args, **kwargs):
-
-        if hasattr(self, '_app_list'):
-            return self._app_list
-        setattr(self, '_app_list', super(AdminSite, self).get_app_list(*args, **kwargs))
-        return self._app_list
+        # NEVER CACHE !!!!
+        return super(AdminSite, self).get_app_list(*args, **kwargs)
 
         # app_dict = self._build_app_dict(request)
         # app_list = sorted(app_dict.values(), key=lambda x: x['name'].lower())
