@@ -88,14 +88,14 @@ def send_mass_email(messages, **kwargs):
     connection.close()
 
 def send_html_email(subject, sender, receivers, html='', context={}, files=[], **kwargs):
-    message = HtmlTemplateEmail(subject, html, sender, receivers, context, files=[], **kwargs)
+    message = HtmlTemplateEmail(subject, html, sender, receivers, context, files=files, **kwargs)
     return message.send()
 
 def send_template_email(subject, sender, receivers, template=None, context={}, files=[], **kwargs):
     html_template = get_template(template)
     context = Context(context)
     html = html_template.render(context)
-    return send_html_email(subject, sender, receivers, html=html, context=context, files=[], **kwargs)
+    return send_html_email(subject, sender, receivers, html=html, context=context, files=files, **kwargs)
 
 
 def set_mailchimp_vars(template):
