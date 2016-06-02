@@ -2492,18 +2492,23 @@ div.tagsinput div {
 }
 #sidebar #dock li.launcher.denied a {
   opacity: 0.5;
+  cursor: not-allowed;
 }
 #sidebar #dock li.launcher.denied:before {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+  right: 15px;
+  bottom: 5px;
   z-index: 1;
   color: #000;
   text-shadow: rgba(255,255,255,0.78) 0px 0px 14px;
-  font: normal normal normal 45px/1 FontAwesome;
+  font: normal normal normal 25px/1 FontAwesome;
   content: "\f023";
+}
+#sidebar #dock li.launcher.denied:hover > a > i,
+#sidebar #dock li.launcher.denied.active > a > i,
+#sidebar #dock li.launcher.denied:hover > a,
+#sidebar #dock li.launcher.denied.active > a {
+  color: #fff;
 }
 .dock-menu {
   display: none;

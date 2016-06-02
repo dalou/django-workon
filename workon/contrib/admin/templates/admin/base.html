@@ -173,7 +173,11 @@
                                             {% if app.models or app.include %}dock-tooltip{% endif %}
                                             {% if app.denied %}denied{% endif %}">
 
-                                            <a href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target=_blank,' }} style="word-wrap: break-word;">
+                                            <a {% if not app.denied %}
+                                                href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target=_blank,' }}
+                                                {% endif %}
+
+                                                style="word-wrap: break-word;">
                                                 <i class="{% firstof app.icon 'fa fa-tachometer' %}"></i>
                                                 {% trans app.label|safe %}
                                             </a>
@@ -186,8 +190,13 @@
                                                         {% else %}
                                                             <li class="
                                                                 {% if model.is_active %}active{% endif %}
-                                                                {% if app.denied %}denied{% endif %}">
-                                                                <a href="{{ model.url }}{{ model.query|default:'' }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
+                                                                {% if model.denied %}denied{% endif %}">
+                                                                <a
+                                                                    {% if not model.denied %}
+                                                                    href="{{ model.url }}{{ model.query|default:'' }}"{{ model.blank|yesno:' target=_blank,' }}
+                                                                    {% endif %}
+
+                                                                    >{{ model.label|safe }}</a>
                                                             </li>
                                                         {% endif %}
                                                     {% endfor %}
@@ -204,7 +213,11 @@
                                                                 {% if app.is_active %}active{% endif %}
                                                                 {% if app.models or app.include %}dock-tooltip{% endif %}
                                                                 {% if app.denied %}denied{% endif %}" >
-                                                                <a href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target=_blank,' }}>{{ app.label|safe }}</a>
+                                                                <a
+                                                                    {% if not app.denied %}
+                                                                    href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target=_blank,' }}
+                                                                    {% endif %}
+                                                                    >{{ app.label|safe }}</a>
                                                                 {% if app.models %}
                                                                     <ul class="dock-menu">
                                                                         {% for model in app.models %}
@@ -231,7 +244,11 @@
                                                         <li class="launcher
                                                             {% if model.is_active %}active{% endif %}
                                                             {% if app.denied %}denied{% endif %}" >
-                                                            <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label|safe }}</a>
+                                                            <a
+                                                                {% if not model.denied %}
+                                                                href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}
+                                                                {% endif %}
+                                                                >{{ model.label|safe }}</a>
                                                         </li>
                                                     {% endfor %}
                                                 </ul>

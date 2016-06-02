@@ -48,12 +48,15 @@
             &.denied
                 rl();
                 a
-                    op(0.5);
+                    op(0.5); cur(not-allowed)
                 &:before
-                    ab(0,0,0,0,1); fg(black);
+                    ab(,15,5,,1); fg(black);
                     text-shadow: rgba(255, 255, 255, 0.78) 0px 0px 14px;
-                    font: normal normal normal 45px/1 FontAwesome;
+                    font: normal normal normal 25px/1 FontAwesome;
                     content: "\f023";
+                &:hover, &.active
+                    > a > i, > a
+                        fg(white);
             // &:hover
 
             //     > ul.dropdown-menu
