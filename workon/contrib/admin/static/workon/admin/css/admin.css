@@ -2491,7 +2491,7 @@ div.tagsinput div {
   position: relative;
 }
 #sidebar #dock li.launcher.denied a {
-  opacity: 0.5;
+  opacity: 0.2;
   cursor: not-allowed;
 }
 #sidebar #dock li.launcher.denied:before {
@@ -2499,8 +2499,8 @@ div.tagsinput div {
   right: 15px;
   bottom: 5px;
   z-index: 1;
-  color: #000;
-  text-shadow: rgba(255,255,255,0.78) 0px 0px 14px;
+  color: #5d5d5d;
+  text-shadow: rgba(0,0,0,0.78) 0px 0px 14px;
   font: normal normal normal 25px/1 FontAwesome;
   content: "\f023";
 }
