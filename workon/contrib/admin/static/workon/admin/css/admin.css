@@ -2503,6 +2503,7 @@ div.tagsinput div {
   text-shadow: rgba(0,0,0,0.78) 0px 0px 14px;
   font: normal normal normal 25px/1 FontAwesome;
   content: "\f023";
+  cursor: not-allowed;
 }
 #sidebar #dock li.launcher.denied:hover > a > i,
 #sidebar #dock li.launcher.denied.active > a > i,
