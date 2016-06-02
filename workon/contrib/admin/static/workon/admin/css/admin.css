@@ -2481,9 +2481,6 @@ div.tagsinput div {
   font-size: 2.5em;
   margin-bottom: 5px;
 }
-#sidebar #dock li.launcher.home > a i {
-  font-size: 15px;
-}
 #sidebar #dock li.launcher:hover > a > i,
 #sidebar #dock li.launcher.active > a > i,
 #sidebar #dock li.launcher:hover > a,

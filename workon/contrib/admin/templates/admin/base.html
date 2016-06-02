@@ -157,7 +157,7 @@
                             {% block menu_home %}
                                 {% url 'admin:index' as index_url %}
                                 <li class="home launcher {% if index_url == request.path %}active{% endif %}">
-                                    <a href="{{ index_url }}"><i class="glyphicon glyphicon-home"></i></a>
+                                    <a href="{{ index_url }}"><i class="fa fa-tachometer"></i></a>
                                 </li>
                             {% endblock %}
 

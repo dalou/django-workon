@@ -11,7 +11,7 @@ rs:
 	python manage.py runserver
 
 stylus:
-	stylus -w workon/contrib/admin/styl/admin.styl -o workon/static/workon/admin/css/
+	stylus -w workon/contrib/admin/styl/admin.styl -o workon/contrib/admin/static/workon/admin/css/
 
 
 

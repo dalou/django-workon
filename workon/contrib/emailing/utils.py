@@ -63,6 +63,20 @@ def is_valid_email(email):
     else:
         return None
 
+class ContentEmail(EmailMultiAlternatives):
+    def __init__(self, subject, content, sender, receivers, content_type=None, context={}, files=[], **kwargs):
+        if type(receivers) == type(str()) or type(receivers) == type(unicode()):
+            receivers = [receivers]
+        if content_type:
+            super(ContentEmail, self).__init__(subject, '', sender, receivers, **kwargs)
+        else:
+            super(ContentEmail, self).__init__(subject, content, sender, receivers, **kwargs)
+
+        if content_type:
+            self.attach_alternative(content, content_type)
+        if files:
+            for file in files:
+                self.attach(*file)
 
 class HtmlTemplateEmail(EmailMultiAlternatives):
 
@@ -80,6 +94,9 @@ class HtmlTemplateEmail(EmailMultiAlternatives):
             for file in files:
                 self.attach(*file)
 
+def send_email(subject, sender, receivers, content='', content_type=None, files=[], **kwargs):
+    message = ContentEmail(subject, content, sender, receivers, content_type=content_type, files=files, **kwargs)
+    return message.send()
 
 def send_mass_email(messages, **kwargs):
     connection = get_connection()
