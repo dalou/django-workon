@@ -80,7 +80,8 @@ def get_field_instance(instance, field_name, using=None):
     if using is None:
         using = instance
     field = getattr(instance, field_name, None)
-    field.instance = using
+    if field:
+        field.instance = using
     return field
 
 
