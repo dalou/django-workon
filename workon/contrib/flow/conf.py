@@ -28,7 +28,7 @@ FLOW_SIGNALS_PREFIX = getattr(settings, 'WORKON_FLOW_SIGNALS_PREFIX', "flow")
 """
     Browser ativity delay before marked as idle, in seconds
 """
-FLOW_ACTIVITY_DELAY = int(getattr(settings, 'WORKON_FLOW_ACTIVITY_DELAY', 1000 * 60 * 5))
+FLOW_ACTIVITY_DELAY = int(getattr(settings, 'WORKON_FLOW_ACTIVITY_DELAY', 500))
 
 """
     Initial url to fetch initials data
