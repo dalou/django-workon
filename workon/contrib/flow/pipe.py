@@ -60,16 +60,18 @@ def dispatch(user_pk, data, **kwargs):
         type = data.get('type', '')
         flow_type = 'flow_%s' % type
         data = data.get('data', None)
+        signal_found = False
         for signals_module in signals_modules:
             if hasattr(signals_module, flow_type):
+                signal_found = True
                 signal = getattr(signals_module, flow_type)
                 if settings.FLOW_DEBUG:
                     debug_traceback('', data, [user_pk], type=type, to=False, success=True)
 
                 signal.send(sender=django_settings.AUTH_USER_MODEL, user_pk=user_pk, data=data, kwargs=kwargs)
-            else:
-                if settings.FLOW_DEBUG:
-                    debug_traceback('unknow : ', data, [user_pk], type=type, to=False, success=False)
+
+        if not signal_found and settings.FLOW_DEBUG:
+            debug_traceback('unknow : ', data, [user_pk], type=type, to=False, success=False)
     else:
         if settings.FLOW_DEBUG:
             debug_traceback('unknow data type : ', data, [user_pk], to=False, success=False)
