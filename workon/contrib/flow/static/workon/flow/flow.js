@@ -3,7 +3,8 @@ var Notification = window.Notification || window.mozNotification || window.webki
 
 
 
-function RedisWebSocket(options, $) {
+function RedisWebSocket(options, $)
+{
     'use strict';
     var opts, ws, deferred, timer, attempts = 1;
     var heartbeat_interval = null, missed_heartbeats = 0;
@@ -53,7 +54,10 @@ function RedisWebSocket(options, $) {
     }
 
     function on_open() {
-        console.log('Connected!');
+        if(window.FLOW_DEBUG)
+        {
+            console.log('Connected!');
+        }
         // new connection, reset attemps counter
         attempts = 1;
         deferred.resolve();
@@ -141,7 +145,10 @@ var flow =
 
     init: function(source)
     {
-        console.log('%c FLOW initialisation', 'color: #222', source);
+        if(flow.DEBUG)
+        {
+            console.log('%c FLOW initialisation', 'color: #222', source);
+        }
         if(!flow._ready)
         {
             flow._ready = true;

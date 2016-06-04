@@ -26,9 +26,9 @@ For more security, we can prefix signals receivers
 FLOW_SIGNALS_PREFIX = getattr(settings, 'WORKON_FLOW_SIGNALS_PREFIX', "flow")
 
 """
-    Browser ativity delay before marked as idle, in seconds
+    Browser ativity delay before marked as idle, in milliseconds
 """
-FLOW_ACTIVITY_DELAY = int(getattr(settings, 'WORKON_FLOW_ACTIVITY_DELAY', 500))
+FLOW_ACTIVITY_DELAY = int(getattr(settings, 'WORKON_FLOW_ACTIVITY_DELAY', 1000 * 60 * 5 )) # 5 minutes
 
 """
     Initial url to fetch initials data

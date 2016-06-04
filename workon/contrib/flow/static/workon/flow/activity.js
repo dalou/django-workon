@@ -55,12 +55,12 @@ flow.on('flow_ready', function(delay, activity_checker)
     {
         var now = new Date();
         flow._last_activity_interval = now - flow._last_activity
-        if(flow._last_activity_interval >= flow._activity_delay)
+        if(flow._last_activity_interval >= flow.ACTIVITY_DELAY)
         {
 
             flow.set_active(false);
             clearInterval(flow._activity_interval);
-            to_activity = null;
+            flow._activity_interval = null;
         }
     }
 
@@ -69,9 +69,9 @@ flow.on('flow_ready', function(delay, activity_checker)
         flow._last_activity = new Date();
         if(!flow._activity_interval)
         {
-            flow._activity_interval = setInterval(activity_checker, flow.__activity_delay); //every 10sec
+            flow._activity_interval = setInterval(activity_checker, flow.ACTIVITY_DELAY); //every 10sec
             flow.set_active(true);
         }
     });
-    flow._activity_interval = setInterval(activity_checker, flow.__activity_delay);
+    flow._activity_interval = setInterval(activity_checker, flow.ACTIVITY_DELAY);
 });
