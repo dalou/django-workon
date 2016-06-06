@@ -158,14 +158,13 @@ var flow =
             {
                 $.get(source, null, function(wsdata)
                 {
-                    //console.log(wsdata)
+                    if(flow.DEBUG)
+                    {
+                        console.log('%c INITIAL ', 'background: #B1D3D4; color: #222', wsdata);
+                    }
                     for( var i in wsdata)
                     {
                         var data = wsdata[i];
-                        if(flow.DEBUG)
-                        {
-                            console.log('%c INITIAL ', data.type, 'background: #B1D3D4; color: #222', data.data);
-                        }
                         flow._dispatch(data.type, data.data);
                     }
                     flow._loaded = true;
@@ -256,44 +255,49 @@ var flow =
     },
     _connect: function()
     {
-        if(flow.WS_ENABLED && flow.WS_URI)
+        if(!flow._redis_ws)
         {
-            flow = this;
-            flow._redis_ws = RedisWebSocket(
+            if(flow.WS_ENABLED && flow.WS_URI)
             {
-                uri: flow.WS_URI+'flow?subscribe-user&publish-user&echo',
-                receive_message: flow._receive,
-                heartbeat_msg: flow.WS_HEARTBEAT,
-                on_open: function()
+                flow = this;
+                flow._redis_ws = RedisWebSocket(
                 {
-                    setTimeout(function()
+                    uri: flow.WS_URI+'flow?subscribe-user&publish-user&echo',
+                    receive_message: flow._receive,
+                    heartbeat_msg: flow.WS_HEARTBEAT,
+                    on_open: function()
                     {
-                        flow._connected = true;
-                        flow._dispatch('flow_connected');
-                    }, 500);
-                },
-                flow: flow,
-            });
-        }
-        else
-        {
-            flow._dispatch('flow_ws_disabled');
-            if(flow.DEBUG)
-            {
-                console.log('%c FLOW websocket is disabled ', 'color: #550000');
-            }
-            if(flow.DISCONNECTED_ENABLED)
-            {
-                flow._disconnected_receive(2000);
+                        setTimeout(function()
+                        {
+                            flow._connected = true;
+                            flow._dispatch('flow_connected');
+                        }, 500);
+                    },
+                    flow: flow,
+                });
             }
             else
             {
+                flow._redis_ws = true; // fake
+                flow._dispatch('flow_ws_disabled');
                 if(flow.DEBUG)
                 {
-                    console.log('%c FLOW disconnected is disabled ', 'color: #550000');
+                    console.log('%c FLOW websocket is disabled ', 'color: #550000');
+                }
+                if(flow.DISCONNECTED_ENABLED)
+                {
+                    flow._disconnected_receive(2000);
+                }
+                else
+                {
+                    if(flow.DEBUG)
+                    {
+                        console.log('%c FLOW disconnected is disabled ', 'color: #550000');
+                    }
                 }
             }
         }
+
     },
     on: function(type, fct)
     {

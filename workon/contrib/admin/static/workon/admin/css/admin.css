@@ -2396,6 +2396,8 @@ div.tagsinput div {
 }
 #navbar {
   position: relative;
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
 #navbar .navbar-brand {
   font-size: 1.8em;

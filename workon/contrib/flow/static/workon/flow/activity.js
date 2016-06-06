@@ -2,11 +2,17 @@ flow = $.extend(flow,
 {
     ACTIVITY_DELAY: window.FLOW_ACTIVITY_DELAY, // in MS
     _activity_interval: null,
-    _active: false,
+    _active: true,
     set_active: function(active)
     {
+        //console.log('change _active', active)
         if(active != this._active)
         {
+            if(active == true) {
+
+                clearTimeout(flow._activity_interval);
+                flow._activity_interval = setTimeout(function() { flow.set_active(false); }, flow.ACTIVITY_DELAY);
+            }
             this._active = active;
             this._dispatch('activity_changed', active);
         }
@@ -38,9 +44,12 @@ flow.on('activity_changed', function()
     }
 });
 
-flow.on('flow_ready', function(delay, activity_checker)
+flow.on('flow_connected', function(delay)
 {
     flow.set_focused(true);
+
+    $(window).mousemove(function() { flow.set_active(true); });
+    flow._activity_interval = setTimeout(function() { console.log('first timeout', flow._active); flow.set_active(false); }, flow.ACTIVITY_DELAY);
     $(window).focus(function()
     {
         flow.set_focused(true);
@@ -49,29 +58,5 @@ flow.on('flow_ready', function(delay, activity_checker)
     {
         flow.set_focused(false);
     });
-
-    flow._last_activity = new Date();
-    activity_checker = function()
-    {
-        var now = new Date();
-        flow._last_activity_interval = now - flow._last_activity
-        if(flow._last_activity_interval >= flow.ACTIVITY_DELAY)
-        {
-
-            flow.set_active(false);
-            clearInterval(flow._activity_interval);
-            flow._activity_interval = null;
-        }
-    }
-
-    $(window).mousemove(function()
-    {
-        flow._last_activity = new Date();
-        if(!flow._activity_interval)
-        {
-            flow._activity_interval = setInterval(activity_checker, flow.ACTIVITY_DELAY); //every 10sec
-            flow.set_active(true);
-        }
-    });
-    flow._activity_interval = setInterval(activity_checker, flow.ACTIVITY_DELAY);
 });
+

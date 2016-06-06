@@ -285,6 +285,11 @@
             $("#wrapper").toggleClass("toggled");
         });
 
+        $(window).resize(function() {
+            $('#content').css({ top: 70 + ($('#navbar').height()-50) })
+        });
+        $('#content').css({ top: 70 + ($('#navbar').height()-50) })
+
         // DatePicker
         WorkonAdmin.date_picker.update();
 
