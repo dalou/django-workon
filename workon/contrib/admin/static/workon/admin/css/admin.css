@@ -2836,6 +2836,9 @@ body.login .wrapper .text-center legend {
 body.login .wrapper .text-center legend input {
   float: none;
 }
+.nano > .nano-pane > .nano-slider {
+  background: #7abc9c;
+}
 .calendarbox,
 .clockbox {
   z-index: 9999;
