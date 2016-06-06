@@ -406,10 +406,10 @@ var flow =
 
     template: function(id, data)
     {
-        if(Handlebars) {
+        if(window.Handlebars && window.Handlebars != "undefined") {
 
             var source   = $('#'+id).html();
-            var template = Handlebars.compile(source);
+            var template = window.Handlebars.compile(source);
             var html    = template(data);
             return $(html);
         }
