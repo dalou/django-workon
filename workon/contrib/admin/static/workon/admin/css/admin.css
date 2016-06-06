@@ -2396,8 +2396,7 @@ div.tagsinput div {
 }
 #navbar {
   position: relative;
-  box-shadow: none;
-  -webkit-box-shadow: none;
+  margin-bottom: 0px;
 }
 #navbar .navbar-brand {
   font-size: 1.8em;
@@ -2409,6 +2408,32 @@ div.tagsinput div {
 }
 #navbar .navbar-brand b {
   color: #4c3e50;
+}
+@media (max-width: 767px) {
+  #navbar .branding,
+  #navbar .navbar-nav {
+    float: none !important;
+    zoom: 1;
+  }
+  #navbar .branding:before,
+  #navbar .navbar-nav:before,
+  #navbar .branding:after,
+  #navbar .navbar-nav:after {
+    content: "";
+    display: table;
+  }
+  #navbar .branding:after,
+  #navbar .navbar-nav:after {
+    clear: both;
+  }
+  #navbar .branding > li,
+  #navbar .navbar-nav > li {
+    float: left;
+  }
+}
+#navbar .navbar-form {
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
 #sidebar {
   background: #2d2d2d;

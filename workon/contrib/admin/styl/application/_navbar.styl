@@ -1,5 +1,5 @@
 #navbar
-    rl(); bs(none);
+    rl(); mb(0);
 
     .navbar-brand
         font-size: 1.8em;
@@ -11,6 +11,16 @@
 
         b
             color: dark-color;
+
+    .branding, .navbar-nav
+        @media screen-sm-max
+            float: none!important;
+            cl();
+            > li
+                fl();
+
+    .navbar-form
+        bs(none);
 
 // .navbar-inverse
 //     bg(#303131); bc(#929292); bb(2);
