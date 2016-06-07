@@ -3,17 +3,15 @@
 <div class="row workon-google-analytics" >
     {% for chart in charts %}
         <div class="col-md-4 ">
-            <fieldset class="module aligned box well">
-                <div class="fieldset-heading clearfix">
-                    <h3 class="fieldset-title">
-                        {{ chart.title }}
-                        <small class="description">{{ chart.resume }}</small>
-                    </h3>
-                </div>
-                <div class="fieldset-body">
-                    <div id="chart-{{ forloop.counter }}-container"  class="chart"></div>
-                </div>
-            </fieldset>
+            <div class="">
+                <blockquote class="fieldset-title">
+                    {{ chart.title }}
+                    <small class="description">{{ chart.resume }}</small>
+                </blockquote>
+            </div>
+            <div class="">
+                <div id="chart-{{ forloop.counter }}-container"  class="chart"></div>
+            </div>
         </div>
 
         {% cycle "" "" '</div><div class="row workon-google-analytics" >' %}
@@ -43,7 +41,7 @@
                 chart.chart.option = {};
             }
             chart.chart.container = 'chart-{{ forloop.counter }}-container';
-            $('#chart-{{ forloop.counter }}-container').css({ width: '100%', overflowX: 'scroll', overflowY: 'hidden', borderRadius: 5 })
+            $('#chart-{{ forloop.counter }}-container').css({ width: '100%', overflowX: 'auto', overflowY: 'hidden', borderRadius: 5 })
             chart.chart.option.width = '100%';
             chart.chart.option.chartArea = {'left':0,'top':0,'width':"100%",'height':"100%"};
             var dataChart{{ forloop.counter }} = new gapi.analytics.googleCharts.DataChart(chart)
@@ -67,6 +65,7 @@
                     $('#chart-{{ forloop.counter }}-container').removeLoading();
                 }
                 $('.gapi-analytics-data-chart, .gapi-analytics-data-chart > div > div').width('100%')
+                $('.gapi-analytics-data-chart [aria-label]').css({ textAlign:'center' })
 
             }).execute()
             var dataChart{{ forloop.counter }}TO = null;
