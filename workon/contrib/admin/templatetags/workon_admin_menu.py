@@ -48,11 +48,16 @@ def get_menu(context, request=None):
             empty = True
             if app.get('url'):
                 empty = False
-            for model in app.get('models',[]):
+            for model in app.get('models', []):
                 if model.get('url'):
                     empty = False
                 for model2 in model.get('include', []):
                     if model.get('url'):
+                        empty = False
+
+            for model in app.get('include', []):
+                for model2 in model.get('models', []):
+                    if model2.get('url'):
                         empty = False
 
 

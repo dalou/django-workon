@@ -243,6 +243,7 @@
         {
             if(this.workon_tooltip === true) { return; }
             this.workon_tooltip = true;
+            console.log(!$(this).hasClass('dock-tooltip2'))
             $(this).tooltipster({
                 theme: 'tooltipster-default tooltipster-dock',
                 position: 'right',
@@ -250,7 +251,8 @@
                 contentAsHTML: true,
                 trigger: 'hover',
                 content: $(this).find('>.dock-menu'),
-                delay: 0,
+                delay: 0,//10000 * $('.tooltipster-dock').length,
+                autoClose: !$(this).hasClass('dock-tooltip2')
             }).tooltipster('show')
 
         });
