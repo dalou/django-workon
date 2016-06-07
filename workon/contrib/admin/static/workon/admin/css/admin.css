@@ -1254,7 +1254,7 @@ body.loading > .loading-text {
   background: #fff;
   font-size: 22px;
   min-height: 5px;
-  line-height: 30;
+  line-height: 30px;
   padding: 12px 15px;
   border-top: 2px solid #303131;
   border-right: 2px solid #303131;
@@ -2835,9 +2835,6 @@ body.login .wrapper .text-center legend {
 }
 body.login .wrapper .text-center legend input {
   float: none;
-}
-.nano > .nano-pane > .nano-slider {
-  background: #7abc9c;
 }
 .calendarbox,
 .clockbox {
