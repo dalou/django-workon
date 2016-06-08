@@ -4,9 +4,9 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 
-from workon.utils import send_template_email
+from workon.utils import send_template_email, send_email
 
-def notify(title, body, uid=None, email=None, email_sender=None, email_template=None, context_object=None):
+def notify(receiver, title, body, uid=None, email=None, email_sender=None, email_template=None, context_object=None):
     from .models import Notification
     if uid:
         # if uid send only if does not exists
@@ -14,7 +14,7 @@ def notify(title, body, uid=None, email=None, email_sender=None, email_template=
         try:
             notification = Notification.objects.get(uid=uid)
             return None
-        except Notification.DoestNotExist:
+        except Notification.DoesNotExist:
             pass
 
     is_email_sendable = False
@@ -23,6 +23,7 @@ def notify(title, body, uid=None, email=None, email_sender=None, email_template=
         is_email_sendable = True
 
     notification = Notification(
+        receiver=receiver,
         title=title,
         body=body,
         uid=uid,
@@ -48,12 +49,12 @@ def notify(title, body, uid=None, email=None, email_sender=None, email_template=
                     'context_object': notification.context_object,
                 },
             )
-            emailing_utils.send_template_email(**kwargs)
+            send_template_email(**kwargs)
         else:
             kwargs.update(
                 content=body,
             )
-            emailing_utils.send_email(**kwargs)
+            send_email(**kwargs)
         notification.is_email_sent = True
 
 
