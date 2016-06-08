@@ -5,7 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 
 class NotificationConfig(AppConfig):
     name = 'workon.contrib.notification'
+    label = 'workon_notification'
     verbose_name = _("Notifications")
 
-    # def ready(self):
-    #     post_migrate.connect(create_default_site, sender=self)
+    def ready(self):
+        from .utils import *

@@ -4,18 +4,22 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils.text import slugify
+from django.utils import timezone
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 
 class Notification(models.Model):
 
-    created_date = models.DateTimeField("Créé le", auto_now_add=True)
-    updated_date = models.DateTimeField("Modifié le", auto_now=True, db_index=True)
+    created_at = models.DateTimeField("Créé le", auto_now_add=True)
+    updated_at = models.DateTimeField("Modifié le", auto_now=True, db_index=True)
+    sent_at = models.DateTimeField("Créé le", auto_now_add=True)
 
     receiver = models.ForeignKey('user.user', related_name='notifications', verbose_name=u"Receveur")
-    reference = models.CharField(u"ID", max_length=254)
+    uid = models.CharField(u"UID", max_length=254, unique=True, db_index=True, null=True, blank=True)
 
-    title = models.CharField(u"Titre"max_length=254, null=True, blank=True)
-    message = models.CharField(u"Message", max_length=254, null=True, blank=True)
+    title = models.CharField(u"Titre", max_length=254, null=True, blank=True)
+    body = models.CharField(u"Body Message", max_length=254, null=True, blank=True)
 
     is_sent = models.BooleanField(u"Envoyee ?", default=False)
     is_read = models.BooleanField(u"Lu ?", default=False)
@@ -23,9 +27,19 @@ class Notification(models.Model):
     is_email_sendable = models.BooleanField(u"A envoyer par email ?", default=False)
     is_email_sent = models.BooleanField(u"Envoyée par email ?", default=False)
 
+    context_content_type = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True, blank=True)
+    context_object_id = models.PositiveIntegerField(db_index=True, null=True, blank=True)
+    context_object = GenericForeignKey('context_content_type', 'context_object_id')
+
     def save(self, **kwargs):
+        self.sent_at = timezone.now()
         super(Notification, self).save(**kwargs)
 
+    class Meta:
+        db_table = "workon_notification_notification"
+        verbose_name = 'Notification'
+        verbose_name_plural = 'Notifications'
+        ordering = ['-created_at']
 
 
 # from django.conf import settings

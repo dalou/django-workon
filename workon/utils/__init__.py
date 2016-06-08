@@ -10,7 +10,7 @@ from .cache import *
 from .number import *
 from .rss import *
 from .crypt import *
-from ..contrib.emailing.utils import *
+from .email import *
 from ..contrib.google.utils import *
 from ..contrib.chart.utils import register_chart
 from ..contrib.stripe.utils import *

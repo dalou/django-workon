@@ -16,7 +16,6 @@ import django_select2.forms
 
 stripe.api_key = workon_settings.WORKON_STRIPE_SECRET_KEY
 
-print StripeEvent._meta.get_fields()
 
 class StripeEventAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'type', 'is_executed', 'created_date')

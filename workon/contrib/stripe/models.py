@@ -58,7 +58,6 @@ class StripeObject(models.Model):
                 except:
                     data = stripe.Plan.retrieve(id=kwargs.get('id'))
 
-            print object, data
             object.data = data
             object.save()
             return object
