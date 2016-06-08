@@ -40,7 +40,7 @@ class UserAdmin(BaseUserAdmin):
     )
 
     list_filter = BaseUserAdmin.list_filter + (
-        'is_fake',
+        #'is_fake',
         # 'profile__signup_source',
         # 'profile__register_from',
         # 'profile__registeration_platform'
