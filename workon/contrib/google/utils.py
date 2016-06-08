@@ -3,6 +3,10 @@ import json
 from django.conf import settings
 from django import template
 try:
+    from raven.contrib.django.raven_compat.models import client as raven
+except:
+    raven = None
+try:
 
     from oauth2client.service_account import ServiceAccountCredentials
 
@@ -19,6 +23,8 @@ try:
             )
             token = _credentials.get_access_token().access_token
         except Exception, e:
+            if raven:
+                raven.captureException()
             print "GOOGLE API TOKEN RETRIEVE ERROR:", e.message
             token = None
         return token
@@ -41,6 +47,8 @@ except:
             )
             token = _credentials.get_access_token().access_token
         except Exception, e:
+            if raven:
+                raven.captureException()
             print "GOOGLE API TOKEN RETRIEVE ERROR:", e.message
             token = None
         return token
