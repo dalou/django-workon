@@ -19,7 +19,7 @@ try:
             )
             token = _credentials.get_access_token().access_token
         except Exception, e:
-            print e.message
+            print "GOOGLE API TOKEN RETRIEVE ERROR:", str(e.message)
             token = None
         return token
 
