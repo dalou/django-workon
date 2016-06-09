@@ -42,17 +42,20 @@ def notify(receiver, title, body, uid=None, email=None, template_email=None, con
         )
 
         if isinstance(template_email, str) or isinstance(template_email, dict):
+            context = {
+                'receiver': receiver,
+                'title': notification.title,
+                'body': notification.body,
+                'context_object': notification.context_object,
+            }
+            context.update(template_email.pop('context', {}))
             kwargs.update(
                 template=template_email if isinstance(template_email, str) else None,
-                context={
-                    'receiver': receiver,
-                    'title': notification.title,
-                    'body': notification.body,
-                    'context_object': notification.context_object,
-                },
+                context=context,
             )
             if isinstance(template_email, dict):
                 kwargs.update(template_email)
+            print kwargs
             send_template_email(**kwargs)
         else:
             kwargs.update(
