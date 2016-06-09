@@ -65,6 +65,7 @@ def is_valid_email(email):
 
 class ContentEmail(EmailMultiAlternatives):
     def __init__(self, subject, content, sender, receivers, content_type=None, context={}, files=[], **kwargs):
+        content = kwargs.pop('body', content)
         if type(receivers) == type(str()) or type(receivers) == type(unicode()):
             receivers = [receivers]
         if content_type:

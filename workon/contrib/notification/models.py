@@ -16,10 +16,10 @@ class Notification(models.Model):
     sent_at = models.DateTimeField("Créé le", auto_now_add=True)
 
     receiver = models.ForeignKey('user.user', related_name='notifications', verbose_name=u"Receveur")
-    uid = models.CharField(u"UID", max_length=254, unique=True, db_index=True, null=True, blank=True)
+    uid = models.CharField(u"UID", max_length=500, db_index=True, null=True, blank=True)
 
-    title = models.CharField(u"Titre", max_length=254, null=True, blank=True)
-    body = models.CharField(u"Body Message", max_length=254, null=True, blank=True)
+    title = models.CharField(u"Titre", max_length=500, null=True, blank=True)
+    body = models.TextField(u"Body Message", null=True, blank=True)
 
     is_sent = models.BooleanField(u"Envoyee ?", default=False)
     is_read = models.BooleanField(u"Lu ?", default=False)
