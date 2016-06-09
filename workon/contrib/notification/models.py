@@ -30,6 +30,7 @@ class Notification(models.Model):
     context_content_type = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True, blank=True)
     context_object_id = models.PositiveIntegerField(db_index=True, null=True, blank=True)
     context_object = GenericForeignKey('context_content_type', 'context_object_id')
+    context_object.short_description ="Objet"
 
     def save(self, **kwargs):
         self.sent_at = timezone.now()
