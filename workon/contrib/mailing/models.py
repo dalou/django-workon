@@ -21,26 +21,12 @@ import workon.utils
 
 
 class Emailing(models.Model):
-    created_date = models.DateTimeField(u"Créé le", auto_now_add=True)
-    updated_date = models.DateTimeField(u"Modifié le", auto_now=True, db_index=True)
+    created_at = models.DateTimeField(u"Créé le", auto_now_add=True)
+    updated_at = models.DateTimeField(u"Modifié le", auto_now=True, db_index=True)
 
-    name = models.CharField(u"Nom", max_length=254)
-    subject = models.CharField(u"Sujet du mail", max_length=254, blank=True, null=True)
+    subject = models.CharField(u"Objet du mail", max_length=254, blank=True, null=True)
     sender = models.CharField(u"De", max_length=254, blank=True, null=True)
-    send_range = models.IntegerField(
-        u"Tranche d'envois maximum par session",
-        default=100,
-        help_text=u"Les tranches d'envois permette de soulager le serveur d'envoi de masse.",
-        choices=(
-            (20,20),
-            (50,50),
-            (70,70),
-            (100,100),
-            (200,200),
-            (500,500),
-            (1000,1000),
-        )
-    )
+
     receivers = models.TextField(u"Vers (destinations réélles)", blank=True, null=True)
     receivers_test = models.TextField(u"Vers (destination de test)", blank=True, null=True)
     template = models.TextField(u"Template", help_text=u"""

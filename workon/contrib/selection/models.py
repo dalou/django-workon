@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 from django.db import models
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -6,6 +8,9 @@ from django.core.urlresolvers import reverse
 from ...fields import JSONField
 
 class Selection(models.Model):
+
+    created_at = models.DateTimeField("Créé le", auto_now_add=True)
+    updated_at = models.DateTimeField("Modifié le", auto_now=True, db_index=True)
 
     name = models.CharField(u"Nom", max_length=254)
     description = models.TextField(u"Description", max_length=254, null=True, blank=True)
@@ -45,10 +50,15 @@ class Selection(models.Model):
 
     def get_absolute_admin_url(self, args=None):
         opts = self.content_type.model_class()._meta
-        print opts
         url_name = 'admin:%s_%s_%s' % (opts.app_label, self.content_type.model_class().__class__.__name__)
 
         return "%s?_selection_load=%s" % (reverse(
             url_name,
             args=args,
         ), self.id)
+
+    class Meta:
+        db_table = "workon_selection_selection"
+        verbose_name = 'Selection'
+        verbose_name_plural = 'Selections'
+        ordering = ['-created_at']

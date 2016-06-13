@@ -8,13 +8,11 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-{% endblock %}
-
-{% block object-tools %}
+<li>Selections</li>
+<li>Sauvegarder</li>
 {% endblock %}
 
 {% block content %}
-<div id="content-main">
 
     <div class="hidden">
     {% for selection in selections %}
@@ -26,7 +24,7 @@
     </div>
 
 
-    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" class="form-horizontal" novalidate>
+    <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.model_name }}_form" class="form" novalidate>
         {% csrf_token %}{% block form_top %}{% endblock %}
         <div class="tab-content tab-content-main">
 
@@ -72,5 +70,4 @@
 
     </form>
 
-</div>
 {% endblock %}

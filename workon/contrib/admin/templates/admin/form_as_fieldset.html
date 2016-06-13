@@ -1,5 +1,5 @@
 {% load workon_admin_forms workon_bootstrap3 %}
-<fieldset class="module aligned">
+<fieldset >
 
     {% if title %}
         <div class="fieldset-heading clearfix">
@@ -11,17 +11,17 @@
             </h3>
         </div>
     {% endif %}
-    <div class="panel fieldset-body">
+    <div class="">
         {% for field in form %}
-            <div id="form-group-{{ field.name }}" class="form-group  {{ field.errors|yesno:' error,' }}">
+                    {% bootstrap_field field %}
+           <!--  <div id="form-group-{{ field.name }}" class="form-group  {{ field.errors|yesno:' error,' }}">
                 <label class="control-label">
                     {{ field.label_tag }}
                 </label>
-                <div class="form-column ">
-                    {{ field }}
+                <div class="">
                     <div class="help-block">{{ field.errors }}</div>
                 </div>
-            </div>
+            </div> -->
         {% endfor %}
     </div>
 </fieldset>
