@@ -29,6 +29,7 @@ class ActivationToken(models.Model):
     activation_date = models.DateTimeField(u"date d'activation", blank=True, null=True)
 
     class Meta:
+        db_table = "workon_auth_activationtoken"
         unique_together = (("email", "token"),)
         verbose_name = u"Clé d'activation"
         verbose_name_plural = u"Clés d'activation"

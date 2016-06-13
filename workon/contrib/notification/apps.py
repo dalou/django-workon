@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class NotificationConfig(AppConfig):
     name = 'workon.contrib.notification'
-    label = 'workon_notification'
+    label = 'workon.notification'
     verbose_name = _("Notifications")
 
     def ready(self):
