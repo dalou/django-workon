@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-This is a Django_ integration of Select2_.
+This is a Django integration of Select2_.
 
 The app includes Select2 driven Django Widgets and Form Fields.
 
-.. _Django: https://www.djangoproject.com/
-.. _Select2: http://ivaynberg.github.com/select2/
-
 """
 
-__version__ = "5.8.4"
+__version__ = "1.0.1"
