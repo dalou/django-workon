@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class TrackingConfig(AppConfig):
     name = 'workon.contrib.tracking'
-    label = 'workon_tracking'
+    label = 'workon.tracking'
     verbose_name = _("Tracking fields")
 
     # def ready(self):
