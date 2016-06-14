@@ -2636,7 +2636,7 @@ body.horizontal .sidebar .dock li {
 .topbar {
   margin-left: 80px;
 }
-.topbar #breadcrumb {
+.topbar .breadcrumb {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
@@ -2647,18 +2647,18 @@ body.horizontal .sidebar .dock li {
   padding: 15px 20px 15px 20px;
   border-bottom: 1px solid #ddd;
 }
-.topbar #breadcrumb a {
+.topbar .breadcrumb a {
   color: #869198;
 }
-.topbar #breadcrumb .main-title {
+.topbar .breadcrumb .main-title {
   font-weight: 800;
   color: #4c3e50;
 }
-.topbar #breadcrumb .title {
+.topbar .breadcrumb .title {
   font-weight: 800;
   color: #7abc9c;
 }
-.topbar #toolbar {
+.topbar .toolbar {
   margin-top: -70px;
   margin-right: 10px;
   float: right;
@@ -2666,7 +2666,7 @@ body.horizontal .sidebar .dock li {
   padding: 8px;
   border-bottom: 0;
 }
-.topbar #toolbar .label {
+.topbar .toolbar .label {
   margin-right: 5px;
   margin-top: 6px;
   padding: 5px;
@@ -2796,6 +2796,21 @@ rgba(0,0,0,0.04)
   overflow: auto;
   background: #fff;
   padding: 20px;
+}
+@media (max-width: 991px) {
+  body {
+    zoom: 0.7;
+  }
+}
+@media (max-width: 767px) {
+  body {
+    zoom: 0.5;
+  }
+}
+@media (max-width: 480px) {
+  body {
+    zoom: 0.3;
+  }
 }
 body.login {
   color: #2c3e50;

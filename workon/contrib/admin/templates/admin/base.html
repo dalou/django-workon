@@ -105,15 +105,14 @@
                     {% block nav-global %}{% endblock %}
                     <ul class="nav navbar-nav pull-right">
 
-                        {% block pre_navbar_right %}
-                        {% endblock %}
-                        <li class="dropdown user">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        {% block navbar_right %}
+                        <li class="dock-tooltip user" data-tooltip-position="bottom" >
+                            <a class="" href="#">
                                 <i class="icon-user"></i>
                                 Mon compte
                                 <b class="caret"></b>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dock-menu" id="navbar-right">
                                 {% if site_url %}
                                     <li><a href="{{ site_url }}">{% trans 'View site' %}</a></li>
                                 {% endif %}
@@ -128,7 +127,6 @@
                                 <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
                             </ul>
                         </li>
-                        {% block post_navbar_right %}
                         {% endblock %}
                     </ul>
 
@@ -270,7 +268,7 @@
                             <li class="title">Accueil</li>
                         {% endblock breadcrumbs %}
                     </ul>
-                    <div id="toolbar">
+                    <div id="toolbar" class="topbar">
                         {% block toolbar %}{% endblock toolbar %}
                     </div>
                 </section>

@@ -243,10 +243,10 @@
         {
             if(this.workon_tooltip === true) { return; }
             this.workon_tooltip = true;
-            console.log(!$(this).hasClass('dock-tooltip2'))
+            var position = $(this).data('tooltip-position');
             $(this).tooltipster({
                 theme: 'tooltipster-default tooltipster-dock',
-                position: 'right',
+                position: position ? position:'right',
                 interactive: true,
                 contentAsHTML: true,
                 trigger: 'hover',
