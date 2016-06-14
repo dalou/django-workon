@@ -85,6 +85,8 @@
         {% block body_class %}{% endblock %}"
     >
         <div id="wrapper" >
+
+
         {% block body %}
 
 
@@ -271,6 +273,14 @@
                     </div>
                 </section>
                 <div id="main">
+
+                    {% block messages %}
+                        {% if messages %}
+                        <ul class="messages messagelist">{% for message in messages %}
+                          <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+                        {% endfor %}</ul>
+                        {% endif %}
+                    {% endblock messages %}
                     {% block content %}{% endblock content %}
                 </div>
             </div>
