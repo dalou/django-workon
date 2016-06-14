@@ -10,7 +10,7 @@ from . import cache, handlers
 
 class CleanupConfig(AppConfig):
     name = 'workon.contrib.cleanup'
-    label = 'workon.cleanup'
+    label = 'workon_cleanup'
     verbose_name = _("File and Image Cleanup")
 
     def ready(self):

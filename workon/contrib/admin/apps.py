@@ -13,7 +13,7 @@ from . import widgets
 
 class AdminConfig(AppConfig):
     name = 'workon.contrib.admin'
-    label = 'workon.admin'
+    label = 'workon_admin'
     verbose_name = _("Enhanced Admin")
 
     list_per_page = 18

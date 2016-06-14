@@ -53,6 +53,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='trackedfieldmodification',
             name='event',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, related_name='fields', to='workon_tracking.TrackingEvent', verbose_name='Event'),
+            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.CASCADE, related_name='fields', to='workon.tracking.TrackingEvent', verbose_name='Event'),
         ),
     ]

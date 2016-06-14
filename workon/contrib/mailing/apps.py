@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class SelectionConfig(AppConfig):
     name = 'workon.contrib.mailing'
-    label = 'workon.mailing'
+    label = 'workon_mailing'
     verbose_name = _("Mailing")
 
     # def ready(self):

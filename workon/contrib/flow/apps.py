@@ -9,6 +9,6 @@ from django.utils.translation import ugettext_lazy as _
 
 class FlowConfig(AppConfig):
     name = 'workon.contrib.flow'
-    label = 'workon.flow'
+    label = 'workon_flow'
     verbose_name = _("Real time websocket per user backend")
 
