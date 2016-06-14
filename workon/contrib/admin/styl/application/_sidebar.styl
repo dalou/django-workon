@@ -1,15 +1,15 @@
-#sidebar
+.sidebar
     bg(darker-color); w(80); rl(); z(1);
     ab(0,0,0,0,1); rad(15,0,0,0);
 
 
-    #dock-scroll-top
+    .dock-scroll-top
         dn(); ab(5,0,,0,1); tac();
 
-    #dock-scroll-bottom
+    .dock-scroll-bottom
         dn(); ab(,0,5,0,1); tac();
 
-    #dock
+    .dock
         p(0,0,150,0); fg(light-color); rad(15,0,0,0);
         border-top-left-radius: 15px;
         // overflow-y: scroll;
@@ -122,8 +122,8 @@
 
 body.horizontal
 
-    #sidebar
+    .sidebar
         ps(); w(auto);
-        #dock
+        .dock
             li
                 dib();

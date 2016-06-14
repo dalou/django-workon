@@ -2402,11 +2402,11 @@ div.tagsinput div {
 .selector-remove:before {
   content: '<';
 }
-#navbar {
+.navbar {
   position: relative;
   margin-bottom: 0px;
 }
-#navbar .navbar-brand {
+.navbar .navbar-brand {
   font-size: 1.8em;
   color: #4c3e50;
   float: left;
@@ -2414,36 +2414,36 @@ div.tagsinput div {
   line-height: 20px;
   height: 50px;
 }
-#navbar .navbar-brand b {
+.navbar .navbar-brand b {
   color: #4c3e50;
 }
 @media (max-width: 767px) {
-  #navbar .branding,
-  #navbar .navbar-nav {
+  .navbar .branding,
+  .navbar .navbar-nav {
     float: none !important;
     zoom: 1;
   }
-  #navbar .branding:before,
-  #navbar .navbar-nav:before,
-  #navbar .branding:after,
-  #navbar .navbar-nav:after {
+  .navbar .branding:before,
+  .navbar .navbar-nav:before,
+  .navbar .branding:after,
+  .navbar .navbar-nav:after {
     content: "";
     display: table;
   }
-  #navbar .branding:after,
-  #navbar .navbar-nav:after {
+  .navbar .branding:after,
+  .navbar .navbar-nav:after {
     clear: both;
   }
-  #navbar .branding > li,
-  #navbar .navbar-nav > li {
+  .navbar .branding > li,
+  .navbar .navbar-nav > li {
     float: left;
   }
 }
-#navbar .navbar-form {
+.navbar .navbar-form {
   box-shadow: none;
   -webkit-box-shadow: none;
 }
-#sidebar {
+.sidebar {
   background: #2d2d2d;
   width: 80px;
   position: relative;
@@ -2458,7 +2458,7 @@ div.tagsinput div {
   -moz-border-radius: 15px 0px 0px 0px;
   border-radius: 15px 0px 0px 0px;
 }
-#sidebar #dock-scroll-top {
+.sidebar .dock-scroll-top {
   display: none;
   position: absolute;
   top: 5px;
@@ -2467,7 +2467,7 @@ div.tagsinput div {
   z-index: 1;
   text-align: center;
 }
-#sidebar #dock-scroll-bottom {
+.sidebar .dock-scroll-bottom {
   display: none;
   position: absolute;
   right: 0px;
@@ -2476,7 +2476,7 @@ div.tagsinput div {
   z-index: 1;
   text-align: center;
 }
-#sidebar #dock {
+.sidebar .dock {
   padding: 0px 0px 150px 0px;
   color: #7abc9c;
   -webkit-border-radius: 15px 0px 0px 0px;
@@ -2484,52 +2484,52 @@ div.tagsinput div {
   border-radius: 15px 0px 0px 0px;
   border-top-left-radius: 15px;
 }
-#sidebar #dock li.separator {
+.sidebar .dock li.separator {
   text-align: center;
   font-style: italic;
   margin-top: 25px;
   line-height: 0;
 }
-#sidebar #dock li.separator i {
+.sidebar .dock li.separator i {
   display: block;
   text-align: center;
 }
-#sidebar #dock li.launcher {
+.sidebar .dock li.launcher {
   margin-top: 15px;
   cursor: pointer;
   margin-bottom: 10px;
   text-align: center;
 }
-#sidebar #dock li.launcher > a,
-#sidebar #dock li.launcher > a i {
+.sidebar .dock li.launcher > a,
+.sidebar .dock li.launcher > a i {
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
   display: block;
   color: #fff;
 }
-#sidebar #dock li.launcher > a {
+.sidebar .dock li.launcher > a {
   position: relative;
   text-decoration: none;
   font-size: 0.8em;
 }
-#sidebar #dock li.launcher > a > i {
+.sidebar .dock li.launcher > a > i {
   font-size: 2.5em;
   margin-bottom: 5px;
 }
-#sidebar #dock li.launcher:hover > a > i,
-#sidebar #dock li.launcher.active > a > i,
-#sidebar #dock li.launcher:hover > a,
-#sidebar #dock li.launcher.active > a {
+.sidebar .dock li.launcher:hover > a > i,
+.sidebar .dock li.launcher.active > a > i,
+.sidebar .dock li.launcher:hover > a,
+.sidebar .dock li.launcher.active > a {
   color: #7abc9c;
 }
-#sidebar #dock li.launcher.denied {
+.sidebar .dock li.launcher.denied {
   position: relative;
 }
-#sidebar #dock li.launcher.denied a {
+.sidebar .dock li.launcher.denied a {
   opacity: 0.2;
   cursor: not-allowed;
 }
-#sidebar #dock li.launcher.denied:before {
+.sidebar .dock li.launcher.denied:before {
   position: absolute;
   right: 15px;
   bottom: 5px;
@@ -2540,10 +2540,10 @@ div.tagsinput div {
   content: "\f023";
   cursor: not-allowed;
 }
-#sidebar #dock li.launcher.denied:hover > a > i,
-#sidebar #dock li.launcher.denied.active > a > i,
-#sidebar #dock li.launcher.denied:hover > a,
-#sidebar #dock li.launcher.denied.active > a {
+.sidebar .dock li.launcher.denied:hover > a > i,
+.sidebar .dock li.launcher.denied.active > a > i,
+.sidebar .dock li.launcher.denied:hover > a,
+.sidebar .dock li.launcher.denied.active > a {
   color: #fff;
 }
 .dock-menu {
@@ -2626,17 +2626,17 @@ div.tagsinput div {
   margin-top: -5px;
   padding: 5px 20px;
 }
-body.horizontal #sidebar {
+body.horizontal .sidebar {
   position: static;
   width: auto;
 }
-body.horizontal #sidebar #dock li {
+body.horizontal .sidebar .dock li {
   display: inline-block;
 }
-#topbar {
+.topbar {
   margin-left: 80px;
 }
-#topbar #breadcrumb {
+.topbar #breadcrumb {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
@@ -2647,18 +2647,18 @@ body.horizontal #sidebar #dock li {
   padding: 15px 20px 15px 20px;
   border-bottom: 1px solid #ddd;
 }
-#topbar #breadcrumb a {
+.topbar #breadcrumb a {
   color: #869198;
 }
-#topbar #breadcrumb .main-title {
+.topbar #breadcrumb .main-title {
   font-weight: 800;
   color: #4c3e50;
 }
-#topbar #breadcrumb .title {
+.topbar #breadcrumb .title {
   font-weight: 800;
   color: #7abc9c;
 }
-#topbar #toolbar {
+.topbar #toolbar {
   margin-top: -70px;
   margin-right: 10px;
   float: right;
@@ -2666,7 +2666,7 @@ body.horizontal #sidebar #dock li {
   padding: 8px;
   border-bottom: 0;
 }
-#topbar #toolbar .label {
+.topbar #toolbar .label {
   margin-right: 5px;
   margin-top: 6px;
   padding: 5px;
@@ -2783,7 +2783,7 @@ a.btn {
   border-left: 1px solid 1px solid rgba(0,0,0,0.2);
 rgba(0,0,0,0.04)
 }
-#main {
+.main {
   position: absolute;
   top: 0px;
   right: 0px;
