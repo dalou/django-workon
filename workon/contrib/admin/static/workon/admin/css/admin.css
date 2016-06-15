@@ -2537,12 +2537,27 @@ div.tagsinput div {
 .sidebar .dock li.launcher.active > a {
   color: #7abc9c;
 }
+.sidebar .dock li.launcher.disabled,
 .sidebar .dock li.launcher.denied {
   position: relative;
 }
+.sidebar .dock li.launcher.disabled a,
+.sidebar .dock li.launcher.denied a {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.sidebar .dock li.launcher.disabled:hover > a > i,
+.sidebar .dock li.launcher.denied:hover > a > i,
+.sidebar .dock li.launcher.disabled.active > a > i,
+.sidebar .dock li.launcher.denied.active > a > i,
+.sidebar .dock li.launcher.disabled:hover > a,
+.sidebar .dock li.launcher.denied:hover > a,
+.sidebar .dock li.launcher.disabled.active > a,
+.sidebar .dock li.launcher.denied.active > a {
+  color: #fff;
+}
 .sidebar .dock li.launcher.denied a {
   opacity: 0.2;
-  cursor: not-allowed;
 }
 .sidebar .dock li.launcher.denied:before {
   position: absolute;
@@ -2554,12 +2569,6 @@ div.tagsinput div {
   font: normal normal normal 25px/1 FontAwesome;
   content: "\f023";
   cursor: not-allowed;
-}
-.sidebar .dock li.launcher.denied:hover > a > i,
-.sidebar .dock li.launcher.denied.active > a > i,
-.sidebar .dock li.launcher.denied:hover > a,
-.sidebar .dock li.launcher.denied.active > a {
-  color: #fff;
 }
 .dock-menu {
   display: none;
