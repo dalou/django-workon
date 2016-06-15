@@ -1219,8 +1219,21 @@ body.loading > .loading-text {
   }
 }
 .messages {
-  margin: -10px 0px 0px 0px;
+  margin: -10px 0px 10px 0px;
   padding: 0px;
+}
+.messages .message {
+  background: #00af9c;
+  padding: 10px 20px;
+  text-align: center;
+  color: #fff;
+  font-size: 21px;
+  font-weight: bold;
+}
+.messages .message.error {
+  background: #e90044;
+  font-size: 21px;
+  font-weight: bold;
 }
 .modal {
   display: none;
