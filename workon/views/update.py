@@ -62,7 +62,8 @@ class FlexibleUpdate(generic.UpdateView):
             else:
                 try:
                     self.object = super(FlexibleUpdate, self).get_object()
-                except AttributeError:
+                except AttributeError, e:
+                    print str(e.message)
                     self.object = self.model()
                     self.created = True
 
