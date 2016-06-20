@@ -32,7 +32,7 @@ $(document).ready(function(apply_packages_on_insert)
         $.magnificPopup.open(
         {
             type: 'inline',
-            closeMarkup: '<button type="button" class="mfp-close"><span class="appicon appicon-close mfp-close"></span></button>',
+            closeMarkup: '<button type="button" class="mfp-close"><span class="fa fa-close appicon appicon-close"></span></button>',
             items: {
                 src: '<div class="modal">\
                     <div class="modal-header">'+$(this).data('modal-confirm')+'</div>\
@@ -102,7 +102,7 @@ $(document).ready(function(apply_packages_on_insert)
         $.magnificPopup.open(
         {
             type: type,
-            closeMarkup: '<button type="button" class="mfp-close"><span class="appicon appicon-close mfp-close"></span></button>',
+            closeMarkup: '<button type="button" class="mfp-close"><span class="appicon appicon-close"></span></button>',
             items: {
                 src: target,
                 cache: cache,
