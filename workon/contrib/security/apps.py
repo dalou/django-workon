@@ -8,7 +8,6 @@ from django.utils.translation import ugettext_lazy as _
 logging = settings.LOGGING
 if not logging:
     logging = DEFAULT_LOGGING
-print 'LOGGING', logging
 
 if not logging.get('handlers'):
     logging['handlers'] = {}
