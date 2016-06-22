@@ -63,6 +63,9 @@ class SelectionFilter(admin.SimpleListFilter):
 
 class SelectionAdmin(admin.ModelAdmin):
 
+    selection_add_template_name = 'workon/selection/admin/add.html'
+    selection_save_template_name = 'workon/selection/admin/save.html'
+
     def __init__(self, *args, **kwargs):
         super(SelectionAdmin, self).__init__(*args, **kwargs)
         if not 'action_selection_save' in self.actions:
@@ -123,7 +126,7 @@ class SelectionAdmin(admin.ModelAdmin):
             'content_type': content_type,
             # 'user': request.user
         })
-        return render_to_response('workon/selection/admin/add.html', RequestContext(request,
+        return render_to_response(self.selection_add_template_name, RequestContext(request,
         {
             'queryset': Selection.get_queryset_for_ids(content_type, ids),
             'selections': Selection.objects.all(),
@@ -136,14 +139,16 @@ class SelectionAdmin(admin.ModelAdmin):
 
 
 
-    def selection_add(self, request):
+    def selection_add(self, request, force=False):
         if request.method == "POST":
-            if request.POST.get('_selection_add'):
+            if request.POST.get('_selection_add') or force:
                 form = SelectionAddForm(request.POST)
                 if form.is_valid():
                     selection = form.cleaned_data.get('selection')
                     selection.ids += ","+form.cleaned_data.get('ids')
                     selection.save()
+
+                    self.selection_id = selection.pk
 
                     messages.success(request, u"Selection \"%s\" enregistrée avec succés" % selection.name )
                 else:
@@ -169,7 +174,7 @@ class SelectionAdmin(admin.ModelAdmin):
             'content_type': content_type,
             # 'user': request.user
         })
-        return render_to_response('workon/selection/admin/save.html', RequestContext(request,
+        return render_to_response(self.selection_save_template_name, RequestContext(request,
         {
             'queryset': Selection.get_queryset_for_ids(content_type, ids),
             'selections': Selection.objects.all(),
@@ -181,15 +186,16 @@ class SelectionAdmin(admin.ModelAdmin):
     action_selection_save.short_description = u"Sauvegarder la selection"
 
 
-    def selection_save(self, request):
+    def selection_save(self, request, force=False):
         if request.method == "POST":
-            if request.POST.get('_selection_save'):
+            if request.POST.get('_selection_save') or force:
                 form = SelectionForm(request.POST)
                 if form.is_valid():
                     if form.cleaned_data.get('existing_selection'):
                         form.instance.pk = form.cleaned_data.get('existing_selection').pk
                     form.instance.user = request.user
                     instance = form.save()
+                    self.selection_id = instance.pk
 
                     messages.success(request, u"Selection \"%s\" enregistrée avec succés" % instance.name )
                 else:
@@ -219,5 +225,4 @@ class SelectionAdmin(admin.ModelAdmin):
     #     }))
 
     # action_selection_load.short_description = u"Charger une selection"
-
 
