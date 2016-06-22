@@ -5,7 +5,6 @@ from .extended import *
 
 from ..models import GoogleAPISettings
 # from django import template
-# from django.conf import settings
 # from django.db.models import Count
 # from django.utils import timezone
 
@@ -167,4 +166,18 @@ def meta_headers(context):
 def multiply(obj, value):
     return obj * value if obj else ""
 
+# @register.simple_tag()
+# def multiply(value, factor, *args, **kwargs):
+#     if value is not None:
+#         return float(value) * float(factor)
+#     return None
 
+@register.simple_tag()
+def divide(value, factor, *args, **kwargs):
+    if value is not None and factor is not 0:
+        return float(value) / float(factor)
+    return None
+
+@register.simple_tag
+def settings_value(name):
+    return getattr(settings, name, "")
