@@ -292,6 +292,8 @@
         });
         $('#content').css({ top: 70 + ($('#navbar').height()-50) })
 
+        $('p.datetime input').addClass('form-control')
+
         // DatePicker
         WorkonAdmin.date_picker.update();
 
