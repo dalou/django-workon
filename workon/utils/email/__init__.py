@@ -57,7 +57,7 @@ def extract_emails_to_html(text, **kwargs):
 def is_valid_email(email):
     if email is None:
         return None
-    result = parseaddr(email.strip())
+    result = parseaddr(email.strip().lower())
     if '@' in result[1]:
         return result[1]
     else:

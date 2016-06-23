@@ -14,7 +14,7 @@ from . import widgets
 class AdminConfig(AppConfig):
     name = 'workon.contrib.admin'
     label = 'workon_admin'
-    verbose_name = _("Enhanced Admin")
+    verbose_name = _("Admin")
 
     list_per_page = 18
     list_filters_position = 'center'

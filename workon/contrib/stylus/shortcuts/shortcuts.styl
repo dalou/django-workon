@@ -171,13 +171,17 @@ hide-text()
 
 /* Transitions */
 tr(n)
+	-ms-transition: n;
+	-moz-transition: n;
 	-webkit-transition: n;
+	-o-transition: n;
 	transition: n;
 ts(n)
 	-ms-transform: n; /* Internet Explorer */
 	-moz-transform: n; /* Firefox */
 	-webkit-transform: n; /* Safari et Chrome */
 	-o-transform: n; /* Opera */
+	transform: n; /* Opera */
 
 tsh(n)
 	text-shadow: n;

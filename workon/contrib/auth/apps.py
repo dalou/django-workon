@@ -7,4 +7,4 @@ from django.utils.translation import ugettext_lazy as _
 class AuthConfig(AppConfig):
     name = 'workon.contrib.auth'
     label = 'workon_auth'
-    verbose_name = _("Auth backend with view")
+    verbose_name = _("Authentification")

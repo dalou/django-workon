@@ -72,7 +72,6 @@ def get_or_create_user(email, username=None, first_name=None, last_name=None,
     User = get_user_model()
     email = workon.utils.is_valid_email(email)
     if email:
-        email = email.strip().lower()
         try:
             user = User.objects.get(email__iexact=email)
         except User.DoesNotExist:
