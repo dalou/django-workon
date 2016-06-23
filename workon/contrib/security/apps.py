@@ -24,6 +24,7 @@ logging['loggers']['django.security.DisallowedHost'] = {
     'level': 'ERROR',
     'propagate': False,
 }
+settings.LOGGING = logging
 
 class SecurityConfig(AppConfig):
     name = 'workon.contrib.security'
