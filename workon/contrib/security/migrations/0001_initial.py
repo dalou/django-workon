@@ -32,8 +32,8 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['-created_at'],
                 'db_table': 'workon_security_disallowedhost',
-                'verbose_name': 'Selection',
-                'verbose_name_plural': 'Selections',
+                'verbose_name': 'Intrusion',
+                'verbose_name_plural': 'Intrusions',
             },
         ),
     ]
