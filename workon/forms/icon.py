@@ -17,6 +17,8 @@ from django.utils.safestring import mark_safe
 
 logger = logging.getLogger(__name__)
 
+import workon.utils
+
 class IconField(forms.CharField):
 
     def __init__(self, *args, **kwargs):
@@ -48,7 +50,7 @@ class IconInput(forms.widgets.TextInput):
         super(IconInput, self).__init__(*args, **kwargs)
 
     def render(self, name, value, attrs=None):
-        root = settings.DJANGO_ROOT
+        root = workon.utils.get_project_root()
 
         id = str(time.time()).replace('.', '')
 
