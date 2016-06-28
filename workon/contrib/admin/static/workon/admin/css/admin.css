@@ -926,7 +926,10 @@ select + .related-widget-wrapper-link,
   margin-left: 7px;
 }
 .dropdown-menu .sub-menu {
+  -ms-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
   -webkit-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
   display: none;
   padding: 0px;
@@ -1046,6 +1049,7 @@ ul li {
   -moz-transform: translateX(-50%); /* Firefox */
   -webkit-transform: translateX(-50%); /* Safari et Chrome */
   -o-transform: translateX(-50%); /* Opera */
+  transform: translateX(-50%); /* Opera */
 }
 .loading:after,
 .mfp-preloader:after {
@@ -1223,10 +1227,19 @@ body.loading > .loading-text {
   padding: 0px;
 }
 #messages .message {
-  background: #00af9c;
+  background: #c5efd3;
+  color: #333;
   padding: 10px 20px;
   text-align: center;
-  color: #fff;
+  font-size: 21px;
+  font-weight: bold;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin-bottom: 5px;
+}
+#messages .message.info {
+  background: #efe3c5;
   font-size: 21px;
   font-weight: bold;
 }
@@ -2539,7 +2552,10 @@ div.tagsinput div {
 }
 .sidebar .dock li.launcher > a,
 .sidebar .dock li.launcher > a i {
+  -ms-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
   -webkit-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
   display: block;
   color: #fff;
@@ -2658,7 +2674,10 @@ div.tagsinput div {
   left: 100%;
   opacity: 1;
   margin-left: 7px;
+  -ms-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
   -webkit-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   visibility: visible;
 }
@@ -2834,14 +2853,20 @@ form.change-list td p.datetime input {
 }
 a {
   color: #4c3e50;
+  -ms-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
   -webkit-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
 }
 a:hover {
   color: #7abc9c;
 }
 a.btn {
+  -ms-transition: none;
+  -moz-transition: none;
   -webkit-transition: none;
+  -o-transition: none;
   transition: none;
 }
 #content {
