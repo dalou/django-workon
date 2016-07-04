@@ -1,0 +1,81 @@
+#navbar
+    rl(); mb(0); fx(0,0,,0,100); h(60);
+    // border-bottom:2px solid #DADADA;
+    bg(#FAFAFA)
+    bg(#2d2d2d)
+    bs-cl();
+
+
+    // .navbar-brand
+    //     font-size: 1.8em;
+    //     float: left;
+    //     padding: 5px 10px;
+    //     line-height: 20px;
+
+    .nav-expander
+        rl(); ptb(15); wh(60); fl(); tac(); cur(pointer); z(3);
+        border-bottom: 1px solid #131313;
+        tdn(); fs(0.8em)
+        tr-cl(); dib(); fg(white);  bg(darker-color);
+
+
+        > i
+            fs(2.5em);
+        > i.fa-close
+            dn();
+
+        html.nav-expanded &
+            > i.fa-bars
+                dn();
+            > i.fa-close
+                db();
+
+    > ul
+        lsn(); p(0); m(0);
+        li
+            fl();
+            a
+                p(15); dib(); lh(30px); fg(white);
+
+            &.nav-branding
+
+                fs(30); tuc(); fwb(); tshad();
+
+
+            &.navbar-search
+                a
+                    &:before
+                        ct(" "); dib();
+                    span
+                        fs(24);
+
+            &.nav-user
+                span
+                    ml(10); dib();
+                img
+                    fl(); mxh(30); rad(100%);
+
+    // .branding, .navbar-nav
+    //     @media screen-sm-max
+    //         float: none!important;
+    //         cl();
+    //         > li
+    //             fl();
+
+    // .navbar-form
+    //     bs(none);
+
+// .navbar-inverse
+//     bg(#303131); bc(#929292); bb(2);
+//     font-weight: 400;
+//     .navbar-nav
+//         > li > a
+//             color: rgba(255, 255, 255, 0.8);
+
+//     .navbar-form
+//         .form-control
+//             border-color: #1C73A5;
+
+//     .navbar-brand
+//         img
+//             height:23px;

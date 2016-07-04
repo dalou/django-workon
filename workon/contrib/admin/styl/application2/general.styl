@@ -1,0 +1,53 @@
+a, body, .h1 .small, .h1 small, .h2 .small, .h2 small, .h3 .small, .h3 small, .h4 .small, .h4 small, .h5 .small, .h5 small, .h6 .small, .h6 small, h1 .small, h1 small, h2 .small, h2 small, h3 .small, h3 small, h4 .small, h4 small, h5 .small, h5 small, h6 .small, h6 small
+    fg(#484848);
+a
+    tr-cl();
+    &:hover
+        fg(light-color)
+
+    &.btn
+        tr(none);
+
+#wrapper
+    p(0);
+
+
+#content
+    p(60,0,0,60);
+    bd(1,1,1,1,solid,1px solid rgba(0, 0, 0, 0.2)); tr-cl();
+
+    // html.nav-expanded &
+    //     l(200);//w(70%);
+
+.main
+    oa(); h(100%);
+    .main-content
+        p(15,15,75,15);
+
+
+
+body
+    p(0); bg(#C6F1EF); oh();
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background: #FFF !important;
+    // background: #424242 !important;
+
+@media (min-width: 1260px)
+    .container
+        width: 1230px;
+
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6
+    font-weight: 600;
+    line-height: 1.2;
+
+ul
+    lsn();
+
+    li
+        p(0); m(0);

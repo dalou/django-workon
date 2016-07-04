@@ -239,20 +239,20 @@
         })
 
 
-        $(document).on('mouseover', 'li.dock-tooltip', function(content, options)
+        $(document).on('mouseover', 'li.dock-tooltip > a', function(content, options)
         {
             if(this.workon_tooltip === true) { return; }
             this.workon_tooltip = true;
-            var position = $(this).data('tooltip-position');
+            var position = $(this).parent().data('tooltip-position');
             $(this).tooltipster({
                 theme: 'tooltipster-default tooltipster-dock',
                 position: position ? position:'right',
                 interactive: true,
                 contentAsHTML: true,
                 trigger: 'hover',
-                content: $(this).find('>.dock-menu'),
+                content: $(this).parent().find('>.dock-menu'),
                 delay: 0,//10000 * $('.tooltipster-dock').length,
-                autoClose: !$(this).hasClass('dock-tooltip2')
+                autoClose: !$(this).parent().hasClass('dock-tooltip2')
             }).tooltipster('show')
 
         });
@@ -287,15 +287,24 @@
             $("#wrapper").toggleClass("toggled");
         });
 
-        $(window).resize(function() {
-            $('#content').css({ top: 70 + ($('#navbar').height()-50) })
-        });
-        $('#content').css({ top: 70 + ($('#navbar').height()-50) })
+        // $(window).resize(function() {
+        //     $('#content').css({ top: 70 + ($('#navbar').height()-50) })
+        // });
+        // $('#content').css({ top: 70 + ($('#navbar').height()-50) })
 
         $('p.datetime input').addClass('form-control')
 
         // DatePicker
         WorkonAdmin.date_picker.update();
+
+        $('#nav-expander').click(function()
+        {
+            $('html').toggleClass('nav-expanded')
+        })
+        $('#nav-expander-overlay').click(function()
+        {
+            $('html').removeClass('nav-expanded')
+        })
 
 
         var $tabs = $('#workon_form_tabs');

@@ -6,10 +6,11 @@
     {% if choices|length <= 2 and not choices.0.val and not  choices.1.val %}
 
         <div class="input-group">
+            {% if choices|length < 3 %}
             <span class="input-group-addon" id="basic-addon1">
-                <span class="glyphicon {% if choices|length < 3 %}glyphicon-search{% else %}glyphicon-list{% endif %}"></span>
-
+                <span class="fa fa-search"></span>
             </span>
+            {% endif %}
             <input
                 style=" width:150px;"
                 class="form-control"
@@ -24,10 +25,12 @@
 
     {% else %}
         <div class="input-group">
+            {% if choices|length < 3 %}
             <span class="input-group-addon" id="basic-addon1">
-                <span class="glyphicon {% if choices|length < 3 %}glyphicon-search{% else %}glyphicon-list{% endif %}"></span>
+                <span class="fa fa-search"></span>
 
             </span>
+            {% endif %}
             <select id="{{ field_name }}_list_filter"
                 data-name="{{ field_name }}"
                 class="form-control search-filter{% if spec.lookup_val or spec.used_parameters %} active{% endif %}"
@@ -65,8 +68,12 @@
     .input-append .select2,
     #toolbar .input-group .select2 { font-size: 12px; }
     .input-append .select2-selection,
-    #toolbar .input-group .select2-selection { border-radius: 0px 4px 4px 0px; border-left: 0px;     border: 1px solid #cccccc; }
+    #toolbar .input-group .select2-selection { border-left: 0px;     border: 1px solid #cccccc; }
 </style>
 <script type="text/javascript">
-        $('#{{ field_name }}_list_filter').select2({})
+        $('#{{ field_name }}_list_filter').select2({
+
+        }).on('select2-open', function() {
+            console.log(this)
+        });
 </script>

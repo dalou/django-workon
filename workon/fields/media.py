@@ -98,6 +98,9 @@ class MediaFieldEmbed(object):
         setattr(self.instance, self.field.name, self.name)
         return self
 
+    def delete(self, save=True):
+        pass
+
 
     def _get_html(self):
         if self.name and not self.type in self.field.authorized_types:

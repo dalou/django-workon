@@ -10,8 +10,9 @@ install:
 rs:
 	python manage.py runserver
 
-stylus:
-	stylus -w workon/contrib/admin/styl/admin.styl -o workon/contrib/admin/static/workon/admin/css/
+fs:
+	make clean
+	foreman start -f Procfile
 
 
 

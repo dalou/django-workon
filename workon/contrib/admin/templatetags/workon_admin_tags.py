@@ -173,8 +173,10 @@ def workon_admin_theme(*args):
     elif theme.startswith('#'):
         color = Color(theme)
         # if color.luminance <= 0.5:
-        light_color1 = Color(theme, saturation=0.7, luminance=0.6)
-        light_color2 = Color(theme, luminance=0.4)
+        # light_color1 = Color(theme, saturation=0.7, luminance=0.6)
+        # light_color2 = Color(theme, luminance=0.4)
+        light_color1 = Color(theme, saturation=0.7, luminance=0.8)
+        light_color2 = Color(theme, luminance=0.6)
         dark_color1 = Color(theme, luminance=0.35)
         dark_color2 = Color(theme, luminance=0.1)
         dark_color3 = Color(theme, saturation=0.6, luminance=0.1)
