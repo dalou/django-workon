@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% load staticfiles workon_admin_tags i18n workon workon_admin_menu %}
 <html class="js" lang="{{ LANGUAGE_CODE|default:"en-us" }}">
     <head>
@@ -16,7 +17,7 @@
         <link rel="image_src" href="{% usemeta image %}" />
         <link href="{{ STATIC_URL }}images/favicon.ico" rel="icon">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
         <meta name="robots" content="NONE,NOARCHIVE"/>
 
 
@@ -287,18 +288,10 @@
                         {% with 'search_url'|workon_admin_conf as search_url %}
                         {% if search_url %}
                         {% block nav-search %}
-                        <li class="dock-tooltip navbar-search" >
-                            <a>
+                        <li class="navbar-search" >
+                            <a id="nav-search-expander">
                                 <span class="fa fa-search"></span>
                             </a>
-                            <ul class="dock-menu">
-                                <form class="navbar-form navbar-right" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
-                                    <div class="form-group has-feedback">
-                                        <input type="text" class="form-control" name="q" placeholder="Recherche...">
-                                        <span class="fa fa-search form-control-feedback"></span>
-                                    </div>
-                                </form>
-                            </ul>
                         </li>
                         {% endblock %}
                         {% endif %}
@@ -312,6 +305,17 @@
                 {% endblock navbar %}
             </header>
             {% endif %}
+
+            {% with 'search_url'|workon_admin_conf as search_url %}
+            {% if search_url %}
+            <form id="nav-search-form" class="navbar-form navbar-right" action="{% if '/' in search_url %}{{ search_url }}{% else %}{% url search_url %}{% endif %}" method="GET">
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="q" placeholder="Recherche...">
+                    <span class="fa fa-search form-control-feedback"></span>
+                </div>
+            </form>
+            {% endif %}
+            {% endwith %}
 
             <div id="content" >
 

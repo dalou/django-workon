@@ -4813,7 +4813,7 @@ button.list-group-item-danger.active:focus {
   -webkit-box-shadow: 0;
 }
 .panel-body {
-  padding: 4px;
+  padding: 15px;
 }
 .panel-body:before,
 .panel-body:after {
@@ -4831,6 +4831,9 @@ button.list-group-item-danger.active:focus {
 }
 .panel-heading > .dropdown .dropdown-toggle {
   color: inherit;
+}
+.panel-heading .panel-tools {
+  float: right;
 }
 .panel-title {
   margin-top: 0;
@@ -4893,8 +4896,8 @@ button.list-group-item-danger.active:focus {
 .panel > .table caption,
 .panel > .table-responsive > .table caption,
 .panel > .panel-collapse > .table caption {
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .panel > .table:first-child,
 .panel > .table-responsive:first-child > .table:first-child {
@@ -8074,64 +8077,19 @@ opacity    : 0.99;
 .select2-container--default .select2-selection--single .select2-selection__arrow b {
   margin-top: 1px !important;
 }
-.table > thead > tr > td.success,
-.table > thead > tr > th.success,
-.table > thead > tr.success > td,
-.table > thead > tr.success > th,
-.table > tbody > tr > td.success,
-.table > tbody > tr > th.success,
-.table > tbody > tr.success > td,
-.table > tbody > tr.success > th,
-.table > tfoot > tr > td.success,
-.table > tfoot > tr > th.success,
-.table > tfoot > tr.success > td,
-.table > tfoot > tr.success > th {
-  background-color: rgba(0,0,0,0.1);
-}
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th,
 .table > tbody > tr:nth-child(odd) > th {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.03);
 }
 .table thead tr {
-  border-top-width: 0px;
-  border-top-style: solid;
-  border-top-color: #000;
-  border-right-width: 0px;
-  border-right-style: solid;
-  border-right-color: #000;
-  border-bottom-width: 0px;
-  border-bottom-style: solid;
-  border-bottom-color: #000;
-  border-left-width: 0px;
-  border-left-style: solid;
-  border-left-color: #000;
-}
-.table thead th {
-  border-top-width: 0px;
-  border-top-style: solid;
-  border-top-color: #000;
-  border-right-width: 0px;
-  border-right-style: solid;
-  border-right-color: #000;
-  border-bottom-width: 0px;
-  border-bottom-style: solid;
-  border-bottom-color: #000;
-  border-left-width: 0px;
-  border-left-style: solid;
-  border-left-color: #000;
-}
-.table thead th a {
-  color: #7abc9c;
-}
-.table>tbody>tr>td,
-.table>tbody>tr>th,
-.table>tfoot>tr>td,
-.table>tfoot>tr>th,
-.table>thead>tr>td,
-.table>thead>tr>th {
-  border: 0px;
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0, #e8e8e8 100%);
+  background-image: -o-linear-gradient(top, #f5f5f5 0, #e8e8e8 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e8e8e8));
+  background-image: linear-gradient(to bottom, #f5f5f5 0, #e8e8e8 100%);
+  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0)";
+  background-repeat: repeat-x;
 }
 div.tagsinput {
   border: 1px solid #ccc;
@@ -8617,6 +8575,16 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   display: inline-block;
   line-height: 30px;
   color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  -ms-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+}
+#navbar > ul li a:hover {
+  color: #7abc9c;
 }
 #navbar > ul li.nav-branding {
   font-size: 30px;
@@ -9012,6 +8980,21 @@ form.change-form .inline-deletelink {
   position: relative;
   top: -15px;
 }
+#changelist-search {
+  position: fixed;
+  top: 60px;
+  right: 0px;
+  left: 60px;
+  z-index: -1;
+  opacity: 0;
+  padding: 15px;
+  background: #2d2d2d;
+  -ms-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+}
 #changelist-search .btn {
   position: relative;
   top: -2px;
@@ -9024,6 +9007,13 @@ form.change-form .inline-deletelink {
 #changelist-search .btn-reset {
   padding: 8px 10px;
   margin-right: 5px;
+}
+html.nav-search-expanded #changelist-search {
+  z-index: 2;
+  opacity: 1;
+}
+html.nav-expanded #changelist-search {
+  left: 60px;
 }
 table {
   font-size: 14px;
@@ -9120,9 +9110,28 @@ a.btn {
   -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
 }
-.main {
-  overflow: auto;
-  height: 100%;
+#nav-search-form {
+  position: fixed;
+  top: 60px;
+  right: 0px;
+  left: 60px;
+  z-index: -1;
+  margin: 0px;
+  opacity: 0;
+  padding: 15px;
+  background: #2d2d2d;
+  -ms-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+}
+html.nav-search-expanded #nav-search-form {
+  z-index: 1;
+  opacity: 1;
+}
+html.nav-expanded #nav-search-form {
+  left: 60px;
 }
 .main .main-content {
   padding: 15px 15px 75px 15px;
@@ -9130,7 +9139,6 @@ a.btn {
 body {
   padding: 0px;
   background: #c6f1ef;
-  overflow: hidden;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
@@ -9246,6 +9254,10 @@ body.login .wrapper .text-center legend input {
     width: 60px;
     opacity: 1;
   }
+  #changelist-search,
+  #nav-search-form {
+    left: 0px;
+  }
   #content {
     padding-left: 0px;
   }
@@ -9256,42 +9268,44 @@ body.login .wrapper .text-center legend input {
     margin: -14px;
     margin-bottom: 14px;
   }
-  .main .panel .panel-body {
+  #changelist .panel .panel-body {
     padding: 0px;
   }
-  #changelist-search {
-    position: fixed;
-    top: 60px;
-    right: 0px;
-    left: 60px;
-    z-index: -1;
-    opacity: 0;
-    padding: 15px;
-    background: #2d2d2d;
-    -ms-transition: all 0.25s ease-out;
-    -moz-transition: all 0.25s ease-out;
-    -webkit-transition: all 0.25s ease-out;
-    -o-transition: all 0.25s ease-out;
-    transition: all 0.25s ease-out;
+  table {
+    border: 0;
   }
-  html.nav-expanded #changelist-search {
-    opacity: 1;
-    z-index: 1;
+  table tr {
+    display: block !important;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #444;
   }
-  table thead,
-  table tbody {
+  table td,
+  table th {
     display: block;
+    text-align: right;
+    font-size: 13px;
+    border-top: 0px;
+    border-bottom: 1px dotted #e0e0e0;
   }
-  table thead tr,
-  table tbody tr {
-    display: block;
-    width: 100%;
+  table td:last-child,
+  table th:last-child {
+    border-bottom: 0;
   }
-  table thead tr th,
-  table tbody tr th,
-  table thead tr td,
-  table tbody tr td {
-    display: block;
+  table td:before,
+  table th:before {
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .table > thead > tr > th,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > tbody > tr > td,
+  .table > tfoot > tr > td {
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
 }
 .calendarbox,

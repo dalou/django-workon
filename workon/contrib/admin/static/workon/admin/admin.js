@@ -306,13 +306,32 @@
             $('html').removeClass('nav-expanded')
         })
 
+        $('#nav-search-expander').click(function()
+        {
+            $('html').toggleClass('nav-search-expanded')
+        })
+
 
         var $tabs = $('#workon_form_tabs');
         var $mainInfos = $('.main-infos');
         var $topInfos = $('.workon-include');
 
         $tabs.before($mainInfos).css({ marginTop: 25 })
-        $tabs.before($topInfos)
+        $tabs.before($topInfos);
+
+        $(document).scroll(function ()
+        {
+            var scroll = $(window).scrollTop();
+            //var topDist = $("header").position();
+            if (scroll > 0) {
+                $('html').addClass('nav-scrollon');
+                //$('body').css({ paddingTop: 117 });
+            } else {
+                $('html').removeClass('nav-scrollon');
+                //$('body').css({ paddingTop: 117 });
+            }
+        });
+        $(document).scroll();
 
         // $(window).scroll(function()
         // {

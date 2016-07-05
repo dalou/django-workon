@@ -27,6 +27,10 @@
         html.nav-expanded &
            ts(translateY(0)); w(60); op(1);
 
+    #changelist-search, #nav-search-form
+        l(0);
+
+
     #content
         pl(0);
         html.nav-expanded &
@@ -36,59 +40,60 @@
     .main
         .panel
             m(-14); mb(14);
+
+    #changelist
+        .panel
             .panel-body
                 p(0);
 
 
 
 
-    #changelist-search
-        fx(60,0,,60,-1); op(0); p(15); bg(darker-color); tr-cl();
-        html.nav-expanded &
-            op(1); z(1);
 
+    // table
+
+    //     thead, tbody
+    //         db();
+    //         tr
+    //             db(); w(100%);
+    //             th, td
+    //                 db();
 
     table
+        border: 0;
 
-        thead, tbody
-            db();
-            tr
-                db(); w(100%);
-                th, td
-                    db();
 
-    // table {
-    //   border: 0;
-    // }
+        // thead
+        //     display: none;
 
-    // table thead {
-    //   display: none;
-    // }
 
-    // table tr {
-    //   margin-bottom: 10px;
-    //   display: block !important;
-    //   border-bottom: 2px solid #ddd;
-    // }
+        tr
+            display: block !important;
+            border-bottom: 1px solid #ddd;
+            border-top: 1px solid #444;
 
-    // table td {
-    //   display: block;
-    //   text-align: right;
-    //   font-size: 13px;
-    //   border-bottom: 1px dotted #ccc;
-    // }
 
-    // table td:last-child {
-    //   border-bottom: 0;
-    // }
+        td, th
+            display: block;
+            text-align: right;
+            font-size: 13px;
+            border-top: 0px;
+            border-bottom: 1px dotted #E0E0E0;
 
-    // table td:before {
-    //   content: attr(data-label);
-    //   float: left;
-    //   text-transform: uppercase;
-    //   font-weight: bold;
-    // }
 
+            &:last-child
+                border-bottom: 0;
+
+
+            &:before
+                content: attr(data-label);
+                float: left;
+                text-transform: uppercase;
+                font-weight: bold;
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td
+
+        ptb(2)
     // html.nav-expanded
     //     &:after
     //         ct(" "); fx(0,0,0,0,9999990); bg(rgba(0,0,0,0.5)); op(0);

@@ -6,6 +6,7 @@ from django.template.loader import get_template
 from django.utils.safestring import mark_safe
 from django.contrib.admin.templatetags.admin_list import result_list
 from django.contrib.admin.views.main import ALL_VAR, PAGE_VAR
+from django.utils.encoding import force_text
 from django.utils.html import escape
 
 try:
@@ -178,6 +179,8 @@ def dict_to_attrs(attrs):
                                      for k, v in attrs.items()]))
 
 
+
+
 @register.inclusion_tag('admin/change_list_results.html', takes_context=True)
 def result_list_with_context(context, cl):
     """
@@ -226,6 +229,18 @@ def result_row_attrs(context, cl, row_index):
 
     attrs.update(new_attrs)
     return dict_to_attrs(attrs)
+
+
+
+@register.filter
+def header_for_result(result, headers):
+    for i, td in enumerate(result):
+        text = headers[i]['text']
+        if not text.startswith('<'):
+            # print text, type(text)
+            yield mark_safe(td.replace('">', force_text('" data-label="'+text+'" >')))
+        else:
+            yield mark_safe(td)
 
 
 @register.filter
