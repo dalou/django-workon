@@ -8966,6 +8966,7 @@ body.change-form form .submit-row {
 }
 body.change-form form .submit-row .deletelink {
   float: right;
+  margin-top: 10px;
 }
 body.change-form form .submit-row .btn {
   white-space: normal;
