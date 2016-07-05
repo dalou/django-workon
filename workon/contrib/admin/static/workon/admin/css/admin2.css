@@ -3410,6 +3410,7 @@ tbody.collapse.in {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #808080;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -8883,7 +8884,20 @@ body.horizontal .sidebar {
 body.horizontal .sidebar .dock li {
   display: inline-block;
 }
+.topbar {
+  zoom: 1;
+  background-color: rgba(45,45,45,0.88);
+}
+.topbar:before,
+.topbar:after {
+  content: "";
+  display: table;
+}
+.topbar:after {
+  clear: both;
+}
 .topbar .breadcrumb {
+  float: left;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
@@ -8893,8 +8907,8 @@ body.horizontal .sidebar .dock li {
   border-radius: 0px 0px 0px 0px;
   padding: 15px 20px 15px 20px;
   border-bottom: 0px solid #ddd;
-  background-color: rgba(45,45,45,0.88);
   margin: 0px;
+  background: transparent;
 }
 .topbar .breadcrumb a {
   color: #869198;
@@ -8927,9 +8941,8 @@ body.change-form .sidebar {
 body.change-form #content {
   padding-bottom: 80px;
 }
-body.change-form form .fieldset-body {
-  padding-top: 15px;
-  padding-right: 15px;
+body.change-form form {
+  padding: 15px;
 }
 body.change-form form .control-label label {
   padding-left: 10px;
