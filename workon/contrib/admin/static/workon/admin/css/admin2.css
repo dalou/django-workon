@@ -8718,9 +8718,9 @@ html.nav-expanded .sidebar {
   padding-bottom: 15px;
 }
 .sidebar .dock li.launcher > a > i.counter {
-  -webkit-border-radius: 100% 100% 100% 100%;
-  -moz-border-radius: 100% 100% 100% 100%;
-  border-radius: 100% 100% 100% 100%;
+  -webkit-border-radius: 12px 12px 12px 12px;
+  -moz-border-radius: 12px 12px 12px 12px;
+  border-radius: 12px 12px 12px 12px;
   background: #000;
   color: #fff;
   font-size: 13px;
