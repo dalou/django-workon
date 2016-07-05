@@ -238,7 +238,7 @@ def header_for_result(result, headers):
         text = headers[i]['text']
         if not text.startswith('<'):
             # print text, type(text)
-            yield mark_safe(td.replace('">', force_text('" data-label="'+text+' : " >')))
+            yield mark_safe(td.replace('">', force_text('" data-label="%s : " >' % text)))
         else:
             yield mark_safe(td)
 
