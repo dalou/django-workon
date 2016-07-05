@@ -7,18 +7,15 @@
     {% if theme %}
 
     body {
-        background-color: {{ theme.color }} !important;
+        background-color: {{ theme.color }};
     }
     .sidebar {
         background: rgba(45, 45, 45, 0.74);
     }
-
-   /* .alert-info {
-
-        background-image: linear-gradient(to bottom,#EEE 0,#CCC 100%);
-        border-color: #DDD;
+    .btn-primary {
+        background-image: linear-gradient(to bottom,{{ theme.dark_color1 }} 0, {{ theme.light_color1 }} 100%);
+        border-color: {{ theme.light_color2 }};
     }
-
     .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
     .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
     {
@@ -30,10 +27,15 @@
         border-color: {{ theme.dark_color2 }};
     }
 
-    .btn-primary{
-        background-image: linear-gradient(to bottom,{{ theme.dark_color1 }} 0, {{ theme.light_color1 }} 100%);
-        border-color: {{ theme.light_color2 }};
+   /* .alert-info {
+
+        background-image: linear-gradient(to bottom,#EEE 0,#CCC 100%);
+        border-color: #DDD;
     }
+
+
+
+
     .btn-primary:focus, .btn-primary:hover {
         background-color: {{ theme.light_color1 }};
         border-color: {{ theme.light_color2 }};

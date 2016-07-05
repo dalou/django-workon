@@ -1,5 +1,4 @@
-{% load i18n admin_static workon_admin_tags %}
-<!DOCTYPE html>
+<!DOCTYPE html>{% load i18n admin_static workon_admin_tags %}
 <html class='no-js' lang='en'>
   <head>
     <meta charset='utf-8'>
@@ -8,63 +7,65 @@
     <meta content='' name='author'>
     <meta content='' name='description'>
     <meta content='' name='keywords'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="robots" content="NONE,NOARCHIVE"/>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/css/admin.css' %}">
-    {% include "admin/_theme_ruler.html" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/css/admin2.css' %}">
 
+    {% include "admin/_theme_ruler.html" %}
   </head>
   <body class='login'>
-    <div class='wrapper'>
-      <div class='row'>
-        <div class='col-lg-12'>
-          <div class='brand text-center'>
-            <h1>
-              {% block title %}
-              <div class='logo-icon'>
-                <i class='fa fa-gear'></i>
-              </div>
-              {{ 'admin_name'|workon_admin_conf }}
-              {% endblock title %}
-            </h1>
+    <div class='container'>
+      <div class='wrapper'>
+        <div class='row'>
+          <div class='col-lg-12'>
+            <div class='brand text-center'>
+              <h1>
+                {% block title %}
+                <div class='logo-icon'>
+                  <i class='fa fa-gear'></i>
+                </div>
+                {{ 'admin_name'|workon_admin_conf }}
+                {% endblock title %}
+              </h1>
+            </div>
           </div>
         </div>
-      </div>
-      <div class='row'>
-        <div class='col-lg-12'>
-          <form action="{{ app_path }}" method="post" >
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}"/>
-            <fieldset class='text-center'>
-              <!-- <legend>Login to your account</legend> -->
-              <div class="input-group input-group input-group-username{{ form.username.errors|yesno:'  has-error,' }}">
-                <span class="input-group-addon"><span class="fa fa-user"></span></span>
-                {{ form.username }}
-                {{ form.username.errors }}
-              </div>
-              <div class="input-group input-group input-group-password{{ form.password.errors|yesno:'  has-error,' }}">
-                <span class="input-group-addon"><span class="fa fa-lock"></span></span>
-                {{ form.password }}
-                {{ form.password.errors }}
-              </div>
-
-              <div class='text-center'>
-                <div class='checkbox'>
-                  <label>
-                    <input type='checkbox'>
-                    {% trans "Remember me on this computer" %}
-                  </label>
+        <div class='row'>
+          <div class='col-lg-12'>
+            <form action="{{ app_path }}" method="post" >
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ next }}"/>
+              <fieldset class='text-center'>
+                <!-- <legend>Login to your account</legend> -->
+                <div class="input-group input-group input-group-username{{ form.username.errors|yesno:'  has-error,' }}">
+                  <span class="input-group-addon"><span class="fa fa-user"></span></span>
+                  {{ form.username }}
+                  {{ form.username.errors }}
                 </div>
-                <button type="submit" class="btn btn-default">{% trans "Sign in" %}</a>
-                <br>
-                {% url 'admin_password_reset' as password_reset_url %}
-                {% if password_reset_url %}
-                  <a href="{{ password_reset_url }}">{% trans "Forgot password?" %}</a>
-                {% endif %}
-              </div>
-            </fieldset>
-          </form>
+                <div class="input-group input-group input-group-password{{ form.password.errors|yesno:'  has-error,' }}">
+                  <span class="input-group-addon"><span class="fa fa-lock"></span></span>
+                  {{ form.password }}
+                  {{ form.password.errors }}
+                </div>
+
+                <div class='text-center'>
+                  <div class='checkbox'>
+                    <label>
+                      <input type='checkbox'>
+                      {% trans "Remember me on this computer" %}
+                    </label>
+                  </div>
+                  <button type="submit" class="btn btn-default">{% trans "Sign in" %}</a>
+                  <br>
+                  {% url 'admin_password_reset' as password_reset_url %}
+                  {% if password_reset_url %}
+                    <a href="{{ password_reset_url }}">{% trans "Forgot password?" %}</a>
+                  {% endif %}
+                </div>
+              </fieldset>
+            </form>
+          </div>
         </div>
       </div>
     </div>

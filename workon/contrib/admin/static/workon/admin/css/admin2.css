@@ -4041,10 +4041,10 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .breadcrumb > li + li:before {
   content: '/\00a0';
   padding: 0 5px;
-  color: #ccc;
+  color: #eee;
 }
 .breadcrumb > .active {
-  color: #777;
+  color: #eee;
 }
 .pagination {
   display: inline-block;
@@ -8964,6 +8964,9 @@ body.change-form form .submit-row {
   box-shadow: #000 4px 0px 8px 0px !important;
   -webkit-box-shadow: #000 4px 0px 8px 0px !important;
 }
+body.change-form form .submit-row .btn-groups {
+  text-align: center;
+}
 body.change-form form .submit-row .deletelink {
   float: right;
   margin-top: 10px;
@@ -8989,9 +8992,6 @@ body.change-form form .inline-deletelink {
   top: -15px;
 }
 #changelist-search {
-  opacity: 0;
-  height: 0px;
-  overflow: hidden;
   padding: 15px;
   -ms-transition: all 0.25s ease-out;
   -moz-transition: all 0.25s ease-out;
@@ -9003,19 +9003,9 @@ body.change-form form .inline-deletelink {
   position: relative;
   top: -2px;
 }
-#changelist-search .btn-submit {
-  margin-left: 5px;
-  float: right;
-  top: 5px;
-}
 #changelist-search .btn-reset {
   padding: 8px 10px;
   margin-right: 5px;
-}
-html.nav-search-expanded #changelist-search {
-  z-index: 2;
-  opacity: 1;
-  height: auto;
 }
 html.nav-expanded #changelist-search {
   left: 60px;
@@ -9189,14 +9179,26 @@ body.login {
 body.login .wrapper {
   padding: 20px;
   background-color: #ecf0f1;
-  -webkit-border-radius: 15px 15px 15px 15px;
-  -moz-border-radius: 15px 15px 15px 15px;
-  border-radius: 15px 15px 15px 15px;
   box-shadow: 0 0 0 2px rgba(0,0,0,0.04);
   -webkit-box-shadow: 0 0 0 2px rgba(0,0,0,0.04);
   border: 1px solid rgba(0,0,0,0.3);
   margin: 10% auto;
-  width: 300px;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  body.login .wrapper {
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  body.login .wrapper {
+    width: 300px;
+  }
+}
+@media (min-width: 1200px) {
+  body.login .wrapper {
+    width: 300px;
+  }
 }
 body.login .wrapper .brand {
   margin-top: -15px;
@@ -9272,6 +9274,17 @@ body.login .wrapper .text-center legend input {
   #changelist-search,
   #nav-search-form {
     left: 0px;
+  }
+  #changelist-search {
+    overflow: hidden;
+    opacity: 0;
+    height: 0px;
+  }
+  html.nav-search-expanded #changelist-search {
+    z-index: 2;
+    opacity: 1;
+    height: auto;
+    overflow: visible;
   }
   #content {
     padding: 60px 0px 0px 0px;

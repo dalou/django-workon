@@ -311,6 +311,10 @@
             $('html').toggleClass('nav-search-expanded')
         })
 
+        if($('#changelist-search').length) {
+            $('#nav-search-form').remove()
+        }
+
 
         var $tabs = $('#workon_form_tabs');
         var $mainInfos = $('.main-infos');
