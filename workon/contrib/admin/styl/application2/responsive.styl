@@ -26,10 +26,10 @@
 
 
     .sidebar
-        z(-1); ts(translateY(-100%)); op(0);
+        z(-1); ts(translateX(-100%)); op(0);
 
         html.nav-expanded &
-           ts(translateY(0)); w(60); op(1);
+           ts(translateX(0)); w(60); op(1);
 
     #changelist-search, #nav-search-form
         l(0);
@@ -46,6 +46,8 @@
         html.nav-expanded &
             pl(60)
 
+    .nav-tabs > li
+        fn();
 
     .main
         .panel
@@ -67,17 +69,17 @@
         border: 0;
 
 
-        // thead
-        //     display: none;
-
 
         tr
             display: block !important;
             border-bottom: 4px solid #FFF;
             border-top: 4px solid #FFF;
 
-            &:after
-                ct(" "); h(15); db(); m(5,-16,5,-16); bg(darker-color);
+
+        tbody
+            tr
+                &:after
+                    ct(" "); h(15); db(); m(5,-16,5,-16); bg(darker-color);
 
 
         td, th
