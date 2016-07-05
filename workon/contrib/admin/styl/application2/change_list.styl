@@ -32,6 +32,18 @@ form.change-list
     table
         fs(14);
 
+        tbody
+            tr
+                th,td
+                    p(2,8);
+                    border-bottom: 1px dotted #E0E0E0;
+
+                &:hover
+                    th,td
+                        bg(light-color)
+                        a
+                            fg(white);
+
     .panel-footer
         //fx(,55,10,120,1001);
         bg(#f5f5f5); p(10); m(0,0,0,0); rad(5);

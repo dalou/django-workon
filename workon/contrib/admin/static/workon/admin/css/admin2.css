@@ -9004,6 +9004,19 @@ html.nav-expanded #changelist-search {
 form.change-list table {
   font-size: 14px;
 }
+form.change-list table tbody tr th,
+form.change-list table tbody tr td {
+  padding: 2px 8px;
+  border-bottom: 1px dotted #e0e0e0;
+}
+form.change-list table tbody tr:hover th,
+form.change-list table tbody tr:hover td {
+  background: #7abc9c;
+}
+form.change-list table tbody tr:hover th a,
+form.change-list table tbody tr:hover td a {
+  color: #fff;
+}
 form.change-list .panel-footer {
   background: #f5f5f5;
   padding: 10px;

@@ -13,7 +13,12 @@
         background: rgba(45, 45, 45, 0.74);
     }
     .btn-primary {
-        background-image: linear-gradient(to bottom,{{ theme.dark_color1 }} 0, {{ theme.light_color1 }} 100%);
+
+        background: {{ theme.light_color2 }};
+        border-color: {{ theme.dark_color1 }};
+    }
+    .btn-primary:focus, .btn-primary:hover {
+        background: {{ theme.light_color1 }};
         border-color: {{ theme.light_color2 }};
     }
     .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
@@ -33,6 +38,12 @@
         color: {{ theme.light_color2 }};
 
     }
+    form.change-list table tbody tr th a, form.change-list table tbody tr td a {
+        color: {{ theme.light_color2 }};
+    }
+    form.change-list table tbody tr:hover th, form.change-list table tbody tr:hover td {
+        background: {{ theme.light_color1 }};
+    }
 
    /* .alert-info {
 
@@ -43,11 +54,7 @@
 
 
 
-    .btn-primary:focus, .btn-primary:hover {
-        background-color: {{ theme.light_color1 }};
-        border-color: {{ theme.light_color2 }};
 
-    }
     .tooltipster-dock .tooltipster-content .dock-menu li.separator,
     .sidebar .dock li.launcher:hover > a > i,
     .sidebar .dock li.launcher.active > a > i,
