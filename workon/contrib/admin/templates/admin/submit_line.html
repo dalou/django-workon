@@ -17,7 +17,7 @@
     {% if show_delete_link %}
       {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
       <a href="{% add_preserved_filters delete_url %}" class="deletelink text-danger">
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="fa fa-remove"></span>
           {% trans "Delete" %}</a>
     {% endif %}
   </div>
@@ -32,7 +32,7 @@
       {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
       <p class="deletelink-box">
         <a href="{% add_preserved_filters delete_url %}" class="deletelink text-danger">
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="fa fa-remove"></span>
           {% trans "Delete" %}</a>
       </p>
     {% endif %}

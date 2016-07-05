@@ -39,12 +39,12 @@
             <fieldset class='text-center'>
               <!-- <legend>Login to your account</legend> -->
               <div class="input-group input-group input-group-username{{ form.username.errors|yesno:'  has-error,' }}">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                <span class="input-group-addon"><span class="fa fa-user"></span></span>
                 {{ form.username }}
                 {{ form.username.errors }}
               </div>
               <div class="input-group input-group input-group-password{{ form.password.errors|yesno:'  has-error,' }}">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                <span class="input-group-addon"><span class="fa fa-lock"></span></span>
                 {{ form.password }}
                 {{ form.password.errors }}
               </div>
@@ -110,14 +110,14 @@
 
       <label for="id_username" id="username-label" class="required hide">{{ form.username.label }}:</label>
       <div class="input-group input-group-lg input-group-username{{ form.username.errors|yesno:'  has-error,' }}">
-        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+        <span class="input-group-addon"><span class="fa fa-user"></span></span>
         {{ form.username }}
         {{ form.username.errors }}
       </div>
 
       <label for="id_password" id="password-label" class="required hide">{% trans 'Password:' %}</label>
       <div class="input-group input-group-lg input-group-password{{ form.password.errors|yesno:'  has-error,' }}">
-        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+        <span class="input-group-addon"><span class="fa fa-lock"></span></span>
         {{ form.password }}
         {{ form.password.errors }}
       </div>

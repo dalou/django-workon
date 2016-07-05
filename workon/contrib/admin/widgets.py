@@ -274,7 +274,7 @@ def add_bs3_markup():
                 '<span class="input-group-btn">'
                 '<a href="%s%s" class="add-another btn btn-default" '
                 'id="add_id_%s" onclick="return showAddAnotherPopup(this);" '
-                'title="%s"><span class="glyphicon glyphicon-plus-sign '
+                'title="%s"><span class="fa fa-plus '
                 'color-success"></span></a></span>'
                 % (related_url, url_params, name, _('Add Another')))
 

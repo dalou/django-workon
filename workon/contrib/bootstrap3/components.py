@@ -13,7 +13,7 @@ def render_icon(icon, title=''):
     Render a Bootstrap glyphicon icon
     """
     attrs = {
-        'class': 'glyphicon glyphicon-{icon}'.format(icon=icon),
+        'class': 'glyphicon glyphicon-{icon} fa fa-{icon}'.format(icon=icon),
     }
     if title:
         attrs['title'] = title
