@@ -1,5 +1,20 @@
+// #changelist-search
+//     fx(60,0,,60,-1); op(0); p(15); bg(darker-color);  tr-cl();
+//     .btn
+//         rl(); t(-2);
+//     .btn-submit
+//         ml(5); fr(); t(5);
+//     .btn-reset
+//         p(8,10); mr(5);
+
+//     html.nav-search-expanded &
+//         z(2); op(1);
+
+//     html.nav-expanded &
+//         l(60);
+
 #changelist-search
-    fx(60,0,,60,-1); op(0); p(15); bg(darker-color);  tr-cl();
+    op(0); h(0); oh(); p(15); tr-cl();
     .btn
         rl(); t(-2);
     .btn-submit
@@ -8,17 +23,17 @@
         p(8,10); mr(5);
 
     html.nav-search-expanded &
-        z(2); op(1);
+        z(2); op(1); h(auto);
 
     html.nav-expanded &
         l(60);
 
-table
-    fs(14);
-
 
 
 form.change-list
+
+    table
+        fs(14);
 
     .panel-footer
         //fx(,55,10,120,1001);

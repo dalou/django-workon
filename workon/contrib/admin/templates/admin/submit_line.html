@@ -1,5 +1,5 @@
 {% load i18n admin_urls %}
-<div class="submit-row form-group">
+<div id="submit-row" class="submit-row form-group">
 
 
     <div class="btn-groupss">
@@ -12,14 +12,16 @@
         <input type="submit" value="{% trans 'Save as new' %}" class="btn btn-default" name="_saveasnew"/>{% endif %}
       {% if show_save_and_add_another %}
         <input type="submit" value="{% trans 'Save and add another' %}" class="btn btn-default " name="_addanother"/>{% endif %}
+
+      {% if show_delete_link %}
+        {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+        <a href="{% add_preserved_filters delete_url %}" class="deletelink text-danger">
+            <span class="fa fa-remove"></span>
+            {% trans "Delete" %}</a>
+      {% endif %}
+
     </div>
 
-    {% if show_delete_link %}
-      {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-      <a href="{% add_preserved_filters delete_url %}" class="deletelink text-danger">
-          <span class="fa fa-remove"></span>
-          {% trans "Delete" %}</a>
-    {% endif %}
   </div>
 </div>
 

@@ -1,6 +1,8 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls staticfiles admin_modify workon_admin_tags %}
 
+{% block body_class %}change-form{% endblock %}
+
 {% block head %}
     {{ block.super }}
     <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>

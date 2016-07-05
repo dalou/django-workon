@@ -246,6 +246,20 @@
                         {% block nav-right-before %}
                         {% endblock %}
 
+
+
+                        {% with 'search_url'|workon_admin_conf as search_url %}
+                        {% if search_url %}
+                        {% block nav-search %}
+                        <li class="navbar-search" >
+                            <a id="nav-search-expander">
+                                <span class="fa fa-search"></span>
+                            </a>
+                        </li>
+                        {% endblock %}
+                        {% endif %}
+                        {% endwith %}
+
                         {% block nav-user %}
                         <li class="dock-tooltip nav-user" data-tooltip-position="bottom" >
                             {% block nav-user-avatar %}
@@ -285,18 +299,6 @@
 
 
 
-                        {% with 'search_url'|workon_admin_conf as search_url %}
-                        {% if search_url %}
-                        {% block nav-search %}
-                        <li class="navbar-search" >
-                            <a id="nav-search-expander">
-                                <span class="fa fa-search"></span>
-                            </a>
-                        </li>
-                        {% endblock %}
-                        {% endif %}
-                        {% endwith %}
-
                         {% block nav-right-after %}
                         {% endblock %}
                     </ul>
@@ -316,34 +318,36 @@
             </form>
             {% endif %}
             {% endwith %}
-
             <div id="content" >
+
+
+                {% block messages %}
+                    {% if messages %}
+                    <ul id="messages" class="messages messagelist">{% for message in messages %}
+                      <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+                    {% endfor %}</ul>
+                    {% endif %}
+                {% endblock messages %}
+
+                <section id="topbar" class="topbar">
+
+                    <ul id="breadcrumb" class="breadcrumb">
+                        {% block breadcrumbs %}
+                            <li class="title">Accueil</li>
+                        {% endblock breadcrumbs %}
+                    </ul>
+                    <div id="toolbar" class="toolbar">
+                        {% block toolbar %}{% endblock toolbar %}
+                    </div>
+                </section>
 
                 <div id="main" class="main _nano">
                     <div class="main-content _nano-content">
 
-                        {% block messages %}
-                            {% if messages %}
-                            <ul id="messages" class="messages messagelist">{% for message in messages %}
-                              <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
-                            {% endfor %}</ul>
-                            {% endif %}
-                        {% endblock messages %}
                         {% block content %}{% endblock content %}
                     </div>
                 </div>
 
-                <section id="topbar" class="topbar">
-
-                        <ul id="breadcrumb" class="breadcrumb">
-                            {% block breadcrumbs %}
-                                <li class="title">Accueil</li>
-                            {% endblock breadcrumbs %}
-                        </ul>
-                        <div id="toolbar" class="toolbar">
-                            {% block toolbar %}{% endblock toolbar %}
-                        </div>
-                </section>
             </div>
         {% endblock body %}
         </div>

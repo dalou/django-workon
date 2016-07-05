@@ -39,22 +39,24 @@
                 p(15); dib(); lh(30px); fg(white); cur(pointer); tdn(); tr-cl();
                 &:hover
                     fg(light-color)
+                span, i
+                    fs(30);
 
             &.nav-branding
 
-                fs(30); tuc(); fwb(); tshad();
+                fs(30); tuc(); fwb(); tshad(); rl();
+                img
+                    ts(translateY(-50%)); ab(50%,,,0); mxh(40);
 
 
             &.navbar-search
                 a
                     &:before
                         ct(" "); dib();
-                    span
-                        fs(24);
 
             &.nav-user
                 span
-                    ml(10); dib();
+                    ml(10); dib(); fs(14);
                 img
                     fl(); mxh(30); rad(100%);
 
