@@ -8548,7 +8548,6 @@ div.tagsinput div {
   transition: all 0.25s ease-out;
   display: inline-block;
   color: #fff;
-  background: #2d2d2d;
 }
 #navbar .nav-expander > i {
   font-size: 2.5em;
@@ -8622,8 +8621,6 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   z-index: 1;
   background: rgba(0,0,0,0.3);
   background: #2d2d2d;
-  box-shadow: #000 0 0px 8px 0px !important;
-  -webkit-box-shadow: #000 0 0px 8px 0px !important;
   position: fixed;
   top: 60px;
   right: 0px;
@@ -8635,6 +8632,8 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   -webkit-transition: all 0.25s ease-out;
   -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
+  box-shadow: #000 0 0px 8px 0px !important;
+  -webkit-box-shadow: #000 0 0px 8px 0px !important;
 }
 html.nav-expanded .sidebar {
   width: 70%;
@@ -9134,7 +9133,7 @@ html.nav-expanded #nav-search-form {
   left: 60px;
 }
 .main .main-content {
-  padding: 15px 15px 75px 15px;
+  margin: 15px 15px 75px 15px;
 }
 body {
   padding: 0px;
@@ -9226,6 +9225,9 @@ body.login .wrapper .text-center legend input {
     padding-left: 5px;
     padding-right: 5px;
   }
+  #navbar > ul li.nav-branding {
+    font-size: 16px;
+  }
   #navbar > ul li.nav-branding a {
     padding-left: 0px;
   }
@@ -9282,7 +9284,7 @@ body.login .wrapper .text-center legend input {
   table td,
   table th {
     display: block;
-    text-align: right;
+    text-align: left;
     font-size: 13px;
     border-top: 0px;
     border-bottom: 1px dotted #e0e0e0;
@@ -9297,6 +9299,7 @@ body.login .wrapper .text-center legend input {
     float: left;
     text-transform: uppercase;
     font-weight: bold;
+    margin-right: 5px;
   }
   .table > thead > tr > th,
   .table > tbody > tr > th,
