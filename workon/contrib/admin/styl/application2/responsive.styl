@@ -56,6 +56,12 @@
             .panel-body
                 p(0);
 
+    body.change-form
+        form
+            .submit-row
+                .btn
+                    mb(3); p(3,6); fs(12);
+
 
     table
         border: 0;
@@ -67,8 +73,11 @@
 
         tr
             display: block !important;
-            border-bottom: 1px solid #ddd;
-            border-top: 1px solid #444;
+            border-bottom: 4px solid #FFF;
+            border-top: 4px solid #FFF;
+
+            &:after
+                ct(" "); h(15); db(); m(5,-16,5,-16); bg(darker-color);
 
 
         td, th
@@ -94,6 +103,7 @@
     .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td
 
         ptb(2)
+        border-top: 1px solid #FFF;
     // html.nav-expanded
     //     &:after
     //         ct(" "); fx(0,0,0,0,9999990); bg(rgba(0,0,0,0.5)); op(0);

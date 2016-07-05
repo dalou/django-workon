@@ -2390,7 +2390,6 @@ select[multiple].input-group-lg > .input-group-btn > .btn {
   cursor: pointer;
   background-image: none;
   border: 1px solid transparent;
-  white-space: nowrap;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.428571429;
@@ -3411,7 +3410,6 @@ tbody.collapse.in {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #808080;
-  background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -4804,7 +4802,6 @@ button.list-group-item-danger.active:focus {
   margin-bottom: 20px;
   box-shadow: #999 0 0px 1px -2px !important;
   -webkit-box-shadow: #999 0 0px 1px -2px !important;
-  background-color: #fff;
   border: 1px solid transparent;
   -webkit-border-radius: 0px 0px 0px 0px;
   -moz-border-radius: 0px 0px 0px 0px;
@@ -7917,21 +7914,6 @@ border-radius         : 3px;
 visibility : visible\9; /* Target only IE7 and IE8 with this hack */
 opacity    : 0.99;
 }
-.user-nav {
-  position: relative;
-  min-height: 50px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  background-color: rgba(0,0,0,0);
-}
-.user-nav .navbar-brand {
-  font-size: 1.8em;
-  color: #2c3e50;
-  float: left;
-  padding: 15px 15px;
-  line-height: 20px;
-  height: 50px;
-}
 .paginator .pagination {
   margin: 0px;
 }
@@ -9298,13 +9280,25 @@ body.login .wrapper .text-center legend input {
   #changelist .panel .panel-body {
     padding: 0px;
   }
+  body.change-form form .submit-row .btn {
+    margin-bottom: 3px;
+    padding: 3px 6px;
+    font-size: 12px;
+  }
   table {
     border: 0;
   }
   table tr {
     display: block !important;
-    border-bottom: 1px solid #ddd;
-    border-top: 1px solid #444;
+    border-bottom: 4px solid #fff;
+    border-top: 4px solid #fff;
+  }
+  table tr:after {
+    content: " ";
+    height: 15px;
+    display: block;
+    margin: 5px -16px;
+    background: #2d2d2d;
   }
   table td,
   table th {
@@ -9334,6 +9328,7 @@ body.login .wrapper .text-center legend input {
   .table > tfoot > tr > td {
     padding-top: 2px;
     padding-bottom: 2px;
+    border-top: 1px solid #fff;
   }
 }
 .calendarbox,
