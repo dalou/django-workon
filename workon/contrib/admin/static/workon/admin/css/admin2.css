@@ -8804,6 +8804,7 @@ html.nav-expanded .sidebar .dock li.launcher > a > span {
 .tooltipster-dock li.separator {
   text-align: center;
   font-style: italic;
+  color: #fff;
   margin-top: 25px;
   line-height: 0;
 }
