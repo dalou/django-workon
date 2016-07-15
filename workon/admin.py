@@ -23,7 +23,7 @@ class ViewableOnly(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         if request.method not in ('GET', 'HEAD'):
             return False
-        return super(CDRCommunicationAdmin, self).has_change_permission(request, obj)
+        return super(ViewableOnly, self).has_change_permission(request, obj)
 
     def has_delete_permission(self, request, obj=None):
         return False
