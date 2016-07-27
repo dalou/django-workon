@@ -7,8 +7,8 @@ from django.utils import six
 
 from django import forms
 from itertools import chain
-from mptt.models import MPTTModel, TreeForeignKey
-from mptt.managers import TreeManager
+from .mptt.models import MPTTModel, TreeForeignKey
+from .mptt.managers import TreeManager
 
 class TreeManager(TreeManager):
     _tree = None
@@ -106,9 +106,8 @@ class TreeManager(TreeManager):
 
 class Tree(MPTTModel):
 
-    parent = models.ForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     order = models.IntegerField(u"Ordre", default=0)
-    # level = models.PositiveIntegerField(u"Profondeur", default=0)
 
     is_required = models.BooleanField(u"Requit ?", default=False)
     is_independant = models.BooleanField(u"Indépendant ?", default=False)
@@ -121,8 +120,8 @@ class Tree(MPTTModel):
     objects = models.Manager()
     tree = TreeManager()
 
-    # class MPTTMeta:
-    #     order_insertion_by = ['name']
+    class MPTTMeta:
+        order_insertion_by = ['name']
 
     class Meta:
         abstract = True
@@ -144,6 +143,15 @@ class Tree(MPTTModel):
         if include_self:
             children.append(self)
         return children
+
+    def is_leaf_node(self):
+        return not self.get_descendant_count()
+
+    def get_descendant_count(self):
+        if self.rght is None:
+            return 0
+        else:
+            return ((self.rght - self.lft) - 1) // 2
 
     # @classmethod
     # def get_root_tree(cls, root=None, queryset=None):

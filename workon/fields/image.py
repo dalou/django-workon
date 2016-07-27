@@ -78,6 +78,8 @@ class CroppedImageField(ImageField):
     image_field = None
 
     def __init__(self, *args, **kwargs):
+        if kwargs.get('original'):
+            self.image_field = kwargs.pop('original')
         if kwargs.get('image_field'):
             self.image_field = kwargs.pop('image_field')
 

@@ -27,7 +27,6 @@ def digg_pagination(objects):
 
 
 from django import template
-from django.template import resolve_variable
 from django.template.base import FilterExpression
 from django.template.loader import get_template
 from django.template import engines

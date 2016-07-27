@@ -12,6 +12,7 @@ from django.contrib import admin
 
 class ViewableOnly(admin.ModelAdmin):
 
+    actions = []
 
     def get_readonly_fields(self, request, obj=None):
         return self.fields or [f.name for f in self.model._meta.fields]

@@ -5,26 +5,29 @@ from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 from django.utils.translation import ugettext_lazy as _
 
-logging = settings.LOGGING
-if not logging:
-    logging = DEFAULT_LOGGING
+import logging
 
-if not logging.get('handlers'):
-    logging['handlers'] = {}
-if not logging.get('loggers'):
-    logging['loggers'] = {}
+# logging = settings.LOGGING
+# if not logging:
+#     logging = DEFAULT_LOGGING
 
-logging['handlers']['workon_security_disallowed_hosts'] = {
-    'level': 'ERROR',
-    'class': 'workon.contrib.security.handler.DisallowedHostHandler',
-    # 'filename': '/path/to/spoofed_requests.log',
-}
-logging['loggers']['django.security.DisallowedHost'] = {
-    'handlers': ['workon_security_disallowed_hosts'],
-    'level': 'ERROR',
-    'propagate': False,
-}
-settings.LOGGING = logging
+# if not logging.get('handlers'):
+#     logging['handlers'] = {}
+# if not logging.get('loggers'):
+#     logging['loggers'] = {}
+
+# logging['handlers']['workon_security_disallowed_hosts'] = {
+#     'level': 'ERROR',
+#     'class': 'workon.contrib.security.handler.DisallowedHostHandler',
+#     # 'filename': '/path/to/spoofed_requests.log',
+# }
+# logging['loggers']['django.security.DisallowedHost'] = {
+#     'handlers': ['workon_security_disallowed_hosts'],
+#     'level': 'ERROR',
+#     'propagate': False,
+# }
+# settings.LOGGING = logging
+
 
 class SecurityConfig(AppConfig):
     name = 'workon.contrib.security'
@@ -32,7 +35,19 @@ class SecurityConfig(AppConfig):
     verbose_name = _("Security")
 
     def ready(self):
-        pass
+
+
+        from .handler import DisallowedHostHandler
+
+        logger = logging.getLogger('django.security.DisallowedHost')
+        logger.setLevel(logging.ERROR)
+
+        print logger
+
+        handler = DisallowedHostHandler()
+        handler.setLevel(logging.ERROR)
+
+        logger.addHandler(handler)
 
         # handlers 'spoof_logfile': {
         #     'level': 'ERROR',

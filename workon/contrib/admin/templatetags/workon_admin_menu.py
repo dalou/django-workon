@@ -32,7 +32,7 @@ def get_menu(context, request=None):
         return None
 
     # Try to get app list
-    template_response = get_admin_site(context.current_app).index(request)
+    template_response = get_admin_site(request.current_app).index(request)
     try:
         app_list = template_response.context_data['app_list']
     except Exception, e:
@@ -346,6 +346,7 @@ class Menu(object):
     def find_native_model(self, model_name, app_name):
         model_name = self.get_model_name(app_name, model_name)
         for native_model in self.all_models:
+            # print model_name, self.get_native_model_name(native_model)
             if model_name == self.get_native_model_name(native_model):
                 return native_model
 

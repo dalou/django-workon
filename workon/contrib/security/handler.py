@@ -21,12 +21,14 @@ class DisallowedHostHandler(logging.Handler):
     request data will be provided in the email report.
     """
 
-    def __init__(self, include_html=False, email_backend=None):
+    def __init__(self, include_html=True, email_backend=settings.EMAIL_BACKEND):
         logging.Handler.__init__(self)
         self.include_html = include_html
         self.email_backend = email_backend
 
     def emit(self, record):
+
+        print 'EMIIIIIIIIIIIIT'
 
         try:
             request = record.request

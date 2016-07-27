@@ -3,7 +3,7 @@
 import json
 import datetime
 import re
-import bleach
+#
 
 from django import template
 from django import forms
@@ -181,6 +181,7 @@ def file_sizify(value):
 
 @register.filter
 def sanitize(html):
+    import bleach
     return bleach.clean(html)
 
 @register.filter
