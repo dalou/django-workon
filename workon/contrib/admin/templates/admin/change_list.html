@@ -1,6 +1,8 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls staticfiles admin_list workon_admin_tags %}
 
+{% block body_class %}change-list{% endblock %}
+
 {% block head %}
     {{ block.super }}
     {#    <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />#}
