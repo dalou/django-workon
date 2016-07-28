@@ -287,7 +287,7 @@
                 textTransform: 'uppercase',
                 cursor: 'pointer'
             })
-            self.find('> fieldset').slideUp()
+            //self.find('> fieldset').slideUp()
 
         });
 

@@ -6,7 +6,7 @@
     {{ fieldset.classes }}
   {% endif %}"
 
-  style="display:none;">
+  {% if display_none %}style="display:none;"{% endif %}>
   {% if fieldset.name %}
     <div class="fieldset-heading clearfix">
       <h3 class="fieldset-title">
