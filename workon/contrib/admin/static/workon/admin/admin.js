@@ -257,6 +257,40 @@
 
         });
 
+        $(document).on('click', '.inline-related >.panel-heading span.delete', function(e) {
+            e.stopPropagation();
+        })
+
+        $(document).on('click', '.inline-related >.panel-heading', function(e, self, $fieldset) {
+            self = $(this);
+            $fieldset = self.next();
+            if(!$fieldset.is(':visible')) {
+
+                $fieldset.slideDown()
+
+                self.find('.field-original_address').show()
+                self.find('[data-geolocation-input]').each(function () {
+                    if(this.geolocationinput) {
+                        google.maps.event.trigger(this.geolocationinput, 'resize');
+                    }
+                })
+            }
+            else {
+                $fieldset.slideUp()
+            }
+        });
+
+        $('.inline-related').each(function(i, self) {
+            if(i == 0) return;
+
+            self = $(this).css({
+                textTransform: 'uppercase',
+                cursor: 'pointer'
+            })
+            self.find('> fieldset').slideUp()
+
+        });
+
         // $('#sidebar').on('mousewheel', function() {
 
         //     var st = $(this).scrollTop();
