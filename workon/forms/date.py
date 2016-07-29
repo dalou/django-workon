@@ -60,7 +60,7 @@ class BaseDateInput(forms.DateTimeInput):
                 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/fr.js',
                 'workon/admin/js/datepicker/bootstrap-datepicker.js'
             ],
-            css={'all': [static("workon/admin/js/datepicker/css/datepicker3.css")]}
+            css={'all': ["workon/admin/js/datepicker/css/datepicker3.css"]}
         )
 
     def __init__(self, *args, **kwargs):
