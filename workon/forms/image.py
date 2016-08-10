@@ -20,10 +20,60 @@ except:
 
 logger = logging.getLogger(__name__)
 
-
-
 class ImageInput(OriginalFileInput):
     template_name = 'workon/fields/_image_input.html'
+    attrs = {'accept': 'image/*'}
+
+    def render(self, name, value, attrs=None):
+        """
+        Render the ``input`` field based on the defined ``template_name``. The
+        image URL is take from *value* and is provided to the template as
+        ``image_url`` context variable relative to ``MEDIA_URL``. Further
+        attributes for the ``input`` element are provide in ``input_attrs`` and
+        contain parameters specified in *attrs* and *name*.
+        If *value* contains no valid image URL an empty string will be provided
+        in the context.
+        """
+        if value is None:
+            value = ''
+
+        final_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
+        if value != '':
+            # Only add the 'value' attribute if a value is non-empty.
+            final_attrs['value'] = force_unicode(self._format_value(value))
+
+        image_url = final_attrs.get('value', '')
+        image_original_url = None
+        image_thumb = None
+        if image_url:
+            image_original_url = os.path.join(settings.MEDIA_URL, image_url)
+            try:
+                image_thumb = get_thumbnail(image_url, 'x100', crop='center', upscale=True)
+            except IOError as inst:
+                logger.error(inst)
+
+        return render_to_string(self.template_name, Context({
+            'image_thumb': image_thumb,
+            'input_attrs': flatatt(final_attrs),
+            'image_url': image_url,
+            'image_original_url': image_original_url,
+            'image_id': "%s-image" % final_attrs['id'],
+            'name': "%s" % final_attrs['name'],
+        }))
+
+
+
+class ImageField(forms.ImageField):
+    widget = ImageInput
+    def __init__(self, *args, **kwargs):
+
+        widget = ImageInput( attrs={
+            'class': 'image',
+            # 'data-workon-image': self.image_field,
+        })
+        kwargs['widget'] = widget
+
+        super(ImageField, self).__init__(*args, **kwargs)
 
 
 class CroppedImageInput(forms.widgets.TextInput):

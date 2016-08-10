@@ -32,12 +32,17 @@ def get_menu(context, request=None):
         return None
 
     # Try to get app list
-    template_response = get_admin_site(request.current_app).index(request)
     try:
+        template_response = get_admin_site(request.current_app).index(request)
         app_list = template_response.context_data['app_list']
     except Exception, e:
         print e.message
-        return
+        try:
+            template_response = get_admin_site("admin").index(request)
+            app_list = template_response.context_data['app_list']
+        except Exception, e:
+            print e.message
+            return
 
     menu = Menu(context, request, app_list).get_app_list()
 

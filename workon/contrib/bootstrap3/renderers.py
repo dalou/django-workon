@@ -395,6 +395,7 @@ class FieldRenderer(BaseRenderer):
         return html
 
     def wrap_widget(self, html):
+        print self.widget
         if isinstance(self.widget, CheckboxInput):
             checkbox_class = add_css_class('checkbox', self.get_size_class())
             html = '<div class="{klass}">{content}</div>'.format(

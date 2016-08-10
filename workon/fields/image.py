@@ -6,13 +6,16 @@ from cStringIO import StringIO
 from io import BytesIO
 
 from django import forms
-from django.db.models import ImageField
+from django.db.models import ImageField as BaseImageField
 from django.db.models.fields.files import ImageFieldFile
 from django.core.files.base import ContentFile
 
 from ..forms import CroppedImageField as CroppedImageFormField
+from ..forms import ImageField as ImageFormField, ImageInput
 
 IMAGE_FIELD_DELIMITER = "?"
+
+
 
 class CroppedImageFieldFile(ImageFieldFile):
 
@@ -73,7 +76,7 @@ class CroppedImageFieldFile(ImageFieldFile):
         if save:
             self.instance.save()
 
-class CroppedImageField(ImageField):
+class CroppedImageField(BaseImageField):
     attr_class = CroppedImageFieldFile
     image_field = None
 
@@ -113,3 +116,10 @@ class CroppedImageField(ImageField):
         defaults.update(kwargs)
         return super(CroppedImageField, self).formfield(**defaults)
 
+
+
+class ImageField(BaseImageField):
+    def formfield(self, **kwargs):
+        kwargs['form_class'] = ImageFormField
+        kwargs['widget'] = ImageInput
+        return super(ImageField, self).formfield(**kwargs)

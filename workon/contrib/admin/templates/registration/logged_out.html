@@ -5,8 +5,11 @@
 
 {% block content %}
 
-<p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
+<div class="panel">
+    <div class="panel-body">
+        <p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
 
-<p><a href="{% url 'admin:index' %}">{% trans 'Log in again' %}</a></p>
-
+        <p><a href="{% url 'admin:index' %}">{% trans 'Log in again' %}</a></p>
+    </div>
+</div>
 {% endblock %}

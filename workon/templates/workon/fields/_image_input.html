@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<div id="{{ image_id }}" class="ui upload file icon image button fade">
+
+    <div class="mask-wrapper {% if image_url %}active{% endif %}">
+        <img class="thumb" src="{{ image_thumb.url }}" alt="" />
+        <div class="mask">
+            <a class="ui block link" href="{{ image_original_url }}">{% trans "Voir" %}</a>
+            <a class="ui block edit link" href="">{% trans "Modifier" %}</a>
+            <a class="ui block destructive delete link" href="">{% trans "Supprimer" %}</a>
+        </div>
+    </div>
+
+    <div class="button-wrapper">
+        <i class="large camera retro icon"></i>
+        <p class="last title">{% trans "Ajouter" %}</p>
+
+        <div class="input-field">
+            <input {{ input_attrs|safe }} accept="image/*" />
+        </div>
+    </div>
+
+</div>

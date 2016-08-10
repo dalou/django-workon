@@ -1,0 +1,47 @@
+
+
+
+<div
+    class="workon-media_input
+    {% if only_file %}workon-media_input-only_file{% endif %}
+    {% if value %}active{% else %}empty{% endif %}
+    {% if value.is_image %}image{% endif %}
+    {% if value.is_embed %}embed{% endif %}
+    "
+    id="div_{{ id }}"
+    data-name="{{ name }}"
+    data-media-dropzone='{
+        "clickable": ".btn-wrapper"
+    }'>
+    <div style="display:none;" id="div_{{ id }}_inputs" class="workon-media_input-inputs">
+        {% if not required %}
+            {{ clear }}
+        {% endif %}
+        <input class="workon-media_input-file" {{ input_attrs|safe }} type="file" {% if value.is_image %}name="{{ name }}"{% endif %} accept="image/*" />
+        <textarea type="text" {{ input_attrs|safe }} {% if value.is_embed %}name="{{ name }}"{% endif %}></textarea>
+    </div>
+
+    <div class="workon-media_input-media {% if value %}active{% endif %}">
+
+        {% if not required %}
+        <button type="button" class="btn btn6 workon-media_input-button workon-media_input-clear">
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        {% endif %}
+
+        {% if not only_file %}
+            <span class="workon-media_input-or">ou</span>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-sm-12">
+
+
+                <!-- <br/> -->
+                <textarea class="form-control workon-media_input-add-embed"
+                    placeholder="Copiez collez une URL ou un code embed (youtube, dailymotion, soundcloud)"></textarea>
+
+            </div>
+        </div>
+    </div>
+</div>

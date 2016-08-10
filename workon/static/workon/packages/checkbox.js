@@ -18,6 +18,5 @@ $(document).ready(function(map, oldMarginTop)
         $(this).find('input').prop('checked', false);
         $(this).removeClass('checked');
     }
-
     $('.checkbox input:checked').parents('.checkbox').addClass('checked')
 });

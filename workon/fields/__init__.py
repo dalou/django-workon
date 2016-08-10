@@ -2,7 +2,7 @@ from .uuid_field import UUIDField
 from .color import ColorField
 from .icon import IconField
 from .price import PriceField
-from .image import CroppedImageField
+from .image import CroppedImageField, ImageField
 from .media import MediaField
 # from .advanced_media import AdvancedMediaField
 from .percent import PercentField
@@ -12,3 +12,4 @@ from .date import DateTimeField, DateField
 from jsonfield import JSONField
 from .tree import TreeManyToManyField, TreeForeignKey
 from .code import CodeField
+from .embed import EmbedField

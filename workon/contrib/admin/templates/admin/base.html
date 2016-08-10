@@ -323,7 +323,7 @@
                 {% block messages %}
                     {% if messages %}
                     <ul id="messages" class="messages messagelist">{% for message in messages %}
-                      <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+                      <li{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message|safe }}</li>
                     {% endfor %}</ul>
                     {% endif %}
                 {% endblock messages %}

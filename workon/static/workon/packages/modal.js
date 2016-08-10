@@ -145,7 +145,7 @@ $(document).ready(function(apply_packages_on_insert)
                     }
                 }
             },
-            mainClass: 'my-mfp-slide-bottom',
+            mainClass: 'my-mfp-slide-bottom mfp-effect',
             removalDelay: 300
         });
         return false;

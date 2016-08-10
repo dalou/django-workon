@@ -9,4 +9,5 @@ class NotificationConfig(AppConfig):
     verbose_name = _("Notifications")
 
     def ready(self):
-        from .utils import *
+        from .utils import notification_mark_as_read, notify
+
