@@ -1,10 +1,13 @@
 window.workon_packages_tabs = true;
 
+
 function workon_tabs_active(href) {
     var target = $(href);
+    if(!target.length) target = $('#'+href);
     if(target.length)
     {
-        self.siblings("[href]").removeClass('active');
+        // self.siblings("[href]").removeClass('active');
+        self.parents('.tabs').eq(0).find('.active').removeClass('active');
         target.siblings("[id]").removeClass('active');
         self.addClass('active');
         target.addClass('active');
@@ -14,16 +17,19 @@ function workon_tabs_active(href) {
     }
 }
 
-$(document).on('click', '[data-tabs] [href]', function(self)
+$(document).on('click', '[data-tabs] [href]', function(e, self)
 {
     self = $(this)
-    var href = self.attr('href');
-    if(href[0] == "#")
+    var href = self.attr('href').split('#', 2);
+    if(href.length == 2)
     {
+        href = '#'+href[1];
         var target = $(href);
+        if(!target.length) target = $(href.replace( /^#/, '#__' ));
+        console.log(href, target)
         if(target.length)
         {
-            self.siblings("[href]").removeClass('active');
+            self.parents('[data-tabs]').eq(0).find('.active').removeClass('active');
             target.siblings("[id]").removeClass('active');
             self.addClass('active');
             target.addClass('active');

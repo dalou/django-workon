@@ -5,9 +5,9 @@ import os
 import logging
 
 from django.conf import settings
-from django import forms
+from django import forms as base_forms
 from django.template import Context
-from django.forms.widgets import FileInput as OriginalFileInput
+from django.forms.widgets import ClearableFileInput
 from django.utils.encoding import force_unicode
 from django.template.loader import render_to_string
 from django.forms.utils import flatatt
@@ -20,7 +20,7 @@ except:
 
 logger = logging.getLogger(__name__)
 
-class ImageInput(OriginalFileInput):
+class ImageInput(ClearableFileInput):
     template_name = 'workon/fields/_image_input.html'
     attrs = {'accept': 'image/*'}
 
@@ -48,7 +48,7 @@ class ImageInput(OriginalFileInput):
         if image_url:
             image_original_url = os.path.join(settings.MEDIA_URL, image_url)
             try:
-                image_thumb = get_thumbnail(image_url, 'x100', crop='center', upscale=True)
+                image_thumb = get_thumbnail(image_url, 'x150', crop='center', upscale=True, format="PNG")
             except IOError as inst:
                 logger.error(inst)
 
@@ -62,21 +62,20 @@ class ImageInput(OriginalFileInput):
         }))
 
 
-
-class ImageField(forms.ImageField):
-    widget = ImageInput
+# unsable ?????????????????
+class ImageField(base_forms.ImageField):
+    widget = ClearableFileInput
     def __init__(self, *args, **kwargs):
 
-        widget = ImageInput( attrs={
-            'class': 'image',
-            # 'data-workon-image': self.image_field,
-        })
+        widget = ImageInput
         kwargs['widget'] = widget
 
         super(ImageField, self).__init__(*args, **kwargs)
 
+        print self.widget
 
-class CroppedImageInput(forms.widgets.TextInput):
+
+class CroppedImageInput(base_forms.widgets.TextInput):
     class Media:
         css = {
             'all': (
@@ -88,7 +87,7 @@ class CroppedImageInput(forms.widgets.TextInput):
             # settings.STATIC_URL + 'js/cropper.js',
         )
 
-class CroppedImageField(forms.CharField):
+class CroppedImageField(base_forms.CharField):
     widget = CroppedImageInput
     default_error_messages = {
         'invalid_image': "Upload a valid image. The file you uploaded was either not an image or a corrupted image.",

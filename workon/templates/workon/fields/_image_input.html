@@ -1,23 +1,172 @@
-{% load i18n %}
+{% load i18n workon %}
 
-<div id="{{ image_id }}" class="ui upload file icon image button fade">
+<div id="{{ image_id }}"
+    class="workon-widget workon-image-input {% if image_url %}workon-image-input-has-image{% endif %}">
 
-    <div class="mask-wrapper {% if image_url %}active{% endif %}">
-        <img class="thumb" src="{{ image_thumb.url }}" alt="" />
-        <div class="mask">
-            <a class="ui block link" href="{{ image_original_url }}">{% trans "Voir" %}</a>
-            <a class="ui block edit link" href="">{% trans "Modifier" %}</a>
-            <a class="ui block destructive delete link" href="">{% trans "Supprimer" %}</a>
-        </div>
-    </div>
+    <span class="workon-image-input-clearable hidden ">
+        <input id="{{ name }}-clear_id" name="{{ name }}-clear" type="checkbox">
+        <label for="{{ name }}-clear_id">Effacer</label>
+        <input {{ input_attrs|safe }} accept="image/*" />
+    </span>
 
-    <div class="button-wrapper">
-        <i class="large camera retro icon"></i>
-        <p class="last title">{% trans "Ajouter" %}</p>
+    <img class="img-responsive" src="{{ image_thumb.url }}" alt="" />
 
-        <div class="input-field">
-            <input {{ input_attrs|safe }} accept="image/*" />
-        </div>
-    </div>
+    <a id="{{ name }}-add_button" class="btn btn-default workon-image-input-choice" style="{% if image_url %}display:none;{% endif %}">
+        <span class="fa fa-file-image-o"></span> {% trans "choisir" %}
+    </a>
+    <a id="{{ name }}-add_button" class="btn btn-default workon-image-input-change" style="{% if not image_url %}display:none;{% endif %}">
+        <span class="fa fa-file-image-o"></span> {% trans "changer" %}
+    </a>
+    <a id="{{ name }}-clear_button" class="btn btn-default workon-image-input-remove" style="{% if not image_url %}display:none;{% endif %}">
+        <span class="fa fa-trash"></span>
+    </a>
+    <a id="{{ name }}-clear_button" class="btn btn-default workon-image-input-cancel-remove" style="display:none;">
+        <span class="fa fa-trash"></span>
+        <span class="fa fa-close"></span>
+    </a>
 
-</div>
+
+    {#% include "libs/forms/fields/_errors_block.html" %#}
+
+    <script type="text/javascript">
+
+        $(document).on('mouseover', '#{{ image_id }}', function($self, showThumbnail, $fileInput, $choiceBtn, $removeBtn, $cancelRemoveBtn, $changeBtn)
+        {
+            if(this.workon_image_input == true) return;
+            this.workon_image_input = true;
+
+            $self = $(this);
+            $fileInput = $self.find('input[type=file]');
+            $choiceBtn = $self.find('a.workon-image-input-choice');
+            $removeBtn = $self.find('a.workon-image-input-remove');
+            $cancelRemoveBtn = $self.find('a.workon-image-input-remove');
+            $changeBtn = $self.find('a.workon-image-input-change');
+
+            showThumbnail = function(files, delete_input)
+            {
+                var image = $self.find('img')[0];
+
+                delete_input = $('#{{ name }}-clear_id');
+
+                if (!files || files.length == 0)
+                {
+                    $self.removeClass('workon-image-input-has-image');
+                    $self.addClass('workon-image-input-removed');
+                    delete_input.prop('checked', true).change();
+                    $changeBtn.hide();
+                    $choiceBtn.show();
+                    $removeBtn.hide();
+                    //$cancelRemoveBtn.hide();
+                    $fileInput.val(null);
+                    $self.find('img').attr('src', '');
+                    return false;
+                }
+                else {
+                    delete_input.prop('checked', false).change();
+                    $self.removeClass('workon-image-input-removed');
+                    $removeBtn.show();
+                    $changeBtn.show();
+                    $choiceBtn.hide();
+                }
+                // support only one file for now
+                if (files.length > 1) {
+                    console.log("Not supporting more than 1 file");
+                }
+
+                var file = files[0],
+                    imageType = /image.*/,
+                    fileIsImage = true;
+
+                // check if this is an image
+                if ( ! file.type.match(imageType)) {
+                    fileIsImage = false;
+                }
+
+                // mark the content as active
+                $self.addClass('workon-image-input-has-image');
+
+                // display the image or the file name
+                if ( !fileIsImage || !image) {
+
+                } else {
+                    image.file = file;
+                    var reader = new FileReader();
+                    reader.onload = (function(aImg){
+                        return function(e){
+                            aImg.src = e.target.result;
+                        };
+                    }(image));
+
+                    var ret = reader.readAsDataURL(file),
+                        canvas = document.createElement("canvas");
+
+                    ctx = canvas.getContext("2d");
+                    image.onload = function(){
+                        ctx.drawImage(image, 100, 100);
+                    }
+                }
+            }
+
+            $fileInput.on("change", function(e){
+                var files = this.files;
+                showThumbnail(files);
+            });
+
+            $choiceBtn.on("click", function(e)
+            {
+                $fileInput.focus().click();
+                e.preventDefault();
+            });
+
+            $changeBtn.on("click", function(e)
+            {
+                $fileInput.focus().click();
+                e.preventDefault();
+            });
+
+            // bind delete
+            $removeBtn.on("click", function(e)
+            {
+                showThumbnail([]);
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+
+            $cancelRemoveBtn.on('click', function(e) {
+
+            });
+
+            $self.on("dragenter", function(e){
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            $self.on("dragleave", function(e){
+                $self.removeClass('dropping');
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            $self.on("dragover", function(e){
+                $self.addClass('dropping');
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            $self.on("drop", function(e){
+                $self.removeClass('dropping');
+                e.stopPropagation();
+                e.preventDefault();
+
+                var dt = e.originalEvent.dataTransfer,
+                    files = dt.files;
+                showThumbnail(files);
+            });
+        })
+
+
+    </script>
+
+</div><!--
+actuellement :  <a href="{#{ image_url|canonical_static }#}" target="_blank" class="image_url">{{ image_url }}</a> -->

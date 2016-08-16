@@ -4,7 +4,6 @@ import gevent.select
 from .exceptions import WebSocketError
 from .wsgi_server import WebsocketWSGIServer
 
-
 class uWSGIWebsocket(object):
     def __init__(self):
         self._closed = False
