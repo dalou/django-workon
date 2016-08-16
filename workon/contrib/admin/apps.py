@@ -51,8 +51,6 @@ class AdminConfig(AppConfig):
 
         self.search_url = config.get('SEARCH_URL', '/admin/auth/user/')
 
-        self.override_widgets()
-
         super(AdminConfig, self).__init__(app_name, app_module)
 
     def ready(self):
@@ -72,12 +70,17 @@ class AdminConfig(AppConfig):
 
 
     def override_widgets(self):
+        # from workon.forms.image import ImageInput
         # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateField].update({
         #     'widget': widgets.DateWidget
         # })
         # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateTimeField].update({
         #     'form_class': forms.DateTimeField,
         #     'widget': widgets.DateTimeWidget
+        # })
+        # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.ImageField].update({
+        #     # 'form_class': forms.DateTimeField,
+        #     'widget': 'workon.forms.image.ImageInput'
         # })
         pass
 
