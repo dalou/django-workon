@@ -312,6 +312,7 @@ class FieldRenderer(BaseRenderer):
             widget = self.widget
         if self.set_required and is_widget_required_attribute(widget):
             widget.attrs['required'] = 'required'
+            widget.attrs['class'] += ' required'
 
     def add_disabled_attrs(self, widget=None):
         if widget is None:
@@ -395,7 +396,6 @@ class FieldRenderer(BaseRenderer):
         return html
 
     def wrap_widget(self, html):
-        print self.widget
         if isinstance(self.widget, CheckboxInput):
             checkbox_class = add_css_class('checkbox', self.get_size_class())
             html = '<div class="{klass}">{content}</div>'.format(
@@ -479,11 +479,15 @@ class FieldRenderer(BaseRenderer):
         if self.field.errors and self.error_css_class:
             form_group_class = add_css_class(
                 form_group_class, self.error_css_class)
-        if self.field.field.required and self.required_css_class:
-            form_group_class = add_css_class(
-                form_group_class, self.required_css_class)
+        # if self.field.field.required and self.required_css_class:
+        #     form_group_class = add_css_class(
+        #         form_group_class, self.required_css_class)
+        if self.field.field.required:
+            form_group_class = add_css_class(form_group_class, 'required')
         if self.field_errors:
             form_group_class = add_css_class(form_group_class, 'has-error')
+
+
         elif self.field.form.is_bound:
             form_group_class = add_css_class(
                 form_group_class, self.success_css_class)

@@ -1,13 +1,6 @@
 import os, functools
 
-from .format import (
-    extract_urls,
-    urls_to_html,
-    extract_urls_to_html,
-    replace_urls_to_href,
-    get_current_site_domain,
-    build_absolute_url
-)
+from .format import *
 
 try:
     from urllib.parse import urlparse, urlunparse

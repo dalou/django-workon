@@ -16,7 +16,7 @@ from ..contrib.chart.utils import register_chart
 from ..contrib.stripe.utils import *
 from ..contrib.auth.utils import get_activation_token, get_valid_activation_token, create_activation_token, get_or_create_user, authenticate_user
 
-from workon.modules.opengraph import opengraph
+from .opengraph import opengraph
 
 from django.conf import settings
 def get_project_title(default=""):

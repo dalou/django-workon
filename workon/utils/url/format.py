@@ -8,9 +8,29 @@ _url_composite = r"""(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com
 _url_regex = re.compile(_url_composite)
 _url_regex_multiline = re.compile(_url_composite, re.MULTILINE|re.UNICODE)
 
+__all__ = [
+    'append_protocol',
+    'extract_urls',
+    'urls_to_html',
+    'extract_urls_to_html',
+    'replace_urls_to_href',
+    'get_current_site_domain',
+    'build_absolute_url'
+]
+
+def append_protocol(url):
+    if not (url.startswith('http://') or url.startswith('https://')):
+        url = "http://%s" % url
+    return url
+
 def extract_urls(text):
     if text is not None:
-        return list(set((url for url in _url_regex.findall(text) if not url.startswith('//'))))
+        urls = []
+        for url in _url_regex.findall(text):
+            if not url.startswith('//'):
+                urls.append(append_protocol(url))
+
+        return list(set(urls))
     else:
         return []
 
