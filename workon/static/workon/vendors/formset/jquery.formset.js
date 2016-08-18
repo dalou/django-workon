@@ -29,13 +29,14 @@
                 var form = $(form_html.replace(/__prefix__/g, parseInt(total_forms.val())));
                 form.removeClass(options.empty.replace('.', ''))
                 var first = forms.filter(':first');
-                if(first.length)
-                {
-                    forms.filter(':first').before(form);
-                }
-                else {
-                    group.append(form)
-                }
+                group.append(form)
+                // if(first.length)
+                // {
+                //     forms.filter(':last').after(form);
+                // }
+                // else {
+                //     group.append(form)
+                // }
                 refresh();
             });
 

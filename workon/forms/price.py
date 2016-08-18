@@ -69,7 +69,7 @@ class PriceField(forms.DecimalField):
                 currency=self.currency,
                 attrs={
                     'placeholder': self.currency,
-                    'class': 'price-formated',
+                    'data-price-widget': '1',
                     'data-currency': self.currency,
                     'data-currency-patterns': json.dumps(CURRENCY_PATTERNS)
                 })
@@ -93,7 +93,7 @@ class PriceWidget(forms.widgets.TextInput):
         # css = {
         #     'all': ('pretty.css',)
         # }
-        js = (settings.STATIC_URL + 'workon/forms/price.js', )
+        js = ('workon/forms/price.js', )
 
     currency = DEFAULT_CURRENCY
 
@@ -103,7 +103,7 @@ class PriceWidget(forms.widgets.TextInput):
             del kwargs['currency']
         attrs = {
             'placeholder': self.currency,
-            'class': 'price-formated',
+            'data-price-widget': 'price-formated',
             'data-currency': self.currency,
             'data-currency-patterns': json.dumps(CURRENCY_PATTERNS)
         }

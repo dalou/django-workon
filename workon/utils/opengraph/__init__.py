@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-import re, requests
+import os, re, requests
 import lxml.html
 import workon.utils
 
@@ -44,7 +44,9 @@ def opengraph(url):
         metadata['icon'] = html.xpath('//link[@rel="icon"]/@href')
         metadata['icon'] += html.xpath('//link[@rel="shortcut icon"]/@href')
         metadata['icon'] += html.xpath('//link[@rel="favicon"]/@href')
-        # metadata['icon'] += [url+'/favicon.ico']
+        default_favicon = os.path.join(url, 'favicon.ico')
+        if requests.head(default_favicon).status_code == 200:
+            metadata['icon'] += [default_favicon]
 
         metadata['keywords'] = html.xpath('//meta[@property="og:keywords"]/@content')
         metadata['keywords'] += html.xpath('//meta[@name="keywords"]/@content')

@@ -4,7 +4,7 @@ window.workon_packages_tooltip = true;
 
 $(document).ready(function(menuTo, select)
 {
-    $(document).on('mouseover', '[data-tooltip]', function(content, options)
+    $(document).on('mouseover', '[data-tooltip]', function(content, options, self)
     {
         if(this.workon_tooltip === true)
         {
@@ -12,7 +12,9 @@ $(document).ready(function(menuTo, select)
         }
         this.workon_tooltip = true;
 
-        var data = $(this).data('tooltip');
+        self = $(this);
+
+        var data = self.data('tooltip');
         options = {
             delay: 0,
             theme : 'tooltipster-default'
@@ -37,10 +39,14 @@ $(document).ready(function(menuTo, select)
         {
             options.content = $(options.content);
         }
-        $(this).tooltipster(options);
+        self.tooltipster(options);
         if(!options.trigger || options.trigger == "hover")
         {
-            $(this).tooltipster('show')
+            if(options.delay)
+            {
+                setTimeout(function() { self.tooltipster('show') }, options.delay);
+            }
+            else { self.tooltipster('show'); }
         }
     });
 
