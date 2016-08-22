@@ -44,7 +44,7 @@ $(document).ready(function()
 
     var hash = document.location.hash;
     if(hash) {
-        $('[data-tabs] [href="'+hash+'"]').click();
+        $('[data-tabs] [href$="'+hash+'"]').click();
     }
     // $(window).resize(function()
     // {

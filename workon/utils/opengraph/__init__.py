@@ -12,6 +12,9 @@ def opengraph(url):
     except requests.ConnectionError:
         return metadata
 
+
+    base_url = "/".join(r.url.split('/')[0:3])
+
     # print 'GET ', url, r.status_code, r.content
     content = ""
     head = ""
@@ -28,13 +31,15 @@ def opengraph(url):
                     head = content[s:e+7]
                     break
             else:
-                s = chunk.find('<head>')
+                s = chunk.find('<head')
                 if s != -1:
                     s += i
             i += len(chunk)
 
     if head:
         html = lxml.html.fromstring(head)
+
+        metadata['url'] = url
 
         metadata['title'] = html.xpath('//meta[@property="og:title"]/@content')
         metadata['title'] += html.xpath('//title/text()')
@@ -44,9 +49,14 @@ def opengraph(url):
         metadata['icon'] = html.xpath('//link[@rel="icon"]/@href')
         metadata['icon'] += html.xpath('//link[@rel="shortcut icon"]/@href')
         metadata['icon'] += html.xpath('//link[@rel="favicon"]/@href')
-        default_favicon = os.path.join(url, 'favicon.ico')
-        if requests.head(default_favicon).status_code == 200:
-            metadata['icon'] += [default_favicon]
+        for i, icon in enumerate(metadata['icon']):
+            if icon.startswith('/'):
+                metadata['icon'][i] = base_url + icon
+
+        if not metadata['icon']:
+            default_favicon = base_url +'/favicon.ico'
+            if requests.head(default_favicon).status_code == 200:
+                metadata['icon'] += [default_favicon]
 
         metadata['keywords'] = html.xpath('//meta[@property="og:keywords"]/@content')
         metadata['keywords'] += html.xpath('//meta[@name="keywords"]/@content')
@@ -58,7 +68,5 @@ def opengraph(url):
 
         metadata['image'] = html.xpath('//meta[@property="og:image"]/@content')
         metadata['image'] += html.xpath('//link[@rel="image_src"]/@href')
-
-        print metadata
 
     return metadata

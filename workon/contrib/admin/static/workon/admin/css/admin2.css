@@ -7074,6 +7074,71 @@ select + .related-widget-wrapper-link,
 .dropdown-menu >li a.left-caret:after {
   border-right-color: #fff;
 }
+.workon-image-input {
+  max-width: 300px;
+  -ms-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  border-radius: 3px 3px 3px 3px;
+  box-shadow: #000 0 0px 8px 0px !important;
+  -webkit-box-shadow: #000 0 0px 8px 0px !important;
+  padding: 5px;
+  background: #fff;
+  box-shadow: #999 3px 3px 7px -3px !important;
+  -webkit-box-shadow: #999 3px 3px 7px -3px !important;
+  position: relative;
+  zoom: 1;
+}
+.workon-image-input:before,
+.workon-image-input:after {
+  content: "";
+  display: table;
+}
+.workon-image-input:after {
+  clear: both;
+}
+.workon-image-input img {
+  width: 100%;
+  margin-bottom: 5px;
+  display: none;
+}
+.workon-image-input.workon-image-input-has-image img {
+  display: block;
+}
+.workon-image-input .btn {
+  opacity: 0.5;
+  -ms-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  line-height: 30px;
+  float: left;
+}
+.workon-image-input .btn span {
+  font-size: 30px;
+}
+.workon-image-input .btn.workon-image-input-remove {
+  float: right;
+  padding: 5px;
+  line-height: 17px;
+}
+.workon-image-input .btn.workon-image-input-remove span {
+  font-size: 17px;
+  color: #e90044;
+}
+.workon-image-input .btn.workon-image-input-choice {
+  width: 100%;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+.workon-image-input:hover .btn {
+  opacity: 1;
+}
 .input-group .form-control,
 .input-group .form-control:focus {
   z-index: 0;

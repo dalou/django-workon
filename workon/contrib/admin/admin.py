@@ -10,8 +10,14 @@ from .widgets import WorkonSplitDateTimeWidget
 
 from django.contrib.admin import ModelAdmin as BaseModelAdmin, actions
 from django.contrib.admin.sites import site as base_site, AdminSite as BaseAdminSite
-
+#from django.contrib.admin.options import FORMFIELD_FOR_DBFIELD_DEFAULTS
 from .menu import get_menu, Menu
+
+import workon.forms
+
+WORKON_FORMFIELD_FOR_DBFIELD_DEFAULTS = {
+    models.ImageField: {'widget': workon.forms.ImageInput },
+}
 
 class AdminSite(BaseAdminSite):
 
@@ -25,6 +31,11 @@ class AdminSite(BaseAdminSite):
 
     def __init__(self, *args, **kwargs):
         super(AdminSite, self).__init__(*args, **kwargs)
+
+        BaseModelAdmin.formfield_overrides.update(WORKON_FORMFIELD_FOR_DBFIELD_DEFAULTS)
+
+        # self.formfield_overrides.update(WORKON_FORMFIELD_FOR_DBFIELD_DEFAULTS)
+
         self._registry = copy.copy(base_site._registry)
 
         root_path = os.path.abspath(os.path.dirname(__file__))

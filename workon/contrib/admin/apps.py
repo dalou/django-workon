@@ -56,8 +56,11 @@ class AdminConfig(AppConfig):
     def ready(self):
 
         widgets.add_bs3_markup()
-        self.override_widgets()
-        self.setup_model_admin()
+
+        ModelAdmin.actions_on_top = False
+        ModelAdmin.actions_on_bottom = True
+        ModelAdmin.list_per_page = self.list_per_page
+
         try:
             self.setup_filer_app()
         except Exception:
@@ -67,32 +70,6 @@ class AdminConfig(AppConfig):
 
         if 'django.contrib.auth' in settings.INSTALLED_APPS:
             self.setup_auth_app()
-
-
-    def override_widgets(self):
-        # from workon.forms.image import ImageInput
-        # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateField].update({
-        #     'widget': widgets.DateWidget
-        # })
-        # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.DateTimeField].update({
-        #     'form_class': forms.DateTimeField,
-        #     'widget': widgets.DateTimeWidget
-        # })
-        # options.FORMFIELD_FOR_DBFIELD_DEFAULTS[models.ImageField].update({
-        #     # 'form_class': forms.DateTimeField,
-        #     'widget': 'workon.forms.image.ImageInput'
-        # })
-        pass
-
-
-
-    def setup_model_admin(self):
-        """
-        Override some ModelAdmin defaults
-        """
-        ModelAdmin.actions_on_top = False
-        ModelAdmin.actions_on_bottom = True
-        ModelAdmin.list_per_page = self.list_per_page
 
     def setup_filer_app(self):
         """

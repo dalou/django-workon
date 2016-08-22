@@ -2,18 +2,16 @@
 
 window.workon_packages_tooltip = true;
 
-$(document).ready(function(menuTo, select)
+$(document).ready(function(apply)
 {
-    $(document).on('mouseover', '[data-tooltip]', function(content, options, self)
+    apply = function(e, options, self)
     {
         if(this.workon_tooltip === true)
         {
             return
         }
         this.workon_tooltip = true;
-
         self = $(this);
-
         var data = self.data('tooltip');
         options = {
             delay: 0,
@@ -40,14 +38,12 @@ $(document).ready(function(menuTo, select)
             options.content = $(options.content);
         }
         self.tooltipster(options);
-        if(!options.trigger || options.trigger == "hover")
+        if(e.originalEvent && (!options.trigger || options.trigger == "hover"))
         {
-            if(options.delay)
-            {
-                setTimeout(function() { self.tooltipster('show') }, options.delay);
-            }
-            else { self.tooltipster('show'); }
+            self.tooltipster('show');
         }
-    });
+    }
+    $(document).on('mouseover', '[data-tooltip]', apply);
+    $('[data-tooltip]').each(apply);
 
 });
