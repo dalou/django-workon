@@ -53,6 +53,7 @@ class Signup(generic.FormView):
             is_active = False,
             expiration_date = timezone.now(),
             password = form.cleaned_data.get("password"),
+            phone_number = form.cleaned_data.get("phone_number"),
             save = True
         )
         self.after_form_valid(form, user)
