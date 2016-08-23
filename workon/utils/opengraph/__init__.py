@@ -45,6 +45,7 @@ def opengraph(url):
         metadata['title'] += html.xpath('//title/text()')
 
         metadata['site_name'] = html.xpath('//meta[@property="og:site_name"]/@content')
+        metadata['site_name'] += [base_url]
 
         metadata['icon'] = html.xpath('//link[@rel="icon"]/@href')
         metadata['icon'] += html.xpath('//link[@rel="shortcut icon"]/@href')
