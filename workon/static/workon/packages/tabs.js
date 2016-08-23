@@ -26,7 +26,7 @@ $(document).on('click', '[data-tabs] [href]', function(e, self)
         href = '#'+href[1];
         var target = $(href);
         if(!target.length) target = $(href.replace( /^#/, '#__' ));
-        console.log(href, target)
+
         if(target.length)
         {
             self.parents('[data-tabs]').eq(0).find('.active').removeClass('active');
