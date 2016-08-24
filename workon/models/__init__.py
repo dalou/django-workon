@@ -9,4 +9,3 @@ from ..contrib.geo.models import GeoLocated
 from ..contrib.geo.managers import BaseLocationManager, HaversineLocationManager, TwoQueryLocationManager, OnlyHaversineLocationManager
 
 from .aggregate_if import CountIf, SumIf, AvgIf, MaxIf, MinIf
-from .file import FileTypeTester
