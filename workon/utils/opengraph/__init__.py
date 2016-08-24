@@ -40,6 +40,7 @@ def opengraph(url):
         html = lxml.html.fromstring(head)
 
         metadata['url'] = url
+        metadata['base_url'] = base_url
 
         metadata['title'] = html.xpath('//meta[@property="og:title"]/@content')
         metadata['title'] += html.xpath('//title/text()')

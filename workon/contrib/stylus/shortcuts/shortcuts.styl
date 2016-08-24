@@ -10,12 +10,7 @@
 ct(n)
 	content: n;
 /* Alignement */
-dib() { display: inline-block; }
-dtc() { display: table-cell; }
-di() { display: inline; }
-dt() { display: table; }
-db() { display: block; } bk() { db(); }
-dn() { display: none; } un() { dn(); }
+
 center() { float:none; margin: 0 auto; display: table; table-layout: fixed; }
 fl() { float: left; }
 fr() { float: right; }
@@ -90,50 +85,6 @@ wh(w, h=w)
 	width: unitx(w);
 	height: unitx(h);
 
-/* Borders */
-bt(n,s=false,c=false)
-	if n and s and c
-		border-top: unitx(n) s c;
-	else
-		border-top-width: unitx(n);
-		if s
-			border-top-style: s;
-		if c
-			border-top-color: c;
-br(n,s=false,c=false)
-	if n and s and c
-		border-right: unitx(n) s c;
-	else
-		border-right-width: unitx(n);
-		if s
-			border-right-style: s;
-		if c
-			border-right-color: c;
-bb(n,s=false,c=false)
-	if n and s and c
-		border-bottom: unitx(n) s c;
-	else
-		border-bottom-width: unitx(n);
-		if s
-			border-bottom-style: s;
-		if c
-			border-bottom-color: c;
-bl(n,s=false,c=false)
-	if n and s and c
-		border-left: unitx(n) s c;
-	else
-		border-left-width: unitx(n);
-		if s
-			border-left-style: s;
-		if c
-			border-left-color: c;
-bd(t,r=t,b=t,l=r,s=solid,c=black)
-	bt(t,s,c);
-	br(r,s,c);
-	bb(b,s,c);
-	bl(l,s,c);
-bc(c)
-	border-color: c;
 
 
 ws(n)
