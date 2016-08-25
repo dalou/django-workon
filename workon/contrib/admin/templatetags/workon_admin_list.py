@@ -156,10 +156,15 @@ def headers_handler(result_headers, cl):
     """
     Adds field name to css class, so we can style specific columns
     """
-    # field = cl.list_display.get()
     attrib_key = 'class_attrib'
     for i, header in enumerate(result_headers):
+
+        header["field"] = None
         field_name = cl.list_display[i]
+        try:
+            header["field"] = cl.model._meta.get_field(field_name)
+        except:
+            pass
         if field_name == 'action_checkbox':
             continue
         if not attrib_key in header:
@@ -237,8 +242,7 @@ def header_for_result(result, headers):
     for i, td in enumerate(result):
         text = headers[i]['text']
         if not text.startswith('<'):
-            # print text, type(text)
-            yield mark_safe(td.replace('">', force_text('" data-label="%s : " >' % text)))
+            yield mark_safe(td.replace('">', force_text('" data-label="%s : " >' % (text, ) )))
         else:
             yield mark_safe(td)
 

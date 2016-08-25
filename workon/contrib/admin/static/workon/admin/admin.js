@@ -236,7 +236,24 @@
 
         $('.select2').each(function() {
             $(this).attr('style', $(this).attr('style').replace('width', 'min-width'))
-        })
+        });
+
+        $(document).on('mouseover', '#result_list tbody tr td, #result_list tbody tr th', function()
+        {
+            var header = $(this).parents('table').eq(0).find('thead th').eq($(this).index()).find('.text');
+            if(header.data('tooltip'))
+            {
+                header.trigger('mouseover')
+            }
+        });
+        $(document).on('mouseout', '#result_list tbody tr td, #result_list tbody tr th', function()
+        {
+            var header = $(this).parents('table').eq(0).find('thead th').eq($(this).index()).find('.text');
+            if(header.data('tooltip'))
+            {
+                header.trigger('mouseout')
+            }
+        });
 
 
         $(document).on('mouseover', 'li.dock-tooltip > a', function(content, options)
