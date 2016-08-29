@@ -165,6 +165,11 @@ def headers_handler(result_headers, cl):
             header["field"] = cl.model._meta.get_field(field_name)
         except:
             pass
+        #print getattr(cl.model_admin, field_name)
+        try:
+            header["help_text"] = getattr(getattr(cl.model_admin, field_name), 'help_text', None)
+        except:
+            pass
         if field_name == 'action_checkbox':
             continue
         if not attrib_key in header:

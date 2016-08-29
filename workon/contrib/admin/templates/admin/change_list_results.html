@@ -29,7 +29,9 @@
                                 {% endif %}
                             {% endif %}
                             <div class="text"
-                                {% if header.field.help_text %}
+                                {% if header.help_text %}
+                                    data-tooltip="{{ header.help_text }}"
+                                {% elif header.field.help_text %}
                                     data-tooltip="{{ header.field.help_text }}"
                                 {% endif %}>
                                 {% if header.sortable %}
