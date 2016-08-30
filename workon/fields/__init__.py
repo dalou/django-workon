@@ -9,7 +9,7 @@ from .percent import PercentField
 from .file import ContentTypeRestrictedFileField, UniqueFilename, unique_filename
 from .html import HtmlField, HTMLField
 from .date import DateTimeField, DateField
-from jsonfield import JSONField
+from .jsonfield import JSONField, JSONCharField
 from .tree import TreeManyToManyField, TreeForeignKey
 from .code import CodeField
 from .embed import EmbedField
