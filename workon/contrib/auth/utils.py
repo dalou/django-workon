@@ -64,6 +64,14 @@ def authenticate_user(request, user, remember=True, backend=None, expiry=60 * 60
     else:
         return False
 
+def get_user_or_none(email):
+    email = workon.utils.is_valid_email(email)
+    if email:
+        try:
+            user = User.objects.get(email__iexact=email)
+        except User.DoesNotExist:
+            return None
+    return None
 
 
 def get_or_create_user(email, username=None, first_name=None, last_name=None,

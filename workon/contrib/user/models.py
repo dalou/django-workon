@@ -61,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
-    DEFAULT_AVATAR_URL = "http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;f=y"
+    DEFAULT_AVATAR_URL = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;f=y"
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
