@@ -28,13 +28,21 @@ class PasswordResetToken(generic.FormView):
         },
     }
 
-    def get(self, request, **kwargs):
+
+    def get(self, request, *args, **kwargs):
         if not self.check_token(self.get_user(), self.kwargs["token"]):
             return self.token_fail()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         ctx = self.get_context_data(form=form)
         return self.render_to_response(ctx)
+
+
+    def post(self, request, *args, **kwargs):
+        if not self.check_token(self.get_user(), self.kwargs["token"]):
+            return self.token_fail()
+        return super(PasswordResetToken, self).post(request, *args, **kwargs)
+
 
     def get_context_data(self, **kwargs):
         ctx = kwargs
