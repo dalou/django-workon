@@ -8135,6 +8135,12 @@ opacity    : 0.99;
   filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0)";
   background-repeat: repeat-x;
 }
+.tab-content > .workon-tab {
+  display: none !important;
+}
+.tab-content > .workon-tab.active {
+  display: block !important;
+}
 div.tagsinput {
   border: 1px solid #ccc;
   background: #fff;
