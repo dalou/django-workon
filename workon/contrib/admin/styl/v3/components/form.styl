@@ -1,0 +1,33 @@
+form
+
+    .buttons
+        tar(); mt(10);
+        .btn
+            ml(5);
+
+    .form-group
+        rl();
+        &.required
+            label
+                rl()
+                &:before
+                    ct("*"); mr(5); fs(25); lh(0px); dib(); fy(italic); // fg(red); //ab(-9,,,-15);
+
+    .form-control
+        fs(15);
+
+
+.workon-tree-input
+    overflow: hidden;
+    select, .select2
+        margin-bottom: 10px;
+        position: relative;
+
+    select:before,
+    .select2:before
+        position: absolute;
+        bottom: -2px;
+        left: -36px;
+        content: "\E254";
+        font-family: 'app_v2';
+        font-size: 40px;

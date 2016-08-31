@@ -1,0 +1,26 @@
+.responsive-calendar
+    .controls
+        mb(15);
+    .day-headers
+        mb(10);
+        .day
+            fs(11); tuc(); bd(0);
+    .days
+        .day
+            rl(); h(27); rad(50%);
+            a
+                ab(50%,,,50%); fs(12); ts(translateX(-50%) translateY(-50%)); bg(transparent);
+            &.active
+                bg(red);
+                a
+                    bg(transparent); fg(white !important);
+            .badge
+                dn();
+
+            &.not-current, &.past
+                op(0.3);
+            &.today
+
+                tdu(); rl();
+                &:after
+                    ct(" "); h(2); ab(,5,4,5);

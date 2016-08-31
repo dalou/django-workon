@@ -1,0 +1,39 @@
+
+bordercolor = #d2d2d2;
+
+.block
+    rad(3,3,7,3); bs(#999 3px 3px 7px -5px !important); cl();
+    bd(1,1,1,1,solid,bordercolor)
+    db(); p(15);
+    background-size: cover;
+    background-position: center center;
+
+    > .caption:first-child
+        m(-15,-15,15,-15); rad(3,3,0,0); bg(rgba(0, 0, 0, 0.74));
+
+    > .caption:last-child
+        m(15,-15,-15,-15); rad(0,0,3,3); bg(rgba(0, 0, 0, 0.74));
+
+    .tabs
+        > .tabs-content
+            p(0);
+
+    &.plain
+        p(0);
+
+    &.flat
+        bg(white); bd(0); bs(initial !important); p(0);
+
+    > h1
+        mt(5);
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+1,0+70,0.05+100 */
+    background: -moz-linear-gradient(-45deg,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 70%, rgba(0,0,0,0.07) 95%,rgba(0,0,0,0.17) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 70%,rgba(0,0,0,0.07) 95%,rgba(0,0,0,0.17) 100%) /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 70%,rgba(0,0,0,0.07) 95%,rgba(0,0,0,0.17) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#0d000000',GradientType=1 )"; /* IE6-9 fallback on horizontal gradient */
+
+
+.tabs.block
+    > .tabs-content
+        p(0);

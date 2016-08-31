@@ -1,0 +1,1 @@
+default_app_config = 'workon.contrib.adminv3.apps.AdminConfig'

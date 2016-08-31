@@ -1,0 +1,52 @@
+
+.text
+    mb(5);
+    &.text1 // main text
+        fs(22);  lts(0.2);
+        line-height: 1.2;
+        .appicon
+            mr(5); fs(21); t(0);
+            &.appicon-email
+                t(-3);
+
+    &.text2
+        fs(18); lts(0.5); mb(15);
+    &.text3
+        fs(16); lts(0);
+        line-height: 1.2;
+        .appicon
+            fs(24); mr(5);
+    &.text4
+        fs(15); lts(0.4);
+    &.text5 // Locality
+        fs(14); lts(0.2);
+    &.text6 // Category
+        fs(12); ff('Courier'); lts(0.4);
+        .appicon
+            fs(12);
+    &.text7
+        fs(9); lts(0.8); tuc();
+
+    p
+        fs(16); lts(0);
+        line-height: 1.2;
+        mb(20);
+
+    a
+        tdu();
+        &:hover
+            tdn();
+
+    &.large
+        db();
+
+.text-icon
+    pl(40); rl();
+    .appicon
+        ab(0,,,0,1)
+    // &.text3
+    //     .appicon
+    //         t(-5);
+
+p.text
+    mb(10);

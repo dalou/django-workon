@@ -1,5 +1,3 @@
-import os
-
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 from django.utils.translation import ugettext_lazy as _
@@ -14,8 +12,8 @@ from django import forms
 from . import widgets
 
 class AdminConfig(AppConfig):
-    name = 'workon.contrib.admin'
-    label = 'workon_admin'
+    name = 'workon.contrib.adminv3'
+    label = 'workon_adminv3'
     verbose_name = _("Admin")
 
     list_per_page = 18
@@ -51,10 +49,6 @@ class AdminConfig(AppConfig):
         self.theme = config.get('THEME', 'dark')
         self.VISUAL_LOCK = config.get('VISUAL_LOCK', True)
 
-        self.version = config.get('VERSION', '2')
-        if not self.version in ['1', '2', '3']:
-            self.version = '2'
-
         self.search_url = config.get('SEARCH_URL', '/admin/auth/user/')
 
         super(AdminConfig, self).__init__(app_name, app_module)
@@ -71,30 +65,6 @@ class AdminConfig(AppConfig):
             self.setup_filer_app()
         except Exception:
             pass
-
-        self.contrib_dir = os.path.dirname(os.path.abspath(__file__))
-        try:
-            os.unlink(os.path.join(self.contrib_dir, 'templates', 'admin'))
-        except Exception, e:
-            print str(e.message)
-        try:
-            os.unlink(os.path.join(self.contrib_dir, 'templates', 'registration'))
-        except Exception, e:
-            print str(e.message)
-        try:
-            os.symlink(
-                os.path.join(self.contrib_dir, 'templates', 'admin_v%s' % self.version),
-                os.path.join(self.contrib_dir, 'templates', 'admin')
-            )
-        except Exception, e:
-            print str(e.message)
-        try:
-            os.symlink(
-                os.path.join(self.contrib_dir, 'templates', 'registration_v%s' % self.version),
-                os.path.join(self.contrib_dir, 'templates', 'registration')
-            )
-        except Exception, e:
-            print str(e.message)
 
         super(AdminConfig, self).ready()
 

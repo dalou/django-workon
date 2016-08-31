@@ -1,0 +1,73 @@
+{% load workon_admin_tags workon_admin_forms workon_bootstrap3 %}
+<div id="__{{ fieldset|workon_admin_form_tab_id }}" class="
+  {% if forloop.first %}active{% endif %}
+  module aligned
+  {% if fieldset.workon_classes %}
+    {{ fieldset.workon_classes }}
+  {% elif fieldset.classes %}
+    {{ fieldset.classes }}
+  {% endif %}"
+
+  {% if display_none %}style="display:none;"{% endif %}>
+  {% if fieldset.name %}
+    <div class="fieldset-heading clearfix">
+      <h3 class="fieldset-title">
+        {% if fieldset.description %}
+          <small class="description">{{ fieldset.description|safe }}</small>
+        {% endif %}
+        {{ fieldset.name }}
+      </h3>
+    </div>
+  {% endif %}
+  <div class="panel fieldset-body">
+    {% for line in fieldset %}
+      {% with is_single=line.fields|length_is:'1' %}
+        {% for field in line %}
+          {% if is_single or forloop.counter0 == 0 %}
+            <div id="form-group-{{ field.name }}" class="form-group{% if line.errors %} {{ is_single|yesno:'has-error,first-error' }} has-errors{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %} {{ field.field.field.widget.attrs.rowclass }}{% endfor %}{{ is_single|yesno:',multi-field-row' }}">
+            {% if not is_single %}<div class="row collapsed-fields">{% endif %}
+          {% endif %}
+
+
+            {% if not is_single %}<div class="col-md-6">{% endif %}
+
+            <label class="control-label {{ field.field|workon_admin_form_label_class:fieldset }}">{{ field.label_tag }}</label>
+
+            <div class="{{ field|workon_admin_form_field_class:fieldset }}">
+              {#        {{ field.field.field.widget.can_add_related }}#}
+
+              {% if field.is_readonly %}
+                <p>{{ field.contents }}</p>
+              {% else %}
+                {{ field.field }}
+              {% endif %}
+
+
+              {{ line.errors }}
+              {# help text #}
+              {% if field.field.help_text %}
+                <div class="help-block">{{ field.field.help_text|safe }}</div>
+              {% endif %}
+
+            </div>
+
+
+
+            {% if not is_single %}</div>{% endif %}
+
+            {% if is_single or forloop.last %}
+              {% if not is_single %}</div>{% endif %}
+              </div>
+            {% endif %}
+
+          {% if  is_single %}
+            <div class="clearfix visible-xs visible-sm visible-md"></div>
+          {% endif %}
+
+
+        {% endfor %}
+      {% endwith %}
+    {% endfor %}
+  </div>
+
+</div>

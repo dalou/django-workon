@@ -1,0 +1,76 @@
+
+.tooltipster-default
+    bg(white); bd(1,1,1,1,solid,#E2); fg(#323232); p(0,10); fs(14); rad(3); bs-cl();
+    word-break: break-all;
+    .tooltipster-content
+        tac(); ov(); mxw(300); ff('Rubik', sans-serif);
+        .title
+            mt(10)
+        .btn
+            mnw(0); mb(0); plr(15);
+
+        .caption:first-child
+            m(-8,-20,5,-20); rad(3,3,0,0); ptb(5)
+
+
+
+.tooltipster-red
+    bg(red); bd(1,1,1,1,solid,red); fg(white); rad(18); bd(0);
+    .tooltipster-content
+        mxw(auto);
+        .caption:first-child
+            rad(18,18,0,0);
+
+.tooltipster-menu
+    fg(#323232); bg(white); bc(#a7a7a7); p(0);
+    .tooltipster-content
+        p(0);
+        ul
+            tal();
+            pointer-events: visible;
+            li
+                db(); cl();
+                bb(1,solid,#f1f1f1);
+                bt(1,solid,#ececec);
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+1,0+70,0.05+100 */
+                background: -moz-linear-gradient(-45deg,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 1%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.05) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(-45deg,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 70%,rgba(0,0,0,0.05) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(135deg,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 70%,rgba(0,0,0,0.05) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#0d000000',GradientType=1 )"; /* IE6-9 fallback on horizontal gradient */
+
+                a
+                    dib(); fg(white); p(10,10,10,35); rl(); fg(#323232);
+                    i
+                        ab(10,,,10,); tac();
+
+                &:first-child
+                    bt(0); pt(10);
+                &:last-child
+                    bb(0); pb(10);
+
+
+
+.tooltipster-error
+    bg(#EF3D3D); fg(white); bd(0);
+
+.tooltipster-default.tooltipster-main-menu
+    .tooltipster-content
+        p(5, 0);
+
+    .sub-item
+        .sub-link
+            p(9,15); fg(black); db(); fs(17); bb(1,solid,grey-lt);
+            &.last
+                bb(0,solid,grey-lt);
+            &:hover
+                bg(yellow);  fg(white); tsh(rgba(0, 0, 0, 0.46) 0 0px 5px);
+            span
+                db(); fs(15); fy(italic);
+
+
+.tooltipster-share
+    bg(#EF3D3D); fg(white); bd(0);
+    a
+        dib(); tac(); wh(50); rad(50%); bg(rgba(0,0,0,0.5)); fg(white); mt(10);
+        i
+            lh(50px); fs(30); fwb(); tshad(0 0 3px rgba(0,0,0,.8));

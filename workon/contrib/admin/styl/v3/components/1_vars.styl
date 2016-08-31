@@ -1,0 +1,163 @@
+marron = rgb(83, 54, 16)
+blue = #3399ff //#0071bc// #4B9FF0
+teal = #34ace0
+orange = #F3911E
+yellow = #FAAF3A
+green = #00B5AD
+grey = #D9D9DA
+red = #FF3A36
+saumon = #F7AABC
+
+gray = #323232;
+red = #ff3936;
+
+grey-ul = lighten(grey,90%)
+grey-lt = #E5E5E5
+grey-dk = darken(grey,50%)
+grey-ud = darken(grey,70%)
+bordercolor = #d2d2d2;
+
+
+tr-cl()
+    tr(all 0.10s ease-out);
+
+bgshad()
+    bgi(linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.15)));
+
+bgshad-lt()
+    bgi(linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.05)));
+
+tshad()
+    tsh(rgba(0,0,0,0.15) 0 2px 2px);
+
+bs-lt()
+    //bs(0 1px 1px rgba(0,0,0,0.15) !important);
+    bs(0 1px 1px 1px rgba(0, 0, 0, 0.15) !important);
+    //  bs(#999 0 3px 8px -2px);
+bs-lg()
+    //bs(0 1px 1px rgba(0,0,0,0.15) !important);
+    bs(0 1px 20px 8px rgba(0,0,0,0.15) !important);
+
+sticker()
+    rad(3); p(5); bg(white); bs(#999 3px 3px 7px -3px !important); bd(1,1,1,1,solid,bordercolor)
+
+attachement()
+    sticker(); db(); p(15); //rad(9,3,3,9); //bl(10,solid,#d2d2d2);
+
+.wave
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+1,0+70,0.05+100 */
+    background: -moz-linear-gradient(-45deg,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 70%, rgba(0,0,0,0.07) 95%,rgba(0,0,0,0.17) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 70%,rgba(0,0,0,0.07) 95%,rgba(0,0,0,0.17) 100%) /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 70%,rgba(0,0,0,0.07) 95%,rgba(0,0,0,0.17) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#0d000000',GradientType=1 )"; /* IE6-9 fallback on horizontal gradient */
+
+.clear
+    cl();
+.fleft
+    fl();
+.fright
+    fr();
+.hidden
+    dn();
+.prelative
+    position: relative;
+
+
+
+bgshad()
+    bgi(linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.15)));
+
+bgshad-lt()
+    bgi(linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.05)));
+
+
+tshad()
+    tsh(rgba(0,0,0,0.2) 0 2px 2px);
+
+bs-lt()
+    //bs(0 1px 1px rgba(0,0,0,0.15) !important);
+    bs(0 1px 1px 1px rgba(0, 0, 0, 0.15) !important);
+    //
+bs-cl()
+    bs(#999 0 3px 8px -2px !important);
+
+.app
+
+
+
+
+    &.loading-bg
+        background: white rgba(255,255,255,0.5) url(../img/loading.gif) no-repeat center center;
+
+
+.zoom-in
+    tr-cl();
+    &:hover
+        ts(scale(1.1));
+
+
+
+.relative
+    rl();
+
+.placeholder
+    op(0.6); cursor(pointer);
+
+.underline
+    tdu();
+
+.align-center
+    tac();
+.align-left
+    tal();
+.align-right
+    tar();
+
+.no-margin
+    m(0);
+    &.btn, &.text, &.title, &.block, &.bullet
+        m(0);
+
+.no-image
+    bg(url(../img/no_image.png) center center no-repeat); db();
+    background-size: cover;
+    img
+        op(0);
+
+.centered
+    ab(); l(50%); t(50%); ts(translateY(-50%) translateX(-50%)); //m(auto);
+    .btn
+        m(0);
+
+// .bottom-bordered
+//     rl(); db();
+//     &:after
+//         ct(" "); ab(,0,0,0,1); bg(red); wh(100%,10);
+
+
+.block-bordered
+    rl(); p(20); bd(2,2,2,2,solid,red)
+// .image-hover-1
+
+//     rl(,,,,0); bk(); oh(); bg(white); tr-cl();
+//     //background: #000;
+
+
+//     img
+//         w(100%); tr-cl();
+
+
+//     &:before
+//         op(0); wh(100%); ab(0,,,,20); ml(0); ct(" ")
+//         bgi: url("../img/plus.png");
+//         bgc: black;
+//         background-repeat: no-repeat;
+//         background-position: center center;
+//         tr-cl();
+
+//     &:hover
+//         &:before
+//             tr-cl(); op(1); bgc(transparent);
+
+//         img
+//             ts(scale(1, 1));  tr-cl(); op(1);

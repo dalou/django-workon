@@ -1,0 +1,27 @@
+{% load workon_admin_forms workon_bootstrap3 %}
+<fieldset >
+
+    {% if title %}
+        <div class="fieldset-heading clearfix">
+            <h3 class="fieldset-title">
+            {% if description %}
+              <small class="description">{{ description|safe }}</small>
+            {% endif %}
+            {{ title }}
+            </h3>
+        </div>
+    {% endif %}
+    <div class="">
+        {% for field in form %}
+                    {% bootstrap_field field %}
+           <!--  <div id="form-group-{{ field.name }}" class="form-group  {{ field.errors|yesno:' error,' }}">
+                <label class="control-label">
+                    {{ field.label_tag }}
+                </label>
+                <div class="">
+                    <div class="help-block">{{ field.errors }}</div>
+                </div>
+            </div> -->
+        {% endfor %}
+    </div>
+</fieldset>

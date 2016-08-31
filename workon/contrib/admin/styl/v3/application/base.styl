@@ -1,0 +1,63 @@
+body
+    h(100%); fg(gray);
+    overflow-x: hidden;
+    ff('Rubik', sans-serif);
+    -webkit-font-smoothing: subpixel-antialiased;
+    //ff("GothamRounded-Bold", "Courier");
+    line-height: normal;
+    font-weight: normal;
+    bg(#f1f1f1);
+    // bg(url(/static/img/back2.png));
+    // background-size: contain;
+    // background-attachment: fixed;
+
+    ul
+        lsn(); p(0); m(0);
+
+    a, a:hover, a:focus
+        tdn(); cur(pointer); fg(gray); tr-cl();
+    a:hover
+        fg(red !important);
+    a:focus
+        outline: none;
+
+    @media screen-sm-max
+        .container
+            plr(25);
+
+    .container.overlay
+        fx(0,0,0,0,-1); ct(" "); mrl(auto); prl(15); bg(white);
+
+        // bs(0 0 10px -2px rgba(0, 0, 0, 0.3));
+        bs(0 0 11px -2px rgba(0, 0, 0, 0.72));
+
+
+.container
+    p(0);
+
+.main
+    bg(white);
+    .main-wrapper
+        tr-cl(); ml(215); bl(1,solid,#bdbdbd); rl(); mnh(620);
+        > form
+            p(25,25);
+
+body.gutter
+    .main
+        .main-wrapper
+            p(25,25);
+
+// body.has-breadcrumbs
+//     .main
+//         .main-wrapper
+//             pt(55);
+
+
+/*********** GENERAL ***********/
+
+
+p
+    fs(16); lts(0); mb(20);
+    line-height: 1.2;
+    .appicon
+        fs(24); mr(5);

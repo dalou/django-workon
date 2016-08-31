@@ -68,6 +68,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         # unique_together = ('email',)
         abstract = True
 
+    # IMPORTANT override since 1.10 stupid normalize username (email=username problem)
+    def clean(self):
+        self.username = self.normalize_username(self.username)
+
     def get_full_name(self):
         """
         Returns the first_name plus the last_name, with a space in between.

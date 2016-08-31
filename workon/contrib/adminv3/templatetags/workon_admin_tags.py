@@ -159,13 +159,10 @@ def workon_admin_theme_hex(request):
 @register.assignment_tag
 def workon_admin_theme(*args):
     request = args[0]
-    if request:
-        theme = config.get_config('theme')
-        theme = request.GET.get('workon_admin_theme', theme)
-        theme = request.COOKIES.get('workon_admin_theme', theme)
-        theme = theme.replace('%23', '#')
-    else:
-        theme = ''
+    theme = config.get_config('theme')
+    theme = request.GET.get('workon_admin_theme', theme)
+    theme = request.COOKIES.get('workon_admin_theme', theme)
+    theme = theme.replace('%23', '#')
 
     color = None
     light_color1 = "#6F86B3"

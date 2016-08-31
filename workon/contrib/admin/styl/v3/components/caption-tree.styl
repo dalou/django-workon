@@ -1,0 +1,54 @@
+
+
+.tooltipster-caption-tree
+
+    padding: 0px !important;
+    ts(translateX(30px))
+
+    .tooltipster-content
+        padding: 5px !important;
+
+
+.caption-tree
+    //ts(translateY(-50%));
+
+    cl(); tal(); mnh(300); mnw(300);// m(0,auto);
+
+    &.nano > .nano-pane
+        r(10); dbi();
+
+    ul
+        li
+            a
+                db();
+    ul:first-child
+
+
+        > li
+            //wr(100%,50%,50%,20%); fl();
+            p(7);
+
+            > a
+                db(); bg(#EFEFEF); fs(16); lh(30px); plr(10); fwb();
+
+            > ul
+                mt(5); p(5,10);
+                > li
+                    fs(14); lh(16px);
+                    // > a
+                    //     fwb();
+                    > ul
+                        mtb(5, 10);
+                        > li
+                            fs(14); lh(16px); pl(50); fw(300);
+
+                        li
+                            rl();
+                            &:before
+                                position: absolute;
+                                bottom: 3px;
+                                left: 25px;
+                                content: "\E254";
+                                font-family: 'app_v2';
+                                font-size: 18px;
+                                fg(#9e9e9e);
