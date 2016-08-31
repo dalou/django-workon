@@ -1,5 +1,5 @@
-{% load i18n admin_static %}
-<div class="inline-group
+{% load i18n admin_static workon_admin_tags %}
+<div  data-tabs-id="__{{ inline_admin_formset.opts|workon_admin_form_tab_id }}"   class="inline-group
     {% if inline_admin_formset.opts.workon_classes %}
         {{inline_admin_formset.opts.workon_classes}}
     {% elif inline_admin_formset.opts.classes %}

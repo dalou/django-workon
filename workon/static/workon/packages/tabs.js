@@ -26,6 +26,8 @@ $(document).on('click', '[data-tabs] [href]', function(e, self)
         href = '#'+href[1];
         var target = $(href);
         if(!target.length) target = $(href.replace( /^#/, '#__' ));
+        if(!target.length) target = $('[data-tabs-id="'+href.replace( /^#/, '')+'"]');
+        if(!target.length) target = $('[data-tabs-id="'+href.replace( /^#/, '__')+'"]');
 
         if(target.length)
         {

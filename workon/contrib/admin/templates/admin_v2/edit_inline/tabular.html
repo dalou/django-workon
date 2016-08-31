@@ -1,6 +1,6 @@
-{% load i18n admin_static admin_modify %}
+{% load i18n admin_static admin_modify workon_admin_tags %}
 {% load workon_admin_forms %}
-<div class="inline-group
+<div  data-tabs-id="__{{ inline_admin_formset.opts|workon_admin_form_tab_id }}"  class="inline-group
   {% if inline_admin_formset.opts.workon_classes %}
     {{inline_admin_formset.opts.workon_classes}}
   {% elif inline_admin_formset.opts.classes %}

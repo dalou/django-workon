@@ -43,8 +43,6 @@ admin.site.register(StripeEvent, StripeEventAdmin)
 class StripePlanAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'id')
 
-    # readonly_fields = StripePlan._meta.get_all_field_names()
-
     def has_add_permission(self, request, obj=None):
         return False
 
