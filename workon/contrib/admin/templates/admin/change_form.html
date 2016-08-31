@@ -19,9 +19,9 @@
     {% if adminform.model_admin|workon_admin_form_tabs %}
         <script type="text/javascript">
             (function ($) {
-                $(function () {
-                    $('#workon_admin_form_tabs').workon_admin_form_tabs();
-                });
+                // $(function () {
+                //     $('#workon_admin_form_tabs').workon_admin_form_tabs();
+                // });
             }(WorkonAdmin.$))
         </script>
     {% endif %}
@@ -83,9 +83,10 @@
                 {% if adminform.model_admin|workon_admin_form_tabs %}
 
 
-                    <ul id="workon_admin_form_tabs" class="nav nav-tabs nav-tabs-workon" data-tab-prefix="workon-tab">
+                    <ul class="nav nav-tabs nav-tabs-workon" data-tabs='{}'>
                         {% for tab in adminform.model_admin|workon_admin_form_tabs %}
-                            <li><a href="#{{ tab.0 }}">{{ tab.1 }}</a></li>{% endfor %}
+                            <li><a href="#{{ tab.0 }}">{{ tab.1 }}</a></li>
+                        {% endfor %}
                     </ul>
 
                 {% endif %}

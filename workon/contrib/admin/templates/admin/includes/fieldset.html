@@ -1,5 +1,5 @@
-{% load workon_admin_forms workon_bootstrap3 %}
-<div class="module aligned
+{% load workon_admin_tags workon_admin_forms workon_bootstrap3 %}
+<div id="__{{ fieldset|workon_admin_form_tab_id }}" class="module aligned
   {% if fieldset.workon_classes %}
     {{ fieldset.workon_classes }}
   {% elif fieldset.classes %}

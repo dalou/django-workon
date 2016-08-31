@@ -1,17 +1,21 @@
-from django import template
+
+import re
+from colour import Color
+
 from django.contrib.admin.utils import lookup_field
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import NoReverseMatch, reverse
 from django.db.models import ForeignKey
 from django.template.defaulttags import NowNode
 from django.utils.safestring import mark_safe
+from django import template
 
 from .. import config
 from .. import utils
 
-from colour import Color
-
 register = template.Library()
+
+tab_id = re.compile(r'workon-tab-([\w\_\-\.]+)')
 
 
 @register.filter(name='workon_admin_conf')
@@ -24,6 +28,18 @@ def workon_admin_form_tabs(model_admin):
     for attr in ['workon_form_tabs', 'form_tabs', 'suit_form_tabs']:
         if hasattr(model_admin, attr):
             return getattr(model_admin, attr)
+    return None
+
+@register.filter
+def workon_admin_form_tab_id(fieldset):
+
+    classes = getattr(fieldset, 'workon_classes', getattr(fieldset, 'classes'))
+    print classes
+    if classes:
+        id = tab_id.search(classes)
+        print id
+        if id:
+            return id.group(1)
     return None
 
 
