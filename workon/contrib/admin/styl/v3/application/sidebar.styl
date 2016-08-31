@@ -2,9 +2,10 @@
     dn();
 
 .sidebar
-    w(60); mxw(200); rl(); z(1); bg(rgba(0,0,0,0.3)); bg(darker-color);
-    fx(60,0,0,0,2); tr-cl();
-    bs(#000 0 4px 8px 0px !important);
+    w(60); mxw(200); rl(); z(1); bg(white);
+    fx(80,0,80,0,2); tr-cl();
+    height: auto !important;
+    rad(0,5,5,0)
 
     html.nav-expanded &
         w(70%);
@@ -16,7 +17,7 @@
         dn(); ab(,0,5,0,1); tac();
 
     .dock
-        p(0,0,150,0); fg(light-color);
+        p(0,0,150,0); //fg(light-color);
         // overflow-y: scroll;
         // overflow-x: hidden;
 
@@ -38,7 +39,7 @@
 
 
             > a, > a i
-                tr-cl();  fg(white);
+                tr-cl(); // fg(white);
 
             > a
                 rl(); db(); h(60); cur(pointer);
@@ -48,7 +49,7 @@
                     wh(60); ab(0,0,0,0); fs(2.5em); tac(); ptb(15);
 
                 > i.counter
-                    rad(12); bg(black); fg(white); fs(13); dib(); p(2,7); ab(-5,3,,,1); op(0.7);
+                    rad(12); bg(black);  fs(13); dib(); p(2,7); ab(-5,3,,,1); op(0.7); //fg(white);
                     b(auto); l(auto); wh(auto);
                 > span
                     dn(); fs(14); fy(italic); ab(20,,,60); tuc();
@@ -71,11 +72,11 @@
                 rl();
                 a
                     op(0.5); cur(not-allowed)
-                &:hover, &.active
-                    > a > i, > a
-                        fg(white);
+                // &:hover, &.active
+                //     > a > i, > a
+                //         fg(white);
 
-             &.denied
+            &.denied
                 a
                     op(0.2);
                 &:before
@@ -84,6 +85,17 @@
                     font: normal normal normal 25px/1 FontAwesome;
                     content: "\f023";
                     cur(not-allowed)
+
+
+            &:first-child
+                rad(0,5,5,0)
+                > a > i, > a
+                    rad(0,5,5,0)
+            &:last-child
+                rad(0,5,0,0)
+                > a > i, > a
+                    rad(0,0,5,0)
+
 
             // &:hover
 
@@ -119,12 +131,12 @@
 
 
     li.separator
-        tac(); fy(italic); fg(white); mt(25);  lh(0);
+        tac(); fy(italic); mt(25);  lh(0);
         i
             db(); tac(); mt(2);
 
     li.label
-        p(5); fs(21); fy(italic); db();
+        p(5); fs(21); fy(italic); db(); fg(gray);
 
     .tooltipster-content
         p(0);
@@ -142,8 +154,8 @@
                 > ul.dock-menu
                     ml(10);
                 &:hover
-                    > a
-                        fg(light-color);
+                    // > a
+                    //     fg(light-color);
 
                     > ul.dock-menu
                         l(100%); op(1); ml(7);
@@ -153,7 +165,7 @@
 
             > li > a
                 db(); p(5,20); cb(); fw(normal); lh(1.428571429);
-                fg(#ecf0f1); wsnw(); w(100%); oh();
+                wsnw(); w(100%); oh(); // fg(#ecf0f1);
                 text-overflow: ellipsis;
 
                 &:hover

@@ -85,7 +85,7 @@
 
                     <ul class="nav nav-tabs nav-tabs-workon" data-tabs='{}'>
                         {% for tab in adminform.model_admin|workon_admin_form_tabs %}
-                            <li><a href="#{{ tab.0 }}" class="{% if forloop.first %}active{% endif %}">{{ tab.1 }}</a></li>
+                            <li><a href="#tab__{{ tab.0 }}" class="{% if forloop.first %}active{% endif %}">{{ tab.1 }}</a></li>
                         {% endfor %}
                     </ul>
 
@@ -119,19 +119,20 @@
                     {% endfor %}
                 {% endblock %}
 
+                {% block after_field_sets %}{% endblock %}
+
+                {# render workon_admin_form_includes at middle position #}
+                {% include 'admin/includes/change_form_includes.html' with position='middle' %}
+
+
+                {% block after_related_objects %}{% endblock %}
+
+                {# render workon_admin_form_includes at last position #}
+                {% include 'admin/includes/change_form_includes.html' with position='bottom' %}
+
+                {% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
+
             </div>
-            {% block after_field_sets %}{% endblock %}
-
-            {# render workon_admin_form_includes at middle position #}
-            {% include 'admin/includes/change_form_includes.html' with position='middle' %}
-
-
-            {% block after_related_objects %}{% endblock %}
-
-            {# render workon_admin_form_includes at last position #}
-            {% include 'admin/includes/change_form_includes.html' with position='bottom' %}
-
-            {% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
 
             {% if adminform and add %}
                 <script type="text/javascript">

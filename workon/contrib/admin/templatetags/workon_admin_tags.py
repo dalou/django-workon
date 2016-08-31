@@ -33,11 +33,9 @@ def workon_admin_form_tabs(model_admin):
 @register.filter
 def workon_admin_form_tab_id(fieldset):
 
-    classes = getattr(fieldset, 'workon_classes', getattr(fieldset, 'classes'))
-    print classes
+    classes = getattr(fieldset, 'workon_classes', getattr(fieldset, 'classes', None))
     if classes:
         id = tab_id.search(classes)
-        print id
         if id:
             return id.group(1)
     return None

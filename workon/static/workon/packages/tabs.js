@@ -24,15 +24,15 @@ $(document).on('click', '[data-tabs] [href]', function(e, self)
     if(href.length == 2)
     {
         href = '#'+href[1];
-        var target = $(href);
-        if(!target.length) target = $(href.replace( /^#/, '#__' ));
-        if(!target.length) target = $('[data-tabs-id="'+href.replace( /^#/, '')+'"]');
+        var target = $('[data-tabs="'+href.replace( /^#/, '')+'"]');
         if(!target.length) target = $('[data-tabs-id="'+href.replace( /^#/, '__')+'"]');
+        if(!target.length) target = $(href.replace( /^#/, '#__' ));
+        if(!target.length) target = $(href);
 
         if(target.length)
         {
             self.parents('[data-tabs]').eq(0).find('.active').removeClass('active');
-            target.siblings("[id]").removeClass('active');
+            target.siblings("[id],[data-tabs]").removeClass('active');
             self.addClass('active');
             target.addClass('active');
             self.trigger('workon.tabs_changed', [ self, target ]);

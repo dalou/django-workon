@@ -1,11 +1,12 @@
 body
-    h(100%); fg(gray);
-    overflow-x: hidden;
-    ff('Rubik', sans-serif);
-    -webkit-font-smoothing: subpixel-antialiased;
+    //h(100%);
+    fg(gray);
+    //overflow-x: hidden;
+    //ff('Rubik', sans-serif);
+    //-webkit-font-smoothing: subpixel-antialiased;
     //ff("GothamRounded-Bold", "Courier");
-    line-height: normal;
-    font-weight: normal;
+    // line-height: normal;
+    // font-weight: normal;
     bg(#f1f1f1);
     // bg(url(/static/img/back2.png));
     // background-size: contain;
@@ -37,14 +38,12 @@ body
 
 .main
     bg(white);
-    .main-wrapper
-        tr-cl(); ml(215); bl(1,solid,#bdbdbd); rl(); mnh(620);
-        > form
-            p(25,25);
+    .content
+        tr-cl(); bl(1,solid,#bdbdbd); rl(); mnh(620); p(25,25);
 
 body.gutter
     .main
-        .main-wrapper
+        .content
             p(25,25);
 
 // body.has-breadcrumbs

@@ -1,6 +1,6 @@
 {% load i18n admin_static admin_modify workon_admin_tags %}
 {% load workon_admin_forms %}
-<div  data-tabs-id="__{{ inline_admin_formset.opts|workon_admin_form_tab_id }}"  class="inline-group
+<div  data-tabs="tab__{{ inline_admin_formset.opts|workon_admin_form_tab_id }}"  class="inline-group
   {% if inline_admin_formset.opts.workon_classes %}
     {{inline_admin_formset.opts.workon_classes}}
   {% elif inline_admin_formset.opts.classes %}
@@ -152,7 +152,6 @@
       return $rows;
   };
 
-  console.log($("#{{ inline_admin_formset.formset.prefix }}-group .tabular.inline-related tbody tr"))
   $("#{{ inline_admin_formset.formset.prefix }}-group .tabular.inline-related tbody tr").tabularFormset({
     prefix: "{{ inline_admin_formset.formset.prefix }}",
     adminStaticPrefix: '{% static "admin/" %}',

@@ -18,10 +18,9 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
         <meta name="robots" content="NONE,NOARCHIVE"/>
-
-        <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,400i,700" rel="stylesheet">
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
+<!--
+        <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,400i,700" rel="stylesheet"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css">
        <!--  <link href="{% static 'workon/vendors/nanoscroller/nanoscroller.css' %}" rel="stylesheet" type="text/css"> -->
         <link rel="stylesheet" type="text/css" href="{% static 'workon/admin/css/v3.css' %}">
@@ -43,7 +42,7 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/jquery.ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"crossorigin="anonymous"></script>
         <script type="text/javascript">
             var WorkonAdmin = {$: $.noConflict()};
             if (!$) $ = WorkonAdmin.$;
@@ -81,29 +80,22 @@
         {% endblock head %}
     </head>
 
-    <body
-        class="{{ request.resolver_match.namespace }}-{{ request.resolver_match.url_name }}
-        {% firstof 'layout'|workon_admin_conf site_header 'vertical' %}
-        {% block body_class %}{% endblock %}"
-    >
-        <div id="wrapper" >
-
+    <body class="{% block body-class %}{% endblock %}">
 
         {% block body %}
 
-
             {% if not is_popup %}
-            <header class="navbar" id="navbar">
+            <header>
                 <a id="nav-expander" class="nav-expander">
                     <i class="fa fa-bars"></i>
                     <i class="fa fa-close"></i>
                 </a>
 
-                <section id="sidebar" class="sidebar nano">
+
+                <nav id="sidebar" class="block sidebar nano">
                     {% block sidebar %}
-                        <!-- <i class="fa fa-bars" id="toggle"></i> -->
-                        <a id="dock-scroll-top" class="dock-scroll-top"><span class="fa fa-arrow-up"></span></a>
-                        <a id="dock-scroll-bottom" class="dock-scroll-bottom"><span class="fa fa-arrow-down"></span></a>
+                        {% block pre-sidebar %}
+                        {% endblock pre-sidebar %}
                         <ul id="dock" class="dock nano-content">
                             {% block sidebar-menu %}
 
@@ -128,7 +120,7 @@
                                             {% if app.denied %}denied{% endif %}">
 
                                             <a {% if not app.denied %}
-                                                href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target=_blank,' }}
+                                                href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target="_blank",' }}
                                                 {% endif %}
 
                                                 style="word-wrap: break-word;">
@@ -149,10 +141,12 @@
                                                                 {% if model.denied %}denied{% endif %}">
                                                                 <a
                                                                     {% if not model.denied %}
-                                                                    href="{{ model.url }}{{ model.query|default:'' }}"{{ model.blank|yesno:' target=_blank,' }}
+                                                                    href="{{ model.url }}{{ model.query|default:'' }}" {{ model.blank|yesno:' target="_blank",' }}
                                                                     {% endif %}
+                                                                >
 
-                                                                    ><span>{{ model.label|safe }}</span></a>
+                                                                    <span>{{ model.label|safe }}</span>
+                                                                </a>
                                                             </li>
                                                         {% endif %}
                                                     {% endfor %}
@@ -171,7 +165,7 @@
                                                                 {% if app.denied %}denied{% endif %}" >
                                                                 <a
                                                                     {% if not app.denied %}
-                                                                    href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target=_blank,' }}
+                                                                    href="{{ app.url }}{{ app.query|default:'' }}"{{ app.blank|yesno:' target="_blank",' }}
                                                                     {% endif %}
                                                                     ><span>{{ app.label|safe }}</span></a>
                                                                 {% if app.models %}
@@ -182,7 +176,7 @@
                                                                                 <li class="separator">{{ model.label|safe }}<i class="fa fa-sort-desc"></i></li>
                                                                             {% else %}
                                                                                 <li class="{% if model.is_active %}active{% endif %}">
-                                                                                    <a href="{{ model.url }}{{ model.query|default:'' }}"{{ model.blank|yesno:' target=_blank,' }}><span>{{ model.label|safe }}</span></a>
+                                                                                    <a href="{{ model.url }}{{ model.query|default:'' }}"{{ model.blank|yesno:' target="_blank",' }}><span>{{ model.label|safe }}</span></a>
                                                                                 </li>
                                                                             {% endif %}
                                                                         {% endfor %}
@@ -202,7 +196,7 @@
                                                             {% if app.denied %}denied{% endif %}" >
                                                             <a
                                                                 {% if not model.denied %}
-                                                                href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}
+                                                                href="{{ model.url }}"{{ model.blank|yesno:' target="_blank",' }}
                                                                 {% endif %}
                                                                 ><span>{{ model.label|safe }}</span></a>
                                                         </li>
@@ -215,92 +209,102 @@
                             {% endif %}
                             {% endblock %}
                         </ul>
+                        {% block post-sidebar %}
+                        {% endblock post-sidebar %}
                     {% endblock sidebar %}
-                </section>
-                {% block post_sidebar %}
-                {% endblock post_sidebar %}
-
-                {% block navbar %}
-                    {% block nav-left %}
-                    <ul class="navbar-left pull-left">
-                        {% block nav-branding %}
-                        <li class="nav-branding">
-                            <a>
-                                <span>{% firstof 'admin_name'|workon_admin_conf site_header _('Admin') %}</span>
-                            </a>
-                        </li>
-                        {% endblock %}
-                    </ul>
-                    {% endblock %}
-
-                    {% block nav-global %}{% endblock %}
-
-                    {% block nav-right %}
-                    <ul class="navbar-right pull-right">
-
-
-                        {% block nav-right-before %}
-                        {% endblock %}
+                </nav>
 
 
 
-                        {% with 'search_url'|workon_admin_conf as search_url %}
-                        {% if search_url %}
-                        {% block nav-search %}
-                        <li class="navbar-search" >
-                            <a id="nav-search-expander">
-                                <span class="fa fa-search"></span>
-                            </a>
-                        </li>
-                        {% endblock %}
-                        {% endif %}
-                        {% endwith %}
-
-                        {% block nav-user %}
-                        <li class="dock-tooltip nav-user" data-tooltip-position="bottom" >
-                            {% block nav-user-avatar %}
-                            <a class="" href="#">
-                                {% with request.user.get_avatar_url as avatar %}
-                                <img
-                                    {% if avatar %}
-                                    src="{{ avatar }}"
-                                    {% else %}
-                                    src="{% static "workon/admin/img/default-avatar.png" %}"
-                                    {% endif %}
-                                />
-                                {% endwith %}
-                                <span>{{ request.user.get_full_name }}</span>
-
-                                <b class="caret"></b>
-                            </a>
-                            {% endblock %}
-                            <ul class="dock-menu" id="navbar-right">
-                                {% block nav-user-menu %}
-                                    {% if site_url %}
-                                        <li><a href="{{ site_url }}">{% trans 'View site' %}</a></li>
-                                    {% endif %}
-                                    {% url 'django-admindocs-docroot' as docsroot %}
-                                    {% if docsroot %}
-                                        <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
-                                    {% endif %}
-                                    {% if user.has_usable_password %}
-                                        <li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
-                                    {% endif %}
-                                    <li class="divider"></li>
-                                    <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
+                <nav class="navbar" id="navbar">
+                    <div class="container">
+                        {% block navbar %}
+                            {% block navbar-before %}
+                            {% endblock navbar-before %}
+                            {% block navbar-left %}
+                            <ul class="navbar-left pull-left">
+                                {% block navbar-brand %}
+                                <li class="brand">
+                                    <a>
+                                        <span>{% firstof 'admin_name'|workon_admin_conf site_header _('Admin') %}</span>
+                                    </a>
+                                </li>
                                 {% endblock %}
                             </ul>
                             {% endblock %}
-                        </li>
+
+                            {% block navbar-global %}{% endblock %}
+
+                            {% block navbar-right %}
+                            <ul class="navbar-right pull-right">
+
+
+                                {% block navbar-right-before %}
+                                {% endblock %}
 
 
 
-                        {% block nav-right-after %}
-                        {% endblock %}
-                    </ul>
-                    {% endblock %}
+                                {% with 'search_url'|workon_admin_conf as search_url %}
+                                {% if search_url %}
+                                {% block nav-search %}
+                                <li class="navbar-search" >
+                                    <a id="nav-search-expander">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </li>
+                                {% endblock %}
+                                {% endif %}
+                                {% endwith %}
 
-                {% endblock navbar %}
+                                {% block nav-user %}
+                                <li class="dock-tooltip nav-user" data-tooltip-position="bottom" >
+                                    {% block nav-user-avatar %}
+                                    <a class="" href="#">
+                                        {% with request.user.get_avatar_url as avatar %}
+                                        <img
+                                            {% if avatar %}
+                                            src="{{ avatar }}"
+                                            {% else %}
+                                            src="{% static "workon/admin/img/default-avatar.png" %}"
+                                            {% endif %}
+                                        />
+                                        {% endwith %}
+                                        <span>{{ request.user.get_full_name }}</span>
+
+                                        <b class="caret"></b>
+                                    </a>
+                                    {% endblock %}
+                                    <ul class="dock-menu" id="navbar-right">
+                                        {% block nav-user-menu %}
+                                            {% if site_url %}
+                                                <li><a href="{{ site_url }}">{% trans 'View site' %}</a></li>
+                                            {% endif %}
+                                            {% url 'django-admindocs-docroot' as docsroot %}
+                                            {% if docsroot %}
+                                                <li><a href="{{ docsroot }}">{% trans 'Documentation' %}</a></li>
+                                            {% endif %}
+                                            {% if user.has_usable_password %}
+                                                <li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
+                                            {% endif %}
+                                            <li class="divider"></li>
+                                            <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
+                                        {% endblock %}
+                                    </ul>
+                                    {% endblock %}
+                                </li>
+
+
+
+                                {% block nav-right-after %}
+                                {% endblock %}
+                            </ul>
+                            {% endblock %}
+                            {% block navbar-after %}
+                            {% endblock navbar-after %}
+                        {% endblock navbar %}
+                    </div>
+                </nav>
+
             </header>
             {% endif %}
 
@@ -314,8 +318,8 @@
             </form>
             {% endif %}
             {% endwith %}
-            <div id="content" class="container main">
-                <div class="main-wrapper">
+            <main id="main" class="container main">
+                <div id="content" class="content">
 
                     {% block messages %}
                         {% if messages %}
@@ -344,9 +348,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
+
+            <footer class="footer" role="footer">
+            {% block footer %}
+            {% endblock footer %}
+            </footer>
+
+            <div class="container overlay"></div>
+
         {% endblock body %}
-        </div>
 
         <script src="{% static 'workon/admin/admin.js' %}"></script>
 

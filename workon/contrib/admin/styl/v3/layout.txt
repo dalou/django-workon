@@ -1,0 +1,18 @@
+body
+    header
+        a.nav-expander
+        nav.sidebar
+            ul.dock
+                li.separator
+                li.launcher
+                    a
+                        i
+                    ul.dock-menu
+
+                        li.label
+                        li.separator
+
+        nav.navbar
+            div.container
+                ul.navbar-left
+                ul.navbar-right
