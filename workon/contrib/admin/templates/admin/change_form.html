@@ -85,7 +85,7 @@
 
                     <ul class="nav nav-tabs nav-tabs-workon" data-tabs='{}'>
                         {% for tab in adminform.model_admin|workon_admin_form_tabs %}
-                            <li><a href="#{{ tab.0 }}">{{ tab.1 }}</a></li>
+                            <li><a href="#{{ tab.0 }}" class="{% if forloop.first %}active{% endif %}">{{ tab.1 }}</a></li>
                         {% endfor %}
                     </ul>
 

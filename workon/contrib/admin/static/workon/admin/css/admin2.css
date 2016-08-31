@@ -3406,9 +3406,9 @@ tbody.collapse.in {
 .nav-tabs > li > a:hover {
   border-color: #eee #eee #ddd;
 }
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
+.nav-tabs > li > a.active,
+.nav-tabs > li > a.active:hover,
+.nav-tabs > li > a.active:focus {
   color: #808080;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -9237,7 +9237,7 @@ body {
   padding: 0px;
   background: #c6f1ef;
   font-family: "Rubik", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.428571429;
   background-size: cover;
   background-repeat: no-repeat;
