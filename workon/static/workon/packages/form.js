@@ -49,11 +49,11 @@ window.workon_packages_form = true;
 $(document).ready(function()
 {
 
-    $('document').on('submit', 'form', function()
+    $(document).on('submit', 'form', function(e)
     {
         var $form = $(this);
-
-        if ($form.data('submitted') === true) {
+        if ($form.data('submitted') === true)
+        {
             // Previously submitted - don't submit again
             e.preventDefault();
         } else
@@ -61,7 +61,8 @@ $(document).ready(function()
             // Mark it so that the next submit can be ignored
             $form.data('submitted', true);
         }
-    })
+    });
+
     window.workon_packages_form_apply_packages_on_insert = function(inserted)
     {
         if(window.workon_packages_slick === true)

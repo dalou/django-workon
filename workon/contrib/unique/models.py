@@ -7,13 +7,13 @@ class Unique(models.Model):
 
     @classmethod
     def get(cls):
-        instance = cls._default_manager.first()
+        instance = cls._meta.default_manager.first()
         if not instance:
             instance = cls()
         return instance
 
     def save(self, *args, **kwargs):
-        previous = self._default_manager.first()
+        previous = self._meta.default_manager.first()
         if previous:
             self.pk = previous.pk
         super(Unique, self).save(*args, **kwargs)

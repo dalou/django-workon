@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from ...models import Unique
 
-class GoogleAPISettings(Unique):
+class GoogleAPISettings(Unique, models.Model):
 
     account_key_file = models.FileField(u"Adresse email", upload_to="workon/googleapisettings/", null=True , blank=True, help_text=u"""
 
