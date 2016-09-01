@@ -300,8 +300,7 @@
         $('.inline-related').each(function(i, self) {
             if(i == 0) return;
 
-            self = $(this).css({
-                textTransform: 'uppercase',
+            self = $(this).find('.panel-heading').css({
                 cursor: 'pointer'
             })
             //self.find('> fieldset').slideUp()
