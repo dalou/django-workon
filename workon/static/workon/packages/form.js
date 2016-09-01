@@ -12,15 +12,6 @@ window.workon_packages_form = true;
 
 (function($)
 {
-    $.fn.formFreeze = function()
-    {
-        $(this).find('[type="submit"]').prop('disabled', true).attr('disabled','disabled');
-    }
-
-    $.fn.formUnfreeze = function()
-    {
-        $(this).find('[type="submit"]').prop('disabled', false).removeAttr('disabled');
-    }
 
     $.unserialize = function(serializedString)
     {
@@ -58,9 +49,18 @@ window.workon_packages_form = true;
 $(document).ready(function()
 {
 
-    $(document).on('submit', 'form', function()
+    $('document').on('submit', 'form', function()
     {
-        $(this).formFreeze();
+        var $form = $(this);
+
+        if ($form.data('submitted') === true) {
+            // Previously submitted - don't submit again
+            e.preventDefault();
+        } else
+        {
+            // Mark it so that the next submit can be ignored
+            $form.data('submitted', true);
+        }
     })
     window.workon_packages_form_apply_packages_on_insert = function(inserted)
     {
