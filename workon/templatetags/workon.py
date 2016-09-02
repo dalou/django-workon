@@ -173,7 +173,7 @@ def multiply(obj, value):
 
 @register.simple_tag()
 def divide(value, factor, *args, **kwargs):
-    if value is not None and factor is not 0:
+    if isinstance(value, int) or isinstance(value, float) and factor is not 0:
         return float(value) / float(factor)
     return None
 
