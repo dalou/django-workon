@@ -12,8 +12,6 @@ from django.utils.deprecation import RemovedInNextVersionWarning
 from django.utils.module_loading import import_string
 from django.views.debug import ExceptionReporter
 
-from .models import DisallowedHost
-
 class DisallowedHostHandler(logging.Handler):
     """An exception log handler that emails log entries to site admins.
 
@@ -27,8 +25,6 @@ class DisallowedHostHandler(logging.Handler):
         self.email_backend = email_backend
 
     def emit(self, record):
-
-        print 'EMIIIIIIIIIIIIT'
 
         try:
             request = record.request
@@ -53,7 +49,8 @@ class DisallowedHostHandler(logging.Handler):
         reporter = ExceptionReporter(request, is_email=False, *exc_info)
         html_message = reporter.get_traceback_html()
 
-        print 'BAD HOST', record
+
+        from workon.contrib.security.models import DisallowedHost
         DisallowedHost.objects.create(
             http_host=request.META.get('HTTP_HOST') if request else None,
             remote_addr=request.META.get('REMOTE_ADDR') if request else None,

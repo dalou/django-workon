@@ -1,62 +1,53 @@
+# encoding: utf-8
 
-from django.conf import settings
-from django.utils.log import DEFAULT_LOGGING
 from django.apps import AppConfig
-from django.db.models.signals import post_migrate
 from django.utils.translation import ugettext_lazy as _
-
-import logging
-
-# logging = settings.LOGGING
-# if not logging:
-#     logging = DEFAULT_LOGGING
-
-# if not logging.get('handlers'):
-#     logging['handlers'] = {}
-# if not logging.get('loggers'):
-#     logging['loggers'] = {}
-
-# logging['handlers']['workon_security_disallowed_hosts'] = {
-#     'level': 'ERROR',
-#     'class': 'workon.contrib.security.handler.DisallowedHostHandler',
-#     # 'filename': '/path/to/spoofed_requests.log',
-# }
-# logging['loggers']['django.security.DisallowedHost'] = {
-#     'handlers': ['workon_security_disallowed_hosts'],
-#     'level': 'ERROR',
-#     'propagate': False,
-# }
-# settings.LOGGING = logging
 
 
 class SecurityConfig(AppConfig):
+
+    """
+        'handlers': {
+            ...
+
+            'workon_security_disallowed_hosts': {
+                'level': 'ERROR',
+                'class': 'workon.contrib.security.handler.DisallowedHostHandler',
+            }
+        },
+        'loggers': {
+            ...
+
+            'django.security.DisallowedHost': {
+                'handlers': ['workon_security_disallowed_hosts'],
+                'level': 'ERROR',
+                'propagate': False,
+            }
+        },
+    """
     name = 'workon.contrib.security'
     label = 'workon_security'
-    verbose_name = _("Security")
+    verbose_name = _(u"Securité")
 
     def ready(self):
+        from . import models
 
+        # logger = logging.getLogger('django.security.DisallowedHost')
+        # logger.setLevel(logging.ERROR)
 
-        from .handler import DisallowedHostHandler
+        # handler = DisallowedHostHandler()
+        # handler.setLevel(logging.ERROR)
 
-        logger = logging.getLogger('django.security.DisallowedHost')
-        logger.setLevel(logging.ERROR)
+        # logger.addHandler(handler)
 
-        print logger
+        # # handlers 'spoof_logfile': {
+        # #     'level': 'ERROR',
+        # #     'class': 'logging.FileHandler',
+        # #     'filename': '/path/to/spoofed_requests.log',
+        # # },
 
-        handler = DisallowedHostHandler()
-        handler.setLevel(logging.ERROR)
-
-        logger.addHandler(handler)
-
-        # handlers 'spoof_logfile': {
-        #     'level': 'ERROR',
-        #     'class': 'logging.FileHandler',
-        #     'filename': '/path/to/spoofed_requests.log',
-        # },
-
-        # loggers 'django.security.DisallowedHost': {
-        #     'handlers': ['spoof_logfile'],
-        #     'level': 'ERROR',
-        #     'propagate': False,
-        # },
+        # # loggers 'django.security.DisallowedHost': {
+        # #     'handlers': ['spoof_logfile'],
+        # #     'level': 'ERROR',
+        # #     'propagate': False,
+        # # },
