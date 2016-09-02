@@ -36,6 +36,16 @@ $(document).on('click', '[data-tabs] [href]', function(e, self)
             self.addClass('active');
             target.addClass('active');
             self.trigger('workon.tabs_changed', [ self, target ]);
+
+            target.parents("[data-tabs]").each(function()
+            {
+                console.log(this)
+                var tabId = $(this).data('tabs');
+                $(this).addClass('active');
+                $('[href="#'+tabId+'"]').addClass('active');
+
+            })
+
             document.location.hash = href;
             return false;
         }
