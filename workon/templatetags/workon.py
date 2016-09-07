@@ -31,7 +31,11 @@ from django.template.base import FilterExpression
 from django.template.loader import get_template
 from django.template import engines
 from django.conf import settings
+from django.utils.safestring import mark_safe
 import re
+
+from urllib import urlencode
+from urlparse import parse_qs, urlsplit, urlunsplit
 
 from ..utils import canonical_url
 
@@ -160,6 +164,16 @@ def do_usemeta(parser, token, truncate=None):
 def meta_headers(context):
     return context
 
+@register.simple_tag()
+def url_replace_param(url, param_name, param_value):
+
+    scheme, netloc, path, query_string, fragment = urlsplit(url)
+    query_params = parse_qs(query_string)
+
+    query_params[param_name] = [param_value]
+    new_query_string = urlencode(query_params, doseq=True)
+
+    return mark_safe(urlunsplit((scheme, netloc, path, new_query_string, fragment)))
 
 @register.filter
 def multiply(obj, value):
