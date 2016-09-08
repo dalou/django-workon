@@ -43,6 +43,7 @@ def notify(receiver, title, body, uid=None, email=None, template_email=None, con
 
         if isinstance(template_email, str) or isinstance(template_email, dict):
             context = {
+                'notification': notification,
                 'receiver': receiver,
                 'title': notification.title,
                 'body': notification.body,
