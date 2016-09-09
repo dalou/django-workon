@@ -386,6 +386,7 @@
             }
         });
         $(document).scroll();
+        $('[data-tabs] [href].active').click();
 
         // $(window).scroll(function()
         // {
