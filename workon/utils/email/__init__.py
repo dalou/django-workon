@@ -99,18 +99,21 @@ class HtmlTemplateEmail(EmailMultiAlternatives):
                 self.attach(*file)
 
 def send_email(subject, sender, receivers, content='', content_type=None, files=[], **kwargs):
+    fail_silently = kwargs.pop('fail_silently', False)
     message = ContentEmail(subject, content, sender, receivers, content_type=content_type, files=files, **kwargs)
-    return message.send()
+    return message.send(fail_silently=fail_silently)
 
 def send_mass_email(messages, **kwargs):
+    fail_silently = kwargs.pop('fail_silently', False)
     connection = get_connection()
     connection.open()
-    connection.send_messages(messages)
+    connection.send_messages(messages, fail_silently=fail_silently)
     connection.close()
 
 def send_html_email(subject, sender, receivers, html='', context={}, files=[], **kwargs):
+    fail_silently = kwargs.pop('fail_silently', False)
     message = HtmlTemplateEmail(subject, html, sender, receivers, context, files=files, **kwargs)
-    return message.send()
+    return message.send(fail_silently=fail_silently)
 
 def send_template_email(subject, sender, receivers, template=None, context={}, files=[], **kwargs):
     html_template = get_template(template)
