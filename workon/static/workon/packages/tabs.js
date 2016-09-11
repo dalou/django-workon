@@ -11,7 +11,7 @@ function workon_tabs_hash_active(hash)
     var trigger = $('[data-tabs] [href$="'+hash+'"]');
     if(trigger.length)
     {
-        var target = $('[data-tabs="'+hash.replace( /^#/, '')+'"]');
+        var target = $('[data-tabs-target="'+hash.replace( /^#/, '')+'"]');
         if(!target.length) target = $('[data-tabs-id="'+hash.replace( /^#/, '__')+'"]');
         if(!target.length) target = $(hash.replace( /^#/, '#__' ));
         if(!target.length) target = $(hash);
@@ -19,15 +19,15 @@ function workon_tabs_hash_active(hash)
         if(target.length)
         {
             trigger.parents('[data-tabs]').eq(0).find('.active').removeClass('active');
-            target.siblings("[id],[data-tabs]").removeClass('active');
+            target.siblings("[id],[data-tabs-target]").removeClass('active');
             trigger.addClass('active');
             target.addClass('active');
             trigger.trigger('workon.tabs_changed', [ trigger, target ]);
 
-            var parent = target.parents("[data-tabs]").eq(0);
+            var parent = target.parents("[data-tabs-target]").eq(0);
             if(parent.length)
             {
-                workon_tabs_hash_active('#'+parent.data('tabs'));
+                workon_tabs_hash_active('#'+parent.data('tabs-target'));
             }
         }
     }
@@ -35,13 +35,15 @@ function workon_tabs_hash_active(hash)
 
 $(document).on('click', '[data-tabs] [href]', function(e, self)
 {
+    console.log('TABS!')
     self = $(this)
     var href = self.attr('href').split('#', 2);
     if(href.length == 2)
     {
         var hash = '#'+href[1];
         workon_tabs_hash_active(hash);
-        document.location.hash = hash;
+        //document.location.hash = hash;
+        window.location.replace(('' + window.location).split('#')[0] + hash);
         return false;
     }
 })

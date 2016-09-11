@@ -1,5 +1,5 @@
 {% load workon_admin_tags workon_admin_forms workon_bootstrap3 %}
-<div data-tabs="tab__{{ fieldset|workon_admin_form_tab_id }}" class="
+<div data-tabs-target="tab__{{ fieldset|workon_admin_form_tab_id }}" class="
   {% if forloop.first %}active{% endif %}
   module aligned
   {% if fieldset.workon_classes %}
