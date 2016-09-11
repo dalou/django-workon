@@ -1,19 +1,35 @@
 window.workon_packages_tabs = true;
 
 
-function workon_tabs_active(href) {
-    var target = $(href);
-    if(!target.length) target = $('#'+href);
-    if(target.length)
+function workon_tabs_active(href)
+{
+    workon_tabs_hash_active(href);
+}
+
+function workon_tabs_hash_active(hash)
+{
+    var trigger = $('[data-tabs] [href$="'+hash+'"]');
+    if(trigger.length)
     {
-        // self.siblings("[href]").removeClass('active');
-        self.parents('.tabs').eq(0).find('.active').removeClass('active');
-        target.siblings("[id]").removeClass('active');
-        self.addClass('active');
-        target.addClass('active');
-        self.trigger('workon.tabs_changed', [ self, target ]);
-        document.location.hash = href;
-        return false;
+        var target = $('[data-tabs="'+hash.replace( /^#/, '')+'"]');
+        if(!target.length) target = $('[data-tabs-id="'+hash.replace( /^#/, '__')+'"]');
+        if(!target.length) target = $(hash.replace( /^#/, '#__' ));
+        if(!target.length) target = $(hash);
+
+        if(target.length)
+        {
+            trigger.parents('[data-tabs]').eq(0).find('.active').removeClass('active');
+            target.siblings("[id],[data-tabs]").removeClass('active');
+            trigger.addClass('active');
+            target.addClass('active');
+            trigger.trigger('workon.tabs_changed', [ trigger, target ]);
+
+            var parent = target.parents("[data-tabs]").eq(0);
+            if(parent.length)
+            {
+                workon_tabs_hash_active('#'+parent.data('tabs'));
+            }
+        }
     }
 }
 
@@ -23,32 +39,10 @@ $(document).on('click', '[data-tabs] [href]', function(e, self)
     var href = self.attr('href').split('#', 2);
     if(href.length == 2)
     {
-        href = '#'+href[1];
-        var target = $('[data-tabs="'+href.replace( /^#/, '')+'"]');
-        if(!target.length) target = $('[data-tabs-id="'+href.replace( /^#/, '__')+'"]');
-        if(!target.length) target = $(href.replace( /^#/, '#__' ));
-        if(!target.length) target = $(href);
-
-        if(target.length)
-        {
-            self.parents('[data-tabs]').eq(0).find('.active').removeClass('active');
-            target.siblings("[id],[data-tabs]").removeClass('active');
-            self.addClass('active');
-            target.addClass('active');
-            self.trigger('workon.tabs_changed', [ self, target ]);
-
-            target.parents("[data-tabs]").each(function()
-            {
-                console.log(this)
-                var tabId = $(this).data('tabs');
-                $(this).addClass('active');
-                $('[href="#'+tabId+'"]').addClass('active');
-
-            })
-
-            document.location.hash = href;
-            return false;
-        }
+        var hash = '#'+href[1];
+        workon_tabs_hash_active(hash);
+        document.location.hash = hash;
+        return false;
     }
 })
 $(document).ready(function()
@@ -56,7 +50,7 @@ $(document).ready(function()
 
     var hash = document.location.hash;
     if(hash) {
-        $('[data-tabs] [href$="'+hash+'"]').click();
+        workon_tabs_hash_active(hash);
     }
     // $(window).resize(function()
     // {

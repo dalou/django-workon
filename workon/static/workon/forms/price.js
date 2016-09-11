@@ -48,7 +48,7 @@ var CURRENCY_PATTERNS = {
     'USD': { 'format': '$%s', 'locale': 'en_US', 'spacing': ',', 'decimal': '.', 'placeholder': 'USD' },
 };
 
-$(document).on('keyup', '[data-price-widget]', function(self, oldVal)
+$(document).on('keyup change', '[data-price-widget]', function(self, oldVal)
 {
     self = $(this);
     var pos = getCarret(this);
