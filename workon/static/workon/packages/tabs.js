@@ -29,8 +29,10 @@ function workon_tabs_hash_active(hash)
             {
                 workon_tabs_hash_active('#'+parent.data('tabs-target'));
             }
+            return true;
         }
     }
+    return false;
 }
 
 $(document).on('click', '[data-tabs] [href]', function(e, self)
@@ -41,10 +43,9 @@ $(document).on('click', '[data-tabs] [href]', function(e, self)
     if(href.length == 2)
     {
         var hash = '#'+href[1];
-        workon_tabs_hash_active(hash);
-        //document.location.hash = hash;
         window.location.replace(('' + window.location).split('#')[0] + hash);
-        return false;
+        return !workon_tabs_hash_active(hash);
+        //document.location.hash = hash;
     }
 })
 $(document).ready(function()
