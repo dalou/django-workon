@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 import json
+import datetime
 import time
 import re
 import os
@@ -70,8 +71,12 @@ class BaseDateInput(forms.DateTimeInput):
         options = kwargs.pop('options', {
             'lang': 'fr',
             'timepicker': self.timepicker,
+            'datepicker': self.datepicker,
             'mask': False,
-            'format': 'd/m/Y H:i' if self.timepicker else 'd/m/Y'
+            'format': ('%s %s' % (
+                'd/m/Y' if self.datepicker else ' ',
+                'H:i' if self.timepicker else ' ',
+            )).strip()
             #'format': 'd.m.Y'
         })
         super(BaseDateInput, self).__init__(*args, **kwargs)
@@ -87,17 +92,33 @@ class BaseDateInput(forms.DateTimeInput):
     def render_script(self, id):
         return '''<script type="text/javascript">
 
-                    $('#%(id)s').on('mousedown', function() {
-                        if(!this.datetimepicker) {
-                            $(this).datetimepicker($(this).data('workon-date-input'));
-                            this.datetimepicker = true;
+                    $('#%(id)s').each(function(i, self)
+                    {
+                        self.apply_datetimepicker = function()
+                        {
+                            if(!self.datetimepicker) {
+                                $(self).datetimepicker($(self).data('workon-date-input'));
+                                self.datetimepicker = true;
+                            }
                         }
-                    });
+                        $(self).on('mousedown', function() { self.apply_datetimepicker(); });
+                    })
                 </script>
                 ''' % { 'id' : id }
 
 
     def render(self, name, value, attrs={}):
+        if value:
+            if self.datepicker and not self.timepicker:
+                value = value.strftime('%d/%m/%Y')
+            elif not self.datepicker and self.timepicker:
+                value = value.strftime('%H:%M')
+            else:
+                value = value.strftime('%d/%m/%Y %H:%M')
+            value = value.strip()
+
+
+
         if 'id' not in attrs:
             attrs['id'] = "id_%s" % name
         render = super(BaseDateInput, self).render(name, value, attrs)
@@ -106,8 +127,13 @@ class BaseDateInput(forms.DateTimeInput):
 
 class DateInput(BaseDateInput):
     timepicker = False
+    datepicker = True
 
 
 class DateTimeInput(BaseDateInput):
     timepicker = True
+    datepicker = True
 
+class TimeInput(BaseDateInput):
+    timepicker = True
+    datepicker = False
