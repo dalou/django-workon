@@ -37,7 +37,6 @@ function workon_tabs_hash_active(hash)
 
 $(document).on('click', '[data-tabs] [href]', function(e, self)
 {
-    console.log('TABS!')
     self = $(this)
     var href = self.attr('href').split('#', 2);
     if(href.length == 2)
