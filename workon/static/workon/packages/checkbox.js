@@ -1,7 +1,7 @@
 
 $.fn.checkbox = function ()
 {
-    this.each(function(i, input, switcher, stick, overlay, touched, to)
+    return this.each(function(i, input, switcher, stick, overlay, touched, to)
     {
         input = $(input);
         if(!input[0].workon_checkbox)

@@ -92,6 +92,7 @@
         {
             if ($delete.is(':checked'))
             {
+                $form.addClass('formset-form-deleted')
                 $form.attr('data-formset-form-deleted', '');
                 // Remove required property and pattern attribute to allow submit, back it up to data field
                 $form.find(':required').data(pluginName + '-required-field', true).prop('required', false);
@@ -104,6 +105,7 @@
             }
             else
             {
+                $form.removeClass('formset-form-deleted')
                 $form.removeAttr('data-formset-form-deleted');
                 // Restore required property and pattern attributes from data field
                 $form.find('*').filter(function() {
