@@ -26,8 +26,8 @@
         this.addForm = $.proxy(this, 'addForm');
         this.$add.click(this.addForm);
 
-        // Bind receiver to `formAdded` and `formDeleted` events
-        this.$formset.on('formAdded formDeleted', this.opts.form, $.proxy(this, 'checkMaxForms'));
+        // Bind receiver to `workon_formset_added` and `workon_formset_deleted` events
+        this.$formset.on('workon_formset_added workon_formset_deleted', this.opts.form, $.proxy(this, 'checkMaxForms'));
 
         // Set up the existing forms
         this.$forms().each(function(i, form) {
@@ -81,23 +81,29 @@
     /**
     * Attach any events needed to a new form
     */
-    Formset.prototype.bindForm = function($form, index) {
+    Formset.prototype.bindForm = function($form, index)
+    {
         var prefix = this.formsetPrefix + '-' + index;
         $form.data(pluginName + '__formPrefix', prefix);
 
         var $delete = $form.find('[name=' + prefix + '-DELETE]');
 
-        var onChangeDelete = function() {
-            if ($delete.is(':checked')) {
+        var onChangeDelete = function()
+        {
+            if ($delete.is(':checked'))
+            {
                 $form.attr('data-formset-form-deleted', '');
                 // Remove required property and pattern attribute to allow submit, back it up to data field
                 $form.find(':required').data(pluginName + '-required-field', true).prop('required', false);
-                $form.find('input[pattern]').each(function() {
+                $form.find('input[pattern]').each(function()
+                {
                     var pattern = $(this).attr('pattern');
                     $(this).data(pluginName + '-field-pattern', pattern).removeAttr('pattern');
                 });
-                $form.trigger('formDeleted');
-            } else {
+                $form.trigger('workon_formset_deleted');
+            }
+            else
+            {
                 $form.removeAttr('data-formset-form-deleted');
                 // Restore required property and pattern attributes from data field
                 $form.find('*').filter(function() {
@@ -109,15 +115,15 @@
                         $(this).attr('pattern', pattern);
                     }
                 });
-                $form.trigger('formAdded');
+                $form.trigger('workon_formset_added');
             }
         }
 
-        // Trigger `formAdded` / `formDeleted` events when delete checkbox value changes
+        // Trigger `workon_formset_added` / `workon_formset_deleted` events when delete checkbox value changes
         $delete.change(onChangeDelete);
 
-        // This will trigger `formAdded` for newly created forms.
-        // It will also trigger `formAdded` or `formDeleted` for all forms when
+        // This will trigger `workon_formset_added` for newly created forms.
+        // It will also trigger `workon_formset_added` or `workon_formset_deleted` for all forms when
         // the Formset is first created.
         // setTimeout so the caller can register events before the events are
         // triggered, during initialisation.
@@ -125,8 +131,9 @@
 
         // Delete the form if the delete button is pressed
         var $deleteButton = $form.find(this.opts.deleteButton);
-        $deleteButton.bind('click', function() {
-            $delete.attr('checked', true).change();
+        $deleteButton.bind('click', function()
+        {
+            $delete.prop('checked', true).change();
         });
     };
 
@@ -155,21 +162,27 @@
     };
 
     Formset.prototype.checkMaxForms = function() {
-        if (this.hasMaxForms()) {
+        if (this.hasMaxForms())
+        {
             this.$formset.addClass(this.opts.hasMaxFormsClass);
             this.$add.attr('disabled', 'disabled');
-        } else {
+        }
+        else
+        {
             this.$formset.removeClass(this.opts.hasMaxFormsClass);
             this.$add.removeAttr('disabled');
         }
     };
 
-    Formset.prototype.animateForms = function() {
-        this.$formset.on('formAdded', this.opts.form, function() {
+    Formset.prototype.animateForms = function()
+    {
+        this.$formset.on('workon_formset_added', this.opts.form, function()
+        {
             var $form = $(this);
             $form.slideUp(0);
             $form.slideDown();
-        }).on('formDeleted', this.opts.form, function() {
+        }).on('workon_formset_deleted', this.opts.form, function()
+        {
             var $form = $(this);
             $form.slideUp();
         });
