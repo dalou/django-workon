@@ -16,6 +16,9 @@ $.fn.checkbox = function ()
             input.after(switcher).hide();
             input[0].workon_checkbox = true;
 
+            /** WORKON FORMSET CROSS INTEGRATION **/
+            $(input.form).find('label[for$="DELETE"] .workon-checkbox').addClass('red');
+
             switcher.on('click', function(e)
             {
                 e.preventDefault();

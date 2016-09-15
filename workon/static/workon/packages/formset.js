@@ -88,6 +88,9 @@
 
         var $delete = $form.find('[name=' + prefix + '-DELETE]');
 
+        /** WORKON CHECKBOX CROSS INTEGRATION **/
+        $form.find('label[for$="DELETE"] .workon-checkbox').addClass('red');
+
         var onChangeDelete = function()
         {
             if ($delete.is(':checked'))
