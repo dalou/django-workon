@@ -15,7 +15,7 @@ from django.utils.encoding import force_unicode
 from django.template.loader import render_to_string
 from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
-from django.utils import six
+from django.utils import datetime_safe, formats, six
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +38,7 @@ class DateTimeField(forms.DateTimeField):
             kwargs['widget'] = DateTimeInput(
                 format="%d/%m/%Y %H:%M:%S",
                 attrs={'placeholder': 'jj/mm/aaaa'})
-            kwargs['input_formats'] = ['%m/%d/%Y %H:%M']
+            kwargs['input_formats'] = ['%d/%m/%Y %H:%M']
         super(DateTimeField, self).__init__(*args, **kwargs)
 
 
@@ -68,6 +68,12 @@ class BaseDateInput(forms.DateTimeInput):
     def __init__(self, *args, **kwargs):
         include_seconds = kwargs.pop('include_seconds', False)
 
+        # if self.datepicker and not self.timepicker:
+        #     kwargs['format'] = '%d/%m/%Y'
+        # elif not self.datepicker and self.timepicker:
+        #     kwargs['format'] = '%H:%M'
+        # else:
+        #     kwargs['format'] = '%d/%m/%Y %H:%M'
 
         options = kwargs.pop('options', {
             'lang': 'fr',
@@ -82,8 +88,7 @@ class BaseDateInput(forms.DateTimeInput):
         })
         super(BaseDateInput, self).__init__(*args, **kwargs)
 
-        # if not include_seconds:
-        #     self.format = re.sub(':?%S', '', self.format)
+
         attrs = {
             'data-workon-date-input': json.dumps(options),
             'type': 'text'
@@ -109,14 +114,14 @@ class BaseDateInput(forms.DateTimeInput):
 
 
     def render(self, name, value, attrs={}):
-        if value and isinstance(value, datetime.datetime) or isinstance(value, datetime.time):
-            if self.datepicker and not self.timepicker:
-                value = value.strftime('%d/%m/%Y')
-            elif not self.datepicker and self.timepicker:
-                value = value.strftime('%H:%M')
-            else:
-                value = value.strftime('%d/%m/%Y %H:%M')
-            value = value.strip()
+        # print value
+        # if value:
+        #     if isinstance(value, six.string_types):
+        #         value = datetime.datetime.strptime(value, self.format)
+
+        #     if isinstance(value, datetime.datetime) or isinstance(value, datetime.time) or isinstance(value, datetime.date):
+        #         value = value.strftime(self.format).strip()
+        # # print value
 
         if 'id' not in attrs:
             attrs['id'] = "id_%s" % name
@@ -127,12 +132,15 @@ class BaseDateInput(forms.DateTimeInput):
 class DateInput(BaseDateInput):
     timepicker = False
     datepicker = True
+    format_key = 'DATE_INPUT_FORMATS'
 
 
 class DateTimeInput(BaseDateInput):
     timepicker = True
     datepicker = True
+    format_key = 'DATETIME_INPUT_FORMATS'
 
 class TimeInput(BaseDateInput):
     timepicker = True
     datepicker = False
+    format_key = 'TIME_INPUT_FORMATS'
