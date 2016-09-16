@@ -3,9 +3,10 @@ $.fn.checkbox = function ()
 {
     return this.each(function(i, input, switcher, stick, overlay, touched, to)
     {
-        input = $(input);
-        if(!input[0].workon_checkbox)
+        input = $(this);
+        if(!input[0].workon_checkbox && input.is('input[type="checkbox"]'))
         {
+            touched = null;
             inner = false;
             switcher = $('<span class="workon-checkbox"></span>');
             switcher[input.is(':checked') ? 'addClass':'removeClass']('checked');
@@ -17,13 +18,12 @@ $.fn.checkbox = function ()
             input[0].workon_checkbox = true;
 
             /** WORKON FORMSET CROSS INTEGRATION **/
-            $(input.form).find('label[for$="DELETE"] .workon-checkbox').addClass('red');
+            $(input[0].form).find('label[for$="DELETE"] .workon-checkbox').addClass('red');
 
             switcher.on('click', function(e)
             {
                 e.preventDefault();
                 e.stopPropagation();
-                return false;
             });
 
             input.on('change', function()
@@ -31,9 +31,6 @@ $.fn.checkbox = function ()
                 switcher[input.is(':checked') ? 'addClass':'removeClass']('checked');
             });
 
-
-            touched = null;
-            diff = 0;
             switcher.on('mousedown', function (e)
             {
                 overlay.show();
@@ -45,7 +42,6 @@ $.fn.checkbox = function ()
                 }
                 stick.css('transition', 'none');
                 e.stopPropagation();
-                return false;
             });
             $(document).on('mousemove', function (e)
             {
@@ -69,16 +65,19 @@ $.fn.checkbox = function ()
                     {
                         if(way > 0.7)
                         {
-                            input.prop('checked', true).change();
+                            input.prop('checked', true);
+                            try { input.trigger('change'); } catch(e) {}
                         }
                         else
                         {
-                            input.prop('checked', false).change();
+                            input.prop('checked', false);
+                            try { input.trigger('change'); } catch(e) {}
                         }
                     }
                     else
                     {
-                        input.prop('checked', !input.prop('checked')).change();
+                        input.prop('checked', !input.prop('checked'));
+                        try { input.trigger('change'); } catch(e) {}
                     }
                     touched = null;
                     stick.css({ left: '' });

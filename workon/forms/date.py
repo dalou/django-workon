@@ -15,6 +15,7 @@ from django.utils.encoding import force_unicode
 from django.template.loader import render_to_string
 from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
+from django.utils import six
 
 logger = logging.getLogger(__name__)
 
@@ -108,7 +109,7 @@ class BaseDateInput(forms.DateTimeInput):
 
 
     def render(self, name, value, attrs={}):
-        if value:
+        if value and isinstance(value, datetime.datetime) or isinstance(value, datetime.time):
             if self.datepicker and not self.timepicker:
                 value = value.strftime('%d/%m/%Y')
             elif not self.datepicker and self.timepicker:
@@ -116,8 +117,6 @@ class BaseDateInput(forms.DateTimeInput):
             else:
                 value = value.strftime('%d/%m/%Y %H:%M')
             value = value.strip()
-
-
 
         if 'id' not in attrs:
             attrs['id'] = "id_%s" % name

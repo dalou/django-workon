@@ -1,4 +1,5 @@
-;(function($){
+;(function($)
+{
     //pass in just the context as a $(obj) or a settings JS object
     $.fn.autogrow = function(opts)
     {
@@ -6,11 +7,11 @@
             , selector = that.selector
             , defaults = {
                 context: $(document) //what to wire events to
-                , animate: true //if you want the size change to animate
+                , animate: false //if you want the size change to animate
                 , speed: 200 //speed of animation
                 , fixMinHeight: true //if you don't want the box to shrink below its initial size
                 , cloneClass: 'autogrowclone' //helper CSS class for clone if you need to add special rules
-                , onInitialize: false //resizes the textareas when the plugin is initialized
+                , onInitialize: true //resizes the textareas when the plugin is initialized
             }
         ;
         opts = $.isPlainObject(opts) ? opts : {context: opts ? opts : $(document)};
@@ -98,6 +99,6 @@
 
 $(document).ready(function()
 {
-    $('[data-autogrow]').autogrow({onInitialize: true});
+    $('[data-autogrow]').autogrow({ onInitialize: true });
 
 })

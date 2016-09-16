@@ -203,7 +203,8 @@
         return rev;
     };
 
-    $.fn[pluginName] = function() {
+    $.fn[pluginName] = function()
+    {
         var options, fn, args;
         // Create a new Formset for each element
         if (arguments.length === 0 || (arguments.length === 1 && $.type(arguments[0]) != 'string')) {

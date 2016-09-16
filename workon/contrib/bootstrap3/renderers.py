@@ -36,6 +36,7 @@ class BaseRenderer(object):
         self.label_class = kwargs.get('label_class', '')
         self.show_help = kwargs.get('show_help', True)
         self.show_label = kwargs.get('show_label', True)
+        self.show_placeholder = kwargs.get('show_placeholder', True)
         self.exclude = kwargs.get('exclude', '')
         self.set_required = kwargs.get('set_required', True)
         self.set_disabled = kwargs.get('set_disabled', False)
@@ -101,6 +102,7 @@ class FormsetRenderer(BaseRenderer):
                 field_class=self.field_class,
                 label_class=self.label_class,
                 show_label=self.show_label,
+                show_placeholder=self.show_placeholder,
                 show_help=self.show_help,
                 exclude=self.exclude,
                 set_required=self.set_required,
@@ -165,6 +167,7 @@ class FormRenderer(BaseRenderer):
                 field_class=self.field_class,
                 label_class=self.label_class,
                 show_label=self.show_label,
+                show_placeholder=self.show_placeholder,
                 show_help=self.show_help,
                 exclude=self.exclude,
                 set_required=self.set_required,
@@ -294,7 +297,7 @@ class FieldRenderer(BaseRenderer):
         if widget is None:
             widget = self.widget
         placeholder = widget.attrs.get('placeholder', self.placeholder)
-        if placeholder and is_widget_with_placeholder(widget):
+        if placeholder and is_widget_with_placeholder(widget) and self.show_placeholder:
             # TODO: Should this be stripped and/or escaped?
             widget.attrs['placeholder'] = placeholder
 
