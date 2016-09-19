@@ -4,8 +4,8 @@ from django.conf import settings  # NOQA
 
 # __all__ = ('settings', 'Select2Conf')
 
-if hasattr(settings, 'STATICFILES_DIRS'):
-    settings.STATICFILES_DIRS += (os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static'), )
+# if hasattr(settings, 'STATICFILES_DIRS'):
+#     settings.STATICFILES_DIRS += (os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static'), )
 
 
 SELECT2_CACHE_BACKEND = getattr(settings, 'WORKON_SELECT2_CACHE_BACKEND', "default")
