@@ -12,7 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 
 from .models import *
-import django_select2.forms
+import workon.forms
 
 stripe.api_key = workon_settings.WORKON_STRIPE_SECRET_KEY
 
