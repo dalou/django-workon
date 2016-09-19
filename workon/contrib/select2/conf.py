@@ -8,7 +8,7 @@ if hasattr(settings, 'STATICFILES_DIRS'):
     settings.STATICFILES_DIRS += (os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static'), )
 
 
-SELECT2_CACHE_BACKEND = 'default'
+SELECT2_CACHE_BACKEND = getattr(settings, 'WORKON_SELECT2_CACHE_BACKEND', "default")
 """
 Django-Select2 uses Django's cache to sure a consistent state across multiple machines.
 
@@ -38,14 +38,14 @@ Example of settings.py::
     how long a browser session can last.
     Once widget is dropped from the cache the json response view will return a 404.
 """
-SELECT2_CACHE_PREFIX = 'select2_'
+SELECT2_CACHE_PREFIX = getattr(settings, 'WORKON_SELECT2_CACHE_PREFIX', "select2_")
 """
 If you caching backend doesn't support multiple databases
 you can isolate select2 using the cache prefix setting.
 It has set `select2_` as a default value, which you can change if needed.
 """
 
-SELECT2_JS = '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js'
+SELECT2_JS = getattr(settings, 'WORKON_SELECT2_JS', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js')
 """
 The URI for the Select2 JS file. By default this points to the Cloudflare CDN.
 
@@ -58,7 +58,7 @@ the local 'static' resources, add a line to your settings.py like so::
     develop without an Internet connection.
 """
 
-SELECT2_CSS = '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css'
+SELECT2_CSS = getattr(settings, 'WORKON_SELECT2_CSS', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css')
 """
 The URI for the Select2 CSS file. By default this points to the Cloudflare CDN.
 

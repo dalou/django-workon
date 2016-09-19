@@ -8,7 +8,7 @@ from django.http import Http404, JsonResponse
 from django.views.generic.list import BaseListView
 
 from .cache import cache
-from .conf import settings
+from . import conf as settings
 
 
 class AutoResponseView(BaseListView):

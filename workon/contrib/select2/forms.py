@@ -62,7 +62,7 @@ from django.utils.encoding import force_text
 from six.moves.cPickle import PicklingError as cPicklingError
 
 from .cache import cache
-from .conf import settings
+from . import conf as settings
 
 
 class Select2Mixin(object):
