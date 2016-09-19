@@ -1,7 +1,5 @@
 import json
-
 import six
-
 import django
 
 def get_filtered_selection_from_tree(tree, selection=[], include_level=-1, exclude_parent=True, final_selection=None, filter={}, exclude={}):
@@ -49,7 +47,7 @@ def get_filtered_selection_from_tree(tree, selection=[], include_level=-1, exclu
 
     return _final_selection.keys()
 
-def get_tree_from_queryset(queryset, on_create_node=None, max_level=None, with_instance=False):
+def get_tree_from_queryset(queryset, on_create_node=None, max_level=None, min_level=None, with_instance=False):
     """
     Return tree data that is suitable for jqTree.
     The queryset must be sorted by 'tree_id' and 'left' fields.
@@ -71,11 +69,6 @@ def get_tree_from_queryset(queryset, on_create_node=None, max_level=None, with_i
     # - value is node info (label, id)
     node_dict = dict()
 
-    # The lowest level of the tree; used for building the tree
-    # - Initial value is None; set later
-    # - For the whole tree this is 0, for a subtree this is higher
-    min_level = None
-
     for instance in queryset:
         if min_level is None:
             min_level = instance.level
@@ -83,7 +76,8 @@ def get_tree_from_queryset(queryset, on_create_node=None, max_level=None, with_i
         pk = getattr(instance, pk_attname)
         node_info = dict(
             label=six.text_type(instance),
-            id=serialize_id(pk)
+            id=serialize_id(pk),
+            parent_id=getattr(instance, 'parent_%s' % pk_attname)
         )
         if with_instance:
            node_info['instance'] = instance
