@@ -1,8 +1,13 @@
 # encoding: utf-8
 
-import unicodedata
+import unicodedata, re
 from django.utils.encoding import force_str, force_text
 from django.utils.text import slugify as django_slugify
+
+from unidecode import unidecode
+from django.utils.text import slugify
+
+# space_chars = re.compile(r"[\.\'\"\_\-\,\?\(\)\[\]]")
 
 def forceunicode(string):
     enc = 'utf-8'
@@ -37,3 +42,15 @@ def normalize_hard(string):
 
 def slugify(string, allow_unicode=False):
     return django_slugify(string)
+
+def prepare_for_search(string):
+    if not string: return ""
+    if not type(string) == type(unicode): string = forceunicode(string)
+    string = string.replace(u'“', ' ')
+    string = string.replace(u'”', ' ')
+    string = string.replace(u'"', ' ')
+    string = string.replace(u"'", ' ')
+    string = string.replace(u'’', " ")
+    string = string.replace(u'–', " ")
+    string = string.replace(u'_', " ")
+    return unidecode(slugify(string).replace('-', ' '))

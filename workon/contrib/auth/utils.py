@@ -110,6 +110,7 @@ def get_or_create_user(email, username=None, first_name=None, last_name=None,
                         user.first_name = ''.join([i for i in user_names[0].capitalize() if not i.isdigit()])
             if save:
                 user.save()
+            user._created = True
         return user
     else:
         return None
