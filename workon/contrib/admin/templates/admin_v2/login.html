@@ -38,13 +38,13 @@
               <input type="hidden" name="next" value="{{ next }}"/>
               <fieldset class='text-center'>
                 <!-- <legend>Login to your account</legend> -->
-                <div class="input-group input-group input-group-username{{ form.username.errors|yesno:'  has-error,' }}">
-                  <span class="input-group-addon"><span class="fa fa-user"></span></span>
+                <div class="{{ form.username.errors|yesno:'  has-error,' }}">
+
                   {{ form.username }}
                   {{ form.username.errors }}
                 </div>
-                <div class="input-group input-group input-group-password{{ form.password.errors|yesno:'  has-error,' }}">
-                  <span class="input-group-addon"><span class="fa fa-lock"></span></span>
+                <div class="{{ form.password.errors|yesno:'  has-error,' }}">
+
                   {{ form.password }}
                   {{ form.password.errors }}
                 </div>

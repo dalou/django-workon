@@ -8829,6 +8829,7 @@ html.nav-expanded .sidebar .dock li.launcher > a > span {
 .sidebar .dock li.launcher.disabled,
 .sidebar .dock li.launcher.denied {
   position: relative;
+  display: none;
 }
 .sidebar .dock li.launcher.disabled a,
 .sidebar .dock li.launcher.denied a {
@@ -9323,6 +9324,9 @@ body.login .wrapper .brand h1 .logo-icon i {
 }
 body.login .wrapper .text-center .checkbox {
   text-align: center;
+}
+body.login .wrapper .text-center .checkbox input {
+  margin-top: 3px;
 }
 body.login .wrapper .text-center legend {
   text-align: center;
