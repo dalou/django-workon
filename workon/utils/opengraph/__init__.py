@@ -6,16 +6,16 @@ import workon.utils
 
 def opengraph(url):
     metadata = {}
+    if not url:
+        return metadata
     url = workon.utils.append_protocol(url)
     try:
         r = requests.get(url)
     except requests.ConnectionError:
         return metadata
 
-
     base_url = "/".join(r.url.split('/')[0:3])
 
-    # print 'GET ', url, r.status_code, r.content
     content = ""
     head = ""
     i = 0

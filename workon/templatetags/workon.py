@@ -37,16 +37,16 @@ import re
 from urllib import urlencode
 from urlparse import parse_qs, urlsplit, urlunsplit
 
-from ..utils import canonical_url
+from ..utils import canonical_url, replace_urls_to_href as utils_replace_urls_to_href
 
 @register.filter
 def absolute_url(url):
     return canonical_url(url)
 
 
-# @register.simple_tag
-# def meta_title(value):
-#     global TEMPLATE_META_TITLE = value
+@register.filter
+def replace_urls_to_href(text):
+    return mark_safe(utils_replace_urls_to_href(text))
 
 
 @register.filter()

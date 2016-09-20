@@ -19,8 +19,9 @@ __all__ = [
 ]
 
 def append_protocol(url):
-    if not (url.startswith('http://') or url.startswith('https://')):
-        url = "http://%s" % url
+    if url:
+        if not (url.startswith('http://') or url.startswith('https://')):
+            url = "http://%s" % url
     return url
 
 def extract_urls(text):
