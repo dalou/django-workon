@@ -58,9 +58,7 @@ setup(
     ],
     # test_suite='runtests.runtests',
     install_requires=[
-        'django>=1.8.4,<=1.10',
-
-        'django_select2==5.8.4',
+        'django>=1.8.4,<=1.10.1',
 
         # Crypto
         "cffi>=1.6.0",
@@ -74,10 +72,12 @@ setup(
         # Fields / models
         "babel==1.3",
         "django-mptt==0.8.5",
-        "django-select2==5.8.4",
 
         # payments
         "stripe==1.29.1",
+
+        # Strings
+        'unidecode==0.04.18',
 
         # Emailing
         "premailer==2.9.6",
