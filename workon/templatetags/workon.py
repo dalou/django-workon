@@ -37,7 +37,13 @@ import re
 from urllib import urlencode
 from urlparse import parse_qs, urlsplit, urlunsplit
 
-from ..utils import canonical_url, replace_urls_to_href as utils_replace_urls_to_href
+from ..utils import (
+    canonical_url,
+    replace_urls_to_href as utils_replace_urls_to_href,
+    jsonify as utils_jsonify
+)
+
+
 
 @register.filter
 def absolute_url(url):
@@ -52,6 +58,10 @@ def replace_urls_to_href(text):
 @register.filter()
 def to_int(value):
     return int(value)
+
+@register.filter
+def jsonify(obj):
+    return utils_jsonify(obj)
 
 @register.filter(name='sizify')
 def sizify(size):

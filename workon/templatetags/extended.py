@@ -196,29 +196,6 @@ def url_active(request, pattern, classname='active'):
 
 
 @register.filter
-def jsonify(obj):
-    if obj is None:
-        return "{}"
-    if isinstance(obj,dict):
-        return json.dumps(obj)
-    elif isinstance(obj,list):
-        return json.dumps(obj)
-    else:
-        obj = re.sub(r'([\w\d_]+)\:', '"\\1":', obj)
-        obj = re.sub(r'\'', '"', obj)
-        obj = re.sub(r'\/\/\s*[\w\s\d]+', '', obj)
-        obj = re.sub(r'Date\.UTC\(.+\)', '""', obj)
-
-        try:
-            return json.dumps(json.loads(obj))
-        except:
-            return json.loads(json.dumps(obj))
-
-
-
-
-
-@register.filter
 def truncate_filename(value, args, maxchars=20, endchars='[...]'):
 
     """
