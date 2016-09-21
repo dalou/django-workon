@@ -72,29 +72,29 @@ class AdminConfig(AppConfig):
         except Exception:
             pass
 
-        self.contrib_dir = os.path.dirname(os.path.abspath(__file__))
-        try:
-            os.unlink(os.path.join(self.contrib_dir, 'templates', 'admin'))
-        except Exception, e:
-            print str(e.message)
-        try:
-            os.unlink(os.path.join(self.contrib_dir, 'templates', 'registration'))
-        except Exception, e:
-            print str(e.message)
-        try:
-            os.symlink(
-                os.path.join(self.contrib_dir, 'templates', 'admin_v%s' % self.version),
-                os.path.join(self.contrib_dir, 'templates', 'admin')
-            )
-        except Exception, e:
-            print str(e.message)
-        try:
-            os.symlink(
-                os.path.join(self.contrib_dir, 'templates', 'registration_v%s' % self.version),
-                os.path.join(self.contrib_dir, 'templates', 'registration')
-            )
-        except Exception, e:
-            print str(e.message)
+        # self.contrib_dir = os.path.dirname(os.path.abspath(__file__))
+        # try:
+        #     os.unlink(os.path.join(self.contrib_dir, 'templates', 'admin'))
+        # except Exception, e:
+        #     print str(e.message)
+        # try:
+        #     os.unlink(os.path.join(self.contrib_dir, 'templates', 'registration'))
+        # except Exception, e:
+        #     print str(e.message)
+        # try:
+        #     os.symlink(
+        #         os.path.join(self.contrib_dir, 'templates', 'admin_v%s' % self.version),
+        #         os.path.join(self.contrib_dir, 'templates', 'admin')
+        #     )
+        # except Exception, e:
+        #     print str(e.message)
+        # try:
+        #     os.symlink(
+        #         os.path.join(self.contrib_dir, 'templates', 'registration_v%s' % self.version),
+        #         os.path.join(self.contrib_dir, 'templates', 'registration')
+        #     )
+        # except Exception, e:
+        #     print str(e.message)
 
         super(AdminConfig, self).ready()
 
