@@ -24,6 +24,7 @@ __all__ = [
     'extract_urls_to_html',
     'replace_urls_to_href',
     'get_current_site_domain',
+    'build_absolute_url',
     'get_current_site',
     'external_url',
     'canonical_url',

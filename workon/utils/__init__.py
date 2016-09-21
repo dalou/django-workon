@@ -19,7 +19,7 @@ from .urls import *
 from workon.contrib.google.utils import *
 from workon.contrib.chart.utils import register_chart
 from workon.contrib.stripe.utils import *
-from workon.contrib.auth.utils import get_activation_token, get_valid_activation_token, create_activation_token, get_or_create_user, authenticate_user
+from workon.contrib.auth.utils import *
 from workon.contrib.tree.utils import *
 
 

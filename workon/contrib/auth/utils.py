@@ -15,6 +15,15 @@ from django.utils import timezone
 
 import workon.utils
 
+__all__ = [
+    "get_activation_token",
+    "get_valid_activation_token",
+    "create_activation_token",
+    "authenticate_user",
+    "get_user_or_none",
+    "get_or_create_user"
+]
+
 
 def get_activation_token(token, is_used=False):
     from .models import ActivationToken
