@@ -31,12 +31,17 @@ def get_credentials(view_id):
     # The scope for the OAuth2 request.
     SCOPE = 'https://www.googleapis.com/auth/analytics.readonly'
     token = ""
-    ggsettings = GoogleAPISettings.get()
-    if ggsettings and ggsettings.account_key_file:
-        if not view_id:
-            view_id = "%s" % int(ggsettings.analytics_default_view_id)
-        # Construct a credentials objects from the key data and OAuth2 scope.
-        token = get_google_account_token(ggsettings.account_key_file)
+    try:
+        ggsettings = GoogleAPISettings.get()
+        if ggsettings and ggsettings.account_key_file:
+            if not view_id:
+                view_id = "%s" % int(ggsettings.analytics_default_view_id)
+            # Construct a credentials objects from the key data and OAuth2 scope.
+            token = get_google_account_token(ggsettings.account_key_file)
+    except:
+        view_id = getattr(settings, 'WORKON_GOOGLE_ANALYTICS_DEFAULT_VIEW_ID', '')
+        token = getattr(settings, 'WORKON_GOOGLE_ANALYTICS_JSONKEY', '')
+
 
     return token, view_id
 

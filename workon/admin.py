@@ -1,23 +1,22 @@
-from .contrib.user.admin import UserAdmin
-from .contrib.tree.admin import TreeAdmin
+from workon.contrib.user.admin import UserAdmin
+from workon.contrib.tree.admin import TreeAdmin
 # from .contrib.google.admin import GoogleAPISettingsAdmin
-from .contrib.unique.admin import UniqueAdmin
+from workon.contrib.unique.admin import UniqueAdmin
 # from .contrib.stripe.admin import *
-from .contrib.auth.admin import *
+from workon.contrib.auth.admin import *
 # # from .setting import SettingsAdmin
 
 from django.conf import settings
+from django.contrib import admin
 
 if 'workon.contrib.admin' in settings.INSTALLED_APPS:
 
-    from .contrib.admin.admin import *
-    from django.contrib import admin
+    from workon.contrib.admin.admin import *
 
 
 elif 'workon.contrib.admin2' in settings.INSTALLED_APPS:
 
-    from .contrib.admin2.admin import *
-    from django.contrib import admin2 as admin
+    from workon.contrib.admin2.admin import *
 
 class ViewableOnly(admin.ModelAdmin):
 
