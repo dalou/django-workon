@@ -1,0 +1,30 @@
+
+.workon-image-input
+
+    mxw(300);
+
+    tr-cl(); rad(3); bs-cl(); p(5); bg(white); bs(#999 3px 3px 7px -3px !important); rl(); cl();
+    img
+        w(100%); mb(5); dn();
+    &.workon-image-input-has-image
+        img
+            db();
+
+
+    .btn
+        op(0.5); tr-cl(); lh(30px); fl();
+        span
+            fs(30);
+        &.workon-image-input-remove
+            fr(); p(5); lh(17px);
+            span
+                fs(17);  fg(red);
+        &.workon-image-input-choice
+            w(100%); ptb(35)
+
+    &:hover
+        .btn
+            op(1);
+
+    // &.workon-image-input-removed
+    //     op(0.5);

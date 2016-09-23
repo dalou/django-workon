@@ -1,0 +1,345 @@
+.sidebar2
+    dn();
+
+.sidebar
+    w(60); mxw(200); rl(); z(1); fx(60,0,0,0,2); tr-cl();
+    //bs(#000 0 4px 8px 0px !important);
+
+    html.nav-expanded &
+        w(70%);
+
+    .dock-scroll-top
+        dn(); ab(5,0,,0,1); tac();
+
+    .dock-scroll-bottom
+        dn(); ab(,0,5,0,1); tac();
+
+    .dock
+        p(0,0,150,0); fg(gray);
+        // overflow-y: scroll;
+        // overflow-x: hidden;
+
+        li
+            rl();
+            &:before
+                ct(""); ab(0,0,,0); h(1); bg(#404040); bg(rgba(255, 255, 255, 0.07));
+            &:after
+                ct(""); ab(,0,0,0); h(1); bg(#131313); bg(rgba(0, 0, 0, 0.17));
+
+        li.separator
+            tac(); fy(italic); lh(2); h(60); db();
+            i
+                db(); tac();
+
+
+        li.launcher
+            tsn();
+
+
+            > a, > a i
+                tr-cl(); fg(gray);
+
+            > a
+                rl(); db(); h(60); cur(pointer);
+                tdn(); fs(0.8em)
+
+                > i
+                    wh(60); ab(0,0,0,0); fs(2.5em); tac(); ptb(15);
+
+                > i.counter
+                    rad(12); bg(black); fg(white); fs(13); dib(); p(2,7); ab(-5,3,,,1); op(0.7);
+                    b(auto); l(auto); wh(auto);
+                > span
+                    dn(); fs(14); fy(italic); ab(20,,,60); tuc();
+
+                    html.nav-expanded &
+                        db();
+            // &.home
+            //     > a i
+            //         fs(15);
+
+            &:hover, &.active
+                > a > i, > a
+                    fg(darker-color); bg(#EEE)
+
+                // &:before
+                //     ts(rotate(45deg)); ct(" "); dib(); wh(10); bg(#EEE);
+                //     ab(); r(-6); mt(22);
+
+            &.disabled, &.denied
+                rl(); dn();
+                a
+                    op(0.5); cur(not-allowed)
+                &:hover, &.active
+                    > a > i, > a
+                        fg(white);
+
+             &.denied
+                a
+                    op(0.2);
+                &:before
+                    ab(,15,5,,1); fg(#5D5D5D);
+                    text-shadow: rgba(0, 0, 0, 0.78) 0px 0px 14px;
+                    font: normal normal normal 25px/1 FontAwesome;
+                    content: "\f023";
+                    cur(not-allowed)
+
+            // &:hover
+
+            //     > ul.dropdown-menu
+            //         op(1);
+            //         tr(all 0.2s ease-in);
+            //         visibility: visible;
+
+// html.nav-expanded
+
+//     overflow: hidden;
+//     body, main
+//         overflow: hidden;
+
+//     header
+//         tr(transform 0.25s ease);
+//         ts(translate3d(0, 0, 0) scale3d(1, 1, 1));
+
+//     .mobile-nav
+//         .overlay
+//             op(1);
+//             visibility: visible;
+
+.dock-menu
+    dn();
+
+.tooltipster-dock
+    rad(4); bd(1,1,1,1,solid,#1a242f);
+
+    .tooltipster-default .tooltipster-arrow .tooltipster-arrow-border,
+    .tooltipster-arrow-right span, .tooltipster-arrow-right .tooltipster-arrow-border
+        bdc(darker-color !important)
+
+
+    li.separator
+        tac(); fy(italic); fg(darker-color);  mt(25);  lh(0);
+        i
+            db(); tac(); mt(2);
+
+    li.label
+        p(5); fs(21); fy(italic); db(); fg(darker-color);
+
+    .tooltipster-content
+        p(0);
+        > .dock-menu
+            //op(0); ab(8,,,100%,2001);
+            fs(14); //tr(all 0.2s ease-out 0.01s);
+            db(); mnw(160); p(5,0); m(0); lsn(); tal();
+            // bd(1,1,1,1,solid,#1a242f); rad(4); bs(0 6px 12px rgba(0, 0, 0, 0.175));
+            //w(180);
+            //visibility: hidden;
+            background-clip: padding-box;
+            border-left-width: 0;
+            > li
+                rl();
+                > ul.dock-menu
+                    ml(10);
+                &:hover
+                    > a
+                        fg(darker-color);
+
+                    > ul.dock-menu
+                        l(100%); op(1); ml(7);
+                        tr(all 0.2s ease-in);
+                        visibility: visible;
+
+
+            > li > a
+                db(); p(5,20); cb(); fw(normal); lh(1.428571429);
+                fg(#ecf0f1); wsnw(); w(100%); oh();
+                text-overflow: ellipsis;
+                fg(darker-color);
+
+                &:hover
+                    tdn(); fg(#262626); bg(whitesmoke);
+
+            > li.dropdown-header
+                rad(4); fg(#1abc9c); mt(-5); p(5,20);
+
+
+body.horizontal
+
+    .sidebar
+        ps(); w(auto);
+        .dock
+            li
+                dib();
+
+// .sidebar2
+//     dn();
+
+// .sidebar
+//     w(60); mxw(200); rl(); z(1); bg(rgba(0,0,0,0.3)); bg(darker-color);
+//     fx(60,0,0,0,2); tr-cl();
+//     bs(#000 0 4px 8px 0px !important);
+
+//     html.nav-expanded &
+//         w(70%);
+
+//     .dock-scroll-top
+//         dn(); ab(5,0,,0,1); tac();
+
+//     .dock-scroll-bottom
+//         dn(); ab(,0,5,0,1); tac();
+
+//     .dock
+//         p(0,0,150,0); fg(light-color);
+//         // overflow-y: scroll;
+//         // overflow-x: hidden;
+
+//         li
+//             rl();
+//             &:before
+//                 ct(""); ab(0,0,,0); h(1); bg(#404040); bg(rgba(255, 255, 255, 0.07));
+//             &:after
+//                 ct(""); ab(,0,0,0); h(1); bg(#131313); bg(rgba(0, 0, 0, 0.17));
+
+//         li.separator
+//             tac(); fy(italic); lh(2); h(60); db();
+//             i
+//                 db(); tac();
+
+
+//         li.launcher
+//             tsn();
+
+
+//             > a, > a i
+//                 tr-cl();  fg(white);
+
+//             > a
+//                 rl(); db(); h(60); cur(pointer);
+//                 tdn(); fs(0.8em)
+
+//                 > i
+//                     wh(60); ab(0,0,0,0); fs(2.5em); tac(); ptb(15);
+
+//                 > i.counter
+//                     rad(12); bg(black); fg(white); fs(13); dib(); p(2,7); ab(-5,3,,,1); op(0.7);
+//                     b(auto); l(auto); wh(auto);
+//                 > span
+//                     dn(); fs(14); fy(italic); ab(20,,,60); tuc();
+
+//                     html.nav-expanded &
+//                         db();
+//             // &.home
+//             //     > a i
+//             //         fs(15);
+
+//             &:hover, &.active
+//                 > a > i, > a
+//                     fg(darker-color); bg(#EEE)
+
+//                 // &:before
+//                 //     ts(rotate(45deg)); ct(" "); dib(); wh(10); bg(#EEE);
+//                 //     ab(); r(-6); mt(22);
+
+//             &.disabled, &.denied
+//                 rl(); dn();
+//                 a
+//                     op(0.5); cur(not-allowed)
+//                 &:hover, &.active
+//                     > a > i, > a
+//                         fg(white);
+
+//              &.denied
+//                 a
+//                     op(0.2);
+//                 &:before
+//                     ab(,15,5,,1); fg(#5D5D5D);
+//                     text-shadow: rgba(0, 0, 0, 0.78) 0px 0px 14px;
+//                     font: normal normal normal 25px/1 FontAwesome;
+//                     content: "\f023";
+//                     cur(not-allowed)
+
+//             // &:hover
+
+//             //     > ul.dropdown-menu
+//             //         op(1);
+//             //         tr(all 0.2s ease-in);
+//             //         visibility: visible;
+
+// // html.nav-expanded
+
+// //     overflow: hidden;
+// //     body, main
+// //         overflow: hidden;
+
+// //     header
+// //         tr(transform 0.25s ease);
+// //         ts(translate3d(0, 0, 0) scale3d(1, 1, 1));
+
+// //     .mobile-nav
+// //         .overlay
+// //             op(1);
+// //             visibility: visible;
+
+// .dock-menu
+//     dn();
+
+// .tooltipster-dock
+//     bg(darker-color); rad(4); bd(1,1,1,1,solid,#1a242f);
+
+//     .tooltipster-default .tooltipster-arrow .tooltipster-arrow-border,
+//     .tooltipster-arrow-right span, .tooltipster-arrow-right .tooltipster-arrow-border
+//         bdc(darker-color !important)
+
+
+//     li.separator
+//         tac(); fy(italic); fg(white); mt(25);  lh(0);
+//         i
+//             db(); tac(); mt(2);
+
+//     li.label
+//         p(5); fs(21); fy(italic); db();
+
+//     .tooltipster-content
+//         p(0);
+//         > .dock-menu
+//             //op(0); ab(8,,,100%,2001);
+//             fs(14); //tr(all 0.2s ease-out 0.01s);
+//             db(); mnw(160); p(5,0); m(0); lsn(); tal();
+//             // bd(1,1,1,1,solid,#1a242f); rad(4); bs(0 6px 12px rgba(0, 0, 0, 0.175));
+//             //w(180);
+//             //visibility: hidden;
+//             background-clip: padding-box;
+//             border-left-width: 0;
+//             > li
+//                 rl();
+//                 > ul.dock-menu
+//                     ml(10);
+//                 &:hover
+//                     > a
+//                         fg(light-color);
+
+//                     > ul.dock-menu
+//                         l(100%); op(1); ml(7);
+//                         tr(all 0.2s ease-in);
+//                         visibility: visible;
+
+
+//             > li > a
+//                 db(); p(5,20); cb(); fw(normal); lh(1.428571429);
+//                 fg(#ecf0f1); wsnw(); w(100%); oh();
+//                 text-overflow: ellipsis;
+
+//                 &:hover
+//                     tdn(); fg(#262626); bg(whitesmoke);
+
+//             > li.dropdown-header
+//                 rad(4); fg(#1abc9c); mt(-5); p(5,20);
+
+
+// body.horizontal
+
+//     .sidebar
+//         ps(); w(auto);
+//         .dock
+//             li
+//                 dib();

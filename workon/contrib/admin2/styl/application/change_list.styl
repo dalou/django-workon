@@ -1,0 +1,68 @@
+
+body.change-list
+
+    .sidebar
+        b(60)
+
+    #content
+        pb(80);
+
+    #changelist-search
+        p(15); tr-cl();
+        .btn
+            rl(); t(-2);
+        // .btn-submit
+        //     ml(5); fr(); t(5);
+        .btn-reset
+            p(8,10); mr(5);
+
+        html.nav-expanded &
+            l(60);
+
+
+
+    form.change-list
+
+        table
+
+            tbody
+                tr
+                    th,td
+                        p(2,8);
+                        border-bottom: 1px dotted #E0E0E0;
+
+                    &:hover
+                        th,td
+                            bg(light-color)
+                            a
+                                fg(white);
+
+        .panel-footer
+            fx(,0,0,0,1001); bg(darker-color); p(15); m(0,0,0,0);
+            bs(#000 4px 0px 8px 0px !important);
+            bd(0);
+
+            //bg(#f5f5f5); p(10); m(0,0,0,0); rad(5);
+            //bs(0px 0px 1px 1px rgba(0, 0, 0, 0.15) !important);
+            //border: 1px solid #ddd;
+            .action-label
+                dn();
+            .action-counter
+                pl(5);
+
+        td, th
+            vam();
+            .form-control
+                fs(13);
+            // .input-group
+            //     dib();
+            //     .input-group-btn .btn
+            //         p(2,5); fs(10);
+
+            p.datetime
+                mnw(250);
+                input
+                    mxw(100); dib();
+
+        // .panel-list
+        //      mb(100);

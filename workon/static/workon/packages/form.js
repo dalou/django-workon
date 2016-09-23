@@ -49,17 +49,21 @@ window.workon_packages_form = true;
 $(document).ready(function()
 {
 
-    $(document).on('submit', 'form', function(e)
+    $(document).on('submit', 'form', function(e, form)
     {
-        var $form = $(this);
-        if ($form.data('submitted') === true)
+        form = $(this);
+        if (form.data('submitted') === true)
         {
             // Previously submitted - don't submit again
             e.preventDefault();
+            setTimeout(function ()
+            {
+                form.data('submitted', false);
+            }, 5000);
         } else
         {
             // Mark it so that the next submit can be ignored
-            $form.data('submitted', true);
+            form.data('submitted', true);
         }
     });
 

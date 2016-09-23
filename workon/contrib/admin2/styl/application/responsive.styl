@@ -1,0 +1,129 @@
+@media screen-md-max
+
+
+    #navbar
+        // h(40);
+        > ul
+            li
+                a
+                    plr(5);
+
+                &.nav-branding
+                    a
+                        pl(0); fs(16);
+                        span
+                            fs(16);
+                        img
+                            mxw(90);
+
+                &.nav-user
+                    span, b
+                        dn();
+
+                &:last-child
+                    a
+                        pr(10);
+
+
+    .sidebar
+        z(-1); ts(translateX(-100%)); op(0);
+
+        html.nav-expanded &
+           ts(translateX(0)); w(60); op(1);
+
+    #changelist-search, #nav-search-form
+        l(0);
+
+    #changelist-search
+        oh(); op(0); h(0);
+
+        html.nav-search-expanded &
+            z(2); op(1); h(auto); ov();
+
+
+    #content
+        p(60,0,0,0);
+        html.nav-expanded &
+            pl(60)
+
+    .nav-tabs > li
+        fn();
+
+    .main
+        .panel
+            mb(14);
+
+    #changelist
+        .panel
+            .panel-body
+                p(0);
+
+    body.change-form
+        form
+            .submit-row
+                .btn
+                    mb(3); p(3,6); fs(12);
+
+
+    table
+        border: 0;
+
+
+
+        tr
+            display: block !important;
+            border-bottom: 4px solid #FFF;
+            border-top: 4px solid #FFF;
+
+
+        tbody
+            tr
+                &:before
+                    ct(" "); h(15); db(); m(5,0,5,0); bg(darker-color);
+
+
+        td, th
+            display: block;
+            //width: 50%;
+            text-align: left;
+            font-size: 13px;
+            border-top: 0px;
+            border-bottom: 1px dotted #E0E0E0;
+
+
+            &:last-child
+                border-bottom: 0;
+
+
+            &:before
+                content: attr(data-label);
+                float: left;
+                text-transform: uppercase;
+                font-weight: bold;
+                mr(5)
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td
+
+        ptb(2)
+        border-top: 1px solid #FFF;
+    // html.nav-expanded
+    //     &:after
+    //         ct(" "); fx(0,0,0,0,9999990); bg(rgba(0,0,0,0.5)); op(0);
+    //         visibility: hidden;
+    //         tr-cl();
+
+
+// html.nav-expanded
+
+//     overflow: hidden;
+//     body, main
+//         overflow: hidden;
+
+//     header
+//         tr(transform 0.25s ease);
+//         ts(translate3d(0, 0, 0) scale3d(1, 1, 1));
+
+//     .mobile-nav
+//         .overlay
+//             op(1);
+//             visibility: visible;

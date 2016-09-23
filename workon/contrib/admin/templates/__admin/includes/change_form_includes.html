@@ -1,0 +1,6 @@
+{% load workon_admin_tags %}
+{% for template, tab_position, tab in adminform.model_admin|workon_admin_form_includes %}
+  {% if position == tab_position or position == 'bottom' and not tab_position %}
+    <div data-tabs-target="tab__{{ tab }}" class="{% if forloop.first %}active{% endif %} workon-include{% if tab %} workon-tab workon-tab-{{ tab }}{% endif %}">{% include template %}</div>
+  {% endif %}
+{% endfor %}

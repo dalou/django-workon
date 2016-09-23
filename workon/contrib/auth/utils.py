@@ -91,6 +91,7 @@ def get_or_create_user(email, username=None, first_name=None, last_name=None,
     if email:
         try:
             user = User.objects.get(email__iexact=email)
+            user._created = False
         except User.DoesNotExist:
             user = User(
                 email = email,

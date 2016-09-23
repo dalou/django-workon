@@ -4,11 +4,20 @@ from .contrib.tree.admin import TreeAdmin
 from .contrib.unique.admin import UniqueAdmin
 # from .contrib.stripe.admin import *
 from .contrib.auth.admin import *
-from .contrib.admin.admin import *
 # # from .setting import SettingsAdmin
 
+from django.conf import settings
 
-from django.contrib import admin
+if 'workon.contrib.admin' in settings.INSTALLED_APPS:
+
+    from .contrib.admin.admin import *
+    from django.contrib import admin
+
+
+elif 'workon.contrib.admin2' in settings.INSTALLED_APPS:
+
+    from .contrib.admin2.admin import *
+    from django.contrib import admin2 as admin
 
 class ViewableOnly(admin.ModelAdmin):
 
