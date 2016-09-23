@@ -49,19 +49,11 @@ from ..utils import (
 if "compressor" in settings.INSTALLED_APPS:
     @register.tag
     def compress(parser, token):
-        """
-        Shadows django-compressor's compress tag so it can be
-        loaded from ``mezzanine_tags``, allowing us to provide
-        a dummy version when django-compressor isn't installed.
-        """
         from compressor.templatetags.compress import compress
         return compress(parser, token)
 else:
     @register.to_end_tag
     def compress(parsed, context, token):
-        """
-        Dummy tag for fallback when django-compressor isn't installed.
-        """
         return parsed
 
 
