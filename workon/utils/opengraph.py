@@ -6,13 +6,13 @@ import workon.utils
 
 __all__ = ["opengraph"]
 
-def opengraph(url):
+def opengraph(url, *args, **kwargs):
     metadata = {}
     if not url:
         return metadata
     url = workon.utils.append_protocol(url)
     try:
-        r = requests.get(url)
+        r = requests.get(url, *args, **kwargs)
     except requests.ConnectionError:
         return metadata
 
@@ -54,7 +54,7 @@ def opengraph(url):
         metadata['icon'] += html.xpath('//link[@rel="shortcut icon"]/@href')
         metadata['icon'] += html.xpath('//link[@rel="favicon"]/@href')
         for i, icon in enumerate(metadata['icon']):
-            if icon.startswith('/'):
+            if icon and icon.strip().startswith('/'):
                 metadata['icon'][i] = base_url + icon
 
         if not metadata['icon']:
@@ -72,5 +72,8 @@ def opengraph(url):
 
         metadata['image'] = html.xpath('//meta[@property="og:image"]/@content')
         metadata['image'] += html.xpath('//link[@rel="image_src"]/@href')
+        for i, img in enumerate(metadata['image']):
+            if img and img.strip().startswith('/'):
+                metadata['image'][i] = base_url + img
 
     return metadata
