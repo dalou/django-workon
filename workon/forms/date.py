@@ -59,10 +59,10 @@ class BaseDateInput(forms.DateTimeInput):
     def media(self):
         return forms.Media(
             js=[
-                'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/fr.js',
-                'workon/admin/js/datepicker/bootstrap-datepicker.js'
+                # 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/locale/fr.js',
+                'workon/packages/datetime.js'
             ],
-            css={'all': ["workon/admin/js/datepicker/css/datepicker3.css"]}
+            css={'all': ["workon/vendors/datetimepicker/jquery.datetimepicker.css"]}
         )
 
     def __init__(self, *args, **kwargs):
@@ -95,22 +95,6 @@ class BaseDateInput(forms.DateTimeInput):
         }
         self.attrs.update(attrs)
 
-    def render_script(self, id):
-        return '''<script type="text/javascript">
-
-                    $('#%(id)s').each(function(i, self)
-                    {
-                        self.apply_datetimepicker = function()
-                        {
-                            if(!self.datetimepicker) {
-                                $(self).datetimepicker($(self).data('workon-date-input'));
-                                self.datetimepicker = true;
-                            }
-                        }
-                        $(self).on('mousedown', function() { self.apply_datetimepicker(); });
-                    })
-                </script>
-                ''' % { 'id' : id }
 
 
     def render(self, name, value, attrs={}):
@@ -126,7 +110,7 @@ class BaseDateInput(forms.DateTimeInput):
         if 'id' not in attrs:
             attrs['id'] = "id_%s" % name
         render = super(BaseDateInput, self).render(name, value, attrs)
-        return mark_safe("%s%s" % (render, self.render_script(attrs['id'])))
+        return mark_safe("%s" % (render))
 
 
 class DateInput(BaseDateInput):
