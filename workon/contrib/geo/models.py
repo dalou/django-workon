@@ -47,7 +47,7 @@ class GeoLocated(models.Model):
             if not force:
                 need_geocoding = not (self.geo_latitude and self.geo_longitude)
                 if not need_geocoding and self.pk:
-                    old_geo_address = self._default_manager.get(pk=self.pk).geo_address
+                    old_geo_address = self._meta.model._default_manager.get(pk=self.pk).geo_address
                     if self.geo_address != old_geo_address:
                         need_geocoding = True
             else:
