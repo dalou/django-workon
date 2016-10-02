@@ -75,6 +75,11 @@ def to_int(value):
 def jsonify(obj):
     return utils_jsonify(obj)
 
+@register.filter
+def startswith(str, compare):
+    return str.startswith(compare)
+
+
 @register.filter(name='sizify')
 def sizify(size):
     """
