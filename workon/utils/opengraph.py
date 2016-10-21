@@ -74,9 +74,9 @@ def opengraph(url, *args, **kwargs):
         metadata['keywords'] += html.xpath('//meta[@name="keywords"]/@content')
         metadata['keywords'] += html.xpath('//meta[@name="Keywords"]/@content')
 
-        metadata['description'] = unicode(html.xpath('//meta[@property="og:description"]/@content'))
-        metadata['description'] += unicode(html.xpath('//meta[@name="description"]/@content'))
-        metadata['description'] += unicode(html.xpath('//meta[@name="Description"]/@content'))
+        metadata['description'] = html.xpath('//meta[@property="og:description"]/@content')
+        metadata['description'] += html.xpath('//meta[@name="description"]/@content')
+        metadata['description'] += html.xpath('//meta[@name="Description"]/@content')
 
         metadata['image'] = html.xpath('//meta[@property="og:image"]/@content')
         metadata['image'] += html.xpath('//link[@rel="image_src"]/@href')
