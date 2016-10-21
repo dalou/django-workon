@@ -15,10 +15,12 @@ class Notification(models.Model):
     updated_at = models.DateTimeField("Modifié le", auto_now=True, db_index=True)
     sent_at = models.DateTimeField("Créé le", auto_now_add=True)
 
-    receiver = models.ForeignKey('user.user', related_name='notifications', verbose_name=u"Receveur")
+    receiver = models.ForeignKey('user.user', related_name='notifications', verbose_name=u"Receveur", null=True, blank=True)
+    receiver_email = models.EmailField(u'Email receveur', null=True, blank=True)
     uid = models.CharField(u"UID", max_length=500, db_index=True, null=True, blank=True)
+    type = models.CharField(u"Type", max_length=500, db_index=True, null=True, blank=True)
 
-    title = models.CharField(u"Titre", max_length=500, null=True, blank=True)
+    subject = models.CharField(u"Sujet", max_length=500, null=True, blank=True)
     body = models.TextField(u"Body Message", null=True, blank=True)
 
     is_sent = models.BooleanField(u"Envoyee ?", default=False)
@@ -33,6 +35,8 @@ class Notification(models.Model):
     context_object.short_description ="Objet"
 
     def save(self, **kwargs):
+        if self.receiver and not self.receiver_email:
+            self.receiver_email = self.receiver.email
         self.sent_at = timezone.now()
         super(Notification, self).save(**kwargs)
 

@@ -16,6 +16,7 @@ from .string import *
 from .urls import *
 
 
+from workon.contrib.notification.utils import *
 from workon.contrib.google.utils import *
 from workon.contrib.chart.utils import register_chart
 from workon.contrib.stripe.utils import *

@@ -15,46 +15,46 @@ screen-md-max = '(max-width: %s)' % ((screen-md-size - 1))
 
 screen-lg = '(min-width: %spx)' % ((screen-lg-size))
 screen-lg-min = '(min-width: %s)' % ((screen-lg-size))
-screen-lg-max = 'screen'
+screen-lg-max = '(max-width: %s)' % ((screen-lg-size - 1))
 
 
-responsive-visibilities()		
+responsive-visibilities()
 	.hidden-xs-min
-		@media screen-xs-min  
+		@media screen-xs-min
 			display: none !important;
 	.hidden-xs-max
-		@media screen-xs-max  
+		@media screen-xs-max
 			display: none !important;
 
 	.hidden-sm-min
-		@media screen-sm-min  
+		@media screen-sm-min
 			display: none !important;
 	.hidden-sm-max
-		@media screen-sm-max  
+		@media screen-sm-max
 			display: none;
 
 	.hidden-md-min
-		@media screen-md-min  
+		@media screen-md-min
 			display: none !important;
 	.hidden-md-max
-		@media screen-md-max  
+		@media screen-md-max
 			display: none !important;
 
 	.hidden-lg-min
-		@media screen-lg-min  
+		@media screen-lg-min
 			display: none !important;
 	.hidden-lg-max
-		@media screen-lg-max  
+		@media screen-lg-max
 			display: none !important;
 
 
 // sizes = {
-// 	'320': (0 320), 
-// 	'480': (321 480), 
-// 	'640': (481 640), 
-// 	'768': (641 768), 
-// 	'1024': (769 1024), 
-// 	'1280': (1025 1280), 
+// 	'320': (0 320),
+// 	'480': (321 480),
+// 	'640': (481 640),
+// 	'768': (641 768),
+// 	'1024': (769 1024),
+// 	'1280': (1025 1280),
 // 	'1680': (1281 1680)
 // }
 // for key, val in sizes

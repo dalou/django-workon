@@ -16,8 +16,7 @@ def opengraph(url, *args, **kwargs):
     except requests.ConnectionError:
         return metadata
 
-    base_url = "/".join(r.url.split('/')[0:3])
-
+    base_url = "/".join(r.url.split('/')[0:3]).strip('/')
     content = ""
     head = ""
     i = 0
@@ -39,7 +38,9 @@ def opengraph(url, *args, **kwargs):
             i += len(chunk)
 
     if head:
-        html = lxml.html.fromstring(head)
+        parser = lxml.html.HTMLParser(encoding=r.encoding)
+        html = lxml.html.document_fromstring(head, parser=parser)
+        # html = lxml.html.fromstring(head)
 
         metadata['url'] = url
         metadata['base_url'] = base_url
@@ -54,26 +55,38 @@ def opengraph(url, *args, **kwargs):
         metadata['icon'] += html.xpath('//link[@rel="shortcut icon"]/@href')
         metadata['icon'] += html.xpath('//link[@rel="favicon"]/@href')
         for i, icon in enumerate(metadata['icon']):
-            if icon and icon.strip().startswith('/'):
-                metadata['icon'][i] = base_url + icon
+            print icon
+            icon = icon.strip()
+            if icon:
+                if icon.startswith('//'):
+                    metadata['icon'][i] = "%s/%s" % ("https:", icon)
+
+                elif icon.startswith('/'):
+                    metadata['icon'][i] = "%s/%s" % (base_url, icon.lstrip('/'))
 
         if not metadata['icon']:
             default_favicon = base_url +'/favicon.ico'
             if requests.head(default_favicon).status_code == 200:
                 metadata['icon'] += [default_favicon]
 
+
         metadata['keywords'] = html.xpath('//meta[@property="og:keywords"]/@content')
         metadata['keywords'] += html.xpath('//meta[@name="keywords"]/@content')
         metadata['keywords'] += html.xpath('//meta[@name="Keywords"]/@content')
 
-        metadata['description'] = html.xpath('//meta[@property="og:description"]/@content')
-        metadata['description'] += html.xpath('//meta[@name="description"]/@content')
-        metadata['description'] += html.xpath('//meta[@name="Description"]/@content')
+        metadata['description'] = unicode(html.xpath('//meta[@property="og:description"]/@content'))
+        metadata['description'] += unicode(html.xpath('//meta[@name="description"]/@content'))
+        metadata['description'] += unicode(html.xpath('//meta[@name="Description"]/@content'))
 
         metadata['image'] = html.xpath('//meta[@property="og:image"]/@content')
         metadata['image'] += html.xpath('//link[@rel="image_src"]/@href')
         for i, img in enumerate(metadata['image']):
-            if img and img.strip().startswith('/'):
-                metadata['image'][i] = base_url + img
+            print img
+            img = img.strip()
+            if img:
+                if img.startswith('//'):
+                    metadata['image'][i] = "%s/%s" % ("https:", img)
+                elif img.startswith('/'):
+                    metadata['image'][i] = "%s/%s" % (base_url, img.lstrip('/'))
 
     return metadata

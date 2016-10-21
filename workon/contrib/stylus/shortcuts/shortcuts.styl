@@ -109,6 +109,12 @@ bgs(n) { background-size: n; }
 bga(n) { background-attachment: n; }
 bgp(n) { background-position: n; }
 bgr(n) { background-repeat: n; }
+bglg() {
+	options = unquote(join(', ', arguments))
+	background: -webkit-linear-gradient(options);
+  	background: -moz-linear-gradient(options);
+  	background: linear-gradient(options);
+}
 
 fg(n, filter=null, valuer=null) { color: n; }
 

@@ -3,73 +3,131 @@
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
+from django.utils import six
+from django.db.models.query import QuerySet
 
 from workon.utils import send_template_email, send_email
 
-def notify(receiver, title, body, uid=None, email=None, template_email=None, context_object=None):
+def notify(subject, message, receivers, uid=None, type=None, context_object=None, email=None, email_sender=None, email_grouped=False):
     from .models import Notification
-    if uid:
-        # if uid send only if does not exists
-        uid = uid[0:254]
-        try:
-            notification = Notification.objects.get(receiver=receiver, uid=uid)
-            return None
-        except Notification.DoesNotExist:
-            pass
 
     is_email_sendable = False
-    if email is not None or template_email is not None:
-        #
-        is_email_sendable = True
 
-    notification = Notification(
-        receiver=receiver,
-        title=title,
-        body=body,
-        uid=uid,
-        is_email_sendable=is_email_sendable,
-        context_object=context_object,
-        is_sent=True
+    if isinstance(receivers, six.string_types):
+        receivers = [ r.strip().lower() for r in receivers.split(',') ]
+
+    elif isinstance(receivers, list):
+        receivers = receivers
+
+    elif isinstance(receivers, QuerySet):
+        receivers = receivers
+
+    else:
+        receivers = []
+
+    for receiver in receivers:
+        if uid:
+            # if uid send only if does not exists
+            uid = uid[0:500]
+            try:
+                if isinstance(receiver, six.string_types):
+                    notification = Notification.objects.get(receiver_email=receiver.strip().lower(), uid=uid)
+
+                if isinstance(receiver, Notification._meta.fields['receiver'].model):
+                    notification = Notification.objects.get(receiver=receiver, uid=uid)
+
+                return None
+
+            except Notification.DoesNotExist:
+                pass
+
+        if email is not None:
+            is_email_sendable = True
+
+        notification = Notification(
+            subject=subject,
+            message=message,
+            uid=uid,
+            type=type,
+            is_email_sendable=is_email_sendable,
+            context_object=context_object,
+            is_sent=True,
+            is_email_sent=True
+        )
+        if isinstance(receiver, six.string_types):
+            notification.receiver_email = receiver.strip().lower()
+
+        if isinstance(receiver, Notification._meta.fields['receiver'].model):
+            notification.receiver = receiver
+
+        notification.save()
+        notifications.append(notification)
+
+    if is_email_sendable and notifications:
+
+        if email_grouped:
+
+            notification = notifications[0]
+            notify_send_email(
+                notification=notification,
+                email=email,
+                sender=email_sender,
+                receivers=[n.receiver.email for n in notifications],
+            )
+            for notification in notifications:
+                notification.is_email_sent = True
+                notification.save()
+
+        else:
+
+            for notification in notifications:
+
+                notify_send_email(
+                    notification=notification,
+                    email=email,
+                    sender=email_sender,
+                    receivers=[notification.receiver.email],
+                )
+                notification.is_email_sent = True
+                notification.save()
+
+def notify_send_email(notification, email, sender, receivers):
+    kwargs = dict(
+        subject=notification.title,
+        sender=sender if sender else settings.DEFAULT_FROM_EMAIL,
+        receivers=receivers,
+        content=notification.message
     )
-    notification.save()
 
-    if notification.is_email_sendable:
+    if isinstance(email, dict):
 
-        kwargs = dict(
-            subject=notification.title,
-            sender=settings.DEFAULT_FROM_EMAIL,
-            receivers=[notification.receiver.email],
+        template = email.pop('template', None)
+        kwargs.update(
+            context=context,
         )
 
-        if isinstance(template_email, str) or isinstance(template_email, dict):
+        if template:
             context = {
                 'notification': notification,
                 'receiver': receiver,
-                'title': notification.title,
-                'body': notification.body,
+                'subject': notification.subject,
+                'message': notification.message,
                 'context_object': notification.context_object,
             }
-            context.update(template_email.pop('context', {}))
-            kwargs.update(
-                template=template_email if isinstance(template_email, str) else None,
-                context=context,
-            )
-            if isinstance(template_email, dict):
-                kwargs.update(template_email)
-            print kwargs
-            send_template_email(**kwargs)
+            context.update(email.pop('context', {}))
+            send_email(template=template, context = context, **kwargs)
         else:
-            kwargs.update(
-                body=body,
-            )
-            if isinstance(email, dict):
-                kwargs.update(email)
-                kwargs['body'] = kwargs.get('content', body)
+            send_email(content=notification.message, **kwargs)
 
-            send_email(**kwargs)
-        notification.is_email_sent = True
-        notification.save()
+    elif email == True:
+        kwargs.update(
+            message=message,
+        )
+        if isinstance(email, dict):
+            kwargs.update(email)
+            kwargs['message'] = kwargs.get('content', message)
 
+        send_email(**kwargs)
 
 
 

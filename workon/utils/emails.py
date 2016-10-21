@@ -108,10 +108,17 @@ class HtmlTemplateEmail(EmailMultiAlternatives):
         if files:
             for file in files:
                 self.attach(*file)
-
-def send_email(subject, sender, receivers, content='', content_type=None, files=[], **kwargs):
+# django : send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None, connection=None, html_message=None)
+def send_email(subject, sender, receivers, content=None, template=None, context={}, content_type=None, files=[], **kwargs):
     fail_silently = kwargs.pop('fail_silently', False)
-    message = ContentEmail(subject, content, sender, receivers, content_type=content_type, files=files, **kwargs)
+    if template:
+        html_template = get_template(template)
+        context = Context(context)
+        html = html_template.render(context)
+        message = HtmlTemplateEmail(subject, html, sender, receivers, context, files=files, **kwargs)
+    elif content:
+        message = ContentEmail(subject, content, sender, receivers, content_type=content_type, files=files, **kwargs)
+
     return message.send(fail_silently=fail_silently)
 
 def send_mass_email(messages, **kwargs):
