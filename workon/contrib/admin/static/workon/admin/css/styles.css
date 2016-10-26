@@ -2509,13 +2509,12 @@ div.tagsinput div {
   left: 0px;
   z-index: 100;
   height: 60px;
-  background: #fafafa;
-  background: #2d2d2d;
   box-shadow: #000 0 0px 8px 0px !important;
   -webkit-box-shadow: #000 0 0px 8px 0px !important;
   -webkit-border-radius: 0px 0px 0px 0px;
   -moz-border-radius: 0px 0px 0px 0px;
   border-radius: 0px 0px 0px 0px;
+  background: #f2f2f2;
 }
 #navbar .nav-expander {
   position: relative;
@@ -2535,7 +2534,6 @@ div.tagsinput div {
   -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
   display: inline-block;
-  color: #fff;
 }
 #navbar .nav-expander > i {
   font-size: 2.5em;
@@ -2561,7 +2559,6 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   padding: 15px;
   display: inline-block;
   line-height: 30px;
-  color: #fff;
   cursor: pointer;
   text-decoration: none;
   -ms-transition: all 0.25s ease-out;
@@ -2621,7 +2618,6 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   max-width: 200px;
   position: relative;
   z-index: 1;
-  background: #2d2d2d;
   position: fixed;
   top: 60px;
   right: 0px;
@@ -2633,8 +2629,9 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   -webkit-transition: all 0.25s ease-out;
   -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
-  box-shadow: #000 0 4px 8px 0px !important;
-  -webkit-box-shadow: #000 0 4px 8px 0px !important;
+  box-shadow: #000 0 6px 5px 0px !important;
+  -webkit-box-shadow: #000 0 6px 5px 0px !important;
+  background: #f2f2f2;
 }
 html.nav-expanded .sidebar {
   width: 70%;
@@ -2702,7 +2699,6 @@ html.nav-expanded .sidebar {
   -webkit-transition: all 0.25s ease-out;
   -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
-  color: #fff;
 }
 .sidebar .dock li.launcher > a {
   position: relative;
@@ -2755,6 +2751,9 @@ html.nav-expanded .sidebar {
 }
 html.nav-expanded .sidebar .dock li.launcher > a > span {
   display: block;
+}
+.sidebar .dock li.launcher.home:before {
+  display: none;
 }
 .sidebar .dock li.launcher:hover > a > i,
 .sidebar .dock li.launcher.active > a > i,
@@ -3072,7 +3071,7 @@ body.change-list form.change-list td p.datetime input {
 body {
   padding: 0px;
   background: #fff;
-  font-family: "Rubik", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   font-size: 13px;
   line-height: 1.428571429;
   background-size: cover;
@@ -3106,7 +3105,7 @@ h5 .small,
 h5 small,
 h6 .small,
 h6 small {
-  color: #484848;
+  color: #323232;
 }
 a {
   -ms-transition: all 0.25s ease-out;
@@ -3329,51 +3328,6 @@ body.login .wrapper .text-center legend input {
     margin-bottom: 3px;
     padding: 3px 6px;
     font-size: 12px;
-  }
-  table {
-    border: 0;
-  }
-  table tr {
-    display: block !important;
-    border-bottom: 4px solid #fff;
-    border-top: 4px solid #fff;
-  }
-  table tbody tr:before {
-    content: " ";
-    height: 15px;
-    display: block;
-    margin: 5px 0px;
-    background: #2d2d2d;
-  }
-  table td,
-  table th {
-    display: block;
-    text-align: left;
-    font-size: 13px;
-    border-top: 0px;
-    border-bottom: 1px dotted #e0e0e0;
-  }
-  table td:last-child,
-  table th:last-child {
-    border-bottom: 0;
-  }
-  table td:before,
-  table th:before {
-    content: attr(data-label);
-    float: left;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  .table > thead > tr > th,
-  .table > tbody > tr > th,
-  .table > tfoot > tr > th,
-  .table > thead > tr > td,
-  .table > tbody > tr > td,
-  .table > tfoot > tr > td {
-    padding-top: 2px;
-    padding-bottom: 2px;
-    border-top: 1px solid #fff;
   }
 }
 .calendarbox,

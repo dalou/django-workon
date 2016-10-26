@@ -3,9 +3,10 @@
 
 .sidebar
     w(60); mxw(200); rl(); z(1); //bg(rgba(0,0,0,0.3));
-    bg(darker-color);
+    //bg(darker-color);
     fx(60,0,0,0,2); tr-cl();
-    bs(#000 0 4px 8px 0px !important);
+    bs(#000 0 6px 5px 0px !important);
+    bg(#F2F2F2);
 
     html.nav-expanded &
         w(70%);
@@ -39,7 +40,7 @@
 
 
             > a, > a i
-                tr-cl();  fg(white);
+                tr-cl();  //fg(white);
 
             > a
                 rl(); db(); h(60); cur(pointer);
@@ -56,6 +57,11 @@
 
                     html.nav-expanded &
                         db();
+
+            &.home
+                &:before
+                    dn();
+
             // &.home
             //     > a i
             //         fs(15);
