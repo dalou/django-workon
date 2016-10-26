@@ -2511,6 +2511,11 @@ div.tagsinput div {
   height: 60px;
   background: #fafafa;
   background: #2d2d2d;
+  box-shadow: #000 0 0px 8px 0px !important;
+  -webkit-box-shadow: #000 0 0px 8px 0px !important;
+  -webkit-border-radius: 0px 0px 0px 0px;
+  -moz-border-radius: 0px 0px 0px 0px;
+  border-radius: 0px 0px 0px 0px;
 }
 #navbar .nav-expander {
   position: relative;
@@ -2522,7 +2527,6 @@ div.tagsinput div {
   text-align: center;
   cursor: pointer;
   z-index: 3;
-  border-bottom: 1px solid #131313;
   text-decoration: none;
   font-size: 0.8em;
   -ms-transition: all 0.25s ease-out;
@@ -2617,7 +2621,6 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   max-width: 200px;
   position: relative;
   z-index: 1;
-  background: rgba(0,0,0,0.3);
   background: #2d2d2d;
   position: fixed;
   top: 60px;
@@ -2630,6 +2633,8 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   -webkit-transition: all 0.25s ease-out;
   -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
+  box-shadow: #000 0 4px 8px 0px !important;
+  -webkit-box-shadow: #000 0 4px 8px 0px !important;
 }
 html.nav-expanded .sidebar {
   width: 70%;
@@ -2891,7 +2896,6 @@ body.horizontal .sidebar .dock li {
 }
 .topbar {
   zoom: 1;
-  background-color: rgba(45,45,45,0.88);
 }
 .topbar:before,
 .topbar:after {
@@ -3067,7 +3071,7 @@ body.change-list form.change-list td p.datetime input {
 }
 body {
   padding: 0px;
-  background: #c6f1ef;
+  background: #fff;
   font-family: "Rubik", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 1.428571429;
@@ -3125,7 +3129,7 @@ a.btn {
   padding: 0px;
 }
 #content {
-  padding: 75px 15px 15px 75px;
+  padding: 60px 0px 15px 60px;
   border-top: 1px solid 1px solid rgba(0,0,0,0.2);
   border-right: 1px solid 1px solid rgba(0,0,0,0.2);
   border-bottom: 1px solid 1px solid rgba(0,0,0,0.2);

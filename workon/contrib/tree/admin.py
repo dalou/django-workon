@@ -112,13 +112,13 @@ class TreeAdminMixin(object):
             get_jquery_url(),
             'workon/vendors/jquery-cookie/jquery.cookie.js',
             'workon/vendors/jqtree/tree.jquery.js',
-            'workon/admin/tree/change_list.js',
+            'admin/tree/change_list.js',
         )
 
         css = dict(
             all=(
                 'workon/vendors/jqtree/jqtree.css',
-                'workon/admin/tree/change_list.css',
+                'admin/tree/change_list.css',
             )
         )
 

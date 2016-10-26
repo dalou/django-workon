@@ -3,7 +3,7 @@ from django.db.models.signals import post_migrate
 from django.utils.translation import ugettext_lazy as _
 
 
-class TrackingConfig(AppConfig):
+class TreeConfig(AppConfig):
     name = 'workon.contrib.tree'
     label = 'workon_tree'
     verbose_name = _("MPTT Tree")
