@@ -93,6 +93,11 @@
                         </div> -->
                         <div class="__panel-body">
                             {% result_list cl %}
+
+
+                            {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
+                            {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
+
                         </div>
                     </div>
                 {% endblock %}
@@ -108,10 +113,6 @@
             {% endblock %}
         </div>
         <div class="panel-footer">
-
-            {% if action_form and actions_on_top and cl.full_result_count %}{% admin_actions %}{% endif %}
-            {% if action_form and actions_on_bottom and cl.full_result_count %}{% admin_actions %}{% endif %}
-
             {% block pagination %}{% pagination cl %}{% endblock %}
         </div>
     </form>

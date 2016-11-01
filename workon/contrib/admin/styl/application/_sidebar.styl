@@ -5,8 +5,8 @@
     w(60); mxw(200); rl(); z(1); //bg(rgba(0,0,0,0.3));
     //bg(darker-color);
     fx(60,0,0,0,2); tr-cl();
-    bs(#000 0 6px 5px 0px !important);
-    bg(#F2F2F2);
+    bs(#000 0 0px 5px 0px !important);
+    bg(grey);
 
     html.nav-expanded &
         w(70%);
@@ -25,7 +25,7 @@
         li
             rl();
             &:before
-                ct(""); ab(0,0,,0); h(1); bg(#404040); bg(rgba(255, 255, 255, 0.07));
+                ct(""); ab(0,0,,0); h(1); bg(white); bg(rgba(255, 255, 255, 0.07));
             &:after
                 ct(""); ab(,0,0,0); h(1); bg(#131313); bg(rgba(0, 0, 0, 0.17));
 
@@ -118,7 +118,7 @@
     dn();
 
 .tooltipster-dock
-    bg(darker-color); rad(4); bd(1,1,1,1,solid,#1a242f);
+    bg(grey); rad(4); bd(1,1,1,1,solid,#1a242f);
 
     .tooltipster-default .tooltipster-arrow .tooltipster-arrow-border,
     .tooltipster-arrow-right span, .tooltipster-arrow-right .tooltipster-arrow-border
@@ -126,12 +126,12 @@
 
 
     li.separator
-        tac(); fy(italic); fg(white); mt(25);  lh(0);
+        tac(); fy(italic); fg(gray); mt(25);  lh(0);
         i
             db(); tac(); mt(2);
 
     li.label
-        p(5); fs(21); fy(italic); db();
+        p(5); fs(21); fy(italic); db(); fg(gray);
 
     .tooltipster-content
         p(0);
@@ -149,8 +149,8 @@
                 > ul.dock-menu
                     ml(10);
                 &:hover
-                    > a
-                        fg(light-color);
+                    // > a
+                    //     fg(light-color);
 
                     > ul.dock-menu
                         l(100%); op(1); ml(7);
@@ -160,11 +160,11 @@
 
             > li > a
                 db(); p(5,20); cb(); fw(normal); lh(1.428571429);
-                fg(#ecf0f1); wsnw(); w(100%); oh();
+                wsnw(); w(100%); oh(); cur(pointer);
                 text-overflow: ellipsis;
 
                 &:hover
-                    tdn(); fg(#262626); bg(whitesmoke);
+                    tdn(); fg(white); bg(gray);
 
             > li.dropdown-header
                 rad(4); fg(#1abc9c); mt(-5); p(5,20);

@@ -5,13 +5,14 @@
     // bg(#2d2d2d)
     bs-cl();
     rad(0);
-    bg(#F2F2F2)
+    bg(grey)
 
     .nav-expander
         rl(); ptb(15); wh(60); fl(); tac(); cur(pointer); z(3);
         //border-bottom: 1px solid #131313;
         tdn(); fs(0.8em)
-        tr-cl(); dib(); //bg(darker-color);
+        tr-cl(); dib();
+        bg(grey);
 
 
         > i
@@ -39,8 +40,10 @@
             &.nav-branding
 
                 fs(30); tuc(); fwb(); tshad(); rl();
+                a
+                    p(13);
                 img
-                    ts(translateY(-50%)); ab(50%,,,0); mxh(40);
+                    ts(translateY(-50%)); ab(50%,,,0); mxh(30);
 
 
             &.navbar-search

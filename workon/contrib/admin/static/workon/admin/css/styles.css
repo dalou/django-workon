@@ -1,3 +1,23 @@
+.clear {
+  zoom: 1;
+}
+.clear:before,
+.clear:after {
+  content: "";
+  display: table;
+}
+.clear:after {
+  clear: both;
+}
+.fleft {
+  float: left;
+}
+.fright {
+  float: right;
+}
+.hidden {
+  display: none;
+}
 .prelative {
   position: relative;
 }
@@ -1915,6 +1935,13 @@ opacity    : 0.99;
 .paginator .pagination {
   margin: 0px;
 }
+.ui-pnotify .ui-pnotify-title {
+  margin: 0px;
+}
+.ui-pnotify .ui-pnotify-shadow {
+  padding: 1.8em;
+  font-size: 17px;
+}
 
 /* common */
 .mark-water{
@@ -2534,6 +2561,7 @@ div.tagsinput div {
   -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
   display: inline-block;
+  background: #f2f2f2;
 }
 #navbar .nav-expander > i {
   font-size: 2.5em;
@@ -2583,6 +2611,9 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   -webkit-text-shadow: rgba(0,0,0,0.35) 1px 1px 1px;
   position: relative;
 }
+#navbar > ul li.nav-branding a {
+  padding: 13px;
+}
 #navbar > ul li.nav-branding img {
   -ms-transform: translateY(-50%); /* Internet Explorer */
   -moz-transform: translateY(-50%); /* Firefox */
@@ -2592,7 +2623,7 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   position: absolute;
   top: 50%;
   left: 0px;
-  max-height: 40px;
+  max-height: 30px;
 }
 #navbar > ul li.navbar-search a:before {
   content: " ";
@@ -2629,8 +2660,8 @@ html.nav-expanded #navbar .nav-expander > i.fa-close {
   -webkit-transition: all 0.25s ease-out;
   -o-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
-  box-shadow: #000 0 6px 5px 0px !important;
-  -webkit-box-shadow: #000 0 6px 5px 0px !important;
+  box-shadow: #000 0 0px 5px 0px !important;
+  -webkit-box-shadow: #000 0 0px 5px 0px !important;
   background: #f2f2f2;
 }
 html.nav-expanded .sidebar {
@@ -2668,7 +2699,7 @@ html.nav-expanded .sidebar {
   right: 0px;
   left: 0px;
   height: 1px;
-  background: #404040;
+  background: #fff;
   background: rgba(255,255,255,0.07);
 }
 .sidebar .dock li:after {
@@ -2800,7 +2831,7 @@ html.nav-expanded .sidebar .dock li.launcher > a > span {
   display: none;
 }
 .tooltipster-dock {
-  background: #2d2d2d;
+  background: #f2f2f2;
   -webkit-border-radius: 4px 4px 4px 4px;
   -moz-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
@@ -2812,7 +2843,7 @@ html.nav-expanded .sidebar .dock li.launcher > a > span {
 .tooltipster-dock li.separator {
   text-align: center;
   font-style: italic;
-  color: #fff;
+  color: #808080;
   margin-top: 25px;
   line-height: 0;
 }
@@ -2826,6 +2857,7 @@ html.nav-expanded .sidebar .dock li.launcher > a > span {
   font-size: 21px;
   font-style: italic;
   display: block;
+  color: #808080;
 }
 .tooltipster-dock .tooltipster-content {
   padding: 0px;
@@ -2847,9 +2879,6 @@ html.nav-expanded .sidebar .dock li.launcher > a > span {
 .tooltipster-dock .tooltipster-content > .dock-menu > li > ul.dock-menu {
   margin-left: 10px;
 }
-.tooltipster-dock .tooltipster-content > .dock-menu > li:hover > a {
-  color: #7abc9c;
-}
 .tooltipster-dock .tooltipster-content > .dock-menu > li:hover > ul.dock-menu {
   left: 100%;
   opacity: 1;
@@ -2867,16 +2896,16 @@ html.nav-expanded .sidebar .dock li.launcher > a > span {
   clear: both;
   font-weight: normal;
   line-height: 1.428571429;
-  color: #ecf0f1;
   white-space: nowrap;
   width: 100%;
   overflow: hidden;
+  cursor: pointer;
   text-overflow: ellipsis;
 }
 .tooltipster-dock .tooltipster-content > .dock-menu > li > a:hover {
   text-decoration: none;
-  color: #262626;
-  background: #f5f5f5;
+  color: #fff;
+  background: #808080;
 }
 .tooltipster-dock .tooltipster-content > .dock-menu > li.dropdown-header {
   -webkit-border-radius: 4px 4px 4px 4px;
@@ -3033,9 +3062,11 @@ body.change-list form.change-list .panel-footer {
   bottom: 0px;
   left: 0px;
   z-index: 1001;
-  background: #2d2d2d;
-  padding: 15px;
+  background: #f2f2f2;
+  padding: 10px 15px;
   margin: 0px;
+  box-shadow: #000 62px 0px 5px 0px !important;
+  -webkit-box-shadow: #000 62px 0px 5px 0px !important;
   border-top-width: 0px;
   border-top-style: solid;
   border-top-color: #000;
