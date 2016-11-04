@@ -131,10 +131,10 @@ class ExtractEmailingAdmin(object):
 
     def workon_extract_emailing(self, request, queryset):
         emails = self.extract_emailing(request, queryset)
-        return render_to_response(self.emailing_form_template_name, RequestContext(request,
+        return render(request, self.emailing_form_template_name,
         {
             'emails': emails,
-        }))
+        })
     workon_extract_emailing.short_description = u"Extraire les emails"
 
 
