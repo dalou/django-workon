@@ -24,7 +24,10 @@ register = template.Library()
 
 @register.assignment_tag(takes_context=True)
 def get_menu(context, request=None):
-    request = context['request']
+    request = context.get('request', request if request else getattr(context, 'request', None))
+
+    if not request:
+        return None
     """
     :type request: WSGIRequest
     """

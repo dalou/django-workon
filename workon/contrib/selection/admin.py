@@ -8,7 +8,7 @@ from django import forms
 from django.conf.urls import url
 from django.db import models
 from django import forms
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
@@ -126,14 +126,14 @@ class SelectionAdmin(admin.ModelAdmin):
             'content_type': content_type,
             # 'user': request.user
         })
-        return render_to_response(self.selection_add_template_name, RequestContext(request,
+        return render(request, self.selection_add_template_name,
         {
             'queryset': Selection.get_queryset_for_ids(content_type, ids),
             'selections': Selection.objects.all(),
             'form_url': self.get_admin_url('selection_add'),
             'queryset': queryset,
             'form': form
-        }))
+        })
 
     action_selection_add.short_description = u"Ajouter à la selection"
 
@@ -153,13 +153,13 @@ class SelectionAdmin(admin.ModelAdmin):
                     messages.success(request, u"Selection \"%s\" enregistrée avec succés" % selection.name )
                 else:
                     content_type = ContentType.objects.get_for_model(queryset.model)
-                    return render_to_response('workon/selection/admin/add.html', RequestContext(request,
+                    return render(request, 'workon/selection/admin/add.html',
                     {
                         'queryset': Selection.get_queryset_for_ids(content_type, request.POST.get('ids')),
                         'selections': Selection.objects.all(),
                         'form_url': self.get_admin_url('selection_add'),
                         'form': form
-                    }))
+                    })
         return self.changelist_view(request)
 
 
@@ -174,14 +174,14 @@ class SelectionAdmin(admin.ModelAdmin):
             'content_type': content_type,
             # 'user': request.user
         })
-        return render_to_response(self.selection_save_template_name, RequestContext(request,
+        return render(request, self.selection_save_template_name,
         {
             'queryset': Selection.get_queryset_for_ids(content_type, ids),
             'selections': Selection.objects.all(),
             'form_url': self.get_admin_url('selection_save'),
             'queryset': queryset,
             'form': form
-        }))
+        })
 
     action_selection_save.short_description = u"Sauvegarder la selection"
 
@@ -200,13 +200,13 @@ class SelectionAdmin(admin.ModelAdmin):
                     messages.success(request, u"Selection \"%s\" enregistrée avec succés" % instance.name )
                 else:
                     content_type = ContentType.objects.get_for_model(queryset.model)
-                    return render_to_response('workon/selection/admin/save.html', RequestContext(request,
+                    return render(request, 'workon/selection/admin/save.html',
                     {
                         'queryset': Selection.get_queryset_for_ids(content_type, request.POST.get('ids')),
                         'selections': Selection.objects.all(),
                         'form_url': self.get_admin_url('selection_save'),
                         'form': form
-                    }))
+                    })
         return self.changelist_view(request)
 
 
