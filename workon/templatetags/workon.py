@@ -35,7 +35,9 @@ from django.template import engines
 from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.templatetags.static import static as original_static
-import re
+from django.core.files.images import ImageFile
+from django.core.files.storage import get_storage_class, FileSystemStorage
+import re, os
 
 from urllib import urlencode
 from urlparse import parse_qs, urlsplit, urlunsplit
@@ -74,6 +76,80 @@ def static(url):
 @register.filter
 def absolute_static(url):
     return absolute_url(original_static(url))
+
+@register.filter
+def static_image(url):
+    storage_class = get_storage_class(settings.STATICFILES_STORAGE)
+    storage = storage_class()
+    image = ImageFile(storage.open(url))
+    image.storage = storage
+    return image, image.url
+
+
+
+if "sorl.thumbnail" in settings.INSTALLED_APPS:
+    from sorl.thumbnail.templatetags.thumbnail import ThumbnailNode
+    from django.templatetags.static import static
+    from django.contrib.staticfiles.storage import staticfiles_storage
+    from django.contrib.staticfiles import finders
+    from django.utils.six import text_type
+    from sorl.thumbnail.shortcuts import get_thumbnail
+    from sorl.thumbnail.images import ImageFile, DummyImageFile
+
+    class SafeStaticFilesStorage(get_storage_class(settings.STATICFILES_STORAGE)):
+        def path(self, name):
+            return os.path.join(self.location, name)
+
+    class StaticThumbnailNode(ThumbnailNode):
+
+        def _render(self, context):
+            storage = SafeStaticFilesStorage()
+            file_ = self.file_.resolve(context)
+            absolute_path = finders.find(file_)
+            try:
+                file_ = ImageFile(staticfiles_storage.open(file_))
+            except:
+                file_ = ImageFile(open(absolute_path))
+            file_.storage = storage
+            geometry = self.geometry.resolve(context)
+            options = {}
+            for key, expr in self.options:
+                noresolve = {'True': True, 'False': False, 'None': None}
+                value = noresolve.get(text_type(expr), expr.resolve(context))
+                if key == 'options':
+                    options.update(value)
+                else:
+                    options[key] = value
+
+            thumbnail = get_thumbnail(file_, geometry, **options)
+
+            if not thumbnail or (isinstance(thumbnail, DummyImageFile) and self.nodelist_empty):
+                if self.nodelist_empty:
+                    return self.nodelist_empty.render(context)
+                else:
+                    return ''
+
+            if self.as_var:
+                context.push()
+                context[self.as_var] = thumbnail
+                output = self.nodelist_file.render(context)
+                context.pop()
+            else:
+                output = thumbnail.url
+
+            return output
+
+
+
+    @register.tag
+    def thumbnail_static(parser, token):
+        return StaticThumbnailNode(parser, token)
+else:
+    @register.to_end_tag
+    def thumbnail_static(parsed, context, token):
+        return parsed
+
+
 
 @register.filter
 def to_int(value):
