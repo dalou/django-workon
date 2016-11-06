@@ -101,4 +101,4 @@ $(document).ready(function()
 {
     $('[data-autogrow]').autogrow({ onInitialize: true });
 
-})
+});
