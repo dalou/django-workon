@@ -34,6 +34,7 @@ from django.template.loader import get_template
 from django.template import engines
 from django.conf import settings
 from django.utils.safestring import mark_safe
+from django.templatetags.static import static as original_static
 import re
 
 from urllib import urlencode
@@ -66,8 +67,15 @@ def absolute_url(url):
 def replace_urls_to_href(text):
     return mark_safe(utils_replace_urls_to_href(text))
 
+@register.filter
+def static(url):
+    return original_static(url)
 
-@register.filter()
+@register.filter
+def absolute_static(url):
+    return absolute_url(original_static(url))
+
+@register.filter
 def to_int(value):
     return int(value)
 
