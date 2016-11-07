@@ -406,6 +406,7 @@ class ModelSelect2Mixin(object):
 
     def render_options(self, *args):
         """Render only selected options and set QuerySet from :class:`ModelChoicesIterator`."""
+        print args
         try:
             selected_choices, = args
         except ValueError:

@@ -156,6 +156,10 @@ def to_int(value):
     return int(value)
 
 @register.filter
+def to_string(value):
+    return str(value)
+
+@register.filter
 def jsonify(obj):
     return utils_jsonify(obj)
 
