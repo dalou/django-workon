@@ -4,8 +4,8 @@
 // grid(s=null, class='> *')
 // 	// +responsive(rs)
 // 	cl()
-// 	if s		
-// 		{class}		
+// 	if s
+// 		{class}
 // 			float: left;
 // 			width: unit(100/s, '%');
 // 			margin-left: 0px !important;
@@ -24,6 +24,16 @@ wr(xs=100%, sm=xs, md=sm, lg=md)
 	@media screen-lg-min
 		w(lg)
 
+		// Width Range
+mnwr(xs=100%, sm=xs, md=sm, lg=md)
+	mnw(xs);
+	@media screen-sm-min
+		mnw(sm);
+	@media screen-md-min
+		mnw(md);
+	@media screen-lg-min
+		mnw(lg)
+
 // Height Range
 hr(xs=100%, sm=xs, md=sm, lg=md)
 	h(xs);
@@ -35,6 +45,14 @@ hr(xs=100%, sm=xs, md=sm, lg=md)
 		h(lg)
 
 
+mnhr(xs=100%, sm=xs, md=sm, lg=md)
+	mnh(xs);
+	@media screen-sm-min
+		mnh(sm);
+	@media screen-md-min
+		mnh(md);
+	@media screen-lg-min
+		mnh(lg)
 
 // col(n,s,dir=left)
 // 	float: dir;
@@ -51,7 +69,7 @@ hr(xs=100%, sm=xs, md=sm, lg=md)
 // columnize(n=12, container='row', column='col', responsive=true)
 // 	container-name = '.' + container
 // 	{container-name}
-// 		cl();	
+// 		cl();
 // 		column-name = '.' + column + '-xs-' + 1
 // 		for i in 2..n
 // 			column-name = column-name + ',.' + column + '-sm-' + i
@@ -67,7 +85,7 @@ hr(xs=100%, sm=xs, md=sm, lg=md)
 // 			padding-left: 0px !important;
 // 			padding-right: 0px !important;
 
-		
+
 // 		@media screen-xs-min
 // 			column-name = '.' + column + '-xs-' + 1
 // 			for i in 2..n

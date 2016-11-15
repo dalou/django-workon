@@ -191,7 +191,9 @@ class SelectionAdmin(admin.ModelAdmin):
             if request.POST.get('_selection_save') or force:
                 form = SelectionForm(request.POST)
                 if form.is_valid():
-                    if form.cleaned_data.get('existing_selection'):
+                    existing_selection = form.cleaned_data.get('existing_selection')
+                    if existing_selection:
+                        form.instance.created_at = existing_selection.created_at
                         form.instance.pk = form.cleaned_data.get('existing_selection').pk
                     form.instance.user = request.user
                     instance = form.save()

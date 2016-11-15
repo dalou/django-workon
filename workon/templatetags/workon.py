@@ -85,7 +85,9 @@ def static_image(url):
     image.storage = storage
     return image, image.url
 
-
+@register.filter(name='range')
+def range_filter(x):
+    return range(x)
 
 if "sorl.thumbnail" in settings.INSTALLED_APPS:
     from sorl.thumbnail.templatetags.thumbnail import ThumbnailNode

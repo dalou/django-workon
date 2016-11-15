@@ -7,6 +7,7 @@ from .debug import *
 from .emails import *
 from .file import *
 from .geo import *
+from .image import *
 from .number import *
 from .opengraph import *
 from .pagination import *
