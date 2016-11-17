@@ -251,8 +251,11 @@ import_app(appname, path)
         return app_paths
 
     def sigterm(self, signum, frame):
-        self.observer.stop()
-        self.observer.join()
+        try:
+            self.observer.stop()
+            self.observer.join()
+        except:
+            pass
         exit(0)
 
     def watch(self, paths=[]):
