@@ -55,7 +55,6 @@ def opengraph(url, *args, **kwargs):
         metadata['icon'] += html.xpath('//link[@rel="shortcut icon"]/@href')
         metadata['icon'] += html.xpath('//link[@rel="favicon"]/@href')
         for i, icon in enumerate(metadata['icon']):
-            print icon
             icon = icon.strip()
             if icon:
                 if icon.startswith('//'):
@@ -81,7 +80,6 @@ def opengraph(url, *args, **kwargs):
         metadata['image'] = html.xpath('//meta[@property="og:image"]/@content')
         metadata['image'] += html.xpath('//link[@rel="image_src"]/@href')
         for i, img in enumerate(metadata['image']):
-            print img
             img = img.strip()
             if img:
                 if img.startswith('//'):

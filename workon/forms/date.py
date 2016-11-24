@@ -16,18 +16,25 @@ from django.template.loader import render_to_string
 from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
 from django.utils import datetime_safe, formats, six
+from django.utils.translation import ugettext_lazy as _, ungettext_lazy
 
 logger = logging.getLogger(__name__)
 
 
 class DateField(forms.DateField):
 
+    default_error_messages = {
+        'invalid': _('Enter a valid date.'),
+    }
+
     def __init__(self, *args, **kwargs):
+
+        self.input_formats = formats.get_format('DATE_INPUT_FORMATS')
         if 'widget' not in kwargs:
             kwargs['widget'] = DateInput(
-                format="%d/%m/%Y",
+                # format="%d/%m/%Y",
                 attrs={'placeholder': 'jj/mm/aaaa'})
-            kwargs['input_formats'] = ['%m/%d/%Y']
+            # kwargs['input_formats'] = ['%m/%d/%Y']
         super(DateField, self).__init__(*args, **kwargs)
 
 
@@ -36,9 +43,9 @@ class DateTimeField(forms.DateTimeField):
     def __init__(self, *args, **kwargs):
         if 'widget' not in kwargs:
             kwargs['widget'] = DateTimeInput(
-                format="%d/%m/%Y %H:%M:%S",
+                # format="%d/%m/%Y %H:%M:%S",
                 attrs={'placeholder': 'jj/mm/aaaa'})
-            kwargs['input_formats'] = ['%d/%m/%Y %H:%M']
+            #kwargs['input_formats'] = ['%d/%m/%Y %H:%M']
         super(DateTimeField, self).__init__(*args, **kwargs)
 
 

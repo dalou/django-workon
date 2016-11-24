@@ -71,7 +71,6 @@ setup(
 
         # Fields / models
         "babel==1.3",
-        "django-mptt==0.8.5",
 
         # payments
         "stripe==1.29.1",

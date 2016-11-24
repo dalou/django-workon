@@ -2,8 +2,12 @@
 # from tinymce.models import HTMLField as TinyMceHTMLField
 
 from django.db import models
-from ..forms import DateInput, DateTimeField, DateField, DateInput, DateTimeInput
-
+from ..forms import (
+    DateTimeField as DateTimeFormField,
+    DateField as DateFormField,
+    DateInput,
+    DateTimeInput
+)
 
 class DateTimeField(models.DateTimeField):
     """
@@ -13,7 +17,7 @@ class DateTimeField(models.DateTimeField):
 
     def formfield(self, **kwargs):
         # kwargs['form_class'] = DateTimeField
-        kwargs['widget'] = DateTimeInput
+        kwargs['widget'] = DateTimeFormField
 
         return super(DateTimeField, self).formfield(**kwargs)
 
@@ -22,7 +26,7 @@ class DateField(models.DateField):
 
 
     def formfield(self, **kwargs):
-        kwargs['form_class'] = DateField
+        kwargs['form_class'] = DateFormField
         # kwargs['widget'] = DateInput
 
         return super(DateField, self).formfield(**kwargs)
