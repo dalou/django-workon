@@ -11,7 +11,7 @@ from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-from .mptt.utils import (drilldown_tree_for_node, get_cached_trees,
+from ..mptt.utils import (drilldown_tree_for_node, get_cached_trees,
                         tree_item_iterator)
 
 register = template.Library()
