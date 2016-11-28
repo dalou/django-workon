@@ -8,8 +8,7 @@ from django.utils import timezone
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
-
-class Notification(models.Model):
+class NotificationBase(models.Model):
 
     created_at = models.DateTimeField("Créé le", auto_now_add=True)
     updated_at = models.DateTimeField("Modifié le", auto_now=True, db_index=True)
@@ -21,7 +20,7 @@ class Notification(models.Model):
     type = models.CharField(u"Type", max_length=500, db_index=True, null=True, blank=True)
 
     subject = models.CharField(u"Sujet", max_length=500, null=True, blank=True)
-    body = models.TextField(u"Body Message", null=True, blank=True)
+    message = models.TextField(u"Body Message", null=True, blank=True)
 
     is_sent = models.BooleanField(u"Envoyee ?", default=False)
     is_read = models.BooleanField(u"Lu ?", default=False)
@@ -38,13 +37,25 @@ class Notification(models.Model):
         if self.receiver and not self.receiver_email:
             self.receiver_email = self.receiver.email
         self.sent_at = timezone.now()
-        super(Notification, self).save(**kwargs)
+        super(NotificationBase, self).save(**kwargs)
 
     class Meta:
-        db_table = "workon_notification_notification"
+        abstract = True
         verbose_name = 'Notification'
         verbose_name_plural = 'Notifications'
         ordering = ['-created_at']
+
+notification_model = getattr(settings, 'WORKON', {}).get('notification', {}).get('model', 'workon_notification.notification')
+
+if False:#notification_model == 'workon.notification':
+    class Notification(NotificationBase):
+
+
+        class Meta:
+            db_table = "workon_notification_notification"
+            verbose_name = 'Notification'
+            verbose_name_plural = 'Notifications'
+            ordering = ['-created_at']
 
 
 # from django.conf import settings

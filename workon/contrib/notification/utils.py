@@ -5,11 +5,13 @@ from django.db import models
 from django.db.models import Q
 from django.utils import six
 from django.db.models.query import QuerySet
+from django.contrib.auth import get_user_model
 
-from workon.utils import send_template_email, send_email
+from workon.utils import send_email
 
 def notify(subject, message, receivers, uid=None, type=None, context_object=None, email=None, email_sender=None, email_grouped=False):
     from .models import Notification
+    User = get_user_model()
 
     is_email_sendable = False
 
@@ -23,8 +25,9 @@ def notify(subject, message, receivers, uid=None, type=None, context_object=None
         receivers = receivers
 
     else:
-        receivers = []
+        receivers = [receivers]
 
+    notifications = []
     for receiver in receivers:
         if uid:
             # if uid send only if does not exists
@@ -54,14 +57,25 @@ def notify(subject, message, receivers, uid=None, type=None, context_object=None
             is_sent=True,
             is_email_sent=True
         )
+
         if isinstance(receiver, six.string_types):
-            notification.receiver_email = receiver.strip().lower()
-
-        if isinstance(receiver, Notification._meta.fields['receiver'].model):
+            email = receiver.strip().lower()
+            try:
+                receiver = User.objects.get(email=email)
+            except User.DoesNotExist:
+                receiver = None
+            notification.receiver_email = email
             notification.receiver = receiver
+            notification.save()
+            notifications.append(notification)
 
-        notification.save()
-        notifications.append(notification)
+        elif isinstance(receiver, User):
+            notification.receiver = receiver
+            notification.receiver_email = receiver.email.strip().lower()
+            notification.save()
+            notifications.append(notification)
+
+
 
     if is_email_sendable and notifications:
 
@@ -72,7 +86,7 @@ def notify(subject, message, receivers, uid=None, type=None, context_object=None
                 notification=notification,
                 email=email,
                 sender=email_sender,
-                receivers=[n.receiver.email for n in notifications],
+                receivers=[n.receiver_email for n in notifications],
             )
             for notification in notifications:
                 notification.is_email_sent = True
@@ -86,14 +100,15 @@ def notify(subject, message, receivers, uid=None, type=None, context_object=None
                     notification=notification,
                     email=email,
                     sender=email_sender,
-                    receivers=[notification.receiver.email],
+                    receivers=[notification.receiver_email],
                 )
                 notification.is_email_sent = True
                 notification.save()
+    return notifications
 
 def notify_send_email(notification, email, sender, receivers):
     kwargs = dict(
-        subject=notification.title,
+        subject=notification.subject,
         sender=sender if sender else settings.DEFAULT_FROM_EMAIL,
         receivers=receivers,
         content=notification.message
@@ -102,19 +117,14 @@ def notify_send_email(notification, email, sender, receivers):
     if isinstance(email, dict):
 
         template = email.pop('template', None)
-        kwargs.update(
-            context=context,
-        )
+        kwargs.update(email)
 
         if template:
             context = {
                 'notification': notification,
-                'receiver': receiver,
-                'subject': notification.subject,
-                'message': notification.message,
-                'context_object': notification.context_object,
+                'receivers': receivers,
             }
-            context.update(email.pop('context', {}))
+            context.update(kwargs.pop('context', {}))
             send_email(template=template, context = context, **kwargs)
         else:
             send_email(content=notification.message, **kwargs)

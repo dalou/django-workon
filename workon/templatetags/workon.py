@@ -311,3 +311,8 @@ def divide(value, factor, *args, **kwargs):
 @register.simple_tag
 def settings_value(name):
     return getattr(settings, name, "")
+
+
+# if "workon.contrib.notification" in settings.INSTALLED_APPS:
+
+#     from workon.contrib.notification.templatetags import *
