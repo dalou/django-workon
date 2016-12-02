@@ -194,7 +194,7 @@ class DiggPaginator(ExPaginator):
     def get_queryset_for_page(self, page=1):
         try:
             page = int(page)
-        except TypeError:
+        except ValueError, TypeError:
             page = 1
         try:
             queryset = self.page(page)
