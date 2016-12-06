@@ -17,6 +17,7 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser, User as B
 from django.contrib.humanize.templatetags.humanize import naturaltime
 
 import workon.utils
+import workon.fields
 
 from sorl.thumbnail import get_thumbnail
 
@@ -38,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=254, blank=True, null=True, db_index=True)
     phone_number = models.CharField(u'Téléphone', max_length=254, blank=True, null=True)
 
-    avatar = models.ImageField(u"Photo de profil", blank=True, null=True,
+    avatar = workon.fields.ImageField(u"Photo de profil", blank=True, null=True,
         upload_to=workon.utils.unique_filename("user/avatar/%Y/%m/", original_filename_field='avatar_filename')
     )
 
