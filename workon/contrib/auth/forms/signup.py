@@ -44,7 +44,7 @@ class Signup(forms.Form):
     )
 
     accept_terms = forms.BooleanField(
-        label=u"""J'accepte les <a data-modal="/conditions-dutilisation/" href="/conditions-dutilisation/">conditions d'utilisation d'Ubbik</a>""" ,
+        label=u"""J'accepte les <a data-modal="/conditions-dutilisation/" href="/conditions-dutilisation/">conditions d'utilisation</a>""" ,
         required=False
     )
 

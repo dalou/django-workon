@@ -192,10 +192,13 @@ class DiggPaginator(ExPaginator):
         self.queryset = self.object_list
 
     def get_queryset_for_page(self, page=1):
-        try:
-            page = int(page)
-        except ValueError, TypeError:
+        if page is None:
             page = 1
+        else:
+            try:
+                page = int(page)
+            except ValueError, TypeError:
+                page = 1
         try:
             queryset = self.page(page)
         except PageNotAnInteger:

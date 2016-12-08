@@ -35,6 +35,7 @@ class BaseRenderer(object):
         self.field_class = kwargs.get('field_class', '')
         self.label_class = kwargs.get('label_class', '')
         self.show_help = kwargs.get('show_help', True)
+        self.label = kwargs.get('label', None)
         self.show_label = kwargs.get('show_label', True)
         self.show_placeholder = kwargs.get('show_placeholder', True)
         self.exclude = kwargs.get('exclude', '')
@@ -101,6 +102,7 @@ class FormsetRenderer(BaseRenderer):
                 form_group_class=self.form_group_class,
                 field_class=self.field_class,
                 label_class=self.label_class,
+                label=self.label,
                 show_label=self.show_label,
                 show_placeholder=self.show_placeholder,
                 show_help=self.show_help,
@@ -166,6 +168,7 @@ class FormRenderer(BaseRenderer):
                 form_group_class=self.form_group_class,
                 field_class=self.field_class,
                 label_class=self.label_class,
+                label=self.label,
                 show_label=self.show_label,
                 show_placeholder=self.show_placeholder,
                 show_help=self.show_help,
@@ -239,7 +242,7 @@ class FieldRenderer(BaseRenderer):
         self.field_errors = [conditional_escape(text_value(error)) for error in field.errors]
 
         if get_bootstrap_setting('set_placeholder'):
-            self.placeholder = field.label
+            self.placeholder = self.get_label()
         else:
             self.placeholder = ''
 
@@ -350,7 +353,7 @@ class FieldRenderer(BaseRenderer):
     def put_inside_label(self, html):
         content = '{field} {label}'.format(
             field=html,
-            label=self.field.label,
+            label=self.label if self.label else self.field.label,
         )
         return render_label(
             content=mark_safe(content),
@@ -456,14 +459,14 @@ class FieldRenderer(BaseRenderer):
             label_class = self.horizontal_label_class
         label_class = text_value(label_class)
         if not self.show_label:
-            label_class = add_css_class(label_class, 'sr-only')
+            label_class = add_css_class(label_class, 'hidden')
         return add_css_class(label_class, 'control-label')
 
     def get_label(self):
         if isinstance(self.widget, CheckboxInput):
             label = None
         else:
-            label = self.field.label
+            label = self.label if self.label else self.field.label
         if self.layout == 'horizontal' and not label:
             return mark_safe('&#160;')
         return label
