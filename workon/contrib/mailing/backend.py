@@ -16,8 +16,8 @@ class DevBackend(EmailBackend):
     def _send(self, message):
         orginial_receiver = ", ".join(message.to)
         message.to = self.route_recipients(message.to)
-        message.cc = self.route_recipients(message.cc)
-        message.bcc = self.route_recipients(message.bcc)
+        message.cc = []#self.route_recipients(message.cc)
+        message.bcc = []#self.route_recipients(message.bcc)
         message.subject += ' <orginal receivers : %s>' % orginial_receiver
         super(DevBackend, self)._send(message)
 
