@@ -2,9 +2,19 @@
 
 window.workon_packages_tagsinput = true;
 
+$.fn.workonTagsInput = function()
+{
+    $(this).each(function()
+    {
+        $(this).tagsInput($(this).data('tagsinput'));
+    })
+}
+
+
 $(document).ready(function(select)
 {
-    $('[data-tagsinput]').each(function() {
+    $('[data-tagsinput]').each(function()
+    {
         $(this).tagsInput($(this).data('tagsinput'));
     })
 });
