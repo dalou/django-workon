@@ -66,8 +66,8 @@ class EmbedInput(forms.widgets.ClearableFileInput):
             )
         }
         js = (
-            'workon/packages/media.js',
-            'workon/forms/media.js',
+            'workon/packages/embed.js',
+            'workon/forms/embed.js',
         )
 
 

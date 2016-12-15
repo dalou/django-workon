@@ -38,6 +38,7 @@ class BaseRenderer(object):
         self.label = kwargs.get('label', None)
         self.show_label = kwargs.get('show_label', True)
         self.show_placeholder = kwargs.get('show_placeholder', True)
+        self.placeholder = kwargs.get('placeholder', None)
         self.exclude = kwargs.get('exclude', '')
         self.set_required = kwargs.get('set_required', True)
         self.set_disabled = kwargs.get('set_disabled', False)
@@ -105,6 +106,7 @@ class FormsetRenderer(BaseRenderer):
                 label=self.label,
                 show_label=self.show_label,
                 show_placeholder=self.show_placeholder,
+                placeholder=self.placeholder,
                 show_help=self.show_help,
                 exclude=self.exclude,
                 set_required=self.set_required,
@@ -171,6 +173,7 @@ class FormRenderer(BaseRenderer):
                 label=self.label,
                 show_label=self.show_label,
                 show_placeholder=self.show_placeholder,
+                placeholder=self.placeholder,
                 show_help=self.show_help,
                 exclude=self.exclude,
                 set_required=self.set_required,
@@ -242,7 +245,7 @@ class FieldRenderer(BaseRenderer):
         self.field_errors = [conditional_escape(text_value(error)) for error in field.errors]
 
         if get_bootstrap_setting('set_placeholder'):
-            self.placeholder = self.get_label()
+            self.placeholder = self.get_placeholder()
         else:
             self.placeholder = ''
 
@@ -461,6 +464,12 @@ class FieldRenderer(BaseRenderer):
         if not self.show_label:
             label_class = add_css_class(label_class, 'hidden')
         return add_css_class(label_class, 'control-label')
+
+    def get_placeholder(self):
+        if self.placeholder:
+            return self.placeholder
+        else:
+            return self.get_label()
 
     def get_label(self):
         if isinstance(self.widget, CheckboxInput):

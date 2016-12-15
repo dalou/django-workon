@@ -15,21 +15,21 @@ class DateTimeField(models.DateTimeField):
     forms.
     """
 
-    def formfield(self, **kwargs):
-        # kwargs['form_class'] = DateTimeField
-        kwargs['widget'] = DateTimeFormField
+    def formfield(self, *args, **kwargs):
+        kwargs['form_class'] = DateTimeField
+        #kwargs['widget'] = DateTimeFormField
 
-        return super(DateTimeField, self).formfield(**kwargs)
+        return super(DateTimeField, self).formfield(*args, **kwargs)
 
 
 class DateField(models.DateField):
 
 
-    def formfield(self, **kwargs):
+    def formfield(self, *args, **kwargs):
         kwargs['form_class'] = DateFormField
         # kwargs['widget'] = DateInput
 
-        return super(DateField, self).formfield(**kwargs)
+        return super(DateField, self).formfield(*args, **kwargs)
 
 # try:
 #     from south.modelsinspector import add_introspection_rules
