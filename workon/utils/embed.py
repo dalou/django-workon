@@ -14,7 +14,7 @@ EMBED_TYPES = {
             '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?\s"]{11})',
 
             '<iframe class="workon-media" src="'
-            'https://www.youtube.com/embed/\\6?controls=0&amp;showinfo=0"'
+            'https://www.youtube.com/embed/\\6?autoplay=%(autoplay)s&amp;controls=2&amp;showinfo=0"'
             'scrolling="no" frameborder="no" allowfullscreen></iframe>'
         ]
     ],
@@ -36,14 +36,17 @@ EMBED_TYPES = {
     ]
 }
 
-def str_to_embed(str):
+def str_to_embed(str, autoplay=False):
     for type_name, patterns in EMBED_TYPES.items():
         for pattern in patterns:
             # regex = re.compile(pattern)
             result = re.search(pattern[0], str)
             if result:
                 name = result.group(0)
-                html = re.sub(pattern[0], pattern[1], name)
+                iframe = pattern[1] % {
+                    'autoplay': '1' if autoplay else '0'
+                }
+                html = re.sub(pattern[0], iframe, name)
                 if html != name:
                     return html
     return None
