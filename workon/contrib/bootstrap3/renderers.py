@@ -501,6 +501,9 @@ class FieldRenderer(BaseRenderer):
             form_group_class = add_css_class(form_group_class, 'required')
         if self.field_errors:
             form_group_class = add_css_class(form_group_class, 'has-error')
+        if not self.get_label() or not self.show_label:
+            form_group_class = add_css_class(form_group_class, 'no-label')
+
 
 
         elif self.field.form.is_bound:
