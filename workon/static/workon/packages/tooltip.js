@@ -1360,9 +1360,18 @@ $(document).ready(function(apply)
                 options.content = data;
             }
         }
-        if(options.content && options.content[0] == '#' && $(options.content).length)
-        {
-            options.content = $(options.content);
+        if(options.content && options.content[0] == '#')
+        {   
+            try {
+                 if( $(options.content).length )
+                 {
+                     options.content = $(options.content);
+                 }
+            }
+            catch(e) 
+            {
+            }
+            
         }
         self.tooltipster(options);
         if(e.originalEvent && (!options.trigger || options.trigger == "hover"))
